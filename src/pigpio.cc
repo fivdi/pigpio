@@ -93,53 +93,57 @@ NAN_METHOD(gpioServo) {
 }
 
 
+static void SetConst(
+  Nan::ADDON_REGISTER_FUNCTION_ARGS_TYPE target,
+  const char* name,
+  int value
+) {
+  Nan::Set(target,
+    Nan::New<v8::String>(name).ToLocalChecked(),
+    Nan::New<v8::Integer>(value)
+  );
+}
+
+
+static void SetFunction(
+  Nan::ADDON_REGISTER_FUNCTION_ARGS_TYPE target,
+  const char* name,
+  Nan::FunctionCallback callback
+) {
+  Nan::Set(target,
+    Nan::New(name).ToLocalChecked(),
+    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(callback)).ToLocalChecked()
+  );
+}
+
+
 NAN_MODULE_INIT(InitAll) {
   /* mode */
-  Nan::Set(target, Nan::New<v8::String>("PI_INPUT").ToLocalChecked(),
-    Nan::New<v8::Integer>(PI_INPUT));
-  Nan::Set(target, Nan::New<v8::String>("PI_OUTPUT").ToLocalChecked(),
-    Nan::New<v8::Integer>(PI_OUTPUT));
-  Nan::Set(target, Nan::New<v8::String>("PI_ALT0").ToLocalChecked(),
-    Nan::New<v8::Integer>(PI_ALT0));
-  Nan::Set(target, Nan::New<v8::String>("PI_ALT1").ToLocalChecked(),
-    Nan::New<v8::Integer>(PI_ALT1));
-  Nan::Set(target, Nan::New<v8::String>("PI_ALT2").ToLocalChecked(),
-    Nan::New<v8::Integer>(PI_ALT2));
-  Nan::Set(target, Nan::New<v8::String>("PI_ALT3").ToLocalChecked(),
-    Nan::New<v8::Integer>(PI_ALT3));
-  Nan::Set(target, Nan::New<v8::String>("PI_ALT4").ToLocalChecked(),
-    Nan::New<v8::Integer>(PI_ALT4));
-  Nan::Set(target, Nan::New<v8::String>("PI_ALT5").ToLocalChecked(),
-    Nan::New<v8::Integer>(PI_ALT5));
+  SetConst(target, "PI_INPUT", PI_INPUT);
+  SetConst(target, "PI_OUTPUT", PI_OUTPUT);
+  SetConst(target, "PI_ALT0", PI_ALT0);
+  SetConst(target, "PI_ALT1", PI_ALT1);
+  SetConst(target, "PI_ALT2", PI_ALT2);
+  SetConst(target, "PI_ALT3", PI_ALT3);
+  SetConst(target, "PI_ALT4", PI_ALT4);
+  SetConst(target, "PI_ALT5", PI_ALT5);
 
   /* pud */
-  Nan::Set(target, Nan::New<v8::String>("PI_PUD_OFF").ToLocalChecked(),
-    Nan::New<v8::Integer>(PI_PUD_OFF));
-  Nan::Set(target, Nan::New<v8::String>("PI_PUD_DOWN").ToLocalChecked(),
-    Nan::New<v8::Integer>(PI_PUD_DOWN));
-  Nan::Set(target, Nan::New<v8::String>("PI_PUD_UP").ToLocalChecked(),
-    Nan::New<v8::Integer>(PI_PUD_UP));
+  SetConst(target, "PI_PUD_OFF", PI_PUD_OFF);
+  SetConst(target, "PI_PUD_DOWN", PI_PUD_DOWN);
+  SetConst(target, "PI_PUD_UP", PI_PUD_UP);
 
-  Nan::Set(target, Nan::New("gpioInitialise").ToLocalChecked(),
-    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(gpioInitialise)).ToLocalChecked());
-  Nan::Set(target, Nan::New("gpioTerminate").ToLocalChecked(),
-    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(gpioTerminate)).ToLocalChecked());
+  SetFunction(target, "gpioInitialise", gpioInitialise);
+  SetFunction(target, "gpioTerminate", gpioTerminate);
 
-  Nan::Set(target, Nan::New("gpioSetMode").ToLocalChecked(),
-    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(gpioSetMode)).ToLocalChecked());
-  Nan::Set(target, Nan::New("gpioGetMode").ToLocalChecked(),
-    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(gpioGetMode)).ToLocalChecked());
-  Nan::Set(target, Nan::New("gpioSetPullUpDown").ToLocalChecked(),
-    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(gpioSetPullUpDown)).ToLocalChecked());
-  Nan::Set(target, Nan::New("gpioRead").ToLocalChecked(),
-    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(gpioRead)).ToLocalChecked());
-  Nan::Set(target, Nan::New("gpioWrite").ToLocalChecked(),
-    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(gpioWrite)).ToLocalChecked());
+  SetFunction(target, "gpioSetMode", gpioSetMode);
+  SetFunction(target, "gpioGetMode", gpioGetMode);
+  SetFunction(target, "gpioSetPullUpDown", gpioSetPullUpDown);
+  SetFunction(target, "gpioRead", gpioRead);
+  SetFunction(target, "gpioWrite", gpioWrite);
 
-  Nan::Set(target, Nan::New("gpioPWM").ToLocalChecked(),
-    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(gpioPWM)).ToLocalChecked());
-  Nan::Set(target, Nan::New("gpioServo").ToLocalChecked(),
-    Nan::GetFunction(Nan::New<v8::FunctionTemplate>(gpioServo)).ToLocalChecked());
+  SetFunction(target, "gpioPWM", gpioPWM);
+  SetFunction(target, "gpioServo", gpioServo);
 }
 
 NODE_MODULE(pigpio, InitAll)
