@@ -1,13 +1,18 @@
 'use strict';
 
-var pigpio = require('../');
+var pigpio = require('../'),
+  iv;
+
+var LED = 17;
 
 pigpio.gpioInitialise();
 
-setInterval(function () {
-  pigpio.gpioWrite(17, 1);
-  setTimeout(function () {
-    pigpio.gpioWrite(17, 0);
-  }, 250);
-}, 500);
+iv = setInterval(function () {
+  pigpio.gpioWrite(LED, pigpio.gpioRead(LED) ^ 1);
+}, 100);
+
+setTimeout(function () {
+  pigpio.gpioWrite(LED, 0);
+  clearInterval(iv);
+}, 2000);
 

@@ -1,15 +1,19 @@
 'use strict';
 
 var pigpio = require('../'),
-  time = process.hrtime(),
+  time,
   ops,
   i;
 
+var LED = 17;
+
 pigpio.gpioInitialise();
 
-for (i = 0; i !== 5000000; i += 1) {
-  pigpio.gpioWrite(17,1);
-  pigpio.gpioWrite(17,0);
+time = process.hrtime();
+
+for (i = 0; i !== 2000000; i += 1) {
+  pigpio.gpioWrite(LED, 1);
+  pigpio.gpioWrite(LED, 0);
 }
 
 time = process.hrtime(time);
