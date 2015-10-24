@@ -207,15 +207,16 @@ static NAN_METHOD(gpioSetISRFunc) {
   unsigned edge = info[1]->Uint32Value();
   int timeout = info[2]->Int32Value();
   Nan::Callback *callback = 0;
+  gpioISRFunc_t isrFunc = 0;
 
   if (info.Length() >= 4 && info[3]->IsFunction()) {
     callback = new Nan::Callback(info[3].As<v8::Function>());
+    isrFunc = gpioISRHandler;
   }
 
   gpioISR_g[user_gpio].SetCallback(callback);
-
   info.GetReturnValue().Set(
-    gpioSetISRFunc(user_gpio, edge, timeout, gpioISRHandler)
+    gpioSetISRFunc(user_gpio, edge, timeout, isrFunc)
   );
 }
 
