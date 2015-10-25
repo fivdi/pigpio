@@ -63,8 +63,22 @@ static uint32_t tick_g;
 static uv_sem_t sem_g;
 
 
+void ThrowPigpioError(int err, const char *pigpiocall) {
+  char buf[128];
+
+  snprintf(buf, sizeof(buf), "pigpio error %d in %s", err, pigpiocall);
+
+  Nan::ThrowError(buf);
+}
+
+
 NAN_METHOD(gpioInitialise) {
-  info.GetReturnValue().Set(gpioInitialise());
+  int rc = gpioInitialise();
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioInitialise");
+  }
+
+  info.GetReturnValue().Set(rc);
 }
 
 
@@ -81,7 +95,10 @@ NAN_METHOD(gpioSetMode) {
   unsigned gpio = info[0]->Uint32Value();
   unsigned mode = info[1]->Uint32Value();
 
-  info.GetReturnValue().Set(gpioSetMode(gpio, mode));
+  int rc = gpioSetMode(gpio, mode);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioSetMode");
+  }
 }
 
 
@@ -92,7 +109,10 @@ NAN_METHOD(gpioGetMode) {
 
   unsigned gpio = info[0]->Uint32Value();
 
-  info.GetReturnValue().Set(gpioGetMode(gpio));
+  int rc = gpioGetMode(gpio);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioGetMode");
+  }
 }
 
 
@@ -104,7 +124,10 @@ NAN_METHOD(gpioSetPullUpDown) {
   unsigned gpio = info[0]->Uint32Value();
   unsigned pud = info[1]->Uint32Value();
 
-  info.GetReturnValue().Set(gpioSetPullUpDown(gpio, pud));
+  int rc = gpioSetPullUpDown(gpio, pud);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioSetPullUpDown");
+  }
 }
 
 
@@ -115,7 +138,12 @@ NAN_METHOD(gpioRead) {
 
   unsigned gpio = info[0]->Uint32Value();
 
-  info.GetReturnValue().Set(gpioRead(gpio));
+  int rc = gpioRead(gpio);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioRead");
+  }
+
+  info.GetReturnValue().Set(rc);
 }
 
 
@@ -127,7 +155,10 @@ NAN_METHOD(gpioWrite) {
   unsigned gpio = info[0]->Uint32Value();
   unsigned level = info[1]->Uint32Value();
 
-  info.GetReturnValue().Set(gpioWrite(gpio, level));
+  int rc = gpioWrite(gpio, level);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioWrite");
+  }
 }
 
 
@@ -139,7 +170,10 @@ NAN_METHOD(gpioPWM) {
   unsigned user_gpio = info[0]->Uint32Value();
   unsigned dutycycle = info[1]->Uint32Value();
 
-  info.GetReturnValue().Set(gpioPWM(user_gpio, dutycycle));
+  int rc = gpioPWM(user_gpio, dutycycle);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioPWM");
+  }
 }
 
 
@@ -151,7 +185,10 @@ NAN_METHOD(gpioServo) {
   unsigned user_gpio = info[0]->Uint32Value();
   unsigned pulsewidth = info[1]->Uint32Value();
 
-  info.GetReturnValue().Set(gpioServo(user_gpio, pulsewidth));
+  int rc = gpioServo(user_gpio, pulsewidth);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioServo");
+  }
 }
 
 
@@ -215,9 +252,11 @@ static NAN_METHOD(gpioSetISRFunc) {
   }
 
   gpioISR_g[user_gpio].SetCallback(callback);
-  info.GetReturnValue().Set(
-    gpioSetISRFunc(user_gpio, edge, timeout, isrFunc)
-  );
+
+  int rc = gpioSetISRFunc(user_gpio, edge, timeout, isrFunc);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioSetISRFunc");
+  }
 }
 
 
