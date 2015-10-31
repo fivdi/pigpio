@@ -23,7 +23,12 @@
     "nan": "~2.1.0"
   },
   "keywords": [
-    "gpio"
+    "gpio",
+    "pwm",
+    "servo",
+    "interrupt",
+    "raspberry",
+    "pi"
   ],
   "author": "fivdi",
   "license": "MIT",
