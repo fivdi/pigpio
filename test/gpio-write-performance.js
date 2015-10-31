@@ -1,6 +1,6 @@
 'use strict';
 
-var pigpio = require('../'),
+var pigpio = require('bindings')('pigpio.node'),
   time,
   ops,
   i;

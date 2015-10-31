@@ -5,7 +5,7 @@
 // program is run:
 // initMboxBlock: init mbox zaps failed
 
-var pigpio = require('../'),
+var pigpio = require('bindings')('pigpio.node'),
   handlerCount = 0;
 
 var BUTTON = 4,

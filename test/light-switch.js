@@ -1,6 +1,6 @@
 'use strict';
 
-var pigpio = require('../');
+var pigpio = require('bindings')('pigpio.node');
 
 var BUTTON = 4,
   LED = 17;
