@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.0.1 / Oct 31 2015
+===================
 
   * interrupt support with gpioSetISRFunc
   * throw errors when pigpio c interface returns errors
