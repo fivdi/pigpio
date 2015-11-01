@@ -5,8 +5,8 @@ Feature rich high performance GPIO on the Raspberry Pi with JavaScript.
 ## Features
 
  * Digital read and write
- * PWM on any of gpios 0 through 31
- * Servo control on any of gpios 0 through 31 (untested)
+ * PWM on any of GPIOs 0 through 31
+ * Servo control on any of GPIOs 0 through 31 (untested)
  * Pull up/down resistors
  * Interrupt handlers
 
@@ -78,7 +78,7 @@ button.on('interrupt', function (gpio, level, tick) {
   - [getPinMode()](https://github.com/fivdi/pigpio#getpinmode)
   - [pullUpDown(pud)](https://github.com/fivdi/pigpio#pullupdownpud)
   - [digitalRead()](https://github.com/fivdi/pigpio#digitalread)
-  - [digitalWrite(value)](https://github.com/fivdi/pigpio#digitalwritevalue)
+  - [digitalWrite(level)](https://github.com/fivdi/pigpio#digitalwritelevel)
   - [analogWrite(dutyCycle)](https://github.com/fivdi/pigpio#analogwritedutycycle)
   - [servoWrite(pulseWidth)](https://github.com/fivdi/pigpio#servowritepulsewidth)
   - [enableInterrupt(edge[, timeout])](https://github.com/fivdi/pigpio#enableinterruptedge-timeout)
@@ -140,23 +140,23 @@ Returns the GPIO mode.
 Sets or clears the pull type for the GPIO. Returns this.
 
 ##### digitalRead()
-Returns the GPIO value, 0 or 1.
+Returns the GPIO level, 0 or 1.
 
-##### digitalWrite(value)
-- value - 0 or 1
+##### digitalWrite(level)
+- level - 0 or 1
 
-Sets the GPIO value to 0 or 1. If PWM or servo pulses are active on the gpio
+Sets the GPIO level to 0 or 1. If PWM or servo pulses are active on the GPIO
 they are switched off. Returns this.
 
 ##### analogWrite(dutyCycle)
 - dutyCycle - an unsigned integer in the range 0 (off) through 255 (fully on)
 
-Starts PWM on the gpio. Returns this.
+Starts PWM on the GPIO. Returns this.
 
 ##### servoWrite(pulseWidth)
 - pulseWidth - pulse width in microseconds, an unsigned integer, 0 or a number in the range 500 through 2500
 
-Starts servo pulses on the gpio, 0 (off), 500 (most anti-clockwise) to 2500
+Starts servo pulses on the GPIO, 0 (off), 500 (most anti-clockwise) to 2500
 (most clockwise). Returns this.
 
 ##### enableInterrupt(edge[, timeout])
