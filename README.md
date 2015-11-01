@@ -26,6 +26,8 @@ make
 sudo make install
 ```
 
+Note that the `make` command takes a while to complete so please be patient.
+
 ### Step 2
 
 ```
