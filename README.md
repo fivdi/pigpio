@@ -1,6 +1,6 @@
 # pigpio
 
-Rich high performance GPIO on the Raspberry Pi with JavaScript.
+Feature rich high performance GPIO on the Raspberry Pi with JavaScript.
 
 ## Features
 
