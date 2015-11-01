@@ -1,9 +1,16 @@
 #!/bin/sh
+echo blinky
 node blinky
+echo do-nothing
 node do-nothing
-node gpio-write-performance
-node irq-handle-2-inputs
-node irq-performance
+echo isr-performance
+node isr-performance
+echo light-switch
 node light-switch
-
+echo pull-up-down
+node pull-up-down
+echo pulse-led
+node pulse-led
+echo write-performance
+node write-performance
 

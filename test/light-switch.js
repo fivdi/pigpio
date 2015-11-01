@@ -1,20 +1,17 @@
 'use strict';
 
-var pigpio = require('bindings')('pigpio.node');
+var Gpio = require('../'),
+  button = new Gpio(4, {mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE}),
+  led = new Gpio(17, {mode: Gpio.OUTPUT});
 
-var BUTTON = 4,
-  LED = 17;
-
-pigpio.gpioInitialise()
-
-pigpio.gpioSetISRFunc(BUTTON, pigpio.EITHER_EDGE, 0, function(gpio, level, tick) {
-  console.log('gpio: ' + gpio + ', level: ' + level);
-  pigpio.gpioWrite(LED, level);
+button.on('interrupt', function (gpio, level, tick) {
+  led.digitalWrite(level);
 });
 
 setTimeout(function () {
-  pigpio.gpioSetISRFunc(BUTTON, pigpio.EITHER_EDGE, 0);
+  led.digitalWrite(0);
+  button.disableInterrupt();
 }, 2000);
 
-console.log('hit the button a few times');
+console.log('  press the momentary push button a few times');
 

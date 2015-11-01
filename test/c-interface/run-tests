@@ -1,0 +1,9 @@
+#!/bin/sh
+node blinky
+node do-nothing
+node gpio-write-performance
+node irq-handle-2-inputs
+node irq-performance
+node light-switch
+
+
