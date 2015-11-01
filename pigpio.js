@@ -73,6 +73,7 @@ Gpio.prototype.enableInterrupt = function (edge, timeout) {
     this.emit('interrupt', gpio, level, tick);
   }.bind(this);
 
+  timeout = timeout || 0;
   pigpio.gpioSetISRFunc(this.gpio, +edge, +timeout, handler);
   return this;
 };
@@ -107,5 +108,5 @@ Gpio.FALLING_EDGE = pigpio.FALLING_EDGE;
 Gpio.EITHER_EDGE = pigpio.EITHER_EDGE;
 
 /* timeout */
-Gpio.TIMEOUT = pigpio.TIMEOUT;
+Gpio.TIMEOUT = pigpio.PI_TIMEOUT;
 

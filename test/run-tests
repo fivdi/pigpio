@@ -5,6 +5,10 @@ echo do-nothing
 node do-nothing
 echo isr-performance
 node isr-performance
+echo isr-timeouts
+node isr-timeouts
+echo isr-timeouts-2
+node isr-timeouts-2
 echo light-switch
 node light-switch
 echo pull-up-down

@@ -159,9 +159,9 @@ Starts PWM on the gpio. Returns this.
 Starts servo pulses on the gpio, 0 (off), 500 (most anti-clockwise) to 2500
 (most clockwise). Returns this.
 
-##### enableInterrupt(edge, timeout)
+##### enableInterrupt(edge[, timeout])
 - edge - RISING_EDGE, FALLING_EDGE, or EITHER_EDGE
-- timeout - interrupt timeout in milliseconds
+- timeout - interrupt timeout in milliseconds (optional, defaults to 0 meaning no timeout)
 
 Enables interrupts for the GPIO. Returns this.
 
