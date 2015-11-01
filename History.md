@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.0.2 / Nov 01 2015
+===================
 
   * integration tests
   * documentation
