@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.0.3 / Nov 01 2015
+===================
 
   * enableInterrupt timeout argument made optional
   * interrupt timeout integration tests
