@@ -74,10 +74,12 @@ Gpio.prototype.enableInterrupt = function (edge, timeout) {
   }.bind(this);
 
   pigpio.gpioSetISRFunc(this.gpio, +edge, +timeout, handler);
+  return this;
 };
 
 Gpio.prototype.disableInterrupt = function () {
   pigpio.gpioSetISRFunc(this.gpio, pigpio.EITHER_EDGE, 0);
+  return this;
 };
 
 /*Gpio.terminate = function () {
