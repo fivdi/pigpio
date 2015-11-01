@@ -79,8 +79,8 @@ button.on('interrupt', function (gpio, level, tick) {
   - [pullUpDown(pud)](https://github.com/fivdi/pigpio#pullupdownpud)
   - [digitalRead()](https://github.com/fivdi/pigpio#digitalread)
   - [digitalWrite(value)](https://github.com/fivdi/pigpio#digitalwritevalue)
-  - [analogWrite(value)](https://github.com/fivdi/pigpio#analogwritevalue)
-  - [servoWrite(value)](https://github.com/fivdi/pigpio#servowritevalue)
+  - [analogWrite(dutyCycle)](https://github.com/fivdi/pigpio#analogwritedutycycle)
+  - [servoWrite(pulseWidth)](https://github.com/fivdi/pigpio#servowritepulsewidth)
   - [enableInterrupt(edge, timeout)](https://github.com/fivdi/pigpio#enableinterruptedge-timeout)
   - [disableInterrupt()](https://github.com/fivdi/pigpio#disableinterrupt)
 
@@ -145,15 +145,16 @@ Returns the GPIO value, 0 or 1.
 ##### digitalWrite(value)
 - value - 0 or 1
 
-Sets the GPIO value to 0 or 1. Returns this.
+Sets the GPIO value to 0 or 1. If PWM or servo pulses are active on the gpio
+they are switched off. Returns this.
 
-##### analogWrite(value)
-- value - duty cycle, an unsigned integer in the range 0 through 255
+##### analogWrite(dutyCycle)
+- dutyCycle - an unsigned integer in the range 0 (off) through 255 (fully on)
 
 Starts PWM on the gpio. Returns this.
 
-##### servoWrite(value)
-- value - pulse width in microseconds, an unsigned integer, 0 or a number in the range 500 through 2500
+##### servoWrite(pulseWidth)
+- pulseWidth - pulse width in microseconds, an unsigned integer, 0 or a number in the range 500 through 2500
 
 Starts servo pulses on the gpio, 0 (off), 500 (most anti-clockwise) to 2500
 (most clockwise). Returns this.

@@ -58,8 +58,8 @@ Gpio.prototype.digitalWrite = function (value) {
   return this;
 };
 
-Gpio.prototype.analogWrite = function (value) {
-  pigpio.gpioPWM(this.gpio, +value);
+Gpio.prototype.analogWrite = function (dutyCycle) {
+  pigpio.gpioPWM(this.gpio, +dutyCycle);
   return this;
 };
 
