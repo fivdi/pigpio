@@ -1,18 +1,14 @@
 'use strict';
 
 var EventEmitter = require('events').EventEmitter,
-  initialized = false,
   pigpio = require('bindings')('pigpio.node'),
   util = require('util');
+
+pigpio.gpioInitialise();
 
 function Gpio(gpio, options) {
   if (!(this instanceof Gpio)) {
     return new Gpio(gpio, options);
-  }
-
-  if (!initialized) {
-    pigpio.gpioInitialise();
-    initialized = true;
   }
 
   options = options || {};
@@ -87,10 +83,6 @@ Gpio.prototype.disableInterrupt = function () {
 /*Gpio.terminate = function () {
   pigpio.gpioTerminate();
 };*/
-
-process.on('SIGINT', function () {
-  pigpio.gpioTerminate();
-});
 
 /* mode */
 Gpio.INPUT = pigpio.PI_INPUT;
