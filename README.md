@@ -170,22 +170,51 @@ Disables interrupts for the GPIO. Returns this.
 #### Events
 
 ##### interrupt
+Emitted on interrupts.
 
 #### Constants
 
 ##### INPUT
+Indicates that the GPIO is an input.
+
 ##### OUTPUT
+Indicates that the GPIO is an output.
+
 ##### ALT0
+Indicates that the GPIO is in alternative mode 0.
+
 ##### ALT1
+Indicates that the GPIO is in alternative mode 1.
+
 ##### ALT2
+Indicates that the GPIO is in alternative mode 2.
+
 ##### ALT3
+Indicates that the GPIO is in alternative mode 3.
+
 ##### ALT4
+Indicates that the GPIO is in alternative mode 4.
+
 ##### ALT5
+Indicates that the GPIO is in alternative mode 5.
+
 ##### PUD_OFF
+Niether the pull-up nor the pull-down resistor should be enabled.
+
 ##### PUD_DOWN
+Enable pull-down resistor.
+
 ##### PUD_UP
+Enable pull-up resistor.
+
 ##### RISING_EDGE
+Indicates that the GPIO fires interrupts on rising edges.
+
 ##### FALLING_EDGE
+Indicates that the GPIO fires interrupts on falling edges.
+
 ##### EITHER_EDGE
+Indicates that the GPIO fires interrupts on both rising and falling edges.
+
 ##### TIMEOUT
 
