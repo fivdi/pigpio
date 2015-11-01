@@ -6,7 +6,7 @@ Feature rich high performance GPIO on the Raspberry Pi with JavaScript.
 
  * Digital read and write
  * PWM on any of gpios 0 through 31
- * Servo control on any of gpios 0 through 31
+ * Servo control on any of gpios 0 through 31 (untested)
  * Pull up/down resistors
  * Interrupt handlers
 
