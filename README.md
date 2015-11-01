@@ -81,7 +81,7 @@ button.on('interrupt', function (gpio, level, tick) {
   - [digitalWrite(value)](https://github.com/fivdi/pigpio#digitalwritevalue)
   - [analogWrite(dutyCycle)](https://github.com/fivdi/pigpio#analogwritedutycycle)
   - [servoWrite(pulseWidth)](https://github.com/fivdi/pigpio#servowritepulsewidth)
-  - [enableInterrupt(edge, timeout)](https://github.com/fivdi/pigpio#enableinterruptedge-timeout)
+  - [enableInterrupt(edge[, timeout])](https://github.com/fivdi/pigpio#enableinterruptedge-timeout)
   - [disableInterrupt()](https://github.com/fivdi/pigpio#disableinterrupt)
 
 - Events
