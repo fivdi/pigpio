@@ -107,15 +107,65 @@ button.on('interrupt', function (gpio, level, tick) {
 #### Methods
 
 ##### Gpio(gpio[, options])
+- gpio - an unsigned integer specifying the GPIO number
+- options - object (optional)
+
+Returns a new Gpio object for accessing a GPIO. The optional options object can
+be used to configure the mode, pull type, interrupting edge or edges, and
+interrupt timeout for the GPIO. A Gpio object is an EventEmitter.
+
+The following options are supported:
+- mode - INPUT, OUTPUT, ALT0, ALT1, ALT2, ALT3, ALT4, or ALT5 (optional, no default)
+- pullUpDown - PUD_OFF, PUD_DOWN, or PUD_UP (optional, no default)
+- edge - RISING_EDGE, FALLING_EDGE, or EITHER_EDGE (optional, no default)
+- timeout - interrupt timeout in milliseconds (optional, defaults to 0 if edge specified)
+
+GPIOs on Linux are identified by unsigned integers. These are the numbers that
+should be passed to the Gpio constructor. For example, pin 8 on the Raspberry
+Pi P1 expansion header corresponds to GPIO14 in Raspbian Linux. 14 is therefore
+the number to pass to the Gpio constructor when using pin 8 on the P1 expansion
+header.
+
 ##### pinMode(mode)
+- mode - INPUT, OUTPUT, ALT0, ALT1, ALT2, ALT3, ALT4, or ALT5
+
+Sets the GPIO mode. Returns this.
+
 ##### getPinMode()
+Returns the GPIO mode.
+
 ##### pullUpDown(pud)
+- pud - PUD_OFF, PUD_DOWN, or PUD_UP
+
+Sets or clears the pull type for the GPIO. Returns this.
+
 ##### digitalRead()
+Returns the GPIO value, 0 or 1.
+
 ##### digitalWrite(value)
+- value - 0 or 1
+
+Sets the GPIO value to 0 or 1. Returns this.
+
 ##### analogWrite(value)
+- value - duty cycle, an unsigned integer in the range 0 through 255
+
+Starts PWM on the gpio. Returns this.
+
 ##### servoWrite(value)
+- value - pulse width in microseconds, an unsigned integer, 0 or a number in the range 500 through 2500
+
+Starts servo pulses on the gpio, 0 (off), 500 (most anti-clockwise) to 2500
+(most clockwise). Returns this.
+
 ##### enableInterrupt(edge, timeout)
+- edge - RISING_EDGE, FALLING_EDGE, or EITHER_EDGE
+- timeout - interrupt timeout in milliseconds
+
+Enables interrupts for the GPIO. Returns this.
+
 ##### disableInterrupt()
+Disables interrupts for the GPIO. Returns this.
 
 #### Events
 
