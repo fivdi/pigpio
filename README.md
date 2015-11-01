@@ -70,6 +70,72 @@ button.on('interrupt', function (gpio, level, tick) {
 
 ## API
 
-Coming soon!
+### Class Gpio
 
+- Methods
+  - [Gpio(gpio[, options])]()
+  - [pinMode(mode)]()
+  - [getPinMode()]()
+  - [pullUpDown(pud)]()
+  - [digitalRead()]()
+  - [digitalWrite(value)]()
+  - [analogWrite(value)]()
+  - [servoWrite(value)]()
+  - [enableInterrupt(edge, timeout)]()
+  - [disableInterrupt()]()
+
+- Events
+  - [interrupt]()
+
+- Constants
+  - [INPUT]()
+  - [OUTPUT]()
+  - [ALT0]()
+  - [ALT1]()
+  - [ALT2]()
+  - [ALT3]()
+  - [ALT4]()
+  - [ALT5]()
+  - [PUD_OFF]()
+  - [PUD_DOWN]()
+  - [PUD_UP]()
+  - [RISING_EDGE]()
+  - [FALLING_EDGE]()
+  - [EITHER_EDGE]()
+  - [TIMEOUT]()
+
+#### Methods
+
+##### Gpio(gpio[, options])
+##### pinMode(mode)
+##### getPinMode()
+##### pullUpDown(pud)
+##### digitalRead()
+##### digitalWrite(value)
+##### analogWrite(value)
+##### servoWrite(value)
+##### enableInterrupt(edge, timeout)
+##### disableInterrupt()
+
+#### Events
+
+##### interrupt
+
+#### Constants
+
+##### INPUT
+##### OUTPUT
+##### ALT0
+##### ALT1
+##### ALT2
+##### ALT3
+##### ALT4
+##### ALT5
+##### PUD_OFF
+##### PUD_DOWN
+##### PUD_UP
+##### RISING_EDGE
+##### FALLING_EDGE
+##### EITHER_EDGE
+##### TIMEOUT
 
