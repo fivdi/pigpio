@@ -70,7 +70,7 @@ Gpio.prototype.servoWrite = function (value) {
 
 Gpio.prototype.enableInterrupt = function (edge, timeout) {
   var handler = function (gpio, level, tick) {
-    this.emit('interrupt', level, tick);
+    this.emit('interrupt', level);
   }.bind(this);
 
   timeout = timeout || 0;
