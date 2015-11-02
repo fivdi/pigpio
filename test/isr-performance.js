@@ -9,7 +9,7 @@ var Gpio = require('../'),
 
 output.digitalWrite(0);
 
-input.on('interrupt', function (gpio, level, tick) {
+input.on('interrupt', function (level, tick) {
   interruptCount++;
   output.digitalWrite(level ^ 1);
 });

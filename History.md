@@ -2,6 +2,7 @@ Unpublished
 ===========
 
   * documentation, tests, and examples improved
+  * gpio argument for interrupt event removed
 
 0.0.3 / Nov 01 2015
 ===================
