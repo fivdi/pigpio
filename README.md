@@ -85,7 +85,7 @@ button.on('interrupt', function (level) {
 
 Simple servo control.
 
-```
+```js
 var Gpio = require('pigpio'),
   motor = new Gpio(10, {mode: Gpio.OUTPUT}),
   pulseWidth = 1000,
