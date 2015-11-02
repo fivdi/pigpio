@@ -177,6 +177,10 @@ The following options are supported:
 - edge - RISING_EDGE, FALLING_EDGE, or EITHER_EDGE (optional, no default)
 - timeout - interrupt timeout in milliseconds (optional, defaults to 0 if edge specified)
 
+Interrupts can have an optional timeout. The level argument passed to the
+interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout
+expires.
+
 GPIOs on Linux are identified by unsigned integers. These are the numbers that
 should be passed to the Gpio constructor. For example, pin 8 on the Raspberry
 Pi P1 expansion header corresponds to GPIO14 in Raspbian Linux. 14 is therefore
@@ -222,13 +226,23 @@ Starts servo pulses on the GPIO, 0 (off), 500 (most anti-clockwise) to 2500
 
 Enables interrupts for the GPIO. Returns this.
 
+Interrupts can have an optional timeout. The level argument passed to the
+interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout
+expires.
+
 ##### disableInterrupt()
 Disables interrupts for the GPIO. Returns this.
 
 #### Events
 
-##### interrupt
+##### Event: 'interrupt'
+- level - the GPIO level when the interrupt occured, 0, 1, or TIMEOUT (2)
+
 Emitted on interrupts.
+
+Interrupts can have an optional timeout. The level argument passed to the
+interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout
+expires.
 
 #### Constants
 
@@ -274,5 +288,7 @@ Indicates that the GPIO fires interrupts on falling edges.
 ##### EITHER_EDGE
 Indicates that the GPIO fires interrupts on both rising and falling edges.
 
-##### TIMEOUT
+##### TIMEOUT (2)
+The level argument passed to an interrupt event listener when an interrupt
+timeout expires.
 
