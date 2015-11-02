@@ -142,7 +142,7 @@ Interrupts per second | 8,665
   - [disableInterrupt()](https://github.com/fivdi/pigpio#disableinterrupt)
 
 - Events
-  - [interrupt](https://github.com/fivdi/pigpio#interrupt)
+  - [Event: 'interrupt'](https://github.com/fivdi/pigpio#event-interrupt)
 
 - Constants
   - [INPUT](https://github.com/fivdi/pigpio#input)
@@ -159,7 +159,7 @@ Interrupts per second | 8,665
   - [RISING_EDGE](https://github.com/fivdi/pigpio#rising_edge)
   - [FALLING_EDGE](https://github.com/fivdi/pigpio#falling_edge)
   - [EITHER_EDGE](https://github.com/fivdi/pigpio#either_edge)
-  - [TIMEOUT](https://github.com/fivdi/pigpio#timeout)
+  - [TIMEOUT](https://github.com/fivdi/pigpio#timeout-2)
 
 #### Methods
 
