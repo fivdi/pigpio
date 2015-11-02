@@ -83,6 +83,26 @@ button.on('interrupt', function (level) {
 });
 ```
 
+Simple servo control.
+
+```
+var Gpio = require('pigpio'),
+  motor = new Gpio(10, {mode: Gpio.OUTPUT}),
+  pulseWidth = 1000,
+  increment = 100;
+
+setInterval(function () {
+  motor.servoWrite(pulseWidth);
+
+  pulseWidth += increment;
+  if (pulseWidth >= 2000) {
+    increment = -100;
+  } else if (pulseWidth <= 1000) {
+    increment = 100;
+  }
+}, 1000);
+```
+
 ## Performance
 
 Three of the pigpio tests are used to monitor performance:
