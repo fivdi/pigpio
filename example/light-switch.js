@@ -8,7 +8,7 @@ var Gpio = require('../'),
   }),
   led = new Gpio(17, {mode: Gpio.OUTPUT});
 
-button.on('interrupt', function (level, tick) {
+button.on('interrupt', function (level) {
   led.digitalWrite(level);
 });
 

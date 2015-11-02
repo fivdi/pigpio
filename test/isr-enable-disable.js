@@ -18,7 +18,7 @@ iv = setInterval(function () {
 }, 10);
 
 // ISR
-input.on('interrupt', function (level, tick) {
+input.on('interrupt', function (level) {
   if (level === 0) {
     fallingCount += 1;
   } else if (level === 1) {

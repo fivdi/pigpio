@@ -4,7 +4,7 @@ var Gpio = require('../'),
   timeoutCount = 0,
   input = new Gpio(7, {mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE, timeout: 100});
 
-input.on('interrupt', function (level, tick) {
+input.on('interrupt', function (level) {
   if (level === Gpio.TIMEOUT) {
     timeoutCount++;
   }
