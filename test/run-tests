@@ -3,6 +3,8 @@ echo blinky
 node blinky
 echo do-nothing
 node do-nothing
+echo isr-enable-disable
+node isr-enable-disable
 echo isr-performance
 node isr-performance
 echo isr-timeouts

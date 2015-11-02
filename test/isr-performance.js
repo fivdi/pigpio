@@ -1,5 +1,7 @@
 'use strict';
 
+// GPIO7 needs to be connected to GPIO8 with a 1K resistor for this test.
+
 var Gpio = require('../'),
   interruptCount = 0,
   input = new Gpio(7, {mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE}),
