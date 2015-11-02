@@ -83,6 +83,28 @@ button.on('interrupt', function (gpio, level, tick) {
 });
 ```
 
+## Performance
+
+Three of the pigpio tests are used to monitor performance:
+
+ * digital-read-performance.js - determine max. no. of digitalRead ops per second
+ * digital-write-performance.js - determine max. no. of digitalWrite ops per second
+ * isr-performance.js - determine max. no. of interrupts per second
+
+The average of ten runs of these tests are shown in the table below.
+
+ Name | Description
+:--- | :---
+Pi Model | Raspberry Pi 2 Model B V1.1
+OS | Raspbian Jessie 2015-09-24
+Kernel | 4.1.7-v7+
+Node.js | v4.2.1 armv7l
+pigpio | v0.0.3
+pigpio C-IF | V39
+Reads per second | 1,226,264
+Writes per second | 1,307,190
+Interrupts per second | 8,665
+
 ## API
 
 ### Class Gpio
@@ -233,26 +255,4 @@ Indicates that the GPIO fires interrupts on falling edges.
 Indicates that the GPIO fires interrupts on both rising and falling edges.
 
 ##### TIMEOUT
-
-## Performance
-
-Three of the pigpio tests are used to monitor performance:
-
- * digital-read-performance.js - determine max. no. of digitalRead ops per second
- * digital-write-performance.js - determine max. no. of digitalWrite ops per second
- * isr-performance.js - determine max. no. of interrupts per second
-
-The average of ten runs of these tests are shown in the table below.
-
- Name | Description
-:--- | :---
-Pi Model | Raspberry Pi 2 Model B V1.1
-OS | Raspbian Jessie 2015-09-24
-Kernel | 4.1.7-v7+
-Node.js | v4.2.1 armv7l
-pigpio | v0.0.3
-pigpio C-IF | V39
-Reads per second | 1,226,264
-Writes per second | 1,307,190
-Interrupts per second | 8,665
 
