@@ -244,7 +244,7 @@ Three of the pigpio tests are used to monitor performance:
 
 The average of ten runs of these tests are shown in the table below.
 
- |
+ Name | Description
 :---: | :---:
 Pi Model | Raspberry Pi 2 Model B V1.1
 Node.js | v4.2.1 armv7l
