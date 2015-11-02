@@ -42,8 +42,13 @@ for details.
 
 ## Usage
 
-Use PWM to pulse an LED connected to GPIO17 (pin 11) from fully off to fully
-on continuously.
+Assume there's an LED connected to GPIO17 (pin 11) and a momentary push button
+connected to GPIO4 (pin 7).
+
+<img src="https://raw.githubusercontent.com/fivdi/pigpio/master/example/pigpio.png">
+
+Use PWM to pulse the LED connected to GPIO17 from fully off to fully on
+continuously.
 
 ```js
 var Gpio = require('pigpio'),
@@ -61,8 +66,8 @@ setInterval(function () {
 
 ```
 
-Turn an LED connected to GPIO17 (pin 11) on when a momentary push button connected
-to GPIO4 (pin 7) is pressed. Turn the LED off when the button is released.
+Turn the LED connected to GPIO17 on when the momentary push button connected to
+GPIO4 is pressed. Turn the LED off when the button is released.
 
 ```js
 var Gpio = require('pigpio'),
