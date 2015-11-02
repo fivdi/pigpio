@@ -3,6 +3,7 @@ Unpublished
 
   * documentation, tests, and examples improved
   * gpio argument for interrupt event removed
+  * simple servo example
 
 0.0.3 / Nov 01 2015
 ===================
