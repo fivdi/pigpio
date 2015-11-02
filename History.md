@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * documentation, tests, and examples improved
+
 0.0.3 / Nov 01 2015
 ===================
 
