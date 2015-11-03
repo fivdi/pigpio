@@ -160,6 +160,9 @@ Interrupts per second | 8,665
   - [FALLING_EDGE](https://github.com/fivdi/pigpio#falling_edge)
   - [EITHER_EDGE](https://github.com/fivdi/pigpio#either_edge)
   - [TIMEOUT](https://github.com/fivdi/pigpio#timeout-2)
+  - [MIN_GPIO](https://github.com/fivdi/pigpio#min_gpio)
+  - [MAX_GPIO](https://github.com/fivdi/pigpio#max_gpio)
+  - [MAX_USER_GPIO](https://github.com/fivdi/pigpio#max_user_gpio)
 
 #### Methods
 
@@ -196,7 +199,7 @@ var Gpio = require('pigpio'),
   gpio,
   gpioNo;
 
-for (gpioNo = 0; gpioNo <= 53; gpioNo += 1) {
+for (gpioNo = Gpio.MIN_GPIO; gpioNo <= Gpio.MAX_GPIO; gpioNo += 1) {
   gpio = new Gpio(gpioNo);
 
   console.log('GPIO ' + gpioNo + ':' +
@@ -314,4 +317,13 @@ Indicates that the GPIO fires interrupts on both rising and falling edges.
 ##### TIMEOUT (2)
 The level argument passed to an interrupt event listener when an interrupt
 timeout expires.
+
+##### MIN_GPIO
+The smallest GPIO number.
+
+##### MAX_GPIO
+The largest GPIO number.
+
+##### MAX_USER_GPIO
+The largest user GPIO number.
 

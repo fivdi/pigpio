@@ -110,3 +110,8 @@ Gpio.EITHER_EDGE = pigpio.EITHER_EDGE;
 /* timeout */
 Gpio.TIMEOUT = pigpio.PI_TIMEOUT;
 
+/* gpio numbers */
+Gpio.MIN_GPIO = pigpio.PI_MIN_GPIO;
+Gpio.MAX_GPIO = pigpio.PI_MAX_GPIO;
+Gpio.MAX_USER_GPIO = pigpio.PI_MAX_USER_GPIO;
+

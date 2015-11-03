@@ -314,6 +314,11 @@ NAN_MODULE_INIT(InitAll) {
   /* timeout */
   SetConst(target, "PI_TIMEOUT", PI_TIMEOUT);
 
+  /* gpio numbers */
+  SetConst(target, "PI_MIN_GPIO", PI_MIN_GPIO);
+  SetConst(target, "PI_MAX_GPIO", PI_MAX_GPIO);
+  SetConst(target, "PI_MAX_USER_GPIO", PI_MAX_USER_GPIO);
+
   /* error codes */
   SetConst(target, "PI_INIT_FAILED", PI_INIT_FAILED);
 
