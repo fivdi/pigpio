@@ -53,8 +53,8 @@ Gpio.prototype.digitalRead = function () {
   return pigpio.gpioRead(this.gpio);
 };
 
-Gpio.prototype.digitalWrite = function (value) {
-  pigpio.gpioWrite(this.gpio, +value);
+Gpio.prototype.digitalWrite = function (level) {
+  pigpio.gpioWrite(this.gpio, +level);
   return this;
 };
 
@@ -67,8 +67,8 @@ Gpio.prototype.getPwmDutyCycle = function () {
   return pigpio.gpioGetPWMdutycycle(this.gpio);
 };
 
-Gpio.prototype.servoWrite = function (value) {
-  pigpio.gpioServo(this.gpio, +value);
+Gpio.prototype.servoWrite = function (pulseWidth) {
+  pigpio.gpioServo(this.gpio, +pulseWidth);
   return this;
 };
 
