@@ -2,6 +2,7 @@ Unpublished
 ===========
 
   * constants MIN_GPIO, MAX_GPIO, and MAX_USER_GPIO added
+  * mode tests
 
 0.0.5 / Nov 03 2015
 ===================
