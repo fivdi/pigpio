@@ -138,6 +138,8 @@ Interrupts per second | 8,665
   - [digitalWrite(level)](https://github.com/fivdi/pigpio#digitalwritelevel)
   - [analogWrite(dutyCycle)](https://github.com/fivdi/pigpio#analogwritedutycycle)
   - [servoWrite(pulseWidth)](https://github.com/fivdi/pigpio#servowritepulsewidth)
+  - [getPwmDutyCycle()](https://github.com/fivdi/pigpio#getpwmdutycycle)
+  - [getServoPulseWidth()](https://github.com/fivdi/pigpio#getservopulsewidth)
   - [enableInterrupt(edge[, timeout])](https://github.com/fivdi/pigpio#enableinterruptedge-timeout)
   - [disableInterrupt()](https://github.com/fivdi/pigpio#disableinterrupt)
 
@@ -245,6 +247,12 @@ Starts PWM on the GPIO. Returns this.
 
 Starts servo pulses on the GPIO, 0 (off), 500 (most anti-clockwise) to 2500
 (most clockwise). Returns this.
+
+##### getPwmDutyCycle()
+Returns the PWM duty cycle setting on the GPIO.
+
+##### getServoPulseWidth()
+Returns the servo pulse width setting on the GPIO.
 
 ##### enableInterrupt(edge[, timeout])
 - edge - RISING_EDGE, FALLING_EDGE, or EITHER_EDGE

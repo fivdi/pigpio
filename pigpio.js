@@ -63,9 +63,17 @@ Gpio.prototype.analogWrite = function (dutyCycle) {
   return this;
 };
 
+Gpio.prototype.getPwmDutyCycle = function () {
+  return pigpio.gpioGetPWMdutycycle(this.gpio);
+};
+
 Gpio.prototype.servoWrite = function (value) {
   pigpio.gpioServo(this.gpio, +value);
   return this;
+};
+
+Gpio.prototype.getServoPulseWidth = function () {
+  return pigpio.gpioGetServoPulsewidth(this.gpio);
 };
 
 Gpio.prototype.enableInterrupt = function (edge, timeout) {

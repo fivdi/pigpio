@@ -179,6 +179,22 @@ NAN_METHOD(gpioPWM) {
 }
 
 
+NAN_METHOD(gpioGetPWMdutycycle) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMdutycycle"));
+  }
+
+  unsigned user_gpio = info[0]->Uint32Value();
+
+  int rc = gpioGetPWMdutycycle(user_gpio);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioGetPWMdutycycle");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+
 NAN_METHOD(gpioServo) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioServo"));
@@ -191,6 +207,22 @@ NAN_METHOD(gpioServo) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioServo");
   }
+}
+
+
+NAN_METHOD(gpioGetServoPulsewidth) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetServoPulsewidth"));
+  }
+
+  unsigned user_gpio = info[0]->Uint32Value();
+
+  int rc = gpioGetServoPulsewidth(user_gpio);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioGetServoPulsewidth");
+  }
+
+  info.GetReturnValue().Set(rc);
 }
 
 
@@ -330,7 +362,10 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioWrite", gpioWrite);
 
   SetFunction(target, "gpioPWM", gpioPWM);
+  SetFunction(target, "gpioGetPWMdutycycle", gpioGetPWMdutycycle);
+
   SetFunction(target, "gpioServo", gpioServo);
+  SetFunction(target, "gpioGetServoPulsewidth", gpioGetServoPulsewidth);
 
   SetFunction(target, "gpioSetISRFunc", gpioSetISRFunc);
 }

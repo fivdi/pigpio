@@ -4,6 +4,9 @@ Unpublished
   * constants MIN_GPIO, MAX_GPIO, and MAX_USER_GPIO added
   * mode tests
   * multiple interrupt sources test
+  * allow access to PWM duty cycle with getPwmDutyCycle
+  * allow access to servo pulse width with getServoPulseWidth
+  * servo control test
 
 0.0.5 / Nov 03 2015
 ===================
