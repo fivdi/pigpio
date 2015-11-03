@@ -120,7 +120,7 @@ OS | Raspbian Jessie 2015-09-24
 Kernel | 4.1.7-v7+
 Node.js | v4.2.1 armv7l
 pigpio | v0.0.3
-pigpio C-IF | V39
+pigpio C library | V39
 Reads per second | 1,226,264
 Writes per second | 1,307,190
 Interrupts per second | 8,665
