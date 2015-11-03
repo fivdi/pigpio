@@ -1,3 +1,9 @@
+0.0.7 / Nov 03 2015
+===================
+
+  * fixed version in package.json (v0.0.5 -> v0.0.7)
+  * v0.0.6 was never published on npm
+
 0.0.6 / Nov 03 2015
 ===================
 
