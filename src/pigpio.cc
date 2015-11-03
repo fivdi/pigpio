@@ -289,8 +289,6 @@ static void SetFunction(
 NAN_MODULE_INIT(InitAll) {
   uv_sem_init(&sem_g, 1);
 
-  SetConst(target, "PI_MAX_USER_GPIO", PI_MAX_USER_GPIO);
-
   /* mode */
   SetConst(target, "PI_INPUT", PI_INPUT);
   SetConst(target, "PI_OUTPUT", PI_OUTPUT);
