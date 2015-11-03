@@ -13,6 +13,8 @@ echo gpio-numbers
 node gpio-numbers
 echo isr-enable-disable
 node isr-enable-disable
+echo isr-multiple-sources
+node isr-multiple-sources
 echo isr-performance
 node isr-performance
 echo isr-timeouts

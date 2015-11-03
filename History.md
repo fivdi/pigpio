@@ -3,6 +3,7 @@ Unpublished
 
   * constants MIN_GPIO, MAX_GPIO, and MAX_USER_GPIO added
   * mode tests
+  * multiple interrupt sources test
 
 0.0.5 / Nov 03 2015
 ===================
