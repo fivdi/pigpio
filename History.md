@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.0.5 / Nov 03 2015
+===================
 
   * documentation improved
   * tick argument for interrupt event removed
