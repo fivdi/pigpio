@@ -191,7 +191,7 @@ modified. This makes it possible to implement programs that do things like
 print information about the current mode and logic level for all GPIOs, for
 example:
 
-```
+```js
 var Gpio = require('pigpio'),
   gpio,
   gpioNo;
