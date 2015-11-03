@@ -41,7 +41,7 @@ Gpio.prototype.pinMode = function (mode) {
 };
 
 Gpio.prototype.getPinMode = function () {
-  return gpioSetMode.gpioGetMode(this.gpio);
+  return pigpio.gpioGetMode(this.gpio);
 };
 
 Gpio.prototype.pullUpDown = function (pud) {

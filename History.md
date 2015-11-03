@@ -3,6 +3,8 @@ Unpublished
 
   * documentation improved
   * tick argument for interrupt event removed
+  * fixed getPinMode bug
+  * gpio-info example
 
 0.0.4 / Nov 02 2015
 ===================

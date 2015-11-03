@@ -113,6 +113,8 @@ NAN_METHOD(gpioGetMode) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioGetMode");
   }
+
+  info.GetReturnValue().Set(rc);
 }
 
 

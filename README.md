@@ -168,24 +168,47 @@ Interrupts per second | 8,665
 - options - object (optional)
 
 Returns a new Gpio object for accessing a GPIO. The optional options object can
-be used to configure the mode, pull type, interrupting edge or edges, and
-interrupt timeout for the GPIO. A Gpio object is an EventEmitter.
+be used to configure the mode, pull type, interrupting edge(s), and interrupt
+timeout for the GPIO.
+
+A Gpio object is an EventEmitter.
+
+GPIOs on Linux are identified by unsigned integers. These are the numbers that
+should be passed to the Gpio constructor. For example, pin 7 on the Raspberry
+Pi P1 expansion header corresponds to GPIO4 in Raspbian Linux. 4 is therefore
+the number to pass to the Gpio constructor when using pin 7 on the P1 expansion
+header.
 
 The following options are supported:
 - mode - INPUT, OUTPUT, ALT0, ALT1, ALT2, ALT3, ALT4, or ALT5 (optional, no default)
 - pullUpDown - PUD_OFF, PUD_DOWN, or PUD_UP (optional, no default)
-- edge - RISING_EDGE, FALLING_EDGE, or EITHER_EDGE (optional, no default)
-- timeout - interrupt timeout in milliseconds (optional, defaults to 0 if edge specified)
+- edge - interrupt edge for inputs. RISING_EDGE, FALLING_EDGE, or EITHER_EDGE (optional, no default)
+- timeout - interrupt timeout in milliseconds (optional, defaults to 0 meaning no timeout if edge specified)
+
+If no mode option is specified, the GPIO will be left in it's current mode. If
+pullUpDown is not not specified, the pull-type for the GPIO will not be
+modified. This makes it possible to implement programs that do things like
+print information about the current mode and logic level for all GPIOs, for
+example:
+
+```
+var Gpio = require('pigpio'),
+  gpio,
+  gpioNo;
+
+for (gpioNo = 0; gpioNo <= 53; gpioNo += 1) {
+  gpio = new Gpio(gpioNo);
+
+  console.log('GPIO ' + gpioNo + ':' +
+    ' mode=' + gpio.getPinMode() +
+    ' level=' + gpio.digitalRead()
+  );
+}
+```
 
 Interrupts can have an optional timeout. The level argument passed to the
 interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout
 expires.
-
-GPIOs on Linux are identified by unsigned integers. These are the numbers that
-should be passed to the Gpio constructor. For example, pin 8 on the Raspberry
-Pi P1 expansion header corresponds to GPIO14 in Raspbian Linux. 14 is therefore
-the number to pass to the Gpio constructor when using pin 8 on the P1 expansion
-header.
 
 ##### pinMode(mode)
 - mode - INPUT, OUTPUT, ALT0, ALT1, ALT2, ALT3, ALT4, or ALT5
