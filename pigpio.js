@@ -67,6 +67,28 @@ Gpio.prototype.getPwmDutyCycle = function () {
   return pigpio.gpioGetPWMdutycycle(this.gpio);
 };
 
+Gpio.prototype.pwmRange = function (range) {
+  pigpio.gpioSetPWMrange(this.gpio, +range);
+  return this;
+};
+
+Gpio.prototype.getPwmRange = function () {
+  return pigpio.gpioGetPWMrange(this.gpio);
+};
+
+Gpio.prototype.getPwmRealRange = function () {
+  return pigpio.gpioGetPWMrealRange(this.gpio);
+};
+
+Gpio.prototype.pwmFrequency = function (frequency) {
+  pigpio.gpioSetPWMfrequency(this.gpio, +frequency);
+  return this;
+};
+
+Gpio.prototype.getPwmFrequency = function () {
+  return pigpio.gpioGetPWMfrequency(this.gpio);
+};
+
 Gpio.prototype.servoWrite = function (pulseWidth) {
   pigpio.gpioServo(this.gpio, +pulseWidth);
   return this;

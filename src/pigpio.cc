@@ -195,6 +195,84 @@ NAN_METHOD(gpioGetPWMdutycycle) {
 }
 
 
+NAN_METHOD(gpioSetPWMrange) {
+  if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPWMrange"));
+  }
+
+  unsigned user_gpio = info[0]->Uint32Value();
+  unsigned range = info[1]->Uint32Value();
+
+  int rc = gpioSetPWMrange(user_gpio, range);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioSetPWMrange");
+  }
+}
+
+
+NAN_METHOD(gpioGetPWMrange) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMrange"));
+  }
+
+  unsigned user_gpio = info[0]->Uint32Value();
+
+  int rc = gpioGetPWMrange(user_gpio);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioGetPWMrange");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+
+NAN_METHOD(gpioGetPWMrealRange) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMrealRange"));
+  }
+
+  unsigned user_gpio = info[0]->Uint32Value();
+
+  int rc = gpioGetPWMrealRange(user_gpio);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioGetPWMrealRange");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+
+NAN_METHOD(gpioSetPWMfrequency) {
+  if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPWMfrequency"));
+  }
+
+  unsigned user_gpio = info[0]->Uint32Value();
+  unsigned frequency = info[1]->Uint32Value();
+
+  int rc = gpioSetPWMfrequency(user_gpio, frequency);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioSetPWMfrequency");
+  }
+}
+
+
+NAN_METHOD(gpioGetPWMfrequency) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMfrequency"));
+  }
+
+  unsigned user_gpio = info[0]->Uint32Value();
+
+  int rc = gpioGetPWMfrequency(user_gpio);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioGetPWMfrequency");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+
 NAN_METHOD(gpioServo) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioServo"));
@@ -363,6 +441,11 @@ NAN_MODULE_INIT(InitAll) {
 
   SetFunction(target, "gpioPWM", gpioPWM);
   SetFunction(target, "gpioGetPWMdutycycle", gpioGetPWMdutycycle);
+  SetFunction(target, "gpioSetPWMrange", gpioSetPWMrange);
+  SetFunction(target, "gpioGetPWMrange", gpioGetPWMrange);
+  SetFunction(target, "gpioGetPWMrealRange", gpioGetPWMrealRange);
+  SetFunction(target, "gpioSetPWMfrequency", gpioSetPWMfrequency);
+  SetFunction(target, "gpioGetPWMfrequency", gpioGetPWMfrequency);
 
   SetFunction(target, "gpioServo", gpioServo);
   SetFunction(target, "gpioGetServoPulsewidth", gpioGetServoPulsewidth);
