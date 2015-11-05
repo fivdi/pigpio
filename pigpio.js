@@ -16,7 +16,7 @@ function Gpio(gpio, options) {
   this.gpio = +gpio;
 
   if ('mode' in options) {
-    this.pinMode(+options.mode);
+    this.mode(+options.mode);
   }
 
   if ('pullUpDown' in options) {
@@ -33,14 +33,14 @@ function Gpio(gpio, options) {
 util.inherits(Gpio, EventEmitter);
 module.exports = Gpio;
 
-Gpio.prototype.pinMode = function (mode) {
+Gpio.prototype.mode = function (mode) {
   // What happens if the mode is INPUT, there is an ISR, and the mode is
   // changed to OUTPUT (or anything else for that matter)?
   pigpio.gpioSetMode(this.gpio, +mode);
   return this;
 };
 
-Gpio.prototype.getPinMode = function () {
+Gpio.prototype.getMode = function () {
   return pigpio.gpioGetMode(this.gpio);
 };
 

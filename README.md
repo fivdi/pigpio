@@ -131,8 +131,8 @@ Interrupts per second | 8,665
 
 - Methods
   - [Gpio(gpio[, options])](https://github.com/fivdi/pigpio#gpiogpio-options)
-  - [pinMode(mode)](https://github.com/fivdi/pigpio#pinmodemode)
-  - [getPinMode()](https://github.com/fivdi/pigpio#getpinmode)
+  - [mode(mode)](https://github.com/fivdi/pigpio#modemode)
+  - [getMode()](https://github.com/fivdi/pigpio#getmode)
   - [pullUpDown(pud)](https://github.com/fivdi/pigpio#pullupdownpud)
   - [digitalRead()](https://github.com/fivdi/pigpio#digitalread)
   - [digitalWrite(level)](https://github.com/fivdi/pigpio#digitalwritelevel)
@@ -205,7 +205,7 @@ for (gpioNo = Gpio.MIN_GPIO; gpioNo <= Gpio.MAX_GPIO; gpioNo += 1) {
   gpio = new Gpio(gpioNo);
 
   console.log('GPIO ' + gpioNo + ':' +
-    ' mode=' + gpio.getPinMode() +
+    ' mode=' + gpio.getMode() +
     ' level=' + gpio.digitalRead()
   );
 }
@@ -215,12 +215,12 @@ Interrupts can have an optional timeout. The level argument passed to the
 interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout
 expires.
 
-##### pinMode(mode)
+##### mode(mode)
 - mode - INPUT, OUTPUT, ALT0, ALT1, ALT2, ALT3, ALT4, or ALT5
 
 Sets the GPIO mode. Returns this.
 
-##### getPinMode()
+##### getMode()
 Returns the GPIO mode.
 
 ##### pullUpDown(pud)
