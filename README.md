@@ -129,24 +129,36 @@ Interrupts per second | 8,665
 
 ### Class Gpio
 
-- Methods
+##### Methods
+- Coustructor
   - [Gpio(gpio[, options])](https://github.com/fivdi/pigpio#gpiogpio-options)
+- Mode
   - [mode(mode)](https://github.com/fivdi/pigpio#modemode)
   - [getMode()](https://github.com/fivdi/pigpio#getmode)
+- Pull-Type
   - [pullUpDown(pud)](https://github.com/fivdi/pigpio#pullupdownpud)
+- Digital IO
   - [digitalRead()](https://github.com/fivdi/pigpio#digitalread)
   - [digitalWrite(level)](https://github.com/fivdi/pigpio#digitalwritelevel)
+- PWM
   - [analogWrite(dutyCycle)](https://github.com/fivdi/pigpio#analogwritedutycycle)
-  - [servoWrite(pulseWidth)](https://github.com/fivdi/pigpio#servowritepulsewidth)
   - [getPwmDutyCycle()](https://github.com/fivdi/pigpio#getpwmdutycycle)
+  - [pwmRange(range)](https://github.com/fivdi/pigpio#pwmrangerange)
+  - [getPwmRange()](https://github.com/fivdi/pigpio#getpwmrange)
+  - [getPwmRealRange()](https://github.com/fivdi/pigpio#getpwmrealrange)
+  - [pwmFrequency(frequency)](https://github.com/fivdi/pigpio#pwmfrequencyfrequency)
+  - [getPwmFrequency()](https://github.com/fivdi/pigpio#getpwmfrequency)
+- Servo Control
+  - [servoWrite(pulseWidth)](https://github.com/fivdi/pigpio#servowritepulsewidth)
   - [getServoPulseWidth()](https://github.com/fivdi/pigpio#getservopulsewidth)
+- Interrupts
   - [enableInterrupt(edge[, timeout])](https://github.com/fivdi/pigpio#enableinterruptedge-timeout)
   - [disableInterrupt()](https://github.com/fivdi/pigpio#disableinterrupt)
 
-- Events
+##### Events
   - [Event: 'interrupt'](https://github.com/fivdi/pigpio#event-interrupt)
 
-- Constants
+##### Constants
   - [INPUT](https://github.com/fivdi/pigpio#input)
   - [OUTPUT](https://github.com/fivdi/pigpio#output)
   - [ALT0](https://github.com/fivdi/pigpio#alt0)
@@ -242,14 +254,24 @@ they are switched off. Returns this.
 
 Starts PWM on the GPIO. Returns this.
 
+##### getPwmDutyCycle()
+Returns the PWM duty cycle setting on the GPIO.
+
+##### pwmRange(range)
+
+##### getPwmRange()
+
+##### getPwmRealRange()
+
+##### pwmFrequency(frequency)
+
+##### getPwmFrequency()
+
 ##### servoWrite(pulseWidth)
 - pulseWidth - pulse width in microseconds, an unsigned integer, 0 or a number in the range 500 through 2500
 
 Starts servo pulses on the GPIO, 0 (off), 500 (most anti-clockwise) to 2500
 (most clockwise). Returns this.
-
-##### getPwmDutyCycle()
-Returns the PWM duty cycle setting on the GPIO.
 
 ##### getServoPulseWidth()
 Returns the servo pulse width setting on the GPIO.
