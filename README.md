@@ -333,7 +333,8 @@ Frequency (Hz) |
 10 |
 
 ##### getPwmFrequency()
-Returns the frequency (in hertz) used for the gpio.
+Returns the frequency (in hertz) used for the gpio. The default frequency is
+800Hz.
 
 ##### servoWrite(pulseWidth)
 - pulseWidth - pulse width in microseconds, an unsigned integer, 0 or a number in the range 500 through 2500
