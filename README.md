@@ -310,26 +310,26 @@ at the new frequency.
 
 The frequencies are:
 
-Frequency (Hz)
----:
-8000
-4000
-2000
-1600
-1000
-800
-500
-400
-320
-250
-200
-160
-100
-80
-50
-40
-20
-10
+Frequency (Hz) |
+---: |
+8000 |
+4000 |
+2000 |
+1600 |
+1000 |
+800 |
+500 |
+400 |
+320 |
+250 |
+200 |
+160 |
+100 |
+80 |
+50 |
+40 |
+20 |
+10 |
 
 ##### getPwmFrequency()
 Returns the frequency (in hertz) used for the gpio.
