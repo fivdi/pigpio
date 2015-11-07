@@ -301,7 +301,8 @@ Returns the real range used for the gpio.
 ##### pwmFrequency(frequency)
 - frequency - an unsigned integer >= 0
 
-Sets the frequency in hertz to be used for the gpio. Returns this.
+Sets the frequency in hertz to be used for the gpio. The default frequency is
+800Hz. The Returns this.
 
 Each gpio can be independently set to one of 18 different PWM frequencies. 
 
