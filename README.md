@@ -250,7 +250,7 @@ Sets the GPIO level to 0 or 1. If PWM or servo pulses are active on the GPIO
 they are switched off. Returns this.
 
 ##### analogWrite(dutyCycle)
-- dutyCycle - an unsigned integer in the range 0 (off) through 255 (fully on)
+- dutyCycle - an unsigned integer between 0 (off) and range (fully on). Range defaults to 255.
 
 Starts PWM on the GPIO. Returns this.
 
@@ -258,14 +258,81 @@ Starts PWM on the GPIO. Returns this.
 Returns the PWM duty cycle setting on the GPIO.
 
 ##### pwmRange(range)
+- range - an unsigned integer in the range 25 through 40000
+
+Selects the duty cycle range to be used for the gpio. Subsequent calls to
+analogWrite will use a dutycycle between 0 (off) and range (fully on).
+
+If PWM is currently active on the gpio its duty cycle will be scaled to reflect
+the new range. 
+
+The real range, the number of steps between fully off and fully on for each
+frequency, is given in the following table. 
+
+Frequency (Hz) | Range
+---: | ---:
+8000 | 25
+4000 | 50
+2000 | 100
+1600 | 125
+1000 | 200
+800 | 250
+500 | 400
+400 | 500
+320 | 625
+250 | 800
+200 | 1000
+160 | 1250
+100 | 2000
+80 | 2500
+50 | 4000
+40 | 5000
+20 | 10000
+10 | 20000
+
+The real value set by analogWrite is (dutyCycle * real range) / range. 
 
 ##### getPwmRange()
+Returns the duty cycle range used for the gpio.
 
 ##### getPwmRealRange()
+Returns the real range used for the gpio.
 
 ##### pwmFrequency(frequency)
+- frequency - an unsigned integer >= 0
+
+Sets the frequency in hertz to be used for the gpio. Returns this.
+
+Each gpio can be independently set to one of 18 different PWM frequencies. 
+
+If PWM is currently active on the gpio it will be switched off and then back on
+at the new frequency.
+
+The frequencies are:
+
+Frequency (Hz)
+---:
+8000
+4000
+2000
+1600
+1000
+800
+500
+400
+320
+250
+200
+160
+100
+80
+50
+40
+20
+10
 
 ##### getPwmFrequency()
+Returns the frequency (in hertz) used for the gpio.
 
 ##### servoWrite(pulseWidth)
 - pulseWidth - pulse width in microseconds, an unsigned integer, 0 or a number in the range 500 through 2500
