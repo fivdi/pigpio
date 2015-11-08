@@ -8,7 +8,7 @@ Feature rich fast GPIO on the Raspberry Pi with Node.js.
  * PWM on any of GPIOs 0 through 31
  * Servo control on any of GPIOs 0 through 31
  * Pull up/down resistors
- * Interrupt handlers
+ * Low latency Interrupt handlers
 
 ## Installation
 
