@@ -5,10 +5,13 @@ Feature rich fast GPIO on the Raspberry Pi with Node.js.
 ## Features
 
  * Digital read and write
+   * Up to 1.3 million digital writes per second
+   * Up to 1.2 million digital reads per second
  * PWM on any of GPIOs 0 through 31
  * Servo control on any of GPIOs 0 through 31
  * Pull up/down resistors
  * Low latency interrupt handlers
+   * Handle up to 8500 interrupts per second
 
 ## Installation
 
