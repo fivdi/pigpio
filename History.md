@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.0.8 / Nov 08 2015
+===================
 
   * allow PWM range control with pwmRange, getPwmRange, getPwmRealRange
   * allow pwm frequency control with pwmFrequency, and getPwmFrequency

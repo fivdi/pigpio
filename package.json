@@ -1,6 +1,6 @@
 {
   "name": "pigpio",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Feature rich fast GPIO on the Raspberry Pi",
   "main": "pigpio.js",
   "directories": {
