@@ -27,6 +27,8 @@ echo pull-up-down
 node pull-up-down
 echo pulse-led
 node pulse-led
+echo pwm
+node pwm
 echo servo-control
 node servo-control
 

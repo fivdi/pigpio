@@ -3,6 +3,7 @@ Unpublished
 
   * allow PWM range control with pwmRange, getPwmRange, getPwmRealRange
   * allow pwm frequency control with pwmFrequency, and getPwmFrequency
+  * pwm tests
   * pinMode renamed to mode
   * getPinMode renamed to getMode
 
