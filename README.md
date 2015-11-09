@@ -1,6 +1,6 @@
 # pigpio
 
-Feature rich fast GPIO on the Raspberry Pi with Node.js.
+Fast GPIO, PWM and servo control on the Raspberry Pi with Node.js.
 
 ## Features
 
