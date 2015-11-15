@@ -1,6 +1,7 @@
 'use strict';
 
 var EventEmitter = require('events').EventEmitter,
+  fs = require('fs'),
   pigpio = require('bindings')('pigpio.node'),
   util = require('util');
 
@@ -146,4 +147,45 @@ Gpio.TIMEOUT = pigpio.PI_TIMEOUT;
 Gpio.MIN_GPIO = pigpio.PI_MIN_GPIO;
 Gpio.MAX_GPIO = pigpio.PI_MAX_GPIO;
 Gpio.MAX_USER_GPIO = pigpio.PI_MAX_USER_GPIO;
+
+var NOTIFICATION_PIPE_PATH_PREFIX = '/dev/pigpio';
+
+function Notifier(options) {
+  if (!(this instanceof Notifier)) {
+    return new Notifier(options);
+  }
+
+  options = options || {};
+
+  this.handle = pigpio.gpioNotifyOpen();
+
+  this.notificationStream =
+    fs.createReadStream(NOTIFICATION_PIPE_PATH_PREFIX + this.handle);
+
+  if (typeof options.bits === 'number') {
+    this.start(options.bits);
+  }
+}
+
+module.exports.Notifier = Notifier;
+
+Notifier.prototype.start = function (bits) {
+  pigpio.gpioNotifyBegin(this.handle, +bits);
+  return this;
+};
+
+Notifier.prototype.stop = function () {
+  pigpio.gpioNotifyPause(this.handle);
+  return this;
+};
+
+Notifier.prototype.close = function () {
+  pigpio.gpioNotifyClose(this.handle);
+};
+
+Notifier.prototype.stream = function () {
+  return this.notificationStream;
+};
+
+Notifier.NOTIFICATION_LENGTH = 12;
 

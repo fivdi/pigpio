@@ -23,6 +23,10 @@ echo isr-timeouts-2
 node isr-timeouts-2
 echo light-switch
 node light-switch
+echo notifier
+node notifier
+echo notifier-pwm
+node notifier-pwm
 echo pull-up-down
 node pull-up-down
 echo pulse-led

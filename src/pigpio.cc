@@ -372,6 +372,59 @@ static NAN_METHOD(gpioSetISRFunc) {
 }
 
 
+NAN_METHOD(gpioNotifyOpen) {
+  int rc = gpioNotifyOpen();
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioNotifyOpen");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+
+NAN_METHOD(gpioNotifyBegin) {
+  if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyBegin"));
+  }
+
+  unsigned handle = info[0]->Uint32Value();
+  unsigned bits = info[1]->Uint32Value();
+
+  int rc = gpioNotifyBegin(handle, bits);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioNotifyBegin");
+  }
+}
+
+
+NAN_METHOD(gpioNotifyPause) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyPause"));
+  }
+
+  unsigned handle = info[0]->Uint32Value();
+
+  int rc = gpioNotifyPause(handle);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioNotifyPause");
+  }
+}
+
+
+NAN_METHOD(gpioNotifyClose) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyClose"));
+  }
+
+  unsigned handle = info[0]->Uint32Value();
+
+  int rc = gpioNotifyClose(handle);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioNotifyClose");
+  }
+}
+
+
 static void SetConst(
   Nan::ADDON_REGISTER_FUNCTION_ARGS_TYPE target,
   const char* name,
@@ -451,6 +504,11 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioGetServoPulsewidth", gpioGetServoPulsewidth);
 
   SetFunction(target, "gpioSetISRFunc", gpioSetISRFunc);
+
+  SetFunction(target, "gpioNotifyOpen", gpioNotifyOpen);
+  SetFunction(target, "gpioNotifyBegin", gpioNotifyBegin);
+  SetFunction(target, "gpioNotifyPause", gpioNotifyPause);
+  SetFunction(target, "gpioNotifyClose", gpioNotifyClose);
 }
 
 NODE_MODULE(pigpio, InitAll)
