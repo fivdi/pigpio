@@ -54,7 +54,7 @@ Use PWM to pulse the LED connected to GPIO17 from fully off to fully on
 continuously.
 
 ```js
-var Gpio = require('pigpio'),
+var Gpio = require('pigpio').Gpio,
   led = new Gpio(17, {mode: Gpio.OUTPUT}),
   dutyCycle = 0;
 
@@ -73,7 +73,7 @@ Turn the LED connected to GPIO17 on when the momentary push button connected to
 GPIO4 is pressed. Turn the LED off when the button is released.
 
 ```js
-var Gpio = require('pigpio'),
+var Gpio = require('pigpio').Gpio,
   button = new Gpio(4, {
     mode: Gpio.INPUT,
     pullUpDown: Gpio.PUD_DOWN,
@@ -89,7 +89,7 @@ button.on('interrupt', function (level) {
 Simple servo control.
 
 ```js
-var Gpio = require('pigpio'),
+var Gpio = require('pigpio').Gpio,
   motor = new Gpio(10, {mode: Gpio.OUTPUT}),
   pulseWidth = 1000,
   increment = 100;
@@ -212,7 +212,7 @@ print information about the current mode and logic level for all GPIOs, for
 example:
 
 ```js
-var Gpio = require('pigpio'),
+var Gpio = require('pigpio').Gpio,
   gpio,
   gpioNo;
 

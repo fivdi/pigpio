@@ -1,6 +1,6 @@
 'use strict';
 
-var Gpio = require('../'),
+var Gpio = require('../').Gpio,
   button = new Gpio(4, {
     mode: Gpio.INPUT,
     pullUpDown: Gpio.PUD_DOWN,

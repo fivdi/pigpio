@@ -33,7 +33,7 @@ function Gpio(gpio, options) {
 }
 
 util.inherits(Gpio, EventEmitter);
-module.exports = Gpio;
+module.exports.Gpio = Gpio;
 
 Gpio.prototype.mode = function (mode) {
   // What happens if the mode is INPUT, there is an ISR, and the mode is

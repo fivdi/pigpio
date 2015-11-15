@@ -1,6 +1,6 @@
 'use strict';
 
-var Gpio = require('../'),
+var Gpio = require('../').Gpio,
   led = new Gpio(17, {mode: Gpio.OUTPUT}),
   dutyCycle = 0;
 

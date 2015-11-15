@@ -4,7 +4,7 @@
 // - GPIO7 needs to be connected to GPIO8 with a 1K resistor
 // - GPIO9 needs to be connected to GPIO11 with a 1K resistor
 
-var Gpio = require('../');
+var Gpio = require('../').Gpio;
 
 [[7, 8], [9, 11]].forEach(function (gpioNos) {
   var interruptCount= 0,

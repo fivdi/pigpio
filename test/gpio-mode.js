@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert'),
-  Gpio = require('../'),
+  Gpio = require('../').Gpio,
   gpio7 = new Gpio(7, {mode: Gpio.INPUT}),
   gpio8 = new Gpio(8, {mode: Gpio.OUTPUT});
 

@@ -2,7 +2,7 @@
 
 // GPIO7 needs to be connected to GPIO8 with a 1K resistor for this test.
 
-var Gpio = require('../'),
+var Gpio = require('../').Gpio,
   interruptCount = 0,
   input = new Gpio(7, {mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE}),
   output = new Gpio(8, {mode: Gpio.OUTPUT});

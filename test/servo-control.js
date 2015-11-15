@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert'),
-  Gpio = require('../'),
+  Gpio = require('../').Gpio,
   iv,
   motor = new Gpio(17, {mode: Gpio.OUTPUT}),
   pulseWidth = 500;

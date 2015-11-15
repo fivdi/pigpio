@@ -1,6 +1,6 @@
 'use strict';
 
-var Gpio = require('../'),
+var Gpio = require('../').Gpio,
   timeoutCount = 0,
   input = new Gpio(7, {mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE, timeout: 10});
 
