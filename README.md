@@ -132,5 +132,5 @@ Interrupts per second | 8,665
 
 ### Classes
 
-- [Gpio](https://github.com/fivdi/pigpio/doc/gpio.md) - General Purpose Input Output
+- [Gpio](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md) - General Purpose Input Output
 

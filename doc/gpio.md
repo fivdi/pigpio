@@ -2,52 +2,52 @@
 
 ##### Methods
 - Coustructor
-  - [Gpio(gpio[, options])](https://github.com/fivdi/pigpio#gpiogpio-options)
+  - [Gpio(gpio[, options])](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#gpiogpio-options)
 - Mode
-  - [mode(mode)](https://github.com/fivdi/pigpio#modemode)
-  - [getMode()](https://github.com/fivdi/pigpio#getmode)
+  - [mode(mode)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#modemode)
+  - [getMode()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getmode)
 - Pull-Type
-  - [pullUpDown(pud)](https://github.com/fivdi/pigpio#pullupdownpud)
+  - [pullUpDown(pud)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#pullupdownpud)
 - Digital IO
-  - [digitalRead()](https://github.com/fivdi/pigpio#digitalread)
-  - [digitalWrite(level)](https://github.com/fivdi/pigpio#digitalwritelevel)
+  - [digitalRead()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#digitalread)
+  - [digitalWrite(level)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#digitalwritelevel)
 - PWM
-  - [analogWrite(dutyCycle)](https://github.com/fivdi/pigpio#analogwritedutycycle)
-  - [getPwmDutyCycle()](https://github.com/fivdi/pigpio#getpwmdutycycle)
-  - [pwmRange(range)](https://github.com/fivdi/pigpio#pwmrangerange)
-  - [getPwmRange()](https://github.com/fivdi/pigpio#getpwmrange)
-  - [getPwmRealRange()](https://github.com/fivdi/pigpio#getpwmrealrange)
-  - [pwmFrequency(frequency)](https://github.com/fivdi/pigpio#pwmfrequencyfrequency)
-  - [getPwmFrequency()](https://github.com/fivdi/pigpio#getpwmfrequency)
+  - [analogWrite(dutyCycle)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#analogwritedutycycle)
+  - [getPwmDutyCycle()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getpwmdutycycle)
+  - [pwmRange(range)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#pwmrangerange)
+  - [getPwmRange()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getpwmrange)
+  - [getPwmRealRange()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getpwmrealrange)
+  - [pwmFrequency(frequency)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#pwmfrequencyfrequency)
+  - [getPwmFrequency()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getpwmfrequency)
 - Servo Control
-  - [servoWrite(pulseWidth)](https://github.com/fivdi/pigpio#servowritepulsewidth)
-  - [getServoPulseWidth()](https://github.com/fivdi/pigpio#getservopulsewidth)
+  - [servoWrite(pulseWidth)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#servowritepulsewidth)
+  - [getServoPulseWidth()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getservopulsewidth)
 - Interrupts
-  - [enableInterrupt(edge[, timeout])](https://github.com/fivdi/pigpio#enableinterruptedge-timeout)
-  - [disableInterrupt()](https://github.com/fivdi/pigpio#disableinterrupt)
+  - [enableInterrupt(edge[, timeout])](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#enableinterruptedge-timeout)
+  - [disableInterrupt()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#disableinterrupt)
 
 ##### Events
-  - [Event: 'interrupt'](https://github.com/fivdi/pigpio#event-interrupt)
+  - [Event: 'interrupt'](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#event-interrupt)
 
 ##### Constants
-  - [INPUT](https://github.com/fivdi/pigpio#input)
-  - [OUTPUT](https://github.com/fivdi/pigpio#output)
-  - [ALT0](https://github.com/fivdi/pigpio#alt0)
-  - [ALT1](https://github.com/fivdi/pigpio#alt1)
-  - [ALT2](https://github.com/fivdi/pigpio#alt2)
-  - [ALT3](https://github.com/fivdi/pigpio#alt3)
-  - [ALT4](https://github.com/fivdi/pigpio#alt4)
-  - [ALT5](https://github.com/fivdi/pigpio#alt5)
-  - [PUD_OFF](https://github.com/fivdi/pigpio#pud_off)
-  - [PUD_DOWN](https://github.com/fivdi/pigpio#pud_down)
-  - [PUD_UP](https://github.com/fivdi/pigpio#pud_up)
-  - [RISING_EDGE](https://github.com/fivdi/pigpio#rising_edge)
-  - [FALLING_EDGE](https://github.com/fivdi/pigpio#falling_edge)
-  - [EITHER_EDGE](https://github.com/fivdi/pigpio#either_edge)
-  - [TIMEOUT](https://github.com/fivdi/pigpio#timeout-2)
-  - [MIN_GPIO](https://github.com/fivdi/pigpio#min_gpio)
-  - [MAX_GPIO](https://github.com/fivdi/pigpio#max_gpio)
-  - [MAX_USER_GPIO](https://github.com/fivdi/pigpio#max_user_gpio)
+  - [INPUT](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#input)
+  - [OUTPUT](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#output)
+  - [ALT0](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#alt0)
+  - [ALT1](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#alt1)
+  - [ALT2](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#alt2)
+  - [ALT3](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#alt3)
+  - [ALT4](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#alt4)
+  - [ALT5](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#alt5)
+  - [PUD_OFF](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#pud_off)
+  - [PUD_DOWN](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#pud_down)
+  - [PUD_UP](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#pud_up)
+  - [RISING_EDGE](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#rising_edge)
+  - [FALLING_EDGE](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#falling_edge)
+  - [EITHER_EDGE](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#either_edge)
+  - [TIMEOUT](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#timeout-2)
+  - [MIN_GPIO](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#min_gpio)
+  - [MAX_GPIO](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#max_gpio)
+  - [MAX_USER_GPIO](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#max_user_gpio)
 
 #### Methods
 
