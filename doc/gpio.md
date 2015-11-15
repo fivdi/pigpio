@@ -1,6 +1,6 @@
-### Class Gpio - General Purpose Input Output
+## Class Gpio - General Purpose Input Output
 
-##### Methods
+#### Methods
 - Coustructor
   - [Gpio(gpio[, options])](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#gpiogpio-options)
 - Mode
@@ -26,10 +26,10 @@
   - [enableInterrupt(edge[, timeout])](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#enableinterruptedge-timeout)
   - [disableInterrupt()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#disableinterrupt)
 
-##### Events
+#### Events
   - [Event: 'interrupt'](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#event-interrupt)
 
-##### Constants
+#### Constants
   - [INPUT](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#input)
   - [OUTPUT](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#output)
   - [ALT0](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#alt0)
@@ -49,9 +49,9 @@
   - [MAX_GPIO](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#max_gpio)
   - [MAX_USER_GPIO](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#max_user_gpio)
 
-#### Methods
+### Methods
 
-##### Gpio(gpio[, options])
+#### Gpio(gpio[, options])
 - gpio - an unsigned integer specifying the GPIO number
 - options - object (optional)
 
@@ -98,37 +98,37 @@ Interrupts can have an optional timeout. The level argument passed to the
 interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout
 expires.
 
-##### mode(mode)
+#### mode(mode)
 - mode - INPUT, OUTPUT, ALT0, ALT1, ALT2, ALT3, ALT4, or ALT5
 
 Sets the GPIO mode. Returns this.
 
-##### getMode()
+#### getMode()
 Returns the GPIO mode.
 
-##### pullUpDown(pud)
+#### pullUpDown(pud)
 - pud - PUD_OFF, PUD_DOWN, or PUD_UP
 
 Sets or clears the pull type for the GPIO. Returns this.
 
-##### digitalRead()
+#### digitalRead()
 Returns the GPIO level, 0 or 1.
 
-##### digitalWrite(level)
+#### digitalWrite(level)
 - level - 0 or 1
 
 Sets the GPIO level to 0 or 1. If PWM or servo pulses are active on the GPIO
 they are switched off. Returns this.
 
-##### analogWrite(dutyCycle)
+#### analogWrite(dutyCycle)
 - dutyCycle - an unsigned integer between 0 (off) and range (fully on). Range defaults to 255.
 
 Starts PWM on the GPIO. Returns this.
 
-##### getPwmDutyCycle()
+#### getPwmDutyCycle()
 Returns the PWM duty cycle setting on the GPIO.
 
-##### pwmRange(range)
+#### pwmRange(range)
 - range - an unsigned integer in the range 25 through 40000
 
 Selects the duty cycle range to be used for the gpio. Subsequent calls to
@@ -163,13 +163,13 @@ Frequency (Hz) | Range
 
 The real value set by analogWrite is (dutyCycle * real range) / range. 
 
-##### getPwmRange()
+#### getPwmRange()
 Returns the duty cycle range used for the gpio.
 
-##### getPwmRealRange()
+#### getPwmRealRange()
 Returns the real range used for the gpio.
 
-##### pwmFrequency(frequency)
+#### pwmFrequency(frequency)
 - frequency - an unsigned integer >= 0
 
 Sets the frequency in hertz to be used for the gpio. The default frequency is
@@ -203,20 +203,20 @@ Frequency (Hz) |
 20 |
 10 |
 
-##### getPwmFrequency()
+#### getPwmFrequency()
 Returns the frequency (in hertz) used for the gpio. The default frequency is
 800Hz.
 
-##### servoWrite(pulseWidth)
+#### servoWrite(pulseWidth)
 - pulseWidth - pulse width in microseconds, an unsigned integer, 0 or a number in the range 500 through 2500
 
 Starts servo pulses on the GPIO, 0 (off), 500 (most anti-clockwise) to 2500
 (most clockwise). Returns this.
 
-##### getServoPulseWidth()
+#### getServoPulseWidth()
 Returns the servo pulse width setting on the GPIO.
 
-##### enableInterrupt(edge[, timeout])
+#### enableInterrupt(edge[, timeout])
 - edge - RISING_EDGE, FALLING_EDGE, or EITHER_EDGE
 - timeout - interrupt timeout in milliseconds (optional, defaults to 0 meaning no timeout)
 
@@ -226,12 +226,12 @@ Interrupts can have an optional timeout. The level argument passed to the
 interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout
 expires.
 
-##### disableInterrupt()
+#### disableInterrupt()
 Disables interrupts for the GPIO. Returns this.
 
-#### Events
+### Events
 
-##### Event: 'interrupt'
+#### Event: 'interrupt'
 - level - the GPIO level when the interrupt occured, 0, 1, or TIMEOUT (2)
 
 Emitted on interrupts.
@@ -240,60 +240,60 @@ Interrupts can have an optional timeout. The level argument passed to the
 interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout
 expires.
 
-#### Constants
+### Constants
 
-##### INPUT
+#### INPUT
 Indicates that the GPIO is an input.
 
-##### OUTPUT
+#### OUTPUT
 Indicates that the GPIO is an output.
 
-##### ALT0
+#### ALT0
 Indicates that the GPIO is in alternative mode 0.
 
-##### ALT1
+#### ALT1
 Indicates that the GPIO is in alternative mode 1.
 
-##### ALT2
+#### ALT2
 Indicates that the GPIO is in alternative mode 2.
 
-##### ALT3
+#### ALT3
 Indicates that the GPIO is in alternative mode 3.
 
-##### ALT4
+#### ALT4
 Indicates that the GPIO is in alternative mode 4.
 
-##### ALT5
+#### ALT5
 Indicates that the GPIO is in alternative mode 5.
 
-##### PUD_OFF
+#### PUD_OFF
 Niether the pull-up nor the pull-down resistor should be enabled.
 
-##### PUD_DOWN
+#### PUD_DOWN
 Enable pull-down resistor.
 
-##### PUD_UP
+#### PUD_UP
 Enable pull-up resistor.
 
-##### RISING_EDGE
+#### RISING_EDGE
 Indicates that the GPIO fires interrupts on rising edges.
 
-##### FALLING_EDGE
+#### FALLING_EDGE
 Indicates that the GPIO fires interrupts on falling edges.
 
-##### EITHER_EDGE
+#### EITHER_EDGE
 Indicates that the GPIO fires interrupts on both rising and falling edges.
 
-##### TIMEOUT (2)
+#### TIMEOUT (2)
 The level argument passed to an interrupt event listener when an interrupt
 timeout expires.
 
-##### MIN_GPIO
+#### MIN_GPIO
 The smallest GPIO number.
 
-##### MAX_GPIO
+#### MAX_GPIO
 The largest GPIO number.
 
-##### MAX_USER_GPIO
+#### MAX_USER_GPIO
 The largest user GPIO number.
 
