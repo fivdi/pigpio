@@ -15,16 +15,18 @@ function Gpio(gpio, options) {
 
   this.gpio = +gpio;
 
-  if ('mode' in options) {
-    this.mode(+options.mode);
+  if (typeof options.mode === 'number') {
+    this.mode(options.mode);
   }
 
-  if ('pullUpDown' in options) {
-    this.pullUpDown(+options.pullUpDown);
+  if (typeof options.pullUpDown === 'number') {
+    this.pullUpDown(options.pullUpDown);
   }
 
-  if ('edge' in options) {
-    this.enableInterrupt(+options.edge, +(options.timeout | 0));
+  if (typeof options.edge === 'number') {
+    this.enableInterrupt(options.edge,
+      typeof options.timeout === 'number' ? options.timeout : 0
+    );
   }
 
   EventEmitter.call(this);
