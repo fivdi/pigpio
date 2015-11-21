@@ -13,7 +13,7 @@
   - [digitalWrite(level)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#digitalwritelevel)
 - PWM
   - [analogWrite(dutyCycle)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#analogwritedutycycle)
-  - [hardwarePwmWrite(frequency, dutyCycle)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#hardwarepwmwritefrequencydutycycle)
+  - [hardwarePwmWrite(frequency, dutyCycle)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#hardwarepwmwritefrequency-dutycycle)
   - [getPwmDutyCycle()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getpwmdutycycle)
   - [pwmRange(range)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#pwmrangerange)
   - [getPwmRange()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getpwmrange)
