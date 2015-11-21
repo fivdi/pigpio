@@ -95,6 +95,9 @@ for (gpioNo = Gpio.MIN_GPIO; gpioNo <= Gpio.MAX_GPIO; gpioNo += 1) {
 }
 ```
 
+If an interrupt edge is specified, the Gpio will emit an 'interrupt' event each
+time an interrupt is detected.
+
 Interrupts can have an optional timeout. The level argument passed to the
 interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout
 expires.
