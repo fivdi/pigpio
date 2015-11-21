@@ -66,6 +66,11 @@ Gpio.prototype.analogWrite = function (dutyCycle) {
   return this;
 };
 
+Gpio.prototype.hardwarePwmWrite = function (frequency, dutyCycle) {
+  pigpio.gpioHardwarePWM(this.gpio, +frequency, +dutyCycle);
+  return this;
+};
+
 Gpio.prototype.getPwmDutyCycle = function () {
   return pigpio.gpioGetPWMdutycycle(this.gpio);
 };

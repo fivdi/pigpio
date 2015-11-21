@@ -179,6 +179,25 @@ NAN_METHOD(gpioPWM) {
 }
 
 
+NAN_METHOD(gpioHardwarePWM) {
+  if (info.Length() < 3 ||
+      !info[0]->IsUint32() ||
+      !info[1]->IsUint32() ||
+      !info[2]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioHardwarePWM"));
+  }
+
+  unsigned gpio = info[0]->Uint32Value();
+  unsigned frequency = info[1]->Uint32Value();
+  unsigned dutycycle = info[2]->Uint32Value();
+
+  int rc = gpioHardwarePWM(gpio, frequency, dutycycle);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioHardwarePWM");
+  }
+}
+
+
 NAN_METHOD(gpioGetPWMdutycycle) {
   if (info.Length() < 1 || !info[0]->IsUint32()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMdutycycle"));
@@ -493,6 +512,7 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioWrite", gpioWrite);
 
   SetFunction(target, "gpioPWM", gpioPWM);
+  SetFunction(target, "gpioHardwarePWM", gpioHardwarePWM);
   SetFunction(target, "gpioGetPWMdutycycle", gpioGetPWMdutycycle);
   SetFunction(target, "gpioSetPWMrange", gpioSetPWMrange);
   SetFunction(target, "gpioGetPWMrange", gpioGetPWMrange);

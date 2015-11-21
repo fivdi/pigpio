@@ -1,6 +1,8 @@
 #!/bin/sh
 echo blinky
 node blinky
+echo blinky-pwm
+node blinky-pwm
 echo digital-read-performance
 node digital-read-performance
 echo digital-write-performance

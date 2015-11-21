@@ -13,6 +13,7 @@
   - [digitalWrite(level)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#digitalwritelevel)
 - PWM
   - [analogWrite(dutyCycle)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#analogwritedutycycle)
+  - [hardwarePwmWrite(frequency, dutyCycle)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#hardwarepwmwritefrequencydutycycle)
   - [getPwmDutyCycle()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getpwmdutycycle)
   - [pwmRange(range)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#pwmrangerange)
   - [getPwmRange()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getpwmrange)
@@ -121,9 +122,18 @@ Sets the GPIO level to 0 or 1. If PWM or servo pulses are active on the GPIO
 they are switched off. Returns this.
 
 #### analogWrite(dutyCycle)
-- dutyCycle - an unsigned integer between 0 (off) and range (fully on). Range defaults to 255.
+- dutyCycle - an unsigned integer >= 0 (off) and <= range (fully on). Range defaults to 255.
 
 Starts PWM on the GPIO. Returns this.
+
+#### hardwarePwmWrite(frequency, dutyCycle)
+- frequency - an unsigned integer >= 0 and <= 125000000
+- dutyCycle - an unsigned integer >= 0 (off) and <= 1000000 (fully on).
+
+Starts hardware PWM on the GPIO at the specified frequency and dutycycle.
+Frequencies above 30MHz are unlikely to work.
+
+All models of the Raspberry Pi support hardware PWM on GPIO18.
 
 #### getPwmDutyCycle()
 Returns the PWM duty cycle setting on the GPIO.

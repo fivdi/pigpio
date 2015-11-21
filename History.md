@@ -3,6 +3,7 @@ Unpublished
 
   * export Gpio constructor as exports.Gpio
   * high precision notifications with Notifier
+  * hardware pwm support
 
 0.0.8 / Nov 08 2015
 ===================
