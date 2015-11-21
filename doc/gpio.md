@@ -12,7 +12,7 @@
   - [digitalRead()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#digitalread)
   - [digitalWrite(level)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#digitalwritelevel)
 - PWM
-  - [analogWrite(dutyCycle)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#analogwritedutycycle)
+  - [pwmWrite(dutyCycle)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#pwmwritedutycycle)
   - [hardwarePwmWrite(frequency, dutyCycle)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#hardwarepwmwritefrequency-dutycycle)
   - [getPwmDutyCycle()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getpwmdutycycle)
   - [pwmRange(range)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#pwmrangerange)
@@ -121,7 +121,7 @@ Returns the GPIO level, 0 or 1.
 Sets the GPIO level to 0 or 1. If PWM or servo pulses are active on the GPIO
 they are switched off. Returns this.
 
-#### analogWrite(dutyCycle)
+#### pwmWrite(dutyCycle)
 - dutyCycle - an unsigned integer >= 0 (off) and <= range (fully on). Range defaults to 255.
 
 Starts PWM on the GPIO. Returns this.
@@ -142,7 +142,7 @@ Returns the PWM duty cycle setting on the GPIO.
 - range - an unsigned integer in the range 25 through 40000
 
 Selects the duty cycle range to be used for the gpio. Subsequent calls to
-analogWrite will use a dutycycle between 0 (off) and range (fully on).
+pwmWrite will use a dutycycle between 0 (off) and range (fully on).
 
 If PWM is currently active on the gpio its duty cycle will be scaled to reflect
 the new range. 
@@ -171,7 +171,7 @@ Frequency (Hz) | Range
 20 | 10000
 10 | 20000
 
-The real value set by analogWrite is (dutyCycle * real range) / range. 
+The real value set by pwmWrite is (dutyCycle * real range) / range. 
 
 #### getPwmRange()
 Returns the duty cycle range used for the gpio.

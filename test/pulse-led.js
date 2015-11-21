@@ -9,7 +9,7 @@ var assert = require('assert'),
 iv = setInterval(function () {
   var dutyCycleRead;
 
-  led.analogWrite(dutyCycle);
+  led.pwmWrite(dutyCycle);
 
   dutyCycleRead = led.getPwmDutyCycle();
   assert.strictEqual(dutyCycleRead, dutyCycle,

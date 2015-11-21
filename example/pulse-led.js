@@ -5,7 +5,7 @@ var Gpio = require('../').Gpio,
   dutyCycle = 0;
 
 setInterval(function () {
-  led.analogWrite(dutyCycle);
+  led.pwmWrite(dutyCycle);
 
   dutyCycle += 5;
   if (dutyCycle > 255) {

@@ -61,10 +61,11 @@ Gpio.prototype.digitalWrite = function (level) {
   return this;
 };
 
-Gpio.prototype.analogWrite = function (dutyCycle) {
+Gpio.prototype.pwmWrite = function (dutyCycle) {
   pigpio.gpioPWM(this.gpio, +dutyCycle);
   return this;
 };
+Gpio.prototype.analogWrite = Gpio.prototype.pwmWrite;
 
 Gpio.prototype.hardwarePwmWrite = function (frequency, dutyCycle) {
   pigpio.gpioHardwarePWM(this.gpio, +frequency, +dutyCycle);

@@ -11,7 +11,7 @@ var LED_GPIO = 17;
 
   led.pwmFrequency(8000);
   led.pwmRange(100);
-  led.analogWrite(50);
+  led.pwmWrite(50);
 }());
 
 (function () {
