@@ -10,16 +10,34 @@ var LED_GPIO = 17,
 (function () {
   var led = new Gpio(LED_GPIO, {mode: Gpio.OUTPUT}),
     ledToggles = 0,
+    lastTime = process.hrtime(),
+    minSetIntervalDiff = 0xffffffff,
+    maxSetIntervalDiff = 0,
     iv;
 
-  // put led in known state (off)
-  led.digitalWrite(0);
-
   iv = setInterval(function () {
+    var time = process.hrtime(),
+      diff = Math.floor(((time[0] * 1e9 + time[1]) - (lastTime[0] * 1e9 + lastTime[1])) / 1000);
+
+    lastTime = time;
+
+    if (diff < minSetIntervalDiff) {
+      minSetIntervalDiff = diff;
+    }
+
+    if (diff > maxSetIntervalDiff) {
+      maxSetIntervalDiff = diff;
+    }
+
     led.digitalWrite(led.digitalRead() ^ 1);
+
     ledToggles += 1;
     if (ledToggles === LED_TOGGLES) {
       clearInterval(iv);
+
+      console.log('  led toggles: %d', ledToggles);
+      console.log('  min setInterval diff: %d us', minSetIntervalDiff);
+      console.log('  max setInterval diff: %d us', maxSetIntervalDiff);
     }
   }, 1);
 }());
@@ -27,41 +45,51 @@ var LED_GPIO = 17,
 (function () {
   var ledNotifier = new Notifier({bits: 1 << LED_GPIO}),
     notificationsReceived = 0,
+    lastSeqno,
     lastLedState,
-    iv;
+    lastTick,
+    minTickDiff = 0xffffffff,
+    maxTickDiff = 0;
 
   ledNotifier.stream().on('data', function (buf) {
     var ix = 0;
 
     for (ix = 0; ix < buf.length; ix += Notifier.NOTIFICATION_LENGTH) {
       var seqno = buf.readUInt16LE(ix);
-      var flags = buf.readUInt16LE(ix + 2);
       var tick = buf.readUInt32LE(ix + 4);
       var level = buf.readUInt32LE(ix + 8);
 
-      if (flags & (1 << 6)) {
-        console.log('  ignored alive notification');
-      } else {
-        if (notificationsReceived > 0) {
-          if (lastLedState === (level & (1 << LED_GPIO))) {
-            console.log('  unexpected notification');
-          }
+      if (notificationsReceived > 0) {
+        if (lastLedState === (level & (1 << LED_GPIO))) {
+          console.log('  unexpected notification');
         }
 
-        notificationsReceived += 1;
-        lastLedState = level & (1 << LED_GPIO);
+        if ((lastSeqno + 1) !== seqno) {
+          console.log('  unexpected sequence number');
+        }
+
+        if (tick - lastTick < minTickDiff) {
+          minTickDiff = tick - lastTick;
+        }
+
+        if (tick - lastTick > maxTickDiff) {
+          maxTickDiff = tick - lastTick;
+        }
       }
+
+      notificationsReceived += 1;
+      lastSeqno = seqno;
+      lastLedState = level & (1 << LED_GPIO);
+      lastTick = tick;
     }
 
     if (notificationsReceived >= LED_TOGGLES) {
-      clearInterval(iv);
       ledNotifier.close();
-      console.log('  ' + notificationsReceived + ' notifications received');
+      console.log('  notifications: %d', notificationsReceived);
+      console.log('  last seqno: %d', lastSeqno);
+      console.log('  min tick diff: %d us', minTickDiff);
+      console.log('  max tick diff: %d us', maxTickDiff);
     }
   });
-
-  iv = setInterval(function () {
-    console.log('  ' + notificationsReceived + ' notifications received');
-  }, 1000);
 }());
 
