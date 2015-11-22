@@ -125,16 +125,19 @@ Sets the GPIO level to 0 or 1. If PWM or servo pulses are active on the GPIO
 they are switched off. Returns this.
 
 #### pwmWrite(dutyCycle)
-- dutyCycle - an unsigned integer >= 0 (off) and <= range (fully on). Range defaults to 255.
+- dutyCycle - an unsigned integer >= 0 (off) and <= range (fully on). range defaults to 255.
 
 Starts PWM on the GPIO. Returns this.
+
+Uses DMA to control and schedule the pulse lengths and duty cycles. pwmRange
+can be used to change the default range of 255.
 
 #### hardwarePwmWrite(frequency, dutyCycle)
 - frequency - an unsigned integer >= 0 and <= 125000000
 - dutyCycle - an unsigned integer >= 0 (off) and <= 1000000 (fully on).
 
 Starts hardware PWM on the GPIO at the specified frequency and dutycycle.
-Frequencies above 30MHz are unlikely to work.
+Frequencies above 30MHz are unlikely to work. Returns this.
 
 All models of the Raspberry Pi support hardware PWM on GPIO18.
 
@@ -179,8 +182,13 @@ The real value set by pwmWrite is (dutyCycle * real range) / range.
 #### getPwmRange()
 Returns the duty cycle range used for the gpio.
 
+If hardware PWM is active on the gpio the reported range will be 1000000.
+
 #### getPwmRealRange()
 Returns the real range used for the gpio.
+
+If hardware PWM is active on the gpio the reported real range will be
+approximately 250M divided by the set PWM frequency.
 
 #### pwmFrequency(frequency)
 - frequency - an unsigned integer >= 0
@@ -219,6 +227,9 @@ Frequency (Hz) |
 #### getPwmFrequency()
 Returns the frequency (in hertz) used for the gpio. The default frequency is
 800Hz.
+
+If hardware PWM is active on the gpio the reported frequency will be that set
+by hardwarePwmWrite.
 
 #### servoWrite(pulseWidth)
 - pulseWidth - pulse width in microseconds, an unsigned integer, 0 or a number in the range 500 through 2500
