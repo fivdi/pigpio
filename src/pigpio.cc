@@ -473,7 +473,7 @@ NAN_METHOD(gpioCfgClock) {
 }
 
 
-static void SetConst(
+/*static void SetConst(
   Nan::ADDON_REGISTER_FUNCTION_ARGS_TYPE target,
   const char* name,
   int value
@@ -482,7 +482,7 @@ static void SetConst(
     Nan::New<v8::String>(name).ToLocalChecked(),
     Nan::New<v8::Integer>(value)
   );
-}
+}*/
 
 
 static void SetFunction(
@@ -501,39 +501,39 @@ NAN_MODULE_INIT(InitAll) {
   uv_sem_init(&sem_g, 1);
 
   /* mode constants */
-  SetConst(target, "PI_INPUT", PI_INPUT);
+/*  SetConst(target, "PI_INPUT", PI_INPUT);
   SetConst(target, "PI_OUTPUT", PI_OUTPUT);
   SetConst(target, "PI_ALT0", PI_ALT0);
   SetConst(target, "PI_ALT1", PI_ALT1);
   SetConst(target, "PI_ALT2", PI_ALT2);
   SetConst(target, "PI_ALT3", PI_ALT3);
   SetConst(target, "PI_ALT4", PI_ALT4);
-  SetConst(target, "PI_ALT5", PI_ALT5);
+  SetConst(target, "PI_ALT5", PI_ALT5);*/
 
   /* pud constants */
-  SetConst(target, "PI_PUD_OFF", PI_PUD_OFF);
+/*  SetConst(target, "PI_PUD_OFF", PI_PUD_OFF);
   SetConst(target, "PI_PUD_DOWN", PI_PUD_DOWN);
-  SetConst(target, "PI_PUD_UP", PI_PUD_UP);
+  SetConst(target, "PI_PUD_UP", PI_PUD_UP);*/
 
   /* isr constants */
-  SetConst(target, "RISING_EDGE", RISING_EDGE);
+/*  SetConst(target, "RISING_EDGE", RISING_EDGE);
   SetConst(target, "FALLING_EDGE", FALLING_EDGE);
-  SetConst(target, "EITHER_EDGE", EITHER_EDGE);
+  SetConst(target, "EITHER_EDGE", EITHER_EDGE);*/
 
   /* timeout constant */
-  SetConst(target, "PI_TIMEOUT", PI_TIMEOUT);
+/*  SetConst(target, "PI_TIMEOUT", PI_TIMEOUT); */
 
   /* gpio number constants */
-  SetConst(target, "PI_MIN_GPIO", PI_MIN_GPIO);
+/*  SetConst(target, "PI_MIN_GPIO", PI_MIN_GPIO);
   SetConst(target, "PI_MAX_GPIO", PI_MAX_GPIO);
-  SetConst(target, "PI_MAX_USER_GPIO", PI_MAX_USER_GPIO);
+  SetConst(target, "PI_MAX_USER_GPIO", PI_MAX_USER_GPIO);*/
 
   /* error code constants */
-  SetConst(target, "PI_INIT_FAILED", PI_INIT_FAILED);
+/*  SetConst(target, "PI_INIT_FAILED", PI_INIT_FAILED);*/
 
   /* gpioCfgClock cfgPeripheral constants */
-  SetConst(target, "PI_CLOCK_PWM", PI_CLOCK_PWM);
-  SetConst(target, "PI_CLOCK_PCM", PI_CLOCK_PCM);
+/*  SetConst(target, "PI_CLOCK_PWM", PI_CLOCK_PWM);
+  SetConst(target, "PI_CLOCK_PCM", PI_CLOCK_PCM);*/
 
   /* functions */
   SetFunction(target, "gpioInitialise", gpioInitialise);

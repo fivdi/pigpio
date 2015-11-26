@@ -126,7 +126,7 @@ Gpio.prototype.enableInterrupt = function (edge, timeout) {
 };
 
 Gpio.prototype.disableInterrupt = function () {
-  pigpio.gpioSetISRFunc(this.gpio, pigpio.EITHER_EDGE, 0);
+  pigpio.gpioSetISRFunc(this.gpio, Gpio.EITHER_EDGE, 0);
   return this;
 };
 
@@ -135,32 +135,32 @@ Gpio.prototype.disableInterrupt = function () {
 };*/
 
 /* mode */
-Gpio.INPUT = pigpio.PI_INPUT;
-Gpio.OUTPUT = pigpio.PI_OUTPUT;
-Gpio.ALT0 = pigpio.PI_ALT0;
-Gpio.ALT1 = pigpio.PI_ALT1;
-Gpio.ALT2 = pigpio.PI_ALT2;
-Gpio.ALT3 = pigpio.PI_ALT3;
-Gpio.ALT4 = pigpio.PI_ALT4;
-Gpio.ALT5 = pigpio.PI_ALT5;
+Gpio.INPUT = 0; // PI_INPUT
+Gpio.OUTPUT = 1; //PI_OUTPUT;
+Gpio.ALT0 = 4; // PI_ALT0;
+Gpio.ALT1 = 5; // PI_ALT1;
+Gpio.ALT2 = 6; // PI_ALT2;
+Gpio.ALT3 = 7; // PI_ALT3;
+Gpio.ALT4 = 3; // PI_ALT4;
+Gpio.ALT5 = 2; // PI_ALT5;
 
 /* pud */
-Gpio.PUD_OFF = pigpio.PI_PUD_OFF;
-Gpio.PUD_DOWN = pigpio.PI_PUD_DOWN;
-Gpio.PUD_UP = pigpio.PI_PUD_UP;
+Gpio.PUD_OFF = 0; // PI_PUD_OFF;
+Gpio.PUD_DOWN = 1; // PI_PUD_DOWN;
+Gpio.PUD_UP = 2; // PI_PUD_UP;
 
 /* isr */
-Gpio.RISING_EDGE = pigpio.RISING_EDGE;
-Gpio.FALLING_EDGE = pigpio.FALLING_EDGE;
-Gpio.EITHER_EDGE = pigpio.EITHER_EDGE;
+Gpio.RISING_EDGE = 0; // RISING_EDGE;
+Gpio.FALLING_EDGE = 1; // FALLING_EDGE;
+Gpio.EITHER_EDGE = 2; // EITHER_EDGE;
 
 /* timeout */
-Gpio.TIMEOUT = pigpio.PI_TIMEOUT;
+Gpio.TIMEOUT = 2; // PI_TIMEOUT;
 
 /* gpio numbers */
-Gpio.MIN_GPIO = pigpio.PI_MIN_GPIO;
-Gpio.MAX_GPIO = pigpio.PI_MAX_GPIO;
-Gpio.MAX_USER_GPIO = pigpio.PI_MAX_USER_GPIO;
+Gpio.MIN_GPIO = 0; // PI_MIN_GPIO;
+Gpio.MAX_GPIO = 53; // PI_MAX_GPIO;
+Gpio.MAX_USER_GPIO = 31; // PI_MAX_USER_GPIO;
 
 var NOTIFICATION_PIPE_PATH_PREFIX = '/dev/pigpio';
 
@@ -210,6 +210,6 @@ module.exports.configureClock = function (microseconds, peripheral) {
   initializePigpio();
 };
 
-module.exports.CLOCK_PWM = pigpio.PI_CLOCK_PWM;
-module.exports.CLOCK_PCM = pigpio.PI_CLOCK_PCM;
+module.exports.CLOCK_PWM = 0; // PI_CLOCK_PWM;
+module.exports.CLOCK_PCM = 1; // PI_CLOCK_PCM;
 
