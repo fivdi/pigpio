@@ -3,14 +3,22 @@
 var EventEmitter = require('events').EventEmitter,
   fs = require('fs'),
   pigpio = require('bindings')('pigpio.node'),
-  util = require('util');
+  util = require('util'),
+  initialized = false;
 
-pigpio.gpioInitialise();
+function initializePigpio() {
+  if (!initialized) {
+    pigpio.gpioInitialise();
+    initialized = true;
+  }
+}
 
 function Gpio(gpio, options) {
   if (!(this instanceof Gpio)) {
     return new Gpio(gpio, options);
   }
+
+  initializePigpio();
 
   options = options || {};
 
@@ -161,9 +169,11 @@ function Notifier(options) {
     return new Notifier(options);
   }
 
+  initializePigpio();
+
   options = options || {};
 
-  this.handle = pigpio.gpioNotifyOpen();
+  this.handle = pigpio.gpioNotifyOpenWithSize(1048576);
 
   this.notificationStream =
     fs.createReadStream(NOTIFICATION_PIPE_PATH_PREFIX + this.handle);
@@ -194,4 +204,12 @@ Notifier.prototype.stream = function () {
 };
 
 Notifier.NOTIFICATION_LENGTH = 12;
+
+module.exports.configureClock = function (microseconds, peripheral) {
+  pigpio.gpioCfgClock(+microseconds, +peripheral);
+  initializePigpio();
+};
+
+module.exports.CLOCK_PWM = pigpio.PI_CLOCK_PWM;
+module.exports.CLOCK_PCM = pigpio.PI_CLOCK_PCM;
 

@@ -5,6 +5,9 @@ Unpublished
   * high precision notifications with Notifier
   * hardware pwm support
   * renamed analogWrite to pwmWrite
+  * clock configuration with configureClock
+  * notification pipe size set to 1048576
+  * notification stress test
 
 0.0.8 / Nov 08 2015
 ===================

@@ -401,6 +401,22 @@ NAN_METHOD(gpioNotifyOpen) {
 }
 
 
+NAN_METHOD(gpioNotifyOpenWithSize) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyOpenWithSize"));
+  }
+
+  unsigned bufSize = info[0]->Uint32Value();
+
+  int rc = gpioNotifyOpenWithSize(bufSize);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioNotifyOpen");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+
 NAN_METHOD(gpioNotifyBegin) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyBegin"));
@@ -444,6 +460,19 @@ NAN_METHOD(gpioNotifyClose) {
 }
 
 
+NAN_METHOD(gpioCfgClock) {
+  if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioCfgClock"));
+  }
+
+  unsigned cfgMicros = info[0]->Uint32Value();
+  unsigned cfgPeripheral = info[0]->Uint32Value();
+  unsigned cfgSource = 0;
+
+  gpioCfgClock(cfgMicros, cfgPeripheral, cfgSource);
+}
+
+
 static void SetConst(
   Nan::ADDON_REGISTER_FUNCTION_ARGS_TYPE target,
   const char* name,
@@ -471,7 +500,7 @@ static void SetFunction(
 NAN_MODULE_INIT(InitAll) {
   uv_sem_init(&sem_g, 1);
 
-  /* mode */
+  /* mode constants */
   SetConst(target, "PI_INPUT", PI_INPUT);
   SetConst(target, "PI_OUTPUT", PI_OUTPUT);
   SetConst(target, "PI_ALT0", PI_ALT0);
@@ -481,27 +510,32 @@ NAN_MODULE_INIT(InitAll) {
   SetConst(target, "PI_ALT4", PI_ALT4);
   SetConst(target, "PI_ALT5", PI_ALT5);
 
-  /* pud */
+  /* pud constants */
   SetConst(target, "PI_PUD_OFF", PI_PUD_OFF);
   SetConst(target, "PI_PUD_DOWN", PI_PUD_DOWN);
   SetConst(target, "PI_PUD_UP", PI_PUD_UP);
 
-  /* isr */
+  /* isr constants */
   SetConst(target, "RISING_EDGE", RISING_EDGE);
   SetConst(target, "FALLING_EDGE", FALLING_EDGE);
   SetConst(target, "EITHER_EDGE", EITHER_EDGE);
 
-  /* timeout */
+  /* timeout constant */
   SetConst(target, "PI_TIMEOUT", PI_TIMEOUT);
 
-  /* gpio numbers */
+  /* gpio number constants */
   SetConst(target, "PI_MIN_GPIO", PI_MIN_GPIO);
   SetConst(target, "PI_MAX_GPIO", PI_MAX_GPIO);
   SetConst(target, "PI_MAX_USER_GPIO", PI_MAX_USER_GPIO);
 
-  /* error codes */
+  /* error code constants */
   SetConst(target, "PI_INIT_FAILED", PI_INIT_FAILED);
 
+  /* gpioCfgClock cfgPeripheral constants */
+  SetConst(target, "PI_CLOCK_PWM", PI_CLOCK_PWM);
+  SetConst(target, "PI_CLOCK_PCM", PI_CLOCK_PCM);
+
+  /* functions */
   SetFunction(target, "gpioInitialise", gpioInitialise);
   SetFunction(target, "gpioTerminate", gpioTerminate);
 
@@ -526,9 +560,12 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioSetISRFunc", gpioSetISRFunc);
 
   SetFunction(target, "gpioNotifyOpen", gpioNotifyOpen);
+  SetFunction(target, "gpioNotifyOpenWithSize", gpioNotifyOpenWithSize);
   SetFunction(target, "gpioNotifyBegin", gpioNotifyBegin);
   SetFunction(target, "gpioNotifyPause", gpioNotifyPause);
   SetFunction(target, "gpioNotifyClose", gpioNotifyClose);
+
+  SetFunction(target, "gpioCfgClock", gpioCfgClock);
 }
 
 NODE_MODULE(pigpio, InitAll)
