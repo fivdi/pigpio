@@ -130,6 +130,8 @@ Interrupts per second | 8,665
 
 ## API Documentation
 
+- [Configuration](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md) - pigpio configuration
+
 ### Classes
 
 - [Gpio](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md) - General Purpose Input Output

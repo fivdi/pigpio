@@ -154,28 +154,28 @@ If PWM is currently active on the gpio its duty cycle will be scaled to reflect
 the new range. 
 
 The real range, the number of steps between fully off and fully on for each
-frequency, is given in the following table. 
+frequency, is given in the following table.
 
-Frequency (Hz) | Range
----: | ---:
-8000 | 25
-4000 | 50
-2000 | 100
-1600 | 125
-1000 | 200
-800 | 250
-500 | 400
-400 | 500
-320 | 625
-250 | 800
-200 | 1000
-160 | 1250
-100 | 2000
-80 | 2500
-50 | 4000
-40 | 5000
-20 | 10000
-10 | 20000
+Real Range |
+---: |
+25 |
+50 |
+100 |
+125 |
+200 |
+250 |
+400 |
+500 |
+625 |
+800 |
+1000 |
+1250 |
+2000 |
+2500 |
+4000 |
+5000 |
+10000 |
+20000 |
 
 The real value set by pwmWrite is (dutyCycle * real range) / range. 
 
@@ -193,36 +193,39 @@ approximately 250M divided by the set PWM frequency.
 #### pwmFrequency(frequency)
 - frequency - an unsigned integer >= 0
 
-Sets the frequency in hertz to be used for the gpio. The default frequency is
-800Hz. Returns this.
+Sets the frequency in hertz to be used for the gpio. Returns this.
 
 Each gpio can be independently set to one of 18 different PWM frequencies. 
+
+The selectable frequencies depend upon the sample rate which may be 1, 2, 4, 5,
+8, or 10 microseconds (default 5). The sample rate can be set with the
+configureClock function.
 
 If PWM is currently active on the gpio it will be switched off and then back on
 at the new frequency.
 
-The frequencies are:
+The frequencies for each sample rate are:
 
-Frequency (Hz) |
----: |
-8000 |
-4000 |
-2000 |
-1600 |
-1000 |
-800 |
-500 |
-400 |
-320 |
-250 |
-200 |
-160 |
-100 |
-80 |
-50 |
-40 |
-20 |
-10 |
+1us | 2us | 4us | 5us | 8us | 10us |
+---: | ---: | ---: | ---: | ---: | ---: |
+40000 | 20000 | 10000 | 8000 | 5000 | 4000 |
+20000 | 10000 | 5000 | 4000 | 2500 | 2000 |
+10000 | 5000 | 2500 | 2000 | 1250 | 1000 |
+8000 | 4000 | 2000 | 1600 | 1000 | 800 |
+5000 | 2500 | 1250 | 1000 | 625 | 500 |
+4000 | 2000 | 1000 | 800 | 500 | 400 |
+2500 | 1250 | 625 | 500 | 313 | 250 |
+2000 | 1000 | 500 | 400 | 250 | 200 |
+1600 | 800 | 400 | 320 | 200 | 160 |
+1250 | 625 | 313 | 250 | 156 | 125 |
+1000 | 500 | 250 | 200 | 125 | 100 |
+800 | 400 | 200 | 160 | 100 | 80 |
+500 | 250 | 125 | 100 | 63 | 50 |
+400 | 200 | 100 | 80 | 50 | 40 |
+250 | 125 | 63 | 50 | 31 | 25 |
+200 | 100 | 50 | 40 | 25 | 20 |
+100 | 50 | 25 | 20 | 13 | 10 |
+50 | 25 | 13 | 10 | 6 | 5 |
 
 #### getPwmFrequency()
 Returns the frequency (in hertz) used for the gpio. The default frequency is
