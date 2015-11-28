@@ -1,3 +1,8 @@
+0.1.1 / Nov 28 2015
+===================
+
+  * document dependency on V41 or higher of the pigpio C library
+
 0.1.0 / Nov 28 2015
 ===================
 

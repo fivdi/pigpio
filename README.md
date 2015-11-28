@@ -19,7 +19,8 @@ Fast GPIO, PWM and servo control on the Raspberry Pi with Node.js.
 
 The pigpio package is based on the
 [pigpio C library](https://github.com/joan2937/pigpio) so the C library needs
-to be installed first. This can be achieved with the following commands:
+to be installed first. Version V41 or higher of the pigpio C library is
+required. It can be installed with the following commands:
 
 ```
 wget abyz.co.uk/rpi/pigpio/pigpio.zip
