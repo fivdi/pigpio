@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.1.0 / Nov 28 2015
+===================
 
   * export Gpio constructor as exports.Gpio
   * high precision notifications with Notifier
