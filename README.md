@@ -38,9 +38,9 @@ Note that the `make` command takes a while to complete so please be patient.
 npm install pigpio
 ```
 
-If you're using io.js v3 or Node.js v4 and seeing lots of compile errors when
-installing pigpio, it's very likely that gcc/g++ 4.8 or higher are not
-installed. See
+If you're using io.js v3 or Node.js v4 or higher and seeing lots of compile
+errors when installing pigpio, it's very likely that gcc/g++ 4.8 or higher are
+not installed. See
 [Node.js v4 and native addons](https://github.com/fivdi/onoff/wiki/Node.js-v4-and-native-addons)
 for details.
 
