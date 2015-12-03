@@ -1,7 +1,7 @@
 ## Class Gpio - General Purpose Input Output
 
 #### Methods
-- Coustructor
+- Constructor
   - [Gpio(gpio[, options])](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#gpiogpio-options)
 - Mode
   - [mode(mode)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#modemode)
