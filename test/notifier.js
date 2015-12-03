@@ -45,6 +45,8 @@ var LED_GPIO = 17,
 (function () {
   var ledNotifier = new Notifier({bits: 1 << LED_GPIO}),
     notificationsReceived = 0,
+    seqnoErrors = 0,
+    ledStateErrors = 0,
     lastSeqno,
     lastLedState,
     lastTick,
@@ -61,11 +63,13 @@ var LED_GPIO = 17,
 
       if (notificationsReceived > 0) {
         if (lastLedState === (level & (1 << LED_GPIO))) {
-          console.log('  unexpected notification');
+          console.log('  unexpected led state');
+          ledStateErrors += 1;
         }
 
         if ((lastSeqno + 1) !== seqno) {
-          console.log('  unexpected sequence number');
+          console.log('  seqno error, was %d, expected %d', seqno, lastSeqno + 1);
+          seqnoErrors += 1;
         }
 
         if (tick - lastTick < minTickDiff) {
@@ -86,7 +90,8 @@ var LED_GPIO = 17,
     if (notificationsReceived >= LED_TOGGLES) {
       ledNotifier.close();
       console.log('  notifications: %d', notificationsReceived);
-      console.log('  last seqno: %d', lastSeqno);
+      console.log('  seqno errors: %d', seqnoErrors);
+      console.log('  led state errors: %d', ledStateErrors);
       console.log('  min tick diff: %d us', minTickDiff);
       console.log('  max tick diff: %d us', maxTickDiff);
     }

@@ -19,6 +19,8 @@ pigpio.configureClock(1, pigpio.CLOCK_PCM);
   var ledNotifier = new Notifier({bits: 1 << LED_GPIO}),
     notificationsReceived = 0,
     events = 0,
+    seqnoErrors = 0,
+    ledStateErrors = 0,
     lastSeqno,
     lastLedState,
     lastTick,
@@ -31,7 +33,8 @@ pigpio.configureClock(1, pigpio.CLOCK_PCM);
     console.log();
     console.log('  events: %d', events);
     console.log('  notifications: %d', notificationsReceived);
-    console.log('  last seqno: %d', lastSeqno);
+    console.log('  seqno errors: %d', seqnoErrors);
+    console.log('  led state errors: %d', ledStateErrors);
     console.log('  expected tick diff: %d us', 1000000 / (FREQUENCY * 2));
     console.log('  min tick diff: %d us', minTickDiff);
     console.log('  max tick diff: %d us', maxTickDiff);
@@ -67,11 +70,13 @@ pigpio.configureClock(1, pigpio.CLOCK_PCM);
 
       if (notificationsReceived > 0) {
         if (lastLedState === (level & (1 << LED_GPIO))) {
-          console.log('  unexpected notification');
+          console.log('  unexpected led state');
+          ledStateErrors += 1;
         }
 
         if (((lastSeqno + 1) & 0xffff) !== seqno) {
           console.log('  seqno error, was %d, expected %d', seqno, lastSeqno + 1);
+          seqnoErrors += 1;
         }
 
         if (tick - lastTick < minTickDiff) {
