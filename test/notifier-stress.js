@@ -54,7 +54,7 @@ pigpio.configureClock(1, pigpio.CLOCK_PCM);
       buf = Buffer.concat([restBuf, buf]);
     }
 
-    entries = Math.floor(buf.length / Notifier.NOTIFICATION_LENGTH),
+    entries = Math.floor(buf.length / Notifier.NOTIFICATION_LENGTH);
     rest = buf.length % Notifier.NOTIFICATION_LENGTH;
 
     if (rest === 0) {
