@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * include errno.h for node v0.10.29
+
 0.1.1 / Nov 28 2015
 ===================
 

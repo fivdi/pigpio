@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <pigpio.h>
 #include <nan.h>
 
