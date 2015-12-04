@@ -4,7 +4,6 @@ var assert = require('assert'),
   Gpio = require('../').Gpio,
   iv,
   led = new Gpio(18, {mode: Gpio.OUTPUT}),
-  frequency,
   dutyCycle;
 
 assert.strictEqual(led.getPwmRange(), 255, 'expected pwm range to be 255');
