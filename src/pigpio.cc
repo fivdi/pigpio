@@ -90,7 +90,7 @@ NAN_METHOD(gpioTerminate) {
 
 NAN_METHOD(gpioSetMode) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetMode"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetMode", ""));
   }
 
   unsigned gpio = info[0]->Uint32Value();
@@ -105,7 +105,7 @@ NAN_METHOD(gpioSetMode) {
 
 NAN_METHOD(gpioGetMode) {
   if (info.Length() < 1 || !info[0]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetMode"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetMode", ""));
   }
 
   unsigned gpio = info[0]->Uint32Value();
@@ -121,7 +121,7 @@ NAN_METHOD(gpioGetMode) {
 
 NAN_METHOD(gpioSetPullUpDown) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPullUpDown"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPullUpDown", ""));
   }
 
   unsigned gpio = info[0]->Uint32Value();
@@ -136,7 +136,7 @@ NAN_METHOD(gpioSetPullUpDown) {
 
 NAN_METHOD(gpioRead) {
   if (info.Length() < 1 || !info[0]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioRead"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioRead", ""));
   }
 
   unsigned gpio = info[0]->Uint32Value();
@@ -152,7 +152,7 @@ NAN_METHOD(gpioRead) {
 
 NAN_METHOD(gpioWrite) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPullUpDown"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPullUpDown", ""));
   }
 
   unsigned gpio = info[0]->Uint32Value();
@@ -167,7 +167,7 @@ NAN_METHOD(gpioWrite) {
 
 NAN_METHOD(gpioPWM) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioPWM"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioPWM", ""));
   }
 
   unsigned user_gpio = info[0]->Uint32Value();
@@ -185,7 +185,7 @@ NAN_METHOD(gpioHardwarePWM) {
       !info[0]->IsUint32() ||
       !info[1]->IsUint32() ||
       !info[2]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioHardwarePWM"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioHardwarePWM", ""));
   }
 
   unsigned gpio = info[0]->Uint32Value();
@@ -201,7 +201,7 @@ NAN_METHOD(gpioHardwarePWM) {
 
 NAN_METHOD(gpioGetPWMdutycycle) {
   if (info.Length() < 1 || !info[0]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMdutycycle"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMdutycycle", ""));
   }
 
   unsigned user_gpio = info[0]->Uint32Value();
@@ -217,7 +217,7 @@ NAN_METHOD(gpioGetPWMdutycycle) {
 
 NAN_METHOD(gpioSetPWMrange) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPWMrange"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPWMrange", ""));
   }
 
   unsigned user_gpio = info[0]->Uint32Value();
@@ -232,7 +232,7 @@ NAN_METHOD(gpioSetPWMrange) {
 
 NAN_METHOD(gpioGetPWMrange) {
   if (info.Length() < 1 || !info[0]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMrange"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMrange", ""));
   }
 
   unsigned user_gpio = info[0]->Uint32Value();
@@ -248,7 +248,7 @@ NAN_METHOD(gpioGetPWMrange) {
 
 NAN_METHOD(gpioGetPWMrealRange) {
   if (info.Length() < 1 || !info[0]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMrealRange"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMrealRange", ""));
   }
 
   unsigned user_gpio = info[0]->Uint32Value();
@@ -264,7 +264,7 @@ NAN_METHOD(gpioGetPWMrealRange) {
 
 NAN_METHOD(gpioSetPWMfrequency) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPWMfrequency"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPWMfrequency", ""));
   }
 
   unsigned user_gpio = info[0]->Uint32Value();
@@ -279,7 +279,7 @@ NAN_METHOD(gpioSetPWMfrequency) {
 
 NAN_METHOD(gpioGetPWMfrequency) {
   if (info.Length() < 1 || !info[0]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMfrequency"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMfrequency", ""));
   }
 
   unsigned user_gpio = info[0]->Uint32Value();
@@ -295,7 +295,7 @@ NAN_METHOD(gpioGetPWMfrequency) {
 
 NAN_METHOD(gpioServo) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioServo"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioServo", ""));
   }
 
   unsigned user_gpio = info[0]->Uint32Value();
@@ -310,7 +310,7 @@ NAN_METHOD(gpioServo) {
 
 NAN_METHOD(gpioGetServoPulsewidth) {
   if (info.Length() < 1 || !info[0]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetServoPulsewidth"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetServoPulsewidth", ""));
   }
 
   unsigned user_gpio = info[0]->Uint32Value();
@@ -362,14 +362,14 @@ static NAN_METHOD(gpioSetISRFunc) {
       !info[0]->IsUint32() ||
       !info[1]->IsUint32() ||
       !info[2]->IsInt32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetISRFunc"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetISRFunc", ""));
   }
 
   if (info.Length() >= 4 &&
       !info[3]->IsFunction() &&
       !info[3]->IsNull() &&
       !info[3]->IsUndefined()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetISRFunc"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetISRFunc", ""));
   }
 
   unsigned user_gpio = info[0]->Uint32Value();
@@ -404,7 +404,7 @@ NAN_METHOD(gpioNotifyOpen) {
 
 NAN_METHOD(gpioNotifyOpenWithSize) {
   if (info.Length() < 1 || !info[0]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyOpenWithSize"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyOpenWithSize", ""));
   }
 
   unsigned bufSize = info[0]->Uint32Value();
@@ -420,7 +420,7 @@ NAN_METHOD(gpioNotifyOpenWithSize) {
 
 NAN_METHOD(gpioNotifyBegin) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyBegin"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyBegin", ""));
   }
 
   unsigned handle = info[0]->Uint32Value();
@@ -435,7 +435,7 @@ NAN_METHOD(gpioNotifyBegin) {
 
 NAN_METHOD(gpioNotifyPause) {
   if (info.Length() < 1 || !info[0]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyPause"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyPause", ""));
   }
 
   unsigned handle = info[0]->Uint32Value();
@@ -449,7 +449,7 @@ NAN_METHOD(gpioNotifyPause) {
 
 NAN_METHOD(gpioNotifyClose) {
   if (info.Length() < 1 || !info[0]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyClose"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyClose", ""));
   }
 
   unsigned handle = info[0]->Uint32Value();
@@ -463,7 +463,7 @@ NAN_METHOD(gpioNotifyClose) {
 
 NAN_METHOD(gpioCfgClock) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioCfgClock"));
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioCfgClock", ""));
   }
 
   unsigned cfgMicros = info[0]->Uint32Value();
