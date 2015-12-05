@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.1.3 / Dec 05 2015
+===================
 
   * prevent Nan::ErrnoException related segmentation faults in v0.10.29
 
