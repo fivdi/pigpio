@@ -165,6 +165,22 @@ NAN_METHOD(gpioWrite) {
 }
 
 
+NAN_METHOD(gpioTrigger) {
+  if (info.Length() < 3 || !info[0]->IsUint32() || !info[1]->IsUint32() || !info[2]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioTrigger", ""));
+  }
+
+  unsigned gpio = info[0]->Uint32Value();
+  unsigned pulseLen = info[1]->Uint32Value();
+  unsigned level = info[2]->Uint32Value();
+
+  int rc = gpioTrigger(gpio, pulseLen, level);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioTrigger");
+  }
+}
+
+
 NAN_METHOD(gpioPWM) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioPWM", ""));
@@ -542,9 +558,12 @@ NAN_MODULE_INIT(InitAll) {
 
   SetFunction(target, "gpioSetMode", gpioSetMode);
   SetFunction(target, "gpioGetMode", gpioGetMode);
+
   SetFunction(target, "gpioSetPullUpDown", gpioSetPullUpDown);
+
   SetFunction(target, "gpioRead", gpioRead);
   SetFunction(target, "gpioWrite", gpioWrite);
+  SetFunction(target, "gpioTrigger", gpioTrigger);
 
   SetFunction(target, "gpioPWM", gpioPWM);
   SetFunction(target, "gpioHardwarePWM", gpioHardwarePWM);

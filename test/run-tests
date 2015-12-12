@@ -37,4 +37,6 @@ echo pwm
 node pwm
 echo servo-control
 node servo-control
+echo trigger-led
+node trigger-led
 

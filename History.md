@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * trigger pulse generation
+
 0.1.3 / Dec 05 2015
 ===================
 

@@ -11,6 +11,7 @@
 - Digital IO
   - [digitalRead()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#digitalread)
   - [digitalWrite(level)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#digitalwritelevel)
+  - [trigger(pulseLen, level)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#triggerpulselen-level)
 - PWM
   - [pwmWrite(dutyCycle)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#pwmwritedutycycle)
   - [hardwarePwmWrite(frequency, dutyCycle)](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#hardwarepwmwritefrequency-dutycycle)
@@ -123,6 +124,13 @@ Returns the GPIO level, 0 or 1.
 
 Sets the GPIO level to 0 or 1. If PWM or servo pulses are active on the GPIO
 they are switched off. Returns this.
+
+#### trigger(pulseLen, level)
+- pulseLen - pulse length in microseconds (1 - 100)
+- level - 0 or 1
+
+This function sends a trigger pulse to a gpio. The gpio is set to level for
+pulseLen microseconds and then reset to not level. 
 
 #### pwmWrite(dutyCycle)
 - dutyCycle - an unsigned integer >= 0 (off) and <= range (fully on). range defaults to 255.

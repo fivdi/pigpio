@@ -69,6 +69,11 @@ Gpio.prototype.digitalWrite = function (level) {
   return this;
 };
 
+Gpio.prototype.trigger = function (pulseLen, level) {
+  pigpio.gpioTrigger(this.gpio, +pulseLen, +level);
+  return this;
+};
+
 Gpio.prototype.pwmWrite = function (dutyCycle) {
   pigpio.gpioPWM(this.gpio, +dutyCycle);
   return this;
