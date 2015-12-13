@@ -13,6 +13,10 @@ function initializePigpio() {
   }
 }
 
+/* ------------------------------------------------------------------------ */
+/* Gpio                                                                     */
+/* ------------------------------------------------------------------------ */
+
 function Gpio(gpio, options) {
   if (!(this instanceof Gpio)) {
     return new Gpio(gpio, options);
@@ -167,6 +171,61 @@ Gpio.MIN_GPIO = 0; // PI_MIN_GPIO;
 Gpio.MAX_GPIO = 53; // PI_MAX_GPIO;
 Gpio.MAX_USER_GPIO = 31; // PI_MAX_USER_GPIO;
 
+/* ------------------------------------------------------------------------ */
+/* GpioBank                                                                 */
+/* ------------------------------------------------------------------------ */
+
+function GpioBank(bank) {
+  if (!(this instanceof GpioBank)) {
+    return new GpioBank(bank);
+  }
+
+  initializePigpio();
+
+  this.bankNo = +bank || GpioBank.BANK1;
+}
+
+module.exports.GpioBank = GpioBank;
+
+GpioBank.prototype.read = function () {
+  if (this.bankNo === GpioBank.BANK1) {
+    return pigpio.GpioReadBits_0_31();
+  } else if (this.bankNo === GpioBank.BANK2) {
+    return pigpio.GpioReadBits_32_53();
+  }
+};
+
+GpioBank.prototype.set = function (bits) {
+  if (this.bankNo === GpioBank.BANK1) {
+    pigpio.GpioWriteBitsSet_0_31(+bits);
+  } else if (this.bankNo === GpioBank.BANK2) {
+    pigpio.GpioWriteBitsSet_32_53(+bits);
+  }
+
+  return this;
+};
+
+GpioBank.prototype.clear = function (bits) {
+  if (this.bankNo === GpioBank.BANK1) {
+    pigpio.GpioWriteBitsClear_0_31(+bits);
+  } else if (this.bankNo === GpioBank.BANK2) {
+    pigpio.GpioWriteBitsClear_32_53(+bits);
+  }
+
+  return this;
+};
+
+GpioBank.prototype.bank = function () {
+  return this.bankNo;
+};
+
+GpioBank.BANK1 = 1;
+GpioBank.BANK2 = 2;
+
+/* ------------------------------------------------------------------------ */
+/* Notifier                                                                 */
+/* ------------------------------------------------------------------------ */
+
 var NOTIFICATION_PIPE_PATH_PREFIX = '/dev/pigpio';
 
 function Notifier(options) {
@@ -209,6 +268,10 @@ Notifier.prototype.stream = function () {
 };
 
 Notifier.NOTIFICATION_LENGTH = 12;
+
+/* ------------------------------------------------------------------------ */
+/* Configuration                                                            */
+/* ------------------------------------------------------------------------ */
 
 module.exports.configureClock = function (microseconds, peripheral) {
   pigpio.gpioCfgClock(+microseconds, +peripheral);

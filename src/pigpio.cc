@@ -10,6 +10,12 @@ static void gpioISREventLoopHandler(uv_async_t* handle, int status);
 
 // TODO errors returned by uv calls are ignored
 
+
+/* ------------------------------------------------------------------------ */
+/* Gpio                                                                     */
+/* ------------------------------------------------------------------------ */
+
+
 class GpioISR_t {
 public:
   GpioISR_t() : callback_(0) {
@@ -408,6 +414,89 @@ static NAN_METHOD(gpioSetISRFunc) {
 }
 
 
+/* ------------------------------------------------------------------------ */
+/* GpioBank                                                                 */
+/* ------------------------------------------------------------------------ */
+
+
+NAN_METHOD(GpioReadBits_0_31) {
+  info.GetReturnValue().Set(gpioRead_Bits_0_31());
+}
+
+
+NAN_METHOD(GpioReadBits_32_53) {
+  info.GetReturnValue().Set(gpioRead_Bits_32_53());
+}
+
+
+NAN_METHOD(GpioWriteBitsSet_0_31) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "GpioWriteBitsSet_0_31", ""));
+  }
+
+  unsigned bits = info[0]->Uint32Value();
+
+  int rc = gpioWrite_Bits_0_31_Set(bits);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "GpioWriteBitsSet_0_31");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+
+NAN_METHOD(GpioWriteBitsSet_32_53) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "GpioWriteBitsSet_32_53", ""));
+  }
+
+  unsigned bits = info[0]->Uint32Value();
+
+  int rc = gpioWrite_Bits_32_53_Set(bits);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "GpioWriteBitsSet_32_53");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+
+NAN_METHOD(GpioWriteBitsClear_0_31) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "GpioWriteBitsClear_0_31", ""));
+  }
+
+  unsigned bits = info[0]->Uint32Value();
+
+  int rc = gpioWrite_Bits_0_31_Clear(bits);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "GpioWriteBitsClear_0_31");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+
+NAN_METHOD(GpioWriteBitsClear_32_53) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "GpioWriteBitsClear_32_53", ""));
+  }
+
+  unsigned bits = info[0]->Uint32Value();
+
+  int rc = gpioWrite_Bits_32_53_Clear(bits);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "GpioWriteBitsClear_32_53");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+/* ------------------------------------------------------------------------ */
+/* Notifier                                                                 */
+/* ------------------------------------------------------------------------ */
+
+
 NAN_METHOD(gpioNotifyOpen) {
   int rc = gpioNotifyOpen();
   if (rc < 0) {
@@ -475,6 +564,11 @@ NAN_METHOD(gpioNotifyClose) {
     return ThrowPigpioError(rc, "gpioNotifyClose");
   }
 }
+
+
+/* ------------------------------------------------------------------------ */
+/* Configuration                                                            */
+/* ------------------------------------------------------------------------ */
 
 
 NAN_METHOD(gpioCfgClock) {
@@ -578,6 +672,13 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioGetServoPulsewidth", gpioGetServoPulsewidth);
 
   SetFunction(target, "gpioSetISRFunc", gpioSetISRFunc);
+
+  SetFunction(target, "GpioReadBits_0_31", GpioReadBits_0_31);
+  SetFunction(target, "GpioReadBits_32_53", GpioReadBits_32_53);
+  SetFunction(target, "GpioWriteBitsSet_0_31", GpioWriteBitsSet_0_31);
+  SetFunction(target, "GpioWriteBitsSet_32_53", GpioWriteBitsSet_32_53);
+  SetFunction(target, "GpioWriteBitsClear_0_31", GpioWriteBitsClear_0_31);
+  SetFunction(target, "GpioWriteBitsClear_32_53", GpioWriteBitsClear_32_53);
 
   SetFunction(target, "gpioNotifyOpen", gpioNotifyOpen);
   SetFunction(target, "gpioNotifyOpenWithSize", gpioNotifyOpenWithSize);

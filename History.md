@@ -2,6 +2,7 @@ Unpublished
 ===========
 
   * trigger pulse generation
+  * banked gpio
 
 0.1.3 / Dec 05 2015
 ===================

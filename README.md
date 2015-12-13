@@ -11,6 +11,7 @@ Fast GPIO, PWM and servo control on the Raspberry Pi with Node.js.
    * Multiple frequencies and duty cycle ranges supported
  * Servo control on any of GPIOs 0 through 31
  * Trigger pulse generation
+ * Read or write up to 32 GPIOs as one operation with banked GPIO
  * Pull up/down resistors
  * Low latency interrupt handlers
    * Handle up to 8500 interrupts per second
@@ -142,4 +143,5 @@ Interrupts per second | 8,665
 ### Classes
 
 - [Gpio](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md) - General Purpose Input Output
+- [GpioBank](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md) - Banked General Purpose Input Output
 

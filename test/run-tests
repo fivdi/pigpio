@@ -1,4 +1,6 @@
 #!/bin/sh
+echo banked-leds
+node banked-leds
 echo blinky
 node blinky
 echo blinky-pwm
