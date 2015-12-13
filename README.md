@@ -8,6 +8,7 @@ Fast GPIO, PWM and servo control on the Raspberry Pi with Node.js.
    * Up to 1.3 million digital writes per second
    * Up to 1.2 million digital reads per second
  * PWM on any of GPIOs 0 through 31
+   * Multiple frequencies and duty cycle ranges supported
  * Servo control on any of GPIOs 0 through 31
  * Trigger pulse generation
  * Pull up/down resistors

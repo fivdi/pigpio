@@ -212,7 +212,7 @@ configureClock function.
 If PWM is currently active on the gpio it will be switched off and then back on
 at the new frequency.
 
-The frequencies for each sample rate are:
+The frequencies in hertz for each sample rate are:
 
 1us | 2us | 4us | 5us | 8us | 10us |
 ---: | ---: | ---: | ---: | ---: | ---: |
