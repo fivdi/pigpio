@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.2.0 / Dec 13 2015
+===================
 
   * trigger pulse generation
   * banked gpio
