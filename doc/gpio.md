@@ -129,7 +129,7 @@ they are switched off. Returns this.
 - pulseLen - pulse length in microseconds (1 - 100)
 - level - 0 or 1
 
-This function sends a trigger pulse to a gpio. The gpio is set to level for
+This function sends a trigger pulse to a GPIO. The GPIO is set to level for
 pulseLen microseconds and then reset to not level. 
 
 #### pwmWrite(dutyCycle)
@@ -155,10 +155,10 @@ Returns the PWM duty cycle setting on the GPIO.
 #### pwmRange(range)
 - range - an unsigned integer in the range 25 through 40000
 
-Selects the duty cycle range to be used for the gpio. Subsequent calls to
+Selects the duty cycle range to be used for the GPIO. Subsequent calls to
 pwmWrite will use a dutycycle between 0 (off) and range (fully on).
 
-If PWM is currently active on the gpio its duty cycle will be scaled to reflect
+If PWM is currently active on the GPIO its duty cycle will be scaled to reflect
 the new range. 
 
 The real range, the number of steps between fully off and fully on for each
@@ -188,28 +188,28 @@ Real Range |
 The real value set by pwmWrite is (dutyCycle * real range) / range. 
 
 #### getPwmRange()
-Returns the duty cycle range used for the gpio.
+Returns the duty cycle range used for the GPIO.
 
-If hardware PWM is active on the gpio the reported range will be 1000000.
+If hardware PWM is active on the GPIO the reported range will be 1000000.
 
 #### getPwmRealRange()
-Returns the real range used for the gpio.
+Returns the real range used for the GPIO.
 
-If hardware PWM is active on the gpio the reported real range will be
+If hardware PWM is active on the GPIO the reported real range will be
 approximately 250M divided by the set PWM frequency.
 
 #### pwmFrequency(frequency)
 - frequency - an unsigned integer >= 0
 
-Sets the frequency in hertz to be used for the gpio. Returns this.
+Sets the frequency in hertz to be used for the GPIO. Returns this.
 
-Each gpio can be independently set to one of 18 different PWM frequencies. 
+Each GPIO can be independently set to one of 18 different PWM frequencies. 
 
 The selectable frequencies depend upon the sample rate which may be 1, 2, 4, 5,
 8, or 10 microseconds (default 5). The sample rate can be set with the
 configureClock function.
 
-If PWM is currently active on the gpio it will be switched off and then back on
+If PWM is currently active on the GPIO it will be switched off and then back on
 at the new frequency.
 
 The frequencies in hertz for each sample rate are:
@@ -236,10 +236,10 @@ The frequencies in hertz for each sample rate are:
 50 | 25 | 13 | 10 | 6 | 5 |
 
 #### getPwmFrequency()
-Returns the frequency (in hertz) used for the gpio. The default frequency is
+Returns the frequency (in hertz) used for the GPIO. The default frequency is
 800Hz.
 
-If hardware PWM is active on the gpio the reported frequency will be that set
+If hardware PWM is active on the GPIO the reported frequency will be that set
 by hardwarePwmWrite.
 
 #### servoWrite(pulseWidth)
