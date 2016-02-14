@@ -119,7 +119,7 @@ setInterval(function () {
 Turn the LED connected to GPIO17 on for 15 microseconds once per second and
 use alerts to monitor how long the LED was turned on for.
 
-```
+```js
 // Assumption: the LED is off when the program is started
 
 var Gpio = require('pigpio').Gpio,
