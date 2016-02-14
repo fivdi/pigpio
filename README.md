@@ -1,22 +1,22 @@
 # pigpio
 
-Fast GPIO, PWM and servo control on the Raspberry Pi with Node.js.
+Fast GPIO, PWM, and servo control on the Raspberry Pi with Node.js.
 
 ## Features
 
- * Digital read and write
+ * Digital IO
    * Up to 1.3 million digital writes per second
    * Up to 1.2 million digital reads per second
  * PWM on any of GPIOs 0 through 31
    * Multiple frequencies and duty cycle ranges supported
  * Servo control on any of GPIOs 0 through 31
- * Trigger pulse generation
- * Read or write up to 32 GPIOs as one operation with banked GPIO
- * Pull up/down resistors
  * Low latency interrupt handlers
    * Handle up to 8500 interrupts per second
  * Alerts when any of GPIOs 0 through 31 change state
-   * Alerts receive the time of the event accurate to a few microseconds
+   * Alerts receive the time of the state change accurate to a few microseconds
+ * Read or write up to 32 GPIOs as one operation with banked GPIO
+ * Trigger pulse generation
+ * Pull up/down resistor configuration
 
 ## Installation
 
@@ -35,7 +35,12 @@ make
 sudo make install
 ```
 
-Note that the `make` command takes a while to complete so please be patient.
+The `make` command may take a while to complete so please be patient.
+
+Installing the pigpio C library will also install a number of utilities. One of
+these utilities is pigpiod which launches the pigpio library as a deamon. This
+utility should not be used as the pigpio Node.js module uses the C library
+directly.
 
 ### Step 2
 
@@ -165,14 +170,14 @@ The average of ten runs of these tests are shown in the table below.
  Name | Description
 :--- | :---
 Pi Model | Raspberry Pi 2 Model B V1.1
-OS | Raspbian Jessie 2015-09-24
-Kernel | 4.1.7-v7+
-Node.js | v4.2.1 armv7l
-pigpio | v0.0.3
-pigpio C library | V39
-Reads per second | 1,226,264
-Writes per second | 1,307,190
-Interrupts per second | 8,665
+OS | Raspbian Jessie 2016-02-09
+Kernel | 4.1.17-v7+
+Node.js | v5.6.0 armv7l
+pigpio | v0.3.0
+pigpio C library | V45
+Reads per second | 1,232,588
+Writes per second | 1,323,039
+Interrupts per second | 8,881
 
 ## API Documentation
 

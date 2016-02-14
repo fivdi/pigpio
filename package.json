@@ -1,7 +1,7 @@
 {
   "name": "pigpio",
   "version": "0.3.0",
-  "description": "Fast GPIO, PWM and servo control on the Raspberry Pi with Node.js",
+  "description": "Fast GPIO, PWM, and servo control on the Raspberry Pi with Node.js",
   "main": "pigpio.js",
   "directories": {
     "example": "example",
