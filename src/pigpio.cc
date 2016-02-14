@@ -4,8 +4,10 @@
 
 #if NODE_VERSION_AT_LEAST(0, 11, 13)
 static void gpioISREventLoopHandler(uv_async_t* handle);
+static void gpioAlertEventLoopHandler(uv_async_t* handle);
 #else
 static void gpioISREventLoopHandler(uv_async_t* handle, int status);
+static void gpioAlertEventLoopHandler(uv_async_t* handle, int status);
 #endif
 
 // TODO errors returned by uv calls are ignored
@@ -16,16 +18,12 @@ static void gpioISREventLoopHandler(uv_async_t* handle, int status);
 /* ------------------------------------------------------------------------ */
 
 
-class GpioISR_t {
+class GpioCallback_t {
 public:
-  GpioISR_t() : callback_(0) {
-    uv_async_init(uv_default_loop(), &async_, gpioISREventLoopHandler);
-
-    // Prevent async from keeping event loop alive, for the time being.
-    uv_unref((uv_handle_t *) &async_);
+  GpioCallback_t() : callback_(0) {
   }
 
-  ~GpioISR_t() {
+  virtual ~GpioCallback_t() {
     if (callback_) {
       uv_unref((uv_handle_t *) &async_);
       delete callback_;
@@ -57,13 +55,38 @@ public:
     return callback_;
   }
 
-private:
+protected:
   uv_async_t async_;
+
+private:
   Nan::Callback *callback_;
 };
 
 
+class GpioISR_t : public GpioCallback_t {
+public:
+  GpioISR_t() : GpioCallback_t() {
+    uv_async_init(uv_default_loop(), &async_, gpioISREventLoopHandler);
+
+    // Prevent async from keeping event loop alive, for the time being.
+    uv_unref((uv_handle_t *) &async_);
+  }
+};
+
+
+class GpioAlert_t : public GpioCallback_t {
+public:
+  GpioAlert_t() : GpioCallback_t() {
+    uv_async_init(uv_default_loop(), &async_, gpioAlertEventLoopHandler);
+
+    // Prevent async from keeping event loop alive, for the time being.
+    uv_unref((uv_handle_t *) &async_);
+  }
+};
+
+
 static GpioISR_t gpioISR_g[PI_MAX_USER_GPIO + 1];
+static GpioAlert_t gpioAlert_g[PI_MAX_USER_GPIO + 1];
 static int gpio_g;
 static int level_g;
 static uint32_t tick_g;
@@ -414,6 +437,70 @@ static NAN_METHOD(gpioSetISRFunc) {
 }
 
 
+// gpioAlertHandler is not executed in the event loop thread
+static void gpioAlertHandler(int gpio, int level, uint32_t tick) {
+  uv_sem_wait(&sem_g);
+
+  gpio_g = gpio;
+  level_g = level;
+  tick_g = tick;
+
+  gpioAlert_g[gpio].AsyncSend();
+}
+
+
+// gpioAlertEventLoopHandler is executed in the event loop thread.
+#if NODE_VERSION_AT_LEAST(0, 11, 13)
+static void gpioAlertEventLoopHandler(uv_async_t* handle) {
+#else
+static void gpioAlertEventLoopHandler(uv_async_t* handle, int status) {
+#endif
+  Nan::HandleScope scope;
+
+  if (gpioAlert_g[gpio_g].Callback()) {
+    v8::Local<v8::Value> args[3] = {
+      Nan::New<v8::Integer>(gpio_g),
+      Nan::New<v8::Integer>(level_g),
+      Nan::New<v8::Integer>(tick_g)
+    };
+    gpioAlert_g[gpio_g].Callback()->Call(3, args);
+  }
+
+  uv_sem_post(&sem_g);
+}
+
+
+static NAN_METHOD(gpioSetAlertFunc) {
+  if (info.Length() < 1 ||
+      !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetAlertFunc"));
+  }
+
+  if (info.Length() >= 2 &&
+      !info[1]->IsFunction() &&
+      !info[1]->IsNull() &&
+      !info[1]->IsUndefined()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetAlertFunc"));
+  }
+
+  unsigned user_gpio = info[0]->Uint32Value();
+  Nan::Callback *callback = 0;
+  gpioAlertFunc_t alertFunc = 0;
+
+  if (info.Length() >= 2 && info[1]->IsFunction()) {
+    callback = new Nan::Callback(info[1].As<v8::Function>());
+    alertFunc = gpioAlertHandler;
+  }
+
+  gpioAlert_g[user_gpio].SetCallback(callback);
+
+  int rc = gpioSetAlertFunc(user_gpio, alertFunc);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioSetAlertFunc");
+  }
+}
+
+
 /* ------------------------------------------------------------------------ */
 /* GpioBank                                                                 */
 /* ------------------------------------------------------------------------ */
@@ -672,6 +759,7 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioGetServoPulsewidth", gpioGetServoPulsewidth);
 
   SetFunction(target, "gpioSetISRFunc", gpioSetISRFunc);
+  SetFunction(target, "gpioSetAlertFunc", gpioSetAlertFunc);
 
   SetFunction(target, "GpioReadBits_0_31", GpioReadBits_0_31);
   SetFunction(target, "GpioReadBits_32_53", GpioReadBits_32_53);

@@ -42,6 +42,10 @@ function Gpio(gpio, options) {
     );
   }
 
+  if (typeof options.alert === "boolean" && options.alert) {
+    this.enableAlert();
+  }
+
   EventEmitter.call(this);
 }
 
@@ -136,6 +140,20 @@ Gpio.prototype.enableInterrupt = function (edge, timeout) {
 
 Gpio.prototype.disableInterrupt = function () {
   pigpio.gpioSetISRFunc(this.gpio, Gpio.EITHER_EDGE, 0);
+  return this;
+};
+
+Gpio.prototype.enableAlert = function () {
+  var handler = function (gpio, level, tick) {
+    this.emit('alert', level, tick);
+  }.bind(this);
+
+  pigpio.gpioSetAlertFunc(this.gpio, handler);
+  return this;
+};
+
+Gpio.prototype.disableAlert = function () {
+  pigpio.gpioSetAlertFunc(this.gpio);
   return this;
 };
 

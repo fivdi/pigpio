@@ -27,8 +27,12 @@
 - Interrupts
   - [enableInterrupt(edge[, timeout])](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#enableinterruptedge-timeout)
   - [disableInterrupt()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#disableinterrupt)
+- Alerts
+  - [enableAlert()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#enablealert)
+  - [disableAlert()](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#disablealert)
 
 #### Events
+  - [Event: 'alert'](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#event-alert)
   - [Event: 'interrupt'](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#event-interrupt)
 
 #### Constants
@@ -74,6 +78,7 @@ The following options are supported:
 - pullUpDown - PUD_OFF, PUD_DOWN, or PUD_UP (optional, no default)
 - edge - interrupt edge for inputs. RISING_EDGE, FALLING_EDGE, or EITHER_EDGE (optional, no default)
 - timeout - interrupt timeout in milliseconds (optional, defaults to 0 meaning no timeout if edge specified)
+- alert - boolean specifying whether or not alert events are emitted when the GPIO changes state (optional, default false)
 
 If no mode option is specified, the GPIO will be left in it's current mode. If
 pullUpDown is not not specified, the pull-type for the GPIO will not be
@@ -264,10 +269,50 @@ expires.
 #### disableInterrupt()
 Disables interrupts for the GPIO. Returns this.
 
+#### enableAlert()
+Enables alerts for the GPIO. Returns this.
+
+An alert event will be emitted every time the GPIO changes state.
+
+#### disableAlert()
+Disables aterts for the GPIO. Returns this.
+
 ### Events
 
+#### Event: 'alert'
+- level - the GPIO level when the state change occurred, 0 or 1
+- tick - the time stamp of the state change, an unsigned 32 bit integer
+
+tick is the number of microseconds since system boot and it should be accurate
+to a few microseconds.
+
+As tick is an unsigned 32 bit quantity it wraps around after 2^32 microseconds,
+which is approximately 1 hour 12 minutes. 
+
+It's not necessary to worry about wrap around when subtracting one tick from
+another tick if the JavaScript sign propagating right shift operator `>>` is used.
+
+For example, the following code which simply subtracts `startTick` from `endTick`
+prints -4294967294 which isn't the difference we're looking for:
+
+```
+var startTick = 0xffffffff; // 2^32 or 4294967295, the max unsigned 32 bit integer
+var endTick = 1;
+console.log(endTick - startTick); // prints -4294967294 which isn't what we want
+```
+
+However, the following code which right shifts both `startTick` and `endTick` 0
+bits to the right before subtracting prints 2 which is the difference we're
+looking for:
+
+```
+var startTick = 0xffffffff; // 2^32 or 4294967295, the max unsigned 32 bit integer
+var endTick = 1;
+console.log((endTick >> 0) - (startTick >> 0)); // prints 2 which is what we want
+```
+
 #### Event: 'interrupt'
-- level - the GPIO level when the interrupt occured, 0, 1, or TIMEOUT (2)
+- level - the GPIO level when the interrupt occurred, 0, 1, or TIMEOUT (2)
 
 Emitted on interrupts.
 

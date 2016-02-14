@@ -15,6 +15,8 @@ Fast GPIO, PWM and servo control on the Raspberry Pi with Node.js.
  * Pull up/down resistors
  * Low latency interrupt handlers
    * Handle up to 8500 interrupts per second
+ * Alerts when any of GPIOs 0 through 31 change state
+   * Alerts receive the time of the event accurate to a few microseconds
 
 ## Installation
 
@@ -111,6 +113,42 @@ setInterval(function () {
   } else if (pulseWidth <= 1000) {
     increment = 100;
   }
+}, 1000);
+```
+
+Turn the LED connected to GPIO17 on for 15 microseconds once per second and
+use alerts to monitor how long the LED was turned on for.
+
+```
+// Assumption: the LED is off when the program is started
+
+var Gpio = require('pigpio').Gpio,
+  led = new Gpio(17, {
+    mode: Gpio.OUTPUT,
+    alert: true
+  });
+
+(function () {
+  var startTick;
+
+  // Use alerts to determine how long the LED was turned on
+  led.on('alert', function (level, tick) {
+    var endTick,
+      diff;
+
+    if (level == 1) {
+      startTick = tick;
+    } else {
+      endTick = tick;
+      diff = (endTick >> 0) - (startTick >> 0); // Unsigned 32 bit arithmetic
+      console.log(diff);
+    }
+  });
+}());
+
+// Turn the LED on for 15 microseconds once per second
+setInterval(function () {
+  led.trigger(15, 1);
 }, 1000);
 ```
 
