@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.3.0 / Feb 14 2016
+===================
 
   * upgrade to nan v2.2.0
   * alerts
