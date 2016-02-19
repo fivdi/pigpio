@@ -20,7 +20,7 @@ Fast GPIO, PWM, and servo control on the Raspberry Pi with Node.js.
 
 ## Installation
 
-### Step 1
+#### Step 1
 
 The pigpio package is based on the
 [pigpio C library](https://github.com/joan2937/pigpio) so the C library needs
@@ -38,11 +38,11 @@ sudo make install
 The `make` command may take a while to complete so please be patient.
 
 Installing the pigpio C library will also install a number of utilities. One of
-these utilities is pigpiod which launches the pigpio library as a deamon. This
+these utilities is pigpiod which launches the pigpio library as a daemon. This
 utility should not be used as the pigpio Node.js module uses the C library
 directly.
 
-### Step 2
+#### Step 2
 
 ```
 npm install pigpio
@@ -65,6 +65,8 @@ connected to GPIO4 (pin 7).
 
 <img src="https://raw.githubusercontent.com/fivdi/pigpio/master/example/pigpio.png">
 
+#### PWM
+
 Use PWM to pulse the LED connected to GPIO17 from fully off to fully on
 continuously.
 
@@ -84,6 +86,8 @@ setInterval(function () {
 
 ```
 
+#### Interrupt Handling
+
 Turn the LED connected to GPIO17 on when the momentary push button connected to
 GPIO4 is pressed. Turn the LED off when the button is released.
 
@@ -100,6 +104,10 @@ button.on('interrupt', function (level) {
   led.digitalWrite(level);
 });
 ```
+
+### Servo Control
+
+Continuously move a servo connected to GPIO10 clockwise and anti-clockwise.
 
 Simple servo control.
 
@@ -121,8 +129,13 @@ setInterval(function () {
 }, 1000);
 ```
 
-Turn the LED connected to GPIO17 on for 15 microseconds once per second and
-use alerts to monitor how long the LED was turned on for.
+#### Alerts
+
+Alerts receive the time of a GPIO state change accurate to a few microseconds.
+Typically, alerts will be used for GPIO inputs but they can also be used for
+outputs. In this example, the `trigger` method is used generate a 15
+microsecond pulse on GPIO17 once per second. Alerts are used to measure the
+length of the pulse.
 
 ```js
 // Assumption: the LED is off when the program is started
