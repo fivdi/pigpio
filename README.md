@@ -105,7 +105,7 @@ button.on('interrupt', function (level) {
 });
 ```
 
-### Servo Control
+#### Servo Control
 
 Continuously move a servo connected to GPIO10 clockwise and anti-clockwise.
 
@@ -133,9 +133,9 @@ setInterval(function () {
 
 Alerts receive the time of a GPIO state change accurate to a few microseconds.
 Typically, alerts will be used for GPIO inputs but they can also be used for
-outputs. In this example, the `trigger` method is used generate a 15
-microsecond pulse on GPIO17 once per second. Alerts are used to measure the
-length of the pulse.
+outputs. In this example, the `trigger` method is used to pulse the LED
+connected to GPIO17 on for 15 microseconds once per second. Alerts are used
+to measure the length of the pulse.
 
 ```js
 // Assumption: the LED is off when the program is started
