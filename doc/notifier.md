@@ -49,6 +49,8 @@ structure:
     of other notification activity. 
 - UInt32LE - tick
   - The number of microseconds since system boot. It wraps around after 1h12m.
+    See [Event: 'alert'](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#event-alert)
+    for further information about unsigned 32 bit arithmetic in JavaScript.
 - UInt32LE - level
   - Indicates the level of each GPIO. If bit x is set then GPIOx is high. 
 
