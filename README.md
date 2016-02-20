@@ -10,10 +10,13 @@ Fast GPIO, PWM, and servo control on the Raspberry Pi with Node.js.
  * PWM on any of GPIOs 0 through 31
    * Multiple frequencies and duty cycle ranges supported
  * Servo control on any of GPIOs 0 through 31
+ * Alerts when any of GPIOs 0 through 31 change state
+   * Know the time of the state change accurate to a few microseconds
+ * Notification streams for monitoring state changes on any of GPIOs 0 through 31 concurrently
+   * Know the time of the state changes accurate to a few microseconds
+   * Handle in excess of 100000 notifications per second
  * Low latency interrupt handlers
    * Handle up to 8500 interrupts per second
- * Alerts when any of GPIOs 0 through 31 change state
-   * Alerts receive the time of the state change accurate to a few microseconds
  * Read or write up to 32 GPIOs as one operation with banked GPIO
  * Trigger pulse generation
  * Pull up/down resistor configuration
@@ -131,11 +134,11 @@ setInterval(function () {
 
 #### Alerts
 
-Alerts receive the time of a GPIO state change accurate to a few microseconds.
-Typically, alerts will be used for GPIO inputs but they can also be used for
-outputs. In this example, the `trigger` method is used to pulse the LED
-connected to GPIO17 on for 15 microseconds once per second. Alerts are used
-to measure the length of the pulse.
+Alerts can be used to determine the time of a GPIO state change accurate to a
+few microseconds. Typically, alerts will be used for GPIO inputs but they can
+also be used for outputs. In this example, the `trigger` method is used to
+pulse the LED connected to GPIO17 on for 15 microseconds once per second.
+Alerts are used to measure the length of the pulse.
 
 ```js
 // Assumption: the LED is off when the program is started
@@ -200,4 +203,5 @@ Interrupts per second | 8,881
 
 - [Gpio](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md) - General Purpose Input Output
 - [GpioBank](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md) - Banked General Purpose Input Output
+- [Notifier](https://github.com/fivdi/pigpio/blob/master/doc/nofifier.md) - Notification Stream
 

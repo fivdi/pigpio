@@ -286,6 +286,7 @@ Notifier.prototype.stream = function () {
 };
 
 Notifier.NOTIFICATION_LENGTH = 12;
+Notifier.PI_NTFY_FLAGS_ALIVE = 1 << 6;
 
 /* ------------------------------------------------------------------------ */
 /* Configuration                                                            */

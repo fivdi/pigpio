@@ -1,6 +1,7 @@
 Unpublished
 ===========
 
+  * document notification streams
   * documentation tweaks
 
 0.3.0 / Feb 14 2016
