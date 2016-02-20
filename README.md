@@ -203,5 +203,5 @@ Interrupts per second | 8,881
 
 - [Gpio](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md) - General Purpose Input Output
 - [GpioBank](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md) - Banked General Purpose Input Output
-- [Notifier](https://github.com/fivdi/pigpio/blob/master/doc/nofifier.md) - Notification Stream
+- [Notifier](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md) - Notification Stream
 
