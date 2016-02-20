@@ -11,9 +11,9 @@ Fast GPIO, PWM, and servo control on the Raspberry Pi with Node.js.
    * Multiple frequencies and duty cycle ranges supported
  * Servo control on any of GPIOs 0 through 31
  * Alerts when any of GPIOs 0 through 31 change state
-   * Know the time of the state change accurate to a few microseconds
+   * The time of the state change is available accurate to a few microseconds
  * Notification streams for monitoring state changes on any of GPIOs 0 through 31 concurrently
-   * Know the time of the state changes accurate to a few microseconds
+   * The time of the state changes are available accurate to a few microseconds
    * Handle in excess of 100000 notifications per second
  * Low latency interrupt handlers
    * Handle up to 8500 interrupts per second
