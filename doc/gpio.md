@@ -62,8 +62,8 @@
 - options - object (optional)
 
 Returns a new Gpio object for accessing a GPIO. The optional options object can
-be used to configure the mode, pull type, interrupting edge(s), and interrupt
-timeout for the GPIO.
+be used to configure the mode, pull type, interrupting edge(s), interrupt
+timeout, and alerts for the GPIO.
 
 A Gpio object is an EventEmitter.
 
@@ -102,11 +102,26 @@ for (gpioNo = Gpio.MIN_GPIO; gpioNo <= Gpio.MAX_GPIO; gpioNo += 1) {
 ```
 
 If an interrupt edge is specified, the Gpio will emit an 'interrupt' event each
-time an interrupt is detected.
+time an interrupt is detected. Interrupt events are low latency events and will
+be emitted as quickly as possible. The level argument passed to the interrupt
+event listener is the level read at the time the process was informed of the
+interrupt. The level may not be the same as the expected edge as interrupts
+happening in rapid succession may be missed by the kernel.
 
 Interrupts can have an optional timeout. The level argument passed to the
 interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout
 expires.
+
+If alerts are enabled, the Gpio will emit an 'alert' event each time the GPIO
+state changes. The logic level and time of the state change accurate to a few
+microseconds are passed to the alert event listener. GPIOs are sampled at a
+rate set when the library is started. The default sample rate is 5 microseconds
+but it can be set 1, 2, 4, 5, 8, or 10 microseconds with the
+[configureClock](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureclockmicroseconds-peripheral)
+function. State changes shorter that the sample rate may be missed.
+Alert events are emitted nominally 1000 times per second and there will be one
+alert event for each state change detected. i.e. There will be alert events for
+all state changes but there will be a latency.
 
 #### mode(mode)
 - mode - INPUT, OUTPUT, ALT0, ALT1, ALT2, ALT3, ALT4, or ALT5
@@ -119,7 +134,7 @@ Returns the GPIO mode.
 #### pullUpDown(pud)
 - pud - PUD_OFF, PUD_DOWN, or PUD_UP
 
-Sets or clears the pull type for the GPIO. Returns this.
+Sets or clears the resistor pull type for the GPIO. Returns this.
 
 #### digitalRead()
 Returns the GPIO level, 0 or 1.
@@ -134,8 +149,8 @@ they are switched off. Returns this.
 - pulseLen - pulse length in microseconds (1 - 100)
 - level - 0 or 1
 
-This function sends a trigger pulse to a GPIO. The GPIO is set to level for
-pulseLen microseconds and then reset to not level. 
+Sends a trigger pulse to the GPIO. The GPIO is set to level for pulseLen
+microseconds and then reset to not level. 
 
 #### pwmWrite(dutyCycle)
 - dutyCycle - an unsigned integer >= 0 (off) and <= range (fully on). range defaults to 255.
@@ -149,8 +164,17 @@ can be used to change the default range of 255.
 - frequency - an unsigned integer >= 0 and <= 125000000
 - dutyCycle - an unsigned integer >= 0 (off) and <= 1000000 (fully on).
 
-Starts hardware PWM on the GPIO at the specified frequency and dutycycle.
+Starts hardware PWM on the GPIO at the specified frequency and dutyCycle.
 Frequencies above 30MHz are unlikely to work. Returns this.
+
+The actual number of steps bteween off and fully on is the integral part of 250
+million divided by frequency.
+
+The actual frequency set is 250 million / steps. 
+
+There will only be a million steps for a frequency of 250. Lower frequencies
+will have more steps and higher frequencies will have fewer steps. duytCycle is
+automatically scaled to take this into account.
 
 All models of the Raspberry Pi support hardware PWM on GPIO18.
 
@@ -161,34 +185,34 @@ Returns the PWM duty cycle setting on the GPIO.
 - range - an unsigned integer in the range 25 through 40000
 
 Selects the duty cycle range to be used for the GPIO. Subsequent calls to
-pwmWrite will use a dutycycle between 0 (off) and range (fully on).
+pwmWrite will use a duty cycle between 0 (off) and range (fully on).
 
 If PWM is currently active on the GPIO its duty cycle will be scaled to reflect
 the new range. 
 
 The real range, the number of steps between fully off and fully on for each
-frequency, is given in the following table.
+frequency ans sample rate, is given in the following table.
 
-Real Range |
----: |
-25 |
-50 |
-100 |
-125 |
-200 |
-250 |
-400 |
-500 |
-625 |
-800 |
-1000 |
-1250 |
-2000 |
-2500 |
-4000 |
-5000 |
-10000 |
-20000 |
+1us | 2us | 4us | 5us | 8us | 10us | Real Range |
+---: | ---: | ---: | ---: | ---: | ---: | ---: |
+40000 | 20000 | 10000 | 8000 | 5000 | 4000 |25 |
+20000 | 10000 | 5000 | 4000 | 2500 | 2000 | 50 |
+10000 | 5000 | 2500 | 2000 | 1250 | 1000 | 100 |
+8000 | 4000 | 2000 | 1600 | 1000 | 800 | 125 |
+5000 | 2500 | 1250 | 1000 | 625 | 500 | 200 |
+4000 | 2000 | 1000 | 800 | 500 | 400 | 250 |
+2500 | 1250 | 625 | 500 | 313 | 250 | 400 |
+2000 | 1000 | 500 | 400 | 250 | 200 | 500 |
+1600 | 800 | 400 | 320 | 200 | 160 | 625 |
+1250 | 625 | 313 | 250 | 156 | 125 | 800 |
+1000 | 500 | 250 | 200 | 125 | 100 | 1000 |
+800 | 400 | 200 | 160 | 100 | 80 | 1250 |
+500 | 250 | 125 | 100 | 63 | 50 | 2000 |
+400 | 200 | 100 | 80 | 50 | 40 | 2500 |
+250 | 125 | 63 | 50 | 31 | 25 | 4000 |
+200 | 100 | 50 | 40 | 25 | 20 | 5000 |
+100 | 50 | 25 | 20 | 13 | 10 | 10000 |
+50 | 25 | 13 | 10 | 6 | 5 | 20000 |
 
 The real value set by pwmWrite is (dutyCycle * real range) / range. 
 
@@ -212,7 +236,8 @@ Each GPIO can be independently set to one of 18 different PWM frequencies.
 
 The selectable frequencies depend upon the sample rate which may be 1, 2, 4, 5,
 8, or 10 microseconds (default 5). The sample rate can be set with the
-configureClock function.
+[configureClock](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureclockmicroseconds-peripheral)
+function.
 
 If PWM is currently active on the GPIO it will be switched off and then back on
 at the new frequency.
@@ -250,8 +275,8 @@ by hardwarePwmWrite.
 #### servoWrite(pulseWidth)
 - pulseWidth - pulse width in microseconds, an unsigned integer, 0 or a number in the range 500 through 2500
 
-Starts servo pulses on the GPIO, 0 (off), 500 (most anti-clockwise) to 2500
-(most clockwise). Returns this.
+Starts servo pulses at 50Hz on the GPIO, 0 (off), 500 (most anti-clockwise) to
+2500 (most clockwise). Returns this.
 
 #### getServoPulseWidth()
 Returns the servo pulse width setting on the GPIO.
