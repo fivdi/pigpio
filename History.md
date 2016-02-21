@@ -3,6 +3,7 @@ Unpublished
 
   * document notification streams
   * documentation tweaks
+  * notifier-leak-check added
 
 0.3.0 / Feb 14 2016
 ===================
