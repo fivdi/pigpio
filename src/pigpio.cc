@@ -664,7 +664,7 @@ NAN_METHOD(gpioCfgClock) {
   }
 
   unsigned cfgMicros = info[0]->Uint32Value();
-  unsigned cfgPeripheral = info[0]->Uint32Value();
+  unsigned cfgPeripheral = info[1]->Uint32Value();
   unsigned cfgSource = 0;
 
   gpioCfgClock(cfgMicros, cfgPeripheral, cfgSource);
