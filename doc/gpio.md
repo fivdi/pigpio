@@ -321,7 +321,7 @@ For example, the following code which simply subtracts `startTick` from `endTick
 prints -4294967294 which isn't the difference we're looking for:
 
 ```
-var startTick = 0xffffffff; // 2^32 or 4294967295, the max unsigned 32 bit integer
+var startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
 var endTick = 1;
 console.log(endTick - startTick); // prints -4294967294 which isn't what we want
 ```
@@ -331,7 +331,7 @@ bits to the right before subtracting prints 2 which is the difference we're
 looking for:
 
 ```
-var startTick = 0xffffffff; // 2^32 or 4294967295, the max unsigned 32 bit integer
+var startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
 var endTick = 1;
 console.log((endTick >> 0) - (startTick >> 0)); // prints 2 which is what we want
 ```

@@ -1,10 +1,10 @@
 ## Class Notifier - Notification Stream
 
-A Notifier contains a stream which provide notifications about state changes on
-any of GPIOs 0 through 31 concurrently. Each notification read from the stream
-contains information about the logic levels of the GPIOs and the time of the
-state changes accurate to a few microseconds. It's possible to handle in excess
-of 100000 notifications per second.
+A Notifier contains a stream which provides notifications about state changes
+on any of GPIOs 0 through 31 concurrently. Each notification read from the
+stream contains information about the logic levels of the GPIOs and the time of
+the state changes accurate to a few microseconds. It's possible to handle in
+excess of 100000 notifications per second.
 
 #### Methods
   - [Notifier([options])](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md#notifieroptions)
@@ -41,17 +41,18 @@ the `start` method can be used to start notifications at a later point in time.
 Each notification in the stream occupies 12 bytes and has the following
 structure:
 
-- UInt16LE - seqno
-  - seqno starts at 0 and increments by one for each notification.
-- UInt16LE - flags
+- seqno - UInt16, little-endian
+  - seqno starts at 0 and increments by one for each notification. It wraps
+    around after 2^16 notifications.
+- flags - UInt16, little-endian
   - One flag is defined. If bit 6 is set (PI_NTFY_FLAGS_ALIVE) this indicates
     a keep alive signal on the stream and is sent once a minute in the absence
     of other notification activity. 
-- UInt32LE - tick
+- tick - UInt32, little-endian
   - The number of microseconds since system boot. It wraps around after 1h12m.
     See [Event: 'alert'](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#event-alert)
     for further information about unsigned 32 bit arithmetic in JavaScript.
-- UInt32LE - level
+- level - UInt32, little-endian
   - Indicates the level of each GPIO. If bit x is set then GPIOx is high. 
 
 #### start(bits)
