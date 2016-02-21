@@ -10,6 +10,7 @@ Fast GPIO, PWM, and servo control on the Raspberry Pi with Node.js.
  * PWM on any of GPIOs 0 through 31
    * Multiple frequencies and duty cycle ranges supported
  * Servo control on any of GPIOs 0 through 31
+   * Jitter free
  * Alerts when any of GPIOs 0 through 31 change state
    * The time of the state change is available accurate to a few microseconds
  * Notification streams for monitoring state changes on any of GPIOs 0 through 31 concurrently
