@@ -1,6 +1,7 @@
 # pigpio
 
-Fast GPIO, PWM, and servo control on the Raspberry Pi with Node.js.
+Fast GPIO, PWM, servo control, state change notification, and interrupt
+handling on the Raspberry Pi with Node.js.
 
 ## Features
 
