@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.3.1 / Feb 21 2016
+===================
 
   * document notification streams
   * documentation tweaks
