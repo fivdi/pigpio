@@ -15,18 +15,26 @@ var LED_GPIO = 18,
 }());
 
 (function next() {
-  var ledNotifier = new Notifier({bits: 1 << LED_GPIO});
+  var ledNotifier = new Notifier({bits: 1 << LED_GPIO}),
+    closing = false;
 
   ledNotifier.stream().on('data', function (buf) {
-    ledNotifier.stream().pause();
-    ledNotifier.close();
+    if (!closing) {
+      ledNotifier.stream().on('close', function () {
+        notifierCount += 1;
 
-    notifierCount += 1;
-    if (notifierCount % 1000 === 0) {
-      console.log(notifierCount);
+        if (notifierCount % 1000 === 0) {
+          console.log(notifierCount);
+        }
+
+        if (notifierCount < 100000) {
+          next();
+        }
+      });
+
+      ledNotifier.close();
+      closing = true;
     }
-
-    next();
   });
 }());
 

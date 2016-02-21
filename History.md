@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * notifier-leak-check now functions correctly
+
 0.3.1 / Feb 21 2016
 ===================
 
