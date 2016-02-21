@@ -2,6 +2,7 @@ Unpublished
 ===========
 
   * notifier-leak-check now functions correctly
+  * notifier example
 
 0.3.1 / Feb 21 2016
 ===================
