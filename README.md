@@ -178,7 +178,7 @@ setInterval(function () {
 #### Handling 100000 notifications per second
 
 Notifications can be use to determine the time of state changes on multiple
-GPIOs concurently. Typically, notifications will be used for GPIO inputs but
+GPIOs concurrently. Typically, notifications will be used for GPIO inputs but
 they can also be used for outputs. In this example, hardware PWM is started on
 GPIO18 at 50KHz with a duty cycle of 50%. This implies 100000 state changes per
 second on GPIO18. A Notifier is used to monitor these state changes.
