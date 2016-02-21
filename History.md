@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.3.2 / Feb 21 2016
+===================
 
   * notifier-leak-check now functions correctly
   * notifier example

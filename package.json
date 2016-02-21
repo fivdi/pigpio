@@ -1,6 +1,6 @@
 {
   "name": "pigpio",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Fast GPIO, PWM, servo control, state change notification, and interrupt handling on the Raspberry Pi with Node.js",
   "main": "pigpio.js",
   "directories": {
