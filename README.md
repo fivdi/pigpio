@@ -183,7 +183,7 @@ they can also be used for outputs. In this example, hardware PWM is started on
 GPIO18 at 50KHz with a duty cycle of 50%. This implies 100000 state changes per
 second on GPIO18. A Notifier is used to monitor these state changes.
 Information about the time between state changes is collected in the array
-`tickDiffs` and printed to the console one per second.
+`tickDiffs` and printed to the console once per second.
 
 ```js
 'use strict';
