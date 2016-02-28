@@ -186,8 +186,6 @@ Information about the time between state changes is collected in the array
 `tickDiffs` and printed to the console once per second.
 
 ```js
-'use strict';
-
 var pigpio = require('../'),
   Gpio = pigpio.Gpio,
   Notifier = pigpio.Notifier,
@@ -203,14 +201,15 @@ var lastSeqno,
   lastLevel;
 
 var LED_GPIO = 18,
-  FREQUENCY = 50000;
+  FREQUENCY = 50000, // 50KHz
+  DUTY_CYCLE = 500000; // 50%
 
 // Set sample rate to 1 microsecond
 pigpio.configureClock(1, pigpio.CLOCK_PCM);
 
 // Start hardware PWM on GPIO18, 50KHz, 50% duty cycle
 led = new Gpio(LED_GPIO, {mode: Gpio.OUTPUT});
-led.hardwarePwmWrite(FREQUENCY, 500000);
+led.hardwarePwmWrite(FREQUENCY, DUTY_CYCLE);
 
 // Create a Notifier for monitoring state changes on GPIO18
 ledNotifier = new Notifier({bits: 1 << LED_GPIO});
