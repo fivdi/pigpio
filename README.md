@@ -321,17 +321,17 @@ Three of the pigpio tests are used to monitor performance:
 
 The average of ten runs of these tests are shown in the table below.
 
- Name | Description
-:--- | :---
-Pi Model | Raspberry Pi 2 Model B V1.1
-OS | Raspbian Jessie 2016-02-09
-Kernel | 4.1.17-v7+
-Node.js | v5.6.0 armv7l
-pigpio | v0.3.0
-pigpio C library | V45
-Reads per second | 1,232,588
-Writes per second | 1,323,039
-Interrupts per second | 8,881
+ Name | Pi 2 | Pi 3
+:--- | :--- | :---
+Pi Model | Raspberry Pi 2 Model B V1.1 | Raspberry Pi 3 Model B V1.2
+OS | Raspbian Jessie 2016-02-09 | Raspbian Jessie 2016-02-26
+Kernel | 4.1.17-v7+ | 4.1.18-v7+
+Node.js | v5.6.0 armv7l | v5.6.0 armv7l
+pigpio | v0.3.0 | v0.3.2
+pigpio C library | V45 | V47
+Reads per second | 1,232,588 | 2,129,221
+Writes per second | 1,323,039 | 2,336,157
+Interrupts per second | 8,881 | 20,533
 
 ## API Documentation
 
