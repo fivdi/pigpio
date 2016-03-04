@@ -1,7 +1,7 @@
 # pigpio
 
 Fast GPIO, PWM, servo control, state change notification, and interrupt
-handling on the Raspberry Pi with Node.js.
+handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
 
 ## Contents
 
@@ -68,9 +68,9 @@ directly.
 npm install pigpio
 ```
 
-If you're using io.js v3 or Node.js v4 or higher and seeing lots of compile
-errors when installing pigpio, it's very likely that gcc/g++ 4.8 or higher are
-not installed. See
+If you're using Node.js v4 or higher and seeing lots of compile errors when
+installing pigpio, it's very likely that gcc/g++ 4.8 or higher are not
+installed. See
 [Node.js v4 and native addons](https://github.com/fivdi/onoff/wiki/Node.js-v4-and-native-addons)
 for details.
 
