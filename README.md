@@ -12,7 +12,6 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
    * [Interrupt Handling](https://github.com/fivdi/pigpio#interrupt-handling)
    * [Servo Control](https://github.com/fivdi/pigpio#servo-control)
    * [Alerts](https://github.com/fivdi/pigpio#alerts)
-   * [Handling 250000 notifications per second](https://github.com/fivdi/pigpio#handling-250000-notifications-per-second)
  * [Performance](https://github.com/fivdi/pigpio#performance)
  * [API](https://github.com/fivdi/pigpio#api-documentation)
 
@@ -29,7 +28,6 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
    * The time of the state change is available accurate to a few microseconds
  * Notification streams for monitoring state changes on any of GPIOs 0 through 31 concurrently
    * The time of the state changes are available accurate to a few microseconds
-   * Handle in excess of 250000 notifications per second <sub>1)</sub>
  * Low latency interrupt handlers
    * Handle up to 20000 interrupts per second <sub>1)</sub>
  * Read or write up to 32 GPIOs as one operation with banked GPIO
@@ -204,143 +202,6 @@ Here's an example of the typical output to the console:
 15
 15
 15
-```
-
-#### Handling 250000 notifications per second
-
-Notifications can be use to determine the time of state changes on multiple
-GPIOs concurrently. Typically, notifications will be used for GPIO inputs but
-they can also be used for outputs. In this example, hardware PWM is started on
-GPIO18 at 125KHz with a duty cycle of 50%. This implies 250000 state changes
-per second on GPIO18 or one state change every 4 microseconds. A Notifier is
-used to monitor these state changes. Information about the time between state
-changes is collected in the array `tickDiffs` and printed to the console once
-per second. This example was tested on a Raspberry Pi 3 running at 1.2 GHz.
-
-```js
-var pigpio = require('../'),
-  Gpio = pigpio.Gpio,
-  Notifier = pigpio.Notifier,
-  led,
-  ledNotifier,
-  notificationCount = 0,
-  errorCount = 0,
-  tickDiffs = [],
-  restBuf = null;
-
-var lastSeqno,
-  lastTick,
-  lastLevel;
-
-var LED_GPIO = 18,
-  FREQUENCY = 125000, // 125KHz
-  DUTY_CYCLE = 500000; // 50%
-
-// Set sample rate to 1 microsecond
-pigpio.configureClock(1, pigpio.CLOCK_PCM);
-
-// Start hardware PWM on GPIO18, 125KHz, 50% duty cycle
-led = new Gpio(LED_GPIO, {mode: Gpio.OUTPUT});
-led.hardwarePwmWrite(FREQUENCY, DUTY_CYCLE);
-
-// Create a Notifier for monitoring state changes on GPIO18
-ledNotifier = new Notifier({bits: 1 << LED_GPIO});
-
-ledNotifier.stream().on('data', function (buf) {
-  var rest,
-    ix,
-    tickDiff;
-
-  var seqno,
-    tick,
-    level;
-
-  // If there's a partial notification from the last data event, stick it at
-  // start of buf so that it can be processed now.
-  if (restBuf !== null) {
-    buf = Buffer.concat([restBuf, buf]);
-  }
-
-  // There may be a partial notification at the end of buf. If this is the
-  // case, save the part that is there in restBuf, and process it when the
-  // remaining bytes arrives with the next data event.
-  rest = buf.length % Notifier.NOTIFICATION_LENGTH;
-  if (rest === 0) {
-    restBuf = null;
-  } else {
-    restBuf = new Buffer(buf.slice(buf.length - rest));
-  }
-
-  // Loop over the notifications in buf
-  for (ix = 0; ix < buf.length - rest; ix += Notifier.NOTIFICATION_LENGTH) {
-    seqno = buf.readUInt16LE(ix);
-    tick = buf.readUInt32LE(ix + 4);
-    level = buf.readUInt32LE(ix + 8);
-
-    // The first notification isn't taken into account here
-    if (notificationCount > 0) {
-      // The state of the LED is expected to toggle on every state change
-      if ((lastLevel & (1 << LED_GPIO)) === (level & (1 << LED_GPIO))) {
-        console.log('unexpected led state');
-        errorCount += 1;
-      }
-
-      // The seqno is expected to increase by one on each notification
-      if (((lastSeqno + 1) & 0xffff) !== seqno) {
-        console.log('seqno error, was %d, expected %d', seqno, lastSeqno + 1);
-        errorCount += 1;
-      }
-
-      // Determine how long it's been since the last state change. Note that
-      // the sign propagating right shift operator >> is used for unsigned 32
-      // bit arithmetic.
-      tickDiff = (tick >> 0) - (lastTick >> 0);
-      if (tickDiffs[tickDiff] === undefined) {
-        tickDiffs[tickDiff] = 0;
-      }
-      tickDiffs[tickDiff] += 1;
-    }
-
-    lastSeqno = seqno;
-    lastTick = tick;
-    lastLevel = level;
-
-    notificationCount += 1;
-  }
-});
-
-setInterval(function () {
-  var i;
-
-  console.log('-------------------------------');
-  console.log('notificationCount: ' + notificationCount);
-  console.log('errorCount: ' + errorCount);
-
-  for (i = 0; i != tickDiffs.length; i += 1) {
-    if (tickDiffs[i] !== undefined) {
-      console.log(i + 'us: ' + tickDiffs[i]);
-    }
-  }
-
-  tickDiffs = [];
-}, 1000);
-```
-
-Here's an example of the typical output to the console:
-
-```
-notificationCount: 24539895
-errorCount: 0
-1us: 3
-2us: 74
-3us: 19880
-4us: 210446
-5us: 19981
-6us: 38
-7us: 6
-8us: 3
-9us: 2
-10us: 1
 ```
 
 ## Performance
