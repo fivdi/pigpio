@@ -3,11 +3,24 @@
 Fast GPIO, PWM, servo control, state change notification, and interrupt
 handling on the Raspberry Pi with Node.js.
 
+## Contents
+
+ * [Features](https://github.com/fivdi/pigpio#features)
+ * [Installation](https://github.com/fivdi/pigpio#installation)
+ * [Usage](https://github.com/fivdi/pigpio#usage)
+   * [PWM](https://github.com/fivdi/pigpio#pwm)
+   * [Interrupt Handling](https://github.com/fivdi/pigpio#interrupt-handling)
+   * [Servo Control](https://github.com/fivdi/pigpio#servo-control)
+   * [Alerts](https://github.com/fivdi/pigpio#alerts)
+   * [Handling 100000 notifications per second](https://github.com/fivdi/pigpio#handling-100000-notifications-per-second)
+ * [Performance](https://github.com/fivdi/pigpio#performance)
+ * [API](https://github.com/fivdi/pigpio#api-documentation)
+
 ## Features
 
  * Digital IO
-   * Up to 1.3 million digital writes per second
-   * Up to 1.2 million digital reads per second
+   * Up to 2.1 million digital writes per second 1)
+   * Up to 2.3 million digital reads per second 1)
  * PWM on any of GPIOs 0 through 31
    * Multiple frequencies and duty cycle ranges supported
  * Servo control on any of GPIOs 0 through 31
@@ -18,10 +31,12 @@ handling on the Raspberry Pi with Node.js.
    * The time of the state changes are available accurate to a few microseconds
    * Handle in excess of 100000 notifications per second
  * Low latency interrupt handlers
-   * Handle up to 8500 interrupts per second
+   * Handle up to 20000 interrupts per second 1)
  * Read or write up to 32 GPIOs as one operation with banked GPIO
  * Trigger pulse generation
  * Pull up/down resistor configuration
+
+1) On a Raspberry Pi 3 Model B V1.2 running at 1.2 GHz ([Performance](https://github.com/fivdi/pigpio#performance))
 
 ## Installation
 
@@ -173,6 +188,22 @@ var Gpio = require('pigpio').Gpio,
 setInterval(function () {
   led.trigger(15, 1);
 }, 1000);
+```
+
+Here's an example of the typical output to the console:
+
+```
+15
+15
+15
+15
+15
+15
+20
+15
+15
+15
+15
 ```
 
 #### Handling 100000 notifications per second
