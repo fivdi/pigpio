@@ -19,8 +19,8 @@ handling on the Raspberry Pi with Node.js.
 ## Features
 
  * Digital IO
-   * Up to 2.1 million digital writes per second 1)
-   * Up to 2.3 million digital reads per second 1)
+   * Up to 2.1 million digital reads per second 1)
+   * Up to 2.3 million digital writes per second 1)
  * PWM on any of GPIOs 0 through 31
    * Multiple frequencies and duty cycle ranges supported
  * Servo control on any of GPIOs 0 through 31
