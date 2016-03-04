@@ -19,8 +19,8 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
 ## Features
 
  * Digital IO
-   * Up to 2.1 million digital reads per second 1)
-   * Up to 2.3 million digital writes per second 1)
+   * Up to 2.1 million digital reads per second <sub>1)</sub>
+   * Up to 2.3 million digital writes per second <sub>1)</sub>
  * PWM on any of GPIOs 0 through 31
    * Multiple frequencies and duty cycle ranges supported
  * Servo control on any of GPIOs 0 through 31
@@ -29,9 +29,9 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
    * The time of the state change is available accurate to a few microseconds
  * Notification streams for monitoring state changes on any of GPIOs 0 through 31 concurrently
    * The time of the state changes are available accurate to a few microseconds
-   * Handle in excess of 100000 notifications per second
+   * Handle in excess of 250000 notifications per second <sub>1)</sub>
  * Low latency interrupt handlers
-   * Handle up to 20000 interrupts per second 1)
+   * Handle up to 20000 interrupts per second <sub>1)</sub>
  * Read or write up to 32 GPIOs as one operation with banked GPIO
  * Trigger pulse generation
  * Pull up/down resistor configuration
