@@ -12,7 +12,7 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
    * [Interrupt Handling](https://github.com/fivdi/pigpio#interrupt-handling)
    * [Servo Control](https://github.com/fivdi/pigpio#servo-control)
    * [Alerts](https://github.com/fivdi/pigpio#alerts)
-   * [Handling 100000 notifications per second](https://github.com/fivdi/pigpio#handling-100000-notifications-per-second)
+   * [Handling 250000 notifications per second](https://github.com/fivdi/pigpio#handling-250000-notifications-per-second)
  * [Performance](https://github.com/fivdi/pigpio#performance)
  * [API](https://github.com/fivdi/pigpio#api-documentation)
 
@@ -206,15 +206,16 @@ Here's an example of the typical output to the console:
 15
 ```
 
-#### Handling 100000 notifications per second
+#### Handling 250000 notifications per second
 
 Notifications can be use to determine the time of state changes on multiple
 GPIOs concurrently. Typically, notifications will be used for GPIO inputs but
 they can also be used for outputs. In this example, hardware PWM is started on
-GPIO18 at 50KHz with a duty cycle of 50%. This implies 100000 state changes per
-second on GPIO18. A Notifier is used to monitor these state changes.
-Information about the time between state changes is collected in the array
-`tickDiffs` and printed to the console once per second.
+GPIO18 at 125KHz with a duty cycle of 50%. This implies 250000 state changes
+per second on GPIO18 or one state change every 4 microseconds. A Notifier is
+used to monitor these state changes. Information about the time between state
+changes is collected in the array `tickDiffs` and printed to the console once
+per second. This example was tested on a Raspberry Pi 3 running at 1.2 GHz.
 
 ```js
 var pigpio = require('../'),
@@ -232,13 +233,13 @@ var lastSeqno,
   lastLevel;
 
 var LED_GPIO = 18,
-  FREQUENCY = 50000, // 50KHz
+  FREQUENCY = 125000, // 125KHz
   DUTY_CYCLE = 500000; // 50%
 
 // Set sample rate to 1 microsecond
 pigpio.configureClock(1, pigpio.CLOCK_PCM);
 
-// Start hardware PWM on GPIO18, 50KHz, 50% duty cycle
+// Start hardware PWM on GPIO18, 125KHz, 50% duty cycle
 led = new Gpio(LED_GPIO, {mode: Gpio.OUTPUT});
 led.hardwarePwmWrite(FREQUENCY, DUTY_CYCLE);
 
@@ -323,23 +324,23 @@ setInterval(function () {
 
   tickDiffs = [];
 }, 1000);
-
 ```
 
 Here's an example of the typical output to the console:
 
 ```
-notificationCount: 426639263
+notificationCount: 24539895
 errorCount: 0
-8us: 26
-9us: 948
-10us: 99093
-11us: 1001
-12us: 2
-15us: 1
-16us: 3
-17us: 1
-18us: 1
+1us: 3
+2us: 74
+3us: 19880
+4us: 210446
+5us: 19981
+6us: 38
+7us: 6
+8us: 3
+9us: 2
+10us: 1
 ```
 
 ## Performance

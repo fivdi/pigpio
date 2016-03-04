@@ -15,13 +15,13 @@ var lastSeqno,
   lastLevel;
 
 var LED_GPIO = 18,
-  FREQUENCY = 50000, // 50KHz
+  FREQUENCY = 125000, // 125KHz
   DUTY_CYCLE = 500000; // 50%
 
 // Set sample rate to 1 microsecond
 pigpio.configureClock(1, pigpio.CLOCK_PCM);
 
-// Start hardware PWM on GPIO18, 50KHz, 50% duty cycle
+// Start hardware PWM on GPIO18, 125KHz, 50% duty cycle
 led = new Gpio(LED_GPIO, {mode: Gpio.OUTPUT});
 led.hardwarePwmWrite(FREQUENCY, DUTY_CYCLE);
 
