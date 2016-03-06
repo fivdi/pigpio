@@ -8,10 +8,10 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
  * [Features](https://github.com/fivdi/pigpio#features)
  * [Installation](https://github.com/fivdi/pigpio#installation)
  * [Usage](https://github.com/fivdi/pigpio#usage)
-   * [PWM](https://github.com/fivdi/pigpio#pwm)
-   * [Interrupt Handling](https://github.com/fivdi/pigpio#interrupt-handling)
-   * [Servo Control](https://github.com/fivdi/pigpio#servo-control)
-   * [Alerts](https://github.com/fivdi/pigpio#alerts)
+   * [Pulse an LED with PWM](https://github.com/fivdi/pigpio#pwm)
+   * [Buttons and interrupt handling](https://github.com/fivdi/pigpio#interrupt-handling)
+   * [Servo control](https://github.com/fivdi/pigpio#servo-control)
+   * [Determine the width of a pulse with Alerts](https://github.com/fivdi/pigpio#alerts)
  * [Performance](https://github.com/fivdi/pigpio#performance)
  * [API](https://github.com/fivdi/pigpio#api-documentation)
 
@@ -83,7 +83,7 @@ connected to GPIO4 (pin 7).
 
 <img src="https://raw.githubusercontent.com/fivdi/pigpio/master/example/pigpio.png">
 
-#### PWM
+#### Pulse an LED with PWM
 
 Use PWM to pulse the LED connected to GPIO17 from fully off to fully on
 continuously.
@@ -104,7 +104,7 @@ setInterval(function () {
 
 ```
 
-#### Interrupt Handling
+#### Buttons and interrupt handling
 
 Turn the LED connected to GPIO17 on when the momentary push button connected to
 GPIO4 is pressed. Turn the LED off when the button is released.
@@ -123,7 +123,7 @@ button.on('interrupt', function (level) {
 });
 ```
 
-#### Servo Control
+#### Servo control
 
 Continuously move a servo connected to GPIO10 clockwise and anti-clockwise.
 
@@ -147,7 +147,7 @@ setInterval(function () {
 }, 1000);
 ```
 
-#### Alerts
+#### Determine the width of a pulse with Alerts
 
 Alerts can be used to determine the time of a GPIO state change accurate to a
 few microseconds. Typically, alerts will be used for GPIO inputs but they can
