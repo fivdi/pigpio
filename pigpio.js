@@ -257,8 +257,12 @@ function Notifier(options) {
 
   this.handle = pigpio.gpioNotifyOpenWithSize(1048576);
 
+  // set highWaterMark to a multiple of NOTIFICATION_LENGTH to avoid 'data'
+  // events being emitted with buffers containing partial notifications.
   this.notificationStream =
-    fs.createReadStream(NOTIFICATION_PIPE_PATH_PREFIX + this.handle);
+    fs.createReadStream(NOTIFICATION_PIPE_PATH_PREFIX + this.handle, {
+      highWaterMark: Notifier.NOTIFICATION_LENGTH * 5000
+    });
 
   if (typeof options.bits === 'number') {
     this.start(options.bits);
