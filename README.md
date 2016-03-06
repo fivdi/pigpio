@@ -8,10 +8,10 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
  * [Features](https://github.com/fivdi/pigpio#features)
  * [Installation](https://github.com/fivdi/pigpio#installation)
  * [Usage](https://github.com/fivdi/pigpio#usage)
-   * [Pulse an LED with PWM](https://github.com/fivdi/pigpio#pwm)
-   * [Buttons and interrupt handling](https://github.com/fivdi/pigpio#interrupt-handling)
+   * [Pulse an LED with PWM](https://github.com/fivdi/pigpio#pulse-an-led-with-pwm)
+   * [Buttons and interrupt handling](https://github.com/fivdi/pigpio#buttons-and-interrupt-handling)
    * [Servo control](https://github.com/fivdi/pigpio#servo-control)
-   * [Determine the width of a pulse with Alerts](https://github.com/fivdi/pigpio#alerts)
+   * [Determine the width of a pulse with Alerts](https://github.com/fivdi/pigpio#determine-the-width-of-a-pulse-with-alerts)
  * [Performance](https://github.com/fivdi/pigpio#performance)
  * [API](https://github.com/fivdi/pigpio#api-documentation)
 
