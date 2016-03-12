@@ -13,13 +13,13 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
    * [Servo control](https://github.com/fivdi/pigpio#servo-control)
    * [Determine the width of a pulse with Alerts](https://github.com/fivdi/pigpio#determine-the-width-of-a-pulse-with-alerts)
  * [Performance](https://github.com/fivdi/pigpio#performance)
- * [API](https://github.com/fivdi/pigpio#api-documentation)
+ * [API documentation](https://github.com/fivdi/pigpio#api-documentation)
 
 ## Features
 
  * Digital IO
-   * Up to 2.1 million digital reads per second <sub>1)</sub>
-   * Up to 2.3 million digital writes per second <sub>1)</sub>
+   * Up to 2.1 million digital reads per second <sup>*)</sup>
+   * Up to 2.3 million digital writes per second <sup>*)</sup>
  * PWM on any of GPIOs 0 through 31
    * Multiple frequencies and duty cycle ranges supported
  * Servo control on any of GPIOs 0 through 31
@@ -29,12 +29,12 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
  * Notification streams for monitoring state changes on any of GPIOs 0 through 31 concurrently
    * The time of the state changes are available accurate to a few microseconds
  * Low latency interrupt handlers
-   * Handle up to 20000 interrupts per second <sub>1)</sub>
+   * Handle up to 20000 interrupts per second <sup>*)</sup>
  * Read or write up to 32 GPIOs as one operation with banked GPIO
  * Trigger pulse generation
  * Pull up/down resistor configuration
 
-1) On a Raspberry Pi 3 Model B V1.2 running at 1.2 GHz ([Performance](https://github.com/fivdi/pigpio#performance))
+*) On a Raspberry Pi 3 Model B V1.2 running at 1.2 GHz ([Performance](https://github.com/fivdi/pigpio#performance))
 
 ## Installation
 
@@ -57,7 +57,7 @@ The `make` command may take a while to complete so please be patient.
 
 Installing the pigpio C library will also install a number of utilities. One of
 these utilities is pigpiod which launches the pigpio library as a daemon. This
-utility should not be used as the pigpio Node.js module uses the C library
+utility should not be used as the pigpio Node.js package uses the C library
 directly.
 
 #### Step 2
@@ -226,7 +226,7 @@ Reads per second | 1,232,588 | 2,129,221
 Writes per second | 1,323,039 | 2,336,157
 Interrupts per second | 8,881 | 20,533
 
-## API Documentation
+## API documentation
 
 - [Configuration](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md) - pigpio configuration
 
