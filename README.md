@@ -40,6 +40,9 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
 
 #### Step 1
 
+This step can be skipped on Raspbian Jessie 2016-05-10 or newer as it includes
+the pigpio C library.
+
 The pigpio package is based on the
 [pigpio C library](https://github.com/joan2937/pigpio) so the C library needs
 to be installed first. Version V41 or higher of the pigpio C library is

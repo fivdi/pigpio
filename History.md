@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * installation instructions updated
+
 0.3.3 / May 04 2016
 ===================
 
