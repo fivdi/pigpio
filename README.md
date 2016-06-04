@@ -231,11 +231,13 @@ Interrupts per second | 8,881 | 20,533
 
 ## API documentation
 
-- [Configuration](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md) - pigpio configuration
-
 ### Classes
 
 - [Gpio](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md) - General Purpose Input Output
 - [GpioBank](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md) - Banked General Purpose Input Output
 - [Notifier](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md) - Notification Stream
+
+### Configuring pigpio
+
+- [Configuration](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md) - pigpio configuration
 
