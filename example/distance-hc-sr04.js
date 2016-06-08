@@ -2,7 +2,7 @@
 
 var Gpio = require('../').Gpio,
   trigger = new Gpio(23, {mode: Gpio.OUTPUT}),
-  echo = new Gpio(22, {mode: Gpio.INPUT, alert: true});
+  echo = new Gpio(24, {mode: Gpio.INPUT, alert: true});
 
 // The number of microseconds it take sound to travel 1cm at 20 degrees celcius
 var MICROSECDONDS_PER_CM = 1e6/34321;
