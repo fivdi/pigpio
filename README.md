@@ -11,7 +11,8 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
    * [Pulse an LED with PWM](https://github.com/fivdi/pigpio#pulse-an-led-with-pwm)
    * [Buttons and interrupt handling](https://github.com/fivdi/pigpio#buttons-and-interrupt-handling)
    * [Servo control](https://github.com/fivdi/pigpio#servo-control)
-   * [Determine the width of a pulse with Alerts](https://github.com/fivdi/pigpio#determine-the-width-of-a-pulse-with-alerts)
+   * [Measure distance with a HC-SR04 ultrasonic sensor]()
+   * [Determine the width of a pulse with alerts](https://github.com/fivdi/pigpio#determine-the-width-of-a-pulse-with-alerts)
  * [Performance](https://github.com/fivdi/pigpio#performance)
  * [API documentation](https://github.com/fivdi/pigpio#api-documentation)
 
@@ -150,7 +151,49 @@ setInterval(function () {
 }, 1000);
 ```
 
-#### Determine the width of a pulse with Alerts
+#### Measure distance with a HC-SR04 ultrasonic sensor
+
+The `trigger` function can be used to generate a pulse on a GPIO and alerts can
+be used to determine the time of a GPIO state change accurate to a few
+microseconds. These two features can be combined to measure distance using a
+HC-SR04 ultrasonic sensor.
+
+<img src="https://raw.githubusercontent.com/fivdi/pigpio/master/example/distance-hc-sr04.png">
+
+```js
+var Gpio = require('pigpio').Gpio,
+  trigger = new Gpio(23, {mode: Gpio.OUTPUT}),
+  echo = new Gpio(22, {mode: Gpio.INPUT, alert: true});
+
+// The number of microseconds it take sound to travel 1cm at 20 degrees celcius
+var MICROSECDONDS_PER_CM = 1e6/34321;
+
+trigger.digitalWrite(0); // Make sure trigger is low
+
+(function () {
+  var startTick;
+
+  echo.on('alert', function (level, tick) {
+    var endTick,
+      diff;
+
+    if (level == 1) {
+      startTick = tick;
+    } else {
+      endTick = tick;
+      diff = (endTick >> 0) - (startTick >> 0); // Unsigned 32 bit arithmetic
+      console.log(diff / 2 / MICROSECDONDS_PER_CM);
+    }
+  });
+}());
+
+// Trigger a distance measurement one per second
+setInterval(function () {
+  trigger.trigger(10, 1); // Set trigger high for 10 microseconds
+}, 1000);
+```
+
+#### Determine the width of a pulse with alerts
 
 Alerts can be used to determine the time of a GPIO state change accurate to a
 few microseconds. Typically, alerts will be used for GPIO inputs but they can

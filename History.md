@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * example: measure distance with a HC-SR04 ultrasonic sensor
+
 0.3.4 / May 15 2016
 ===================
 
