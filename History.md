@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.4.0 / Sep 24 2016
+===================
 
   * example: measure distance with a HC-SR04 ultrasonic sensor
   * initialize and terminate added to public API
