@@ -157,10 +157,6 @@ Gpio.prototype.disableAlert = function () {
   return this;
 };
 
-/*Gpio.terminate = function () {
-  pigpio.gpioTerminate();
-};*/
-
 /* mode */
 Gpio.INPUT = 0; // PI_INPUT
 Gpio.OUTPUT = 1; //PI_OUTPUT;
@@ -295,6 +291,14 @@ Notifier.PI_NTFY_FLAGS_ALIVE = 1 << 6;
 /* ------------------------------------------------------------------------ */
 /* Configuration                                                            */
 /* ------------------------------------------------------------------------ */
+
+module.exports.initialize = function () {
+  initializePigpio();
+};
+
+module.exports.terminate = function () {
+  pigpio.gpioTerminate();
+};
 
 module.exports.configureClock = function (microseconds, peripheral) {
   pigpio.gpioCfgClock(+microseconds, +peripheral);
