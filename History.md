@@ -3,6 +3,7 @@ Unpublished
 
   * example: measure distance with a HC-SR04 ultrasonic sensor
   * initialize and terminate added to public API
+  * nan v2.4.0
 
 0.3.4 / May 15 2016
 ===================
