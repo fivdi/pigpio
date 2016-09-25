@@ -1,6 +1,28 @@
 ## Configuration
 
+Most applications will not need to use the configuration functions as the
+default behavior will suffice.
+
+For example, in most applications it will not be necessary to call the
+`initialize` and `terminate` functions as they are called automatically.
+There is however an exception to this rule. If the Node.js application uses
+[signal events](https://nodejs.org/dist/latest/docs/api/process.html#process_signal_events),
+initialization and termination can no longer be handled automatically. Linux
+only allows one signal event handler to be registered for a signal. When the
+pigpio C library is initialized, it registers signal event handlers for all
+signal events. These signal event handlers are used to terminate pigpio.
+If the Node.js application registers it own signal event handlers before the
+pigpio C library is initialized, the event handlers will be deregistered and
+replaced by the pigpio C library event handlers.
+
+To resolve this issue the `initialize` and `terminate` functions can be used.
+The `initialize` function should be called before the Node.js application
+registers any signal event handlers. The signal event handlers should call the
+`terminate` function to terminate the pigpio package.
+
 #### Functions
+  - [initialize()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#initialize)
+  - [terminate()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#terminate)
   - [configureClock(microseconds, peripheral)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureclockmicroseconds-peripheral)
 
 #### Constants
@@ -8,6 +30,12 @@
   - [CLOCK_PCM](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#clock_pcm)
 
 ### Functions
+
+#### initialize()
+Initialize the pigpio package. For further information see above text.
+
+#### terminate()
+Terminate the pigpio package. For further information see above text.
 
 #### configureClock(microseconds, peripheral)
 - microseconds - an unsigned integer specifying the sample rate in microseconds (1, 2, 4, 5, 8, or 10)
