@@ -4,7 +4,7 @@ var Gpio = require('../').Gpio,
   trigger = new Gpio(23, {mode: Gpio.OUTPUT}),
   echo = new Gpio(24, {mode: Gpio.INPUT, alert: true});
 
-// The number of microseconds it take sound to travel 1cm at 20 degrees celcius
+// The number of microseconds it takes sound to travel 1cm at 20 degrees celcius
 var MICROSECDONDS_PER_CM = 1e6/34321;
 
 trigger.digitalWrite(0); // Make sure trigger is low
@@ -26,7 +26,7 @@ trigger.digitalWrite(0); // Make sure trigger is low
   });
 }());
 
-// Trigger a distance measurement one per second
+// Trigger a distance measurement once per second
 setInterval(function () {
   trigger.trigger(10, 1); // Set trigger high for 10 microseconds
 }, 1000);
