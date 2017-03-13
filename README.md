@@ -1,6 +1,7 @@
 # pigpio
 
-Fast GPIO, PWM, servo control, state change notification, and interrupt
+A wrapper for the [pigpio C library](https://github.com/joan2937/pigpio) to
+enable fast GPIO, PWM, servo control, state change notification and interrupt
 handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
 
 ## Contents
