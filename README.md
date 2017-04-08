@@ -4,6 +4,8 @@ A wrapper for the [pigpio C library](https://github.com/joan2937/pigpio) to
 enable fast GPIO, PWM, servo control, state change notification and interrupt
 handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
 
+pigpio supports Node.js v0.10, v0.12, v4, v6 and v7.
+
 ## Contents
 
  * [Features](https://github.com/fivdi/pigpio#features)
