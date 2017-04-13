@@ -1,6 +1,6 @@
 #!/bin/sh
 echo hardware-revision
-hardware-revision
+node hardware-revision
 echo banked-leds
 node banked-leds
 echo blinky
