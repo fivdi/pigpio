@@ -21,6 +21,7 @@ registers any signal event handlers. The signal event handlers should call the
 `terminate` function to terminate the pigpio package.
 
 #### Functions
+  - [hardwareRevision()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#hardwarerevision)
   - [initialize()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#initialize)
   - [terminate()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#terminate)
   - [configureClock(microseconds, peripheral)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureclockmicroseconds-peripheral)
@@ -30,6 +31,13 @@ registers any signal event handlers. The signal event handlers should call the
   - [CLOCK_PCM](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#clock_pcm)
 
 ### Functions
+
+#### hardwareRevision()
+Returns the hardware revision as an unsigned integer.
+
+Returns 0 if the hardware revision can not be determined.
+
+See [here](https://github.com/joan2937/pigpio#gpio) for further details.
 
 #### initialize()
 Initialize the pigpio package. For further information see above text.

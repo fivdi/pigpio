@@ -1,6 +1,7 @@
 Unpublished
 ===========
 
+  * hardwareRevision API
   * nan v2.6.2
 
 0.4.0 / Sep 24 2016

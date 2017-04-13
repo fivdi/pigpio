@@ -102,6 +102,11 @@ void ThrowPigpioError(int err, const char *pigpiocall) {
 }
 
 
+NAN_METHOD(gpioHardwareRevision) {
+  info.GetReturnValue().Set(gpioHardwareRevision());
+}
+
+
 NAN_METHOD(gpioInitialise) {
   int rc = gpioInitialise();
   if (rc < 0) {
@@ -734,6 +739,7 @@ NAN_MODULE_INIT(InitAll) {
   SetConst(target, "PI_CLOCK_PCM", PI_CLOCK_PCM);*/
 
   /* functions */
+  SetFunction(target, "gpioHardwareRevision", gpioHardwareRevision);
   SetFunction(target, "gpioInitialise", gpioInitialise);
   SetFunction(target, "gpioTerminate", gpioTerminate);
 

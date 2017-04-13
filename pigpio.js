@@ -292,6 +292,10 @@ Notifier.PI_NTFY_FLAGS_ALIVE = 1 << 6;
 /* Configuration                                                            */
 /* ------------------------------------------------------------------------ */
 
+module.exports.hardwareRevision = function () {
+  return pigpio.gpioHardwareRevision();
+};
+
 module.exports.initialize = function () {
   initializePigpio();
 };
