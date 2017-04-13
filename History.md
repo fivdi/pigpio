@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.5.1 / Apr 13 2017
+===================
 
   * fix test script
 
