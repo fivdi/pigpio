@@ -2,9 +2,9 @@
 
 A wrapper for the [pigpio C library](https://github.com/joan2937/pigpio) to
 enable fast GPIO, PWM, servo control, state change notification and interrupt
-handling with **Node.js** on the Raspberry Pi Zero, 1, 2, or 3.
+handling with **Node.js** on the Raspberry Pi Zero, 1, 2 or 3.
 
-pigpio supports Node.js v0.10, v0.12, v4, v6 and v7.
+pigpio supports Node.js v0.10, v0.12, v4, v6, v7 and v8.
 
 ## Contents
 
@@ -45,7 +45,8 @@ pigpio supports Node.js v0.10, v0.12, v4, v6 and v7.
 #### Step 1
 
 This step can be skipped on Raspbian Jessie 2016-05-10 or newer as it includes
-the pigpio C library.
+the pigpio C library. The step can't be skipped on Raspbian Jessie Lite as it
+doesn't include the pigpio C library.
 
 The pigpio package is based on the
 [pigpio C library](https://github.com/joan2937/pigpio) so the C library needs
