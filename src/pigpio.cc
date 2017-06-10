@@ -676,6 +676,17 @@ NAN_METHOD(gpioCfgClock) {
 }
 
 
+NAN_METHOD(gpioCfgSocketPort) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioCfgSocketPort", ""));
+  }
+
+  unsigned cfgPort = info[0]->Uint32Value();
+
+  gpioCfgSocketPort(cfgPort);
+}
+
+
 /*static void SetConst(
   Nan::ADDON_REGISTER_FUNCTION_ARGS_TYPE target,
   const char* name,
@@ -781,6 +792,7 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioNotifyClose", gpioNotifyClose);
 
   SetFunction(target, "gpioCfgClock", gpioCfgClock);
+  SetFunction(target, "gpioCfgSocketPort", gpioCfgSocketPort);
 }
 
 NODE_MODULE(pigpio, InitAll)

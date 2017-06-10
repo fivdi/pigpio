@@ -25,6 +25,7 @@ registers any signal event handlers. The signal event handlers should call the
   - [initialize()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#initialize)
   - [terminate()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#terminate)
   - [configureClock(microseconds, peripheral)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureclockmicroseconds-peripheral)
+  - [configureSocketPort(port)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configuresocketportport)
 
 #### Constants
   - [CLOCK_PWM](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#clock_pwm)
@@ -75,16 +76,37 @@ peripheral.
 If configureClock is never called, the sample rate will default to 5
 microseconds timed by the PCM peripheral.
 
-If configureClock is called, it must be called before any other pigpio
-functions are called. For example:
+If configureClock is called, it must be called before creating Gpio objects.
+For example:
 
 ```js
 var pigpio = require('pigpio'),
   Gpio = pigpio.Gpio,
   led;
 
-// Call configureClock before using any other pigpio functions
+// Call configureClock before creating Gpio objects
 pigpio.configureClock(1, pigpio.CLOCK_PCM);
+
+led = new Gpio(17, {mode: Gpio.OUTPUT});
+```
+
+#### configureSocketPort(port)
+- port - an unsigned integer specifying the pigpio socket port number.
+
+Configures pigpio to use the specified socket port.
+
+The default setting is to use port 8888.
+
+If configureSocketPort is called, it must be called before creating Gpio
+objects. For example:
+
+```js
+var pigpio = require('pigpio'),
+  Gpio = pigpio.Gpio,
+  led;
+
+// Call configureSocketPort before creating Gpio objects
+pigpio.configureSocketPort(8889);
 
 led = new Gpio(17, {mode: Gpio.OUTPUT});
 ```

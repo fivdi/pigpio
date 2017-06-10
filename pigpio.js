@@ -306,7 +306,10 @@ module.exports.terminate = function () {
 
 module.exports.configureClock = function (microseconds, peripheral) {
   pigpio.gpioCfgClock(+microseconds, +peripheral);
-  initializePigpio();
+};
+
+module.exports.configureSocketPort = function (port) {
+  pigpio.gpioCfgSocketPort(+port);
 };
 
 module.exports.CLOCK_PWM = 0; // PI_CLOCK_PWM;
