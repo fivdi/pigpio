@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.6.0 / Jun 10 2017
+===================
 
   * allow socket port number to be configured with configureSocketPort
 
