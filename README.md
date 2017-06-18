@@ -18,6 +18,7 @@ pigpio supports Node.js versions 0.10, 0.12, 4, 5, 6, 7 and 8.
    * [Determine the width of a pulse with alerts](https://github.com/fivdi/pigpio#determine-the-width-of-a-pulse-with-alerts)
  * [Performance](https://github.com/fivdi/pigpio#performance)
  * [API documentation](https://github.com/fivdi/pigpio#api-documentation)
+ * [Related packages](https://github.com/fivdi/pigpio#related-packages)
 
 ## Features
 
@@ -287,4 +288,11 @@ Interrupts per second | 8,881 | 20,533
 ### Configuring pigpio
 
 - [Configuration](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md) - pigpio configuration
+
+## Related packages
+
+- [onoff](https://github.com/fivdi/onoff) - GPIO access and interrupt detection
+- [i2c-bus](https://github.com/fivdi/i2c-bus) - I2C serial bus access
+- [spi-device](https://github.com/fivdi/spi-device) - SPI serial bus access
+- [mcp-spi-adc](https://github.com/fivdi/mcp-spi-adc) - Analog to digital conversion with the MCP3002/4/8, MCP3202/4/8 and MCP3304
 
