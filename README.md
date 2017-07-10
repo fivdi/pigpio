@@ -53,7 +53,7 @@ pre-installed so it need not be manually installed.
 
 Raspbian Jessie Lite 2016-05-10 or newer does not come with the pigpio C
 library pre-installed so it must be manually installed with the following
-command:
+commands:
 
 ```
 sudo apt-get update
