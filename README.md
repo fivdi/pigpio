@@ -16,8 +16,8 @@ pigpio supports Node.js versions 0.10, 0.12, 4, 5, 6, 7 and 8.
    * [Servo control](https://github.com/fivdi/pigpio#servo-control)
    * [Measure distance with a HC-SR04 ultrasonic sensor](https://github.com/fivdi/pigpio#measure-distance-with-a-hc-sr04-ultrasonic-sensor)
    * [Determine the width of a pulse with alerts](https://github.com/fivdi/pigpio#determine-the-width-of-a-pulse-with-alerts)
- * [Performance](https://github.com/fivdi/pigpio#performance)
  * [API documentation](https://github.com/fivdi/pigpio#api-documentation)
+ * [Performance](https://github.com/fivdi/pigpio#performance)
  * [Related packages](https://github.com/fivdi/pigpio#related-packages)
 
 ## Features
@@ -255,6 +255,18 @@ Here's an example of the typical output to the console:
 15
 ```
 
+## API documentation
+
+### Classes
+
+- [Gpio](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md) - General Purpose Input Output
+- [GpioBank](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md) - Banked General Purpose Input Output
+- [Notifier](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md) - Notification Stream
+
+### Configuring pigpio
+
+- [Configuration](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md) - pigpio configuration
+
 ## Performance
 
 Three of the pigpio tests are used to monitor performance:
@@ -276,18 +288,6 @@ pigpio C library | V45 | V47
 Reads per second | 1,232,588 | 2,129,221
 Writes per second | 1,323,039 | 2,336,157
 Interrupts per second | 8,881 | 20,533
-
-## API documentation
-
-### Classes
-
-- [Gpio](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md) - General Purpose Input Output
-- [GpioBank](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md) - Banked General Purpose Input Output
-- [Notifier](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md) - Notification Stream
-
-### Configuring pigpio
-
-- [Configuration](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md) - pigpio configuration
 
 ## Related packages
 
