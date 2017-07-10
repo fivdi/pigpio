@@ -293,8 +293,8 @@ Interrupts per second | 8,881 | 20,533
 ## Limitations
 
 The pigpio Node.js package is a wrapper for the
-[pigpio C library](https://github.com/joan2937/pigpio) and can only be used by
-a single running process. This is a limitation of the pigpio C library.
+[pigpio C library](https://github.com/joan2937/pigpio). A limitation of the
+pigpio C library is that it can only be used by a single running process.
 
 ## Related packages
 
