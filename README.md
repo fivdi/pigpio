@@ -18,6 +18,7 @@ pigpio supports Node.js versions 0.10, 0.12, 4, 5, 6, 7 and 8.
    * [Determine the width of a pulse with alerts](https://github.com/fivdi/pigpio#determine-the-width-of-a-pulse-with-alerts)
  * [API documentation](https://github.com/fivdi/pigpio#api-documentation)
  * [Performance](https://github.com/fivdi/pigpio#performance)
+ * [Limitations](https://github.com/fivdi/pigpio#limitations)
  * [Related packages](https://github.com/fivdi/pigpio#related-packages)
 
 ## Features
@@ -288,6 +289,12 @@ pigpio C library | V45 | V47
 Reads per second | 1,232,588 | 2,129,221
 Writes per second | 1,323,039 | 2,336,157
 Interrupts per second | 8,881 | 20,533
+
+## Limitations
+
+The pigpio Node.js package is a wrapper for the
+[pigpio C library](https://github.com/joan2937/pigpio) and can only be used by
+a single running process. This is a limitation of the pigpio C library.
 
 ## Related packages
 
