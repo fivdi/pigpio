@@ -44,33 +44,31 @@ pigpio supports Node.js versions 0.10, 0.12, 4, 5, 6, 7 and 8.
 
 ## Installation
 
-#### Step 1
+#### Step 1 - Install the pigpio C library
 
-This step can be skipped on Raspbian Jessie 2016-05-10 or newer as it includes
-the pigpio C library. The step can't be skipped on Raspbian Jessie Lite as it
-doesn't include the pigpio C library.
+The pigpio Node.js package requires the pigpio C library V41 or higher.
 
-The pigpio package is based on the
-[pigpio C library](https://github.com/joan2937/pigpio) so the C library needs
-to be installed first. Version V41 or higher of the pigpio C library is
-required. It can be installed with the following commands:
+Raspbian Jessie 2016-05-10 or newer comes with the pigpio C library
+pre-installed so it need not be manually installed.
+
+Raspbian Jessie Lite 2016-05-10 or newer does not come with the pigpio C
+library pre-installed so it must be manually installed with the following
+command:
 
 ```
-wget abyz.co.uk/rpi/pigpio/pigpio.zip
-unzip pigpio.zip
-cd PIGPIO
-make
-sudo make install
+sudo apt-get update
+sudo apt-get install pigpio
 ```
 
-The `make` command may take a while to complete so please be patient.
+The pigpio C library contains a number of utilities. One of these utilities
+is pigpiod which launches the pigpio C library as a daemon. This utility
+should not be used as the pigpio Node.js package uses the C library directly.
 
-Installing the pigpio C library will also install a number of utilities. One of
-these utilities is pigpiod which launches the pigpio library as a daemon. This
-utility should not be used as the pigpio Node.js package uses the C library
-directly.
+Installation instructions for the pigpio C library on versions of Raspbian
+prior to 2016-05-10 can be found
+[here](http://abyz.co.uk/rpi/pigpio/download.html).
 
-#### Step 2
+#### Step 2 - Install the pigpio Node.js package
 
 ```
 npm install pigpio
