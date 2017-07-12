@@ -63,8 +63,8 @@ LED once per second. If the user terminates the program by hitting ctrl+c we
 would like to turn the LED off before the program terminates.
 
 The following program might look like it should do what we would like it to do
-but unfortunately it doesn't. The SIGINT handler is not executed when the user
-hits ctrl+c.
+but unfortunately it doesn't. The `SIGINT` handler is not executed when the
+user hits ctrl+c.
 
 ```js
 var Gpio = require('pigpio').Gpio,
@@ -84,13 +84,13 @@ iv = setInterval(function () {
 }, 1000);
 ```
 
-The program registers a SIGINT handler and then creates a Gpio object. The
-pigpio C library is automatically initialized when the Gpio object is created.
-Unfortunately this automatically initialization occurs after the SIGINT
-handler is registered and it registers a new SIGINT handler which in turn
-deregisters the SIGINT handler registered by the JavaScript code.
+The program registers a `SIGINT` handler and then creates a `Gpio` object. The
+pigpio C library is automatically initialized when the `Gpio` object is
+created. Unfortunately this automatically initialization occurs after the
+`SIGINT` handler is registered and it registers a new `SIGINT` handler which
+in turn deregisters the `SIGINT` handler registered by the JavaScript code.
 
-To resolve this issue the pigpio initialize and terminate functions can be
+To resolve this issue the pigpio `initialize` and `terminate` functions can be
 used.
 
 ```js
@@ -149,7 +149,7 @@ peripheral.
 If configureClock is never called, the sample rate will default to 5
 microseconds timed by the PCM peripheral.
 
-If configureClock is called, it must be called before creating Gpio objects.
+If configureClock is called, it must be called before creating `Gpio` objects.
 For example:
 
 ```js
@@ -170,7 +170,7 @@ Configures pigpio to use the specified socket port.
 
 The default setting is to use port 8888.
 
-If configureSocketPort is called, it must be called before creating Gpio
+If configureSocketPort is called, it must be called before creating `Gpio`
 objects. For example:
 
 ```js
