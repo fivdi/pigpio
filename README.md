@@ -89,7 +89,7 @@ If you're using Node.js v0.10.29 and seeing a compile error saying that
 Assume there's an LED connected to GPIO17 (pin 11) and a momentary push button
 connected to GPIO4 (pin 7).
 
-<img src="https://raw.githubusercontent.com/fivdi/pigpio/master/example/pigpio.png">
+<img src="https://raw.githubusercontent.com/fivdi/pigpio/master/example/led-button.png">
 
 #### Pulse an LED with PWM
 
@@ -135,7 +135,7 @@ button.on('interrupt', function (level) {
 
 Continuously move a servo connected to GPIO10 clockwise and anti-clockwise.
 
-Simple servo control.
+<img src="https://raw.githubusercontent.com/fivdi/pigpio/master/example/servo.png">
 
 ```js
 var Gpio = require('pigpio').Gpio,
