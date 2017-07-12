@@ -143,13 +143,13 @@ Sample rate (us) | Samples per second | CPU % |
 8 | 125000 | 15 |
 10 | 100000 | 14 |
 
-The configureClock function can be used to configure the sample rate and timing
-peripheral.
+The `configureClock` function can be used to configure the sample rate and
+timing peripheral.
 
-If configureClock is never called, the sample rate will default to 5
+If `configureClock` is never called, the sample rate will default to 5
 microseconds timed by the PCM peripheral.
 
-If configureClock is called, it must be called before creating `Gpio` objects.
+If `configureClock` is called, it must be called before creating `Gpio` objects.
 For example:
 
 ```js
@@ -170,7 +170,7 @@ Configures pigpio to use the specified socket port.
 
 The default setting is to use port 8888.
 
-If configureSocketPort is called, it must be called before creating `Gpio`
+If `configureSocketPort` is called, it must be called before creating `Gpio`
 objects. For example:
 
 ```js
