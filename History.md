@@ -1,7 +1,7 @@
-Unpublished
-===========
+0.6.1 / Jul 15 2017
+===================
 
-  * document related packages
+  * improve documentation
 
 0.6.0 / Jun 10 2017
 ===================
