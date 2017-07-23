@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * document necessity for root privileges 
+
 0.6.1 / Jul 15 2017
 ===================
 
