@@ -254,6 +254,33 @@ Here's an example of the typical output to the console:
 15
 ```
 
+#### Ensure clean-up on exit when running as a daemon
+Ensure that you call `pigpio.terminate()` in your process shutdown sequence.
+If you are running as a daemon or a systemd service, you should have a handler
+for the appropriate shutdown signals, and that handler should invoke the `terminate()` function.
+
+ ```js
+var pigpio = require('pigpio');
+
+ //...
+
+ process.on('SIGHUP', shutdown);
+ process.on('SIGINT', shutdown);
+ process.on('SIGCONT', shutdown);
+ process.on('SIGTERM', shutdown);
+
+ function shutdown() {
+   pigpio.terminate(); //THIS IS IMPORTANT
+
+   // perform other clean termination steps your daemon needs
+   //clearInterval(timerVar);
+
+   console.log('Daemon must exit, performed cleanup.');
+   process.exit(0);
+ }
+ ```
+For details please see [initialize and terminate functions](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#initialize)
+
 ## API documentation
 
 ### Classes
@@ -303,4 +330,3 @@ Interrupts per second | 8,881 | 20,533
 - [spi-device](https://github.com/fivdi/spi-device) - SPI serial bus access
 - [mcp-spi-adc](https://github.com/fivdi/mcp-spi-adc) - Analog to digital conversion with the MCP3002/4/8, MCP3202/4/8 and MCP3304
 - [pigpio-mock](https://github.com/deepsyx/pigpio-mock) - A pigpio mock library for development on your local machine
-
