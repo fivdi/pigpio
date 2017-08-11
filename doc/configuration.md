@@ -11,10 +11,14 @@ the default behavior will suffice.
   - [terminate()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#terminate)
   - [configureClock(microseconds, peripheral)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureclockmicroseconds-peripheral)
   - [configureSocketPort(port)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configuresocketportport)
+  - [configureInterfaces(ifFlags)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureinterfaces)
 
 #### Constants
   - [CLOCK_PWM](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#clock_pwm)
   - [CLOCK_PCM](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#clock_pcm)
+  - [DISABLE_FIFO_IF](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#disable_fifo_if)
+  - [DISABLE_SOCK_IF](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#disable_sock_if)
+  - [LOCALHOST_SOCK_IF](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#localhost_sock_if)
 
 ### Functions
 
@@ -184,6 +188,27 @@ pigpio.configureSocketPort(8889);
 led = new Gpio(17, {mode: Gpio.OUTPUT});
 ```
 
+#### configureInterfaces(ifFlags)
+- ifFlags - flags to configure the fifo and socket interfaces.
+
+Configures pigpio support of the fifo and socket interfaces.
+
+The default setting (0) is that both interfaces are enabled.
+
+If `configureInterfaces` is called, it must be called before creating `Gpio`
+objects. For example:
+
+```js
+var pigpio = require('pigpio'),
+  Gpio = pigpio.Gpio,
+  led;
+
+// Call configureInterfaces before creating Gpio objects
+pigpio.configureInterfaces(pigpio.DISABLE_FIFO_IF | pigpio.DISABLE_SOCK_IF);
+
+led = new Gpio(17, {mode: Gpio.OUTPUT});
+```
+
 ### Constants
 
 #### CLOCK_PWM
@@ -192,3 +217,11 @@ PWM clock.
 #### CLOCK_PCM
 PCM clock.
 
+#### DISABLE_FIFO_IF
+Disables the pipe interface.
+
+#### DISABLE_SOCK_IF
+Disables the socket interface.
+
+#### LOCALHOST_SOCK_IF
+Disables remote socket access (this means that the socket interface is only usable from the local Pi).

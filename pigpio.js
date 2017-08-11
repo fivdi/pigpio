@@ -312,6 +312,13 @@ module.exports.configureSocketPort = function (port) {
   pigpio.gpioCfgSocketPort(+port);
 };
 
+module.exports.configureInterfaces = function (ifFlags) {
+  pigpio.gpioCfgInterfaces(+ifFlags);
+};
+
 module.exports.CLOCK_PWM = 0; // PI_CLOCK_PWM;
 module.exports.CLOCK_PCM = 1; // PI_CLOCK_PCM;
 
+module.exports.DISABLE_FIFO_IF = 1; // PI_DISABLE_FIFO_IF
+module.exports.DISABLE_SOCK_IF = 2; // PI_DISABLE_SOCK_IF
+module.exports.LOCALHOST_SOCK_IF = 4; // PI_LOCALHOST_SOCK_IF
