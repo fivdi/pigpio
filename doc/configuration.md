@@ -11,7 +11,7 @@ the default behavior will suffice.
   - [terminate()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#terminate)
   - [configureClock(microseconds, peripheral)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureclockmicroseconds-peripheral)
   - [configureSocketPort(port)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configuresocketportport)
-  - [configureInterfaces(ifFlags)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureinterfaces)
+  - [configureInterfaces(ifFlags)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureinterfacesifflags)
 
 #### Constants
   - [CLOCK_PWM](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#clock_pwm)
