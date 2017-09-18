@@ -302,6 +302,8 @@ module.exports.initialize = function () {
 
 module.exports.terminate = function () {
   pigpio.gpioTerminate();
+
+  initialized = false;
 };
 
 module.exports.configureClock = function (microseconds, peripheral) {

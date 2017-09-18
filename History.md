@@ -3,6 +3,7 @@ Unpublished
 
   * document necessity for root privileges
   * update dependencies (bindings@1.3.0, nan@2.7.0)
+  * allow initialize to be called after terminate has been called [#34](https://github.com/fivdi/pigpio/issues/34)
 
 0.6.1 / Jul 15 2017
 ===================

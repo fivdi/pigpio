@@ -41,6 +41,8 @@ echo pwm
 node pwm
 echo servo-control
 node servo-control
+echo terminate
+node terminate
 echo trigger-led
 node trigger-led
 

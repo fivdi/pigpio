@@ -119,6 +119,9 @@ iv = setInterval(function () {
 Terminate the pigpio C library. See
 [initialize()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#initialize).
 
+After `terminate` has been called any pigpio objects created up to that point
+can no longer be used.
+
 #### configureClock(microseconds, peripheral)
 - microseconds - an unsigned integer specifying the sample rate in microseconds (1, 2, 4, 5, 8, or 10)
 - peripheral - an unsigned integer specifying the peripheral for timing (CLOCK_PWM or CLOCK_PCM)
