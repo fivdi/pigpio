@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.6.2 / Sep 18 2017
+===================
 
   * document necessity for root privileges
   * update dependencies (bindings@1.3.0, nan@2.7.0)
