@@ -4,7 +4,8 @@
     "conditions": [[
       "OS == \"linux\"", {
         "cflags": [
-          "-Wno-unused-local-typedefs"
+          "-Wno-unused-local-typedefs",
+          "-Wno-deprecated-declarations"
         ]
       }]
     ],
