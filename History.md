@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.6.3 / Nov 04 2017
+===================
 
   * suppress deprecated-declaration warnings
   * document node 9 support
