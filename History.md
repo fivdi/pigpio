@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.6.4 / Dec 24 2017
+===================
 
   * don't suppress deprecated-declaration warnings
   * update dependencies
