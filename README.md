@@ -6,6 +6,8 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2 or 3.
 
 pigpio supports Node.js versions 0.10, 0.12, 4, 5, 6, 7, 8 and 9.
 
+[![Mentioned in Awesome Node.js](https://awesome.re/mentioned-badge.svg)](https://github.com/sindresorhus/awesome-nodejs)
+
 ## Contents
 
  * [Features](https://github.com/fivdi/pigpio#features)
