@@ -76,16 +76,6 @@ prior to 2016-05-10 can be found
 npm install pigpio
 ```
 
-If you're using Node.js v4 or higher and seeing lots of compile errors when
-installing pigpio, it's very likely that gcc/g++ 4.8 or higher are not
-installed. See
-[Node.js v4 and native addons](https://github.com/fivdi/onoff/wiki/Node.js-v4-and-native-addons)
-for details.
-
-If you're using Node.js v0.10.29 and seeing a compile error saying that
-`‘REPLACE_INVALID_UTF8’ is not a member of ‘v8::String’` see
-[Node.js v0.10.29 and native addons on the Raspberry Pi](https://github.com/fivdi/onoff/wiki/Node.js-v0.10.29-and-native-addons-on-the-Raspberry-Pi).
-
 ## Usage
 
 Assume there's an LED connected to GPIO17 (pin 11) and a momentary push button
