@@ -7,15 +7,15 @@ the state changes accurate to a few microseconds. It's possible to handle in
 excess of 100000 notifications per second.
 
 #### Methods
-  - [Notifier([options])](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md#notifieroptions)
-  - [start(bits)](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md#startbits)
-  - [stop()](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md#stop)
-  - [close()](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md#close)
-  - [stream()](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md#stream)
+  - [Notifier([options])](#notifieroptions)
+  - [start(bits)](#startbits)
+  - [stop()](#stop)
+  - [close()](#close)
+  - [stream()](#stream)
 
 #### Constants
-  - [NOTIFICATION_LENGTH](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md#notification_length)
-  - [PI_NTFY_FLAGS_ALIVE](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md#pi_ntfy_flags_alive)
+  - [NOTIFICATION_LENGTH](#notification_length)
+  - [PI_NTFY_FLAGS_ALIVE](#pi_ntfy_flags_alive)
 
 ### Methods
 

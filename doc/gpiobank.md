@@ -11,15 +11,15 @@ all GPIOs in bank 1 are safe though, it depends on the board type.
 A GpioBank object can be used to read or write up to 32 GPIOs as one operation.
 
 #### Methods
-  - [GpioBank(bank)](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md#gpiobankbank)
-  - [read()](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md#read)
-  - [set(bits)](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md#setbits)
-  - [clear(bits)](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md#clearbits)
-  - [bank()](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md#bank)
+  - [GpioBank(bank)](#gpiobankbank)
+  - [read()](#read)
+  - [set(bits)](#setbits)
+  - [clear(bits)](#clearbits)
+  - [bank()](#bank)
 
 #### Constants
-  - [BANK1](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md#bank1)
-  - [BANK2](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md#bank2)
+  - [BANK1](#bank1)
+  - [BANK2](#bank2)
 
 ### Methods
 
