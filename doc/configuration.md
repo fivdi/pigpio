@@ -6,15 +6,15 @@ alerts. Many applications will not need to use the configuration functions as
 the default behavior will suffice.
 
 #### Functions
-  - [hardwareRevision()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#hardwarerevision)
-  - [initialize()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#initialize)
-  - [terminate()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#terminate)
-  - [configureClock(microseconds, peripheral)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureclockmicroseconds-peripheral)
-  - [configureSocketPort(port)](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configuresocketportport)
+  - [hardwareRevision()](#hardwarerevision)
+  - [initialize()](#initialize)
+  - [terminate()](#terminate)
+  - [configureClock(microseconds, peripheral)](#configureclockmicroseconds-peripheral)
+  - [configureSocketPort(port)](#configuresocketportport)
 
 #### Constants
-  - [CLOCK_PWM](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#clock_pwm)
-  - [CLOCK_PCM](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#clock_pcm)
+  - [CLOCK_PWM](#clock_pwm)
+  - [CLOCK_PCM](#clock_pcm)
 
 ### Functions
 
@@ -117,7 +117,7 @@ iv = setInterval(function () {
 
 #### terminate()
 Terminate the pigpio C library. See
-[initialize()](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#initialize).
+[initialize()](#initialize).
 
 After `terminate` has been called any pigpio objects created up to that point
 can no longer be used.

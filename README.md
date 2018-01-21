@@ -10,18 +10,18 @@ pigpio supports Node.js versions 0.10, 0.12, 4, 5, 6, 7, 8 and 9.
 
 ## Contents
 
- * [Features](https://github.com/fivdi/pigpio#features)
- * [Installation](https://github.com/fivdi/pigpio#installation)
- * [Usage](https://github.com/fivdi/pigpio#usage)
-   * [Pulse an LED with PWM](https://github.com/fivdi/pigpio#pulse-an-led-with-pwm)
-   * [Buttons and interrupt handling](https://github.com/fivdi/pigpio#buttons-and-interrupt-handling)
-   * [Servo control](https://github.com/fivdi/pigpio#servo-control)
-   * [Measure distance with a HC-SR04 ultrasonic sensor](https://github.com/fivdi/pigpio#measure-distance-with-a-hc-sr04-ultrasonic-sensor)
-   * [Determine the width of a pulse with alerts](https://github.com/fivdi/pigpio#determine-the-width-of-a-pulse-with-alerts)
- * [API documentation](https://github.com/fivdi/pigpio#api-documentation)
- * [Performance](https://github.com/fivdi/pigpio#performance)
- * [Limitations](https://github.com/fivdi/pigpio#limitations)
- * [Related packages](https://github.com/fivdi/pigpio#related-packages)
+ * [Features](#features)
+ * [Installation](#installation)
+ * [Usage](#usage)
+   * [Pulse an LED with PWM](#pulse-an-led-with-pwm)
+   * [Buttons and interrupt handling](#buttons-and-interrupt-handling)
+   * [Servo control](#servo-control)
+   * [Measure distance with a HC-SR04 ultrasonic sensor](#measure-distance-with-a-hc-sr04-ultrasonic-sensor)
+   * [Determine the width of a pulse with alerts](#determine-the-width-of-a-pulse-with-alerts)
+ * [API documentation](#api-documentation)
+ * [Performance](#performance)
+ * [Limitations](#limitations)
+ * [Related packages](#related-packages)
 
 ## Features
 
@@ -42,7 +42,7 @@ pigpio supports Node.js versions 0.10, 0.12, 4, 5, 6, 7, 8 and 9.
  * Trigger pulse generation
  * Pull up/down resistor configuration
 
-*) On a Raspberry Pi 3 Model B V1.2 running at 1.2 GHz ([Performance](https://github.com/fivdi/pigpio#performance))
+*) On a Raspberry Pi 3 Model B V1.2 running at 1.2 GHz ([Performance](#performance))
 
 ## Installation
 
