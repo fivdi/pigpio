@@ -33,10 +33,10 @@
 - Waveform
   - [waveClear()](#waveclear)
   - [waveAddNew()](#waveaddnew)
-  - [waveAddGeneric(numPulses, pulses)](#waveaddgeneric)
+  - [waveAddGeneric(numPulses, pulses)](#waveaddgenericnumpulses-pulses)
   - [waveCreate()](#wavecreate)
   - [waveDelete()](#wavedelete)
-  - [waveTxSend(waveId, waveMode)](#wavetxsend)
+  - [waveTxSend(waveId, waveMode)](#wavetxsendwaveid-wavemode)
   - [waveTxAt()](#wavetxat)
   - [waveTxBusy()](#wavetxbusy)
   - [waveTxStop()](#wavetxstop)
