@@ -262,15 +262,27 @@ var Gpio = require('pigpio').Gpio,
   
   var x = 0;
   for (x=0; x < 10; x++) {
-    waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+    if (x % 2 == 0) {
+      waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+    } else {
+      waveform[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:20 };
+    }
   }
   
   for (x=10; x < 20; x++) {
-    waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:30 };
+    if (x % 2 == 0) {
+      waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:30 };
+    } else {
+      waveform[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:30 };
+    }
   }
   
   for (x=20; x < 30; x++) {
-    waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+    if (x % 2 == 0) {
+      waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+    } else {
+      waveform[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:20 };
+    }
   }
   
   Gpio.waveClear();
