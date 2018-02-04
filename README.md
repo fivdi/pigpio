@@ -41,6 +41,7 @@ pigpio supports Node.js versions 0.10, 0.12, 4, 5, 6, 7, 8 and 9.
  * Read or write up to 32 GPIOs as one operation with banked GPIO
  * Trigger pulse generation
  * Pull up/down resistor configuration
+ * Waveforms to generate GPIO level changes (time accurate to a few µs)
 
 *) On a Raspberry Pi 3 Model B V1.2 running at 1.2 GHz ([Performance](#performance))
 
@@ -244,6 +245,50 @@ Here's an example of the typical output to the console:
 15
 15
 15
+```
+
+#### Generate a waveform
+
+```js
+var outPin = 17;
+
+var Gpio = require('pigpio').Gpio,
+  out = new Gpio(outPin, {
+    mode: Gpio.OUTPUT
+  });
+  
+(function () {
+  var waveform = [];
+  
+  var x = 0;
+  for (x=0; x < 10; x++) {
+    waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+  }
+  
+  for (x=10; x < 20; x++) {
+    waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:30 };
+  }
+  
+  for (x=20; x < 30; x++) {
+    waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+  }
+  
+  Gpio.waveClear();
+  
+  Gpio.waveAddGeneric(waveform.length, waveform);
+  
+  var waveId = Gpio.waveCreate();
+
+  if (waveId >= 0)
+  {
+    Gpio.waveTxSend(waveId, Gpio.WAVE_MODE_ONE_SHOT);
+  }
+
+  while (Gpio.waveTxBusy()) {}
+  
+  Gpio.waveDelete(waveId);
+  
+}());
 ```
 
 ## API documentation

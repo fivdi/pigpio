@@ -30,6 +30,25 @@
 - Alerts
   - [enableAlert()](#enablealert)
   - [disableAlert()](#disablealert)
+- Waveform
+  - [waveClear()](#waveclear)
+  - [waveAddNew()](#waveaddnew)
+  - [waveAddGeneric(numPulses, pulses)](#waveaddgeneric)
+  - [waveCreate()](#wavecreate)
+  - [waveDelete()](#wavedelete)
+  - [waveTxSend(waveId, waveMode)](#wavetxsend)
+  - [waveTxAt()](#wavetxat)
+  - [waveTxBusy()](#wavetxbusy)
+  - [waveTxStop()](#wavetxstop)
+  - [waveGetMicros()](#wavegetmicros)
+  - [waveGetHighMicros()](#wavegethighmicros)
+  - [waveGetMaxMicros()](#wavegetmaxmicros)
+  - [waveGetPulses()](#wavegetpulses)
+  - [waveGetHighPulses()](#wavegethighpulses)
+  - [waveGetMaxPulses()](#wavegetmaxpulses)
+  - [waveGetCbs()](#wavegetcbs)
+  - [waveGetHighCbs()](#wavegethighcbs)
+  - [waveGetMaxCbs()](#wavegetmaxcbs)
 
 #### Events
   - [Event: 'alert'](#event-alert)
@@ -54,6 +73,10 @@
   - [MIN_GPIO](#min_gpio)
   - [MAX_GPIO](#max_gpio)
   - [MAX_USER_GPIO](#max_user_gpio)
+  - [WAVE_MODE_ONE_SHOT](#wave_mode_one_shot)
+  - [WAVE_MODE_REPEAT](#wave_mode_repeat)
+  - [WAVE_MODE_ONE_SHOT_SYNC](#wave_mode_one_shot_sync)
+  - [WAVE_MODE_REPEAT_SYNC](#wave_mode_repeat_sync)
 
 ### Methods
 
@@ -302,6 +325,64 @@ An alert event will be emitted every time the GPIO changes state.
 #### disableAlert()
 Disables aterts for the GPIO. Returns this.
 
+#### waveClear()
+Deletes all waveforms
+
+#### waveAddNew()
+Starts a new waveform
+
+#### waveAddGeneric(numPulses, pulses)
+- numPulses - the number of pulses
+- pulses - an array of pulses { gpioOn: int, gpioOff: int, usDelay: int }
+Adds a series of pulses to the waveform
+
+#### waveCreate()
+Creates a waveform from added data
+
+#### waveDelete()
+Deletes a waveform
+
+#### waveTxSend(waveId, waveMode)
+- waveId - >=0, as returned by waveCreate
+- waveMode - WAVE_MODE_ONE_SHOT, WAVE_MODE_REPEAT, WAVE_MODE_ONE_SHOT_SYNC or WAVE_MODE_REPEAT_SYNC
+Transmits a waveform
+
+#### waveTxAt()
+Returns the current transmitting waveform
+
+#### waveTxBusy()
+Checks to see if the waveform has ended
+
+#### waveTxStop()
+Aborts the current waveform
+
+#### waveGetMicros()
+Length in microseconds of the current waveform
+
+#### waveGetHighMicros()
+Length of longest waveform so far
+
+#### waveGetMaxMicros()
+Absolute maximum allowed micros
+
+#### waveGetPulses()
+Length in pulses of the current waveform
+
+#### waveGetHighPulses()
+Length of longest waveform so far
+
+#### waveGetMaxPulses()
+Absolute maximum allowed pulses
+
+#### waveGetCbs()
+Length in control blocks of the current waveform
+
+#### waveGetHighCbs()
+Length of longest waveform so far
+
+#### waveGetMaxCbs()
+Absolute maximum allowed control blocks
+
 ### Events
 
 #### Event: 'alert'
@@ -401,4 +482,16 @@ The largest GPIO number.
 
 #### MAX_USER_GPIO
 The largest user GPIO number.
+
+#### WAVE_MODE_ONE_SHOT
+The waveform is sent once
+
+#### WAVE_MODE_REPEAT
+The waveform cycles repeatedly
+
+#### WAVE_MODE_ONE_SHOT_SYNC
+The waveform is sent once, waiting for the current waveform to finish before starting the new waveform
+
+#### WAVE_MODE_REPEAT_SYNC
+The waveform cycles repeatedly, waiting for the current waveform to finish before starting the new waveform
 
