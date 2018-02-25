@@ -1,5 +1,5 @@
-Unpublished
-===========
+0.7.0 / Feb 25 2018
+===================
 
   * update dependencies (nan v2.9.2)
   * fix deprecations
