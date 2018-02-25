@@ -251,7 +251,7 @@ function Notifier(options) {
 
   options = options || {};
 
-  this.handle = pigpio.gpioNotifyOpenWithSize(1048576);
+  this.handle = pigpio.gpioNotifyOpenWithSize(0);
 
   // set highWaterMark to a multiple of NOTIFICATION_LENGTH to avoid 'data'
   // events being emitted with buffers containing partial notifications.
