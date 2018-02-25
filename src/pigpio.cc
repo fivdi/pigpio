@@ -400,7 +400,8 @@ static void gpioISREventLoopHandler(uv_async_t* handle, int status) {
       Nan::New<v8::Integer>(level_g),
       Nan::New<v8::Integer>(tick_g)
     };
-    gpioISR_g[gpio_g].Callback()->Call(3, args);
+    Nan::AsyncResource resource("pigpio:gpioISREventLoopHandler");
+    gpioISR_g[gpio_g].Callback()->Call(3, args, &resource);
   }
 
   uv_sem_post(&sem_g);
@@ -468,7 +469,8 @@ static void gpioAlertEventLoopHandler(uv_async_t* handle, int status) {
       Nan::New<v8::Integer>(level_g),
       Nan::New<v8::Integer>(tick_g)
     };
-    gpioAlert_g[gpio_g].Callback()->Call(3, args);
+    Nan::AsyncResource resource("pigpio:gpioAlertEventLoopHandler");
+    gpioAlert_g[gpio_g].Callback()->Call(3, args, &resource);
   }
 
   uv_sem_post(&sem_g);
