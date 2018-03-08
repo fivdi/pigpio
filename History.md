@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * document difference between interrupts and alerts
+
 0.7.0 / Feb 25 2018
 ===================
 

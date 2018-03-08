@@ -118,10 +118,19 @@ microseconds are passed to the alert event listener. GPIOs are sampled at a
 rate set when the library is started. The default sample rate is 5 microseconds
 but it can be set 1, 2, 4, 5, 8, or 10 microseconds with the
 [configureClock](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureclockmicroseconds-peripheral)
-function. State changes shorter that the sample rate may be missed.
+function. State changes shorter than the sample rate may be missed.
 Alert events are emitted nominally 1000 times per second and there will be one
 alert event for each state change detected. i.e. There will be alert events for
 all state changes but there will be a latency.
+
+#### The Difference Between Interrupts and Alerts
+
+Both interrupts and alerts provide information about state changes. Interrupts
+provide this information as quickly as possible and the latency is as low as
+possible. Alerts queue are queued and fired once per millisecond so the latency
+is higher. However, alerts also provide `tick` information that's accurate to a
+few microseconds. In addition, it's possible to detect more alerts than
+interrupts per second.
 
 #### mode(mode)
 - mode - INPUT, OUTPUT, ALT0, ALT1, ALT2, ALT3, ALT4, or ALT5
