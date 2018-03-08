@@ -14,14 +14,14 @@ pigpio supports Node.js versions 4, 6, 8 and 9.
  * [Installation](#installation)
  * [Usage](#usage)
    * [Pulse an LED with PWM](#pulse-an-led-with-pwm)
-   * [Buttons and interrupt handling](#buttons-and-interrupt-handling)
-   * [Servo control](#servo-control)
-   * [Measure distance with a HC-SR04 ultrasonic sensor](#measure-distance-with-a-hc-sr04-ultrasonic-sensor)
-   * [Determine the width of a pulse with alerts](#determine-the-width-of-a-pulse-with-alerts)
- * [API documentation](#api-documentation)
+   * [Buttons and interrupt Handling](#buttons-and-interrupt-handling)
+   * [Servo Control](#servo-control)
+   * [Measure Distance with a HC-SR04 Ultrasonic Sensor](#measure-distance-with-a-hc-sr04-ultrasonic-sensor)
+   * [Determine the Width of a Pulse with Alerts](#determine-the-width-of-a-pulse-with-alerts)
+ * [API Documentation](#api-documentation)
  * [Performance](#performance)
  * [Limitations](#limitations)
- * [Related packages](#related-packages)
+ * [Related Packages](#related-packages)
 
 ## Features
 
@@ -104,7 +104,7 @@ setInterval(function () {
 
 ```
 
-#### Buttons and interrupt handling
+#### Buttons and interrupt Handling
 
 Turn the LED connected to GPIO17 on when the momentary push button connected to
 GPIO4 is pressed. Turn the LED off when the button is released.
@@ -123,7 +123,7 @@ button.on('interrupt', function (level) {
 });
 ```
 
-#### Servo control
+#### Servo Control
 
 Continuously move a servo connected to GPIO10 clockwise and anti-clockwise.
 
@@ -147,7 +147,7 @@ setInterval(function () {
 }, 1000);
 ```
 
-#### Measure distance with a HC-SR04 ultrasonic sensor
+#### Measure Distance with a HC-SR04 Ultrasonic Sensor
 
 The `trigger` function can be used to generate a pulse on a GPIO and alerts can
 be used to determine the time of a GPIO state change accurate to a few
@@ -189,7 +189,7 @@ setInterval(function () {
 }, 1000);
 ```
 
-#### Determine the width of a pulse with alerts
+#### Determine the Width of a Pulse with Alerts
 
 Alerts can be used to determine the time of a GPIO state change accurate to a
 few microseconds. Typically, alerts will be used for GPIO inputs but they can
@@ -246,7 +246,7 @@ Here's an example of the typical output to the console:
 15
 ```
 
-## API documentation
+## API Documentation
 
 ### Classes
 
@@ -288,7 +288,7 @@ Interrupts per second | 8,881 | 20,533
  * The pigpio C library and therefore the pigpio Node.js package requires
    root/sudo privileges to access hardware peripherals.
 
-## Related packages
+## Related Packages
 
 Here are a few links to other hardware specific Node.js packages that may be of interest.
 
