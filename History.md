@@ -1,5 +1,5 @@
-Unpublished
-===========
+1.0.0 / Apr 07 2018
+===================
 
   * document difference between interrupts and alerts
   * update dependencies (nan v2.10.0)
