@@ -157,6 +157,11 @@ Gpio.prototype.disableAlert = function () {
   return this;
 };
 
+Gpio.prototype.glitchFilter = function (steady) {
+  pigpio.gpioGlitchFilter(this.gpio, +steady);
+  return this;
+};
+
 /* mode */
 Gpio.INPUT = 0; // PI_INPUT
 Gpio.OUTPUT = 1; //PI_OUTPUT;
