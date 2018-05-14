@@ -18,6 +18,7 @@ pigpio supports Node.js versions 4, 6, 8 and 10.
    * [Servo Control](#servo-control)
    * [Measure Distance with a HC-SR04 Ultrasonic Sensor](#measure-distance-with-a-hc-sr04-ultrasonic-sensor)
    * [Determine the Width of a Pulse with Alerts](#determine-the-width-of-a-pulse-with-alerts)
+   * [Debounce a button](#debounce-a-button)
  * [API Documentation](#api-documentation)
  * [Performance](#performance)
  * [Limitations](#limitations)
@@ -244,6 +245,32 @@ Here's an example of the typical output to the console:
 15
 15
 15
+```
+
+#### Debounce a button
+The GPIO glitch filter will prevent alert events from being emitted if the corresponding level change is not stable for at least a specified number of microseconds. This can be used to filter out unwanted noise from an input signal. In this example, a glitch filter is applied to filter out the contact bounce of a push button.
+
+![Button debounce circuit](example/button-debounce.png)
+
+```js
+'use strict';
+
+var Gpio = require('pigpio').Gpio,
+  button = new Gpio(23, {
+    mode: Gpio.INPUT,
+    pullUpDown: Gpio.PUD_UP,
+    alert: true
+  }),
+  count = 0
+
+// Level must be stable for 50 ms before an alert event is emitted.
+button.glitchFilter(50000);
+
+button.on('alert', (level, tick) => {
+	if (level === 0) {
+		console.log(++count);
+	}
+});
 ```
 
 ## API Documentation
