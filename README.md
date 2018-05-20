@@ -14,11 +14,11 @@ pigpio supports Node.js versions 4, 6, 8 and 10.
  * [Installation](#installation)
  * [Usage](#usage)
    * [Pulse an LED with PWM](#pulse-an-led-with-pwm)
-   * [Buttons and interrupt Handling](#buttons-and-interrupt-handling)
+   * [Buttons and Interrupt Handling](#buttons-and-interrupt-handling)
    * [Servo Control](#servo-control)
    * [Measure Distance with a HC-SR04 Ultrasonic Sensor](#measure-distance-with-a-hc-sr04-ultrasonic-sensor)
    * [Determine the Width of a Pulse with Alerts](#determine-the-width-of-a-pulse-with-alerts)
-   * [Debounce a button](#debounce-a-button)
+   * [Debounce a Button](#debounce-a-button)
  * [API Documentation](#api-documentation)
  * [Performance](#performance)
  * [Limitations](#limitations)
@@ -105,7 +105,7 @@ setInterval(function () {
 
 ```
 
-#### Buttons and interrupt Handling
+#### Buttons and Interrupt Handling
 
 Turn the LED connected to GPIO17 on when the momentary push button connected to
 GPIO4 is pressed. Turn the LED off when the button is released.
@@ -247,29 +247,27 @@ Here's an example of the typical output to the console:
 15
 ```
 
-#### Debounce a button
+#### Debounce a Button
 The GPIO glitch filter will prevent alert events from being emitted if the corresponding level change is not stable for at least a specified number of microseconds. This can be used to filter out unwanted noise from an input signal. In this example, a glitch filter is applied to filter out the contact bounce of a push button.
 
 ![Button debounce circuit](example/button-debounce.png)
 
 ```js
-'use strict';
-
 var Gpio = require('pigpio').Gpio,
   button = new Gpio(23, {
     mode: Gpio.INPUT,
     pullUpDown: Gpio.PUD_UP,
     alert: true
   }),
-  count = 0
+  count = 0;
 
 // Level must be stable for 50 ms before an alert event is emitted.
 button.glitchFilter(50000);
 
 button.on('alert', (level, tick) => {
-	if (level === 0) {
-		console.log(++count);
-	}
+  if (level === 0) {
+    console.log(++count);
+  }
 });
 ```
 

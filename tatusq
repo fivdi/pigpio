@@ -1,0 +1,176 @@
+[1mdiff --git a/History.md b/History.md[m
+[1mindex 35508ad..a8dc576 100644[m
+[1m--- a/History.md[m
+[1m+++ b/History.md[m
+[36m@@ -1,3 +1,8 @@[m
+[32m+[m[32mUnpublished[m
+[32m+[m[32m===========[m
+[32m+[m
+[32m+[m[32m  * add gpioGlitchFilter[m
+[32m+[m
+ 1.0.0 / Apr 07 2018[m
+ ===================[m
+ [m
+[1mdiff --git a/README.md b/README.md[m
+[1mindex 7e11e0c..654ecbf 100644[m
+[1m--- a/README.md[m
+[1m+++ b/README.md[m
+[36m@@ -14,11 +14,11 @@[m [mpigpio supports Node.js versions 4, 6, 8 and 10.[m
+  * [Installation](#installation)[m
+  * [Usage](#usage)[m
+    * [Pulse an LED with PWM](#pulse-an-led-with-pwm)[m
+[31m-   * [Buttons and interrupt Handling](#buttons-and-interrupt-handling)[m
+[32m+[m[32m   * [Buttons and Interrupt Handling](#buttons-and-interrupt-handling)[m
+    * [Servo Control](#servo-control)[m
+    * [Measure Distance with a HC-SR04 Ultrasonic Sensor](#measure-distance-with-a-hc-sr04-ultrasonic-sensor)[m
+    * [Determine the Width of a Pulse with Alerts](#determine-the-width-of-a-pulse-with-alerts)[m
+[31m-   * [Debounce a button](#debounce-a-button)[m
+[32m+[m[32m   * [Debounce a Button](#debounce-a-button)[m
+  * [API Documentation](#api-documentation)[m
+  * [Performance](#performance)[m
+  * [Limitations](#limitations)[m
+[36m@@ -105,7 +105,7 @@[m [msetInterval(function () {[m
+ [m
+ ```[m
+ [m
+[31m-#### Buttons and interrupt Handling[m
+[32m+[m[32m#### Buttons and Interrupt Handling[m
+ [m
+ Turn the LED connected to GPIO17 on when the momentary push button connected to[m
+ GPIO4 is pressed. Turn the LED off when the button is released.[m
+[36m@@ -247,29 +247,27 @@[m [mHere's an example of the typical output to the console:[m
+ 15[m
+ ```[m
+ [m
+[31m-#### Debounce a button[m
+[32m+[m[32m#### Debounce a Button[m
+ The GPIO glitch filter will prevent alert events from being emitted if the corresponding level change is not stable for at least a specified number of microseconds. This can be used to filter out unwanted noise from an input signal. In this example, a glitch filter is applied to filter out the contact bounce of a push button.[m
+ [m
+ ![Button debounce circuit](example/button-debounce.png)[m
+ [m
+ ```js[m
+[31m-'use strict';[m
+[31m-[m
+ var Gpio = require('pigpio').Gpio,[m
+   button = new Gpio(23, {[m
+     mode: Gpio.INPUT,[m
+     pullUpDown: Gpio.PUD_UP,[m
+     alert: true[m
+   }),[m
+[31m-  count = 0[m
+[32m+[m[32m  count = 0;[m
+ [m
+ // Level must be stable for 50 ms before an alert event is emitted.[m
+ button.glitchFilter(50000);[m
+ [m
+ button.on('alert', (level, tick) => {[m
+[31m-	if (level === 0) {[m
+[31m-		console.log(++count);[m
+[31m-	}[m
+[32m+[m[32m  if (level === 0) {[m
+[32m+[m[32m    console.log(++count);[m
+[32m+[m[32m  }[m
+ });[m
+ ```[m
+ [m
+[1mdiff --git a/doc/gpio.md b/doc/gpio.md[m
+[1mindex 5d04906..25215b1 100644[m
+[1m--- a/doc/gpio.md[m
+[1m+++ b/doc/gpio.md[m
+[36m@@ -314,14 +314,13 @@[m [mAn alert event will be emitted every time the GPIO changes state.[m
+ Disables alerts for the GPIO. Returns this.[m
+ [m
+ #### glitchFilter(steady)[m
+[31m-Sets a glitch filter on a GPIO. Returns this[m
+[32m+[m[32mSets a glitch filter on a GPIO. Returns this.[m
+ - steady - Time, in microseconds, during which the level must be stable. Maximum value: 300000[m
+ [m
+ Level changes on the GPIO are not reported unless the level has been stable for at least `steady` microseconds. The level is then reported. Level changes of less than `steady` microseconds are ignored. This means that event callbacks will only be executed if the level change is at least `steady` microseconds long. Note that each (stable) edge will be timestamped `steady` microseconds after it was first detected.[m
+ [m
+ This filter only affects the execution of callbacks from the `alert` event, not those of the `interrupt` event.[m
+ [m
+[31m-[m
+ ### Events[m
+ [m
+ #### Event: 'alert'[m
+[1mdiff --git a/example/button-debounce.js b/example/button-debounce.js[m
+[1mindex e7aeafb..3518964 100644[m
+[1m--- a/example/button-debounce.js[m
+[1m+++ b/example/button-debounce.js[m
+[36m@@ -6,13 +6,14 @@[m [mvar Gpio = require('../').Gpio,[m
+     pullUpDown: Gpio.PUD_UP,[m
+     alert: true[m
+   }),[m
+[31m-  count = 0[m
+[32m+[m[32m  count = 0;[m
+ [m
+ // Level must be stable for 50 ms before an alert event is emitted.[m
+ button.glitchFilter(50000);[m
+ [m
+ button.on('alert', (level, tick) => {[m
+[31m-	if (level === 0) {[m
+[31m-		console.log(++count);[m
+[31m-	}[m
+[32m+[m[32m  if (level === 0) {[m
+[32m+[m[32m    console.log(++count);[m
+[32m+[m[32m  }[m
+ });[m
+[41m+[m
+[1mdiff --git a/test/gpioGlitchFilter.js b/test/gpioGlitchFilter.js[m
+[1mdeleted file mode 100644[m
+[1mindex a8c1726..0000000[m
+[1m--- a/test/gpioGlitchFilter.js[m
+[1m+++ /dev/null[m
+[36m@@ -1,39 +0,0 @@[m
+[31m-'use strict';[m
+[31m-[m
+[31m-// Connect pin 18 to pin 23 (18 is used as signal source),[m
+[31m-// it is safe to do so when these pins were not previously used.[m
+[31m-// In other cases, run this script first without connecting the pins, [m
+[31m-// to ensure the right pin configuration. After that first run, they[m
+[31m-// can be safely connected.[m
+[31m-var assert = require('assert'),[m
+[31m-  Gpio = require('../').Gpio,[m
+[31m-  output = new Gpio(18, { [m
+[31m-  	mode: Gpio.OUTPUT[m
+[31m-  }),[m
+[31m-  input = new Gpio(23, { [m
+[31m-  	mode: Gpio.INPUT,[m
+[31m-  	pullUpDown: Gpio.PUD_OFF,[m
+[31m-  	alert: true[m
+[31m-  }),[m
+[31m-  count = 0;[m
+[31m-[m
+[31m-output.digitalWrite(0);[m
+[31m-input.glitchFilter(50);[m
+[31m-input.on('alert', (level, tick) => {[m
+[31m-	if (level === 1) {[m
+[31m-		count++;[m
+[31m-		console.log('Rising edge, count=' + count);[m
+[31m-	}[m
+[31m-});[m
+[31m-[m
+[31m-output.trigger(30, 1);	// alert function should not be executed (blocked by glitchFilter)[m
+[31m-[m
+[31m-setTimeout(() => { [m
+[31m-	output.trigger(70, 1);	// alert function should be executed[m
+[31m-}, 500);[m
+[31m-[m
+[31m-setTimeout(() => {[m
+[31m-	assert.strictEqual(count, 1, 'expected 1 alert function call instead of ' + count);[m
+[31m-	console.log("Success...");[m
+[31m-	process.exit(0);[m
+[31m-}, 1000);[m
+[1mdiff --git a/test/run-tests b/test/run-tests[m
+[1mindex 53b8c64..8787ff4 100755[m
+[1m--- a/test/run-tests[m
+[1m+++ b/test/run-tests[m
+[36m@@ -15,6 +15,8 @@[m [mecho do-nothing[m
+ node do-nothing[m
+ echo gpio-mode[m
+ node gpio-mode[m
+[32m+[m[32mecho gpio-glitch-filter[m
+[32m+[m[32mnode gpio-glitch-filter[m
+ echo gpio-numbers[m
+ node gpio-numbers[m
+ echo isr-enable-disable[m

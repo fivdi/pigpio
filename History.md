@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * add Gpio.glitchFilter
+
 1.0.0 / Apr 07 2018
 ===================
 
