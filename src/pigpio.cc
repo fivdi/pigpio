@@ -507,6 +507,20 @@ static NAN_METHOD(gpioSetAlertFunc) {
   }
 }
 
+NAN_METHOD(gpioGlitchFilter) {
+  if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGlitchFilter", ""));
+  }
+
+  unsigned user_gpio = info[0]->Uint32Value();
+  unsigned steady = info[1]->Uint32Value();
+
+  int rc = gpioGlitchFilter(user_gpio, steady);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioGlitchFilter");
+  }
+}
+
 
 /* ------------------------------------------------------------------------ */
 /* GpioBank                                                                 */
@@ -779,6 +793,7 @@ NAN_MODULE_INIT(InitAll) {
 
   SetFunction(target, "gpioSetISRFunc", gpioSetISRFunc);
   SetFunction(target, "gpioSetAlertFunc", gpioSetAlertFunc);
+  SetFunction(target, "gpioGlitchFilter", gpioGlitchFilter);
 
   SetFunction(target, "GpioReadBits_0_31", GpioReadBits_0_31);
   SetFunction(target, "GpioReadBits_32_53", GpioReadBits_32_53);

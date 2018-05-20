@@ -30,6 +30,8 @@
 - Alerts
   - [enableAlert()](#enablealert)
   - [disableAlert()](#disablealert)
+- Filters
+  - [glitchFilter(steady)](#glitchfiltersteady)
 
 #### Events
   - [Event: 'alert'](#event-alert)
@@ -309,7 +311,16 @@ Enables alerts for the GPIO. Returns this.
 An alert event will be emitted every time the GPIO changes state.
 
 #### disableAlert()
-Disables aterts for the GPIO. Returns this.
+Disables alerts for the GPIO. Returns this.
+
+#### glitchFilter(steady)
+Sets a glitch filter on a GPIO. Returns this
+- steady - Time, in microseconds, during which the level must be stable. Maximum value: 300000
+
+Level changes on the GPIO are not reported unless the level has been stable for at least `steady` microseconds. The level is then reported. Level changes of less than `steady` microseconds are ignored. This means that event callbacks will only be executed if the level change is at least `steady` microseconds long. Note that each (stable) edge will be timestamped `steady` microseconds after it was first detected.
+
+This filter only affects the execution of callbacks from the `alert` event, not those of the `interrupt` event.
+
 
 ### Events
 
