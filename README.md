@@ -315,7 +315,7 @@ Interrupts per second | 8,881 | 20,533
    root/sudo privileges to access hardware peripherals.
    
 ## Troubleshooting
-If you have a problem with the library, before you remove it from your code and start trying something else, please check the [troubleshooting page](blob/master/doc/troubleshooting.md) first. Some problems are solvable and documented.
+If you have a problem with the library, before you remove it from your code and start trying something else, please check the [troubleshooting page](https://github.com/fivdi/pigpio/blob/master/doc/troubleshooting.md) first. Some problems are solvable and documented.
 
 ## Related Packages
 
