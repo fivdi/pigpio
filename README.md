@@ -22,6 +22,7 @@ pigpio supports Node.js versions 4, 6, 8 and 10.
  * [API Documentation](#api-documentation)
  * [Performance](#performance)
  * [Limitations](#limitations)
+ * [Troubleshooting](#troubleshooting)
  * [Related Packages](#related-packages)
 
 ## Features
@@ -312,6 +313,9 @@ Interrupts per second | 8,881 | 20,533
    pigpio C library is that it can only be used by a single running process.
  * The pigpio C library and therefore the pigpio Node.js package requires
    root/sudo privileges to access hardware peripherals.
+   
+## Troubleshooting
+If you have a problem with the library, before you remove it from your code and start trying something else, please check the [troubleshooting page](blob/master/doc/troubleshooting.md) first. Some problems are solvable and documented.
 
 ## Related Packages
 
