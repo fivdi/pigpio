@@ -1,50 +1,50 @@
 #!/bin/sh
 echo hardware-revision
-node hardware-revision
+sudo $(which node) hardware-revision
 echo banked-leds
-node banked-leds
+sudo $(which node) banked-leds
 echo blinky
-node blinky
+sudo $(which node) blinky
 echo blinky-pwm
-node blinky-pwm
+sudo $(which node) blinky-pwm
 echo digital-read-performance
-node digital-read-performance
+sudo $(which node) digital-read-performance
 echo digital-write-performance
-node digital-write-performance
+sudo $(which node) digital-write-performance
 echo do-nothing
-node do-nothing
+sudo $(which node) do-nothing
 echo gpio-mode
-node gpio-mode
+sudo $(which node) gpio-mode
 echo gpio-glitch-filter
-node gpio-glitch-filter
+sudo $(which node) gpio-glitch-filter
 echo gpio-numbers
-node gpio-numbers
+sudo $(which node) gpio-numbers
 echo isr-enable-disable
-node isr-enable-disable
+sudo $(which node) isr-enable-disable
 echo isr-multiple-sources
-node isr-multiple-sources
+sudo $(which node) isr-multiple-sources
 echo isr-performance
-node isr-performance
+sudo $(which node) isr-performance
 echo isr-timeouts
-node isr-timeouts
+sudo $(which node) isr-timeouts
 echo isr-timeouts-2
-node isr-timeouts-2
+sudo $(which node) isr-timeouts-2
 echo light-switch
-node light-switch
+sudo $(which node) light-switch
 echo notifier
-node notifier
+sudo $(which node) notifier
 echo notifier-pwm
-node notifier-pwm
+sudo $(which node) notifier-pwm
 echo pull-up-down
-node pull-up-down
+sudo $(which node) pull-up-down
 echo pulse-led
-node pulse-led
+sudo $(which node) pulse-led
 echo pwm
-node pwm
+sudo $(which node) pwm
 echo servo-control
-node servo-control
+sudo $(which node) servo-control
 echo terminate
-node terminate
+sudo $(which node) terminate
 echo trigger-led
-node trigger-led
+sudo $(which node) trigger-led
 
