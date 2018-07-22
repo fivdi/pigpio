@@ -1,5 +1,5 @@
-Unpublished
-===========
+1.1.1 / Jul 22 2018
+===================
 
   * add troubleshooting guide (thank you [@sznowicki](https://github.com/sznowicki))
   * construct AsyncResource for callback when callback is stored
