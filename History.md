@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * add troubleshooting guide (thank you @sznowicki)
+
 1.1.0 / May 20 2018
 ===================
 
