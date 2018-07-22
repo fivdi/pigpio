@@ -2,13 +2,8 @@
 #include <pigpio.h>
 #include <nan.h>
 
-#if NODE_VERSION_AT_LEAST(0, 11, 13)
 static void gpioISREventLoopHandler(uv_async_t* handle);
 static void gpioAlertEventLoopHandler(uv_async_t* handle);
-#else
-static void gpioISREventLoopHandler(uv_async_t* handle, int status);
-static void gpioAlertEventLoopHandler(uv_async_t* handle, int status);
-#endif
 
 // TODO errors returned by uv calls are ignored
 
@@ -387,11 +382,7 @@ static void gpioISRHandler(int gpio, int level, uint32_t tick) {
 
 
 // gpioISREventLoopHandler is executed in the event loop thread.
-#if NODE_VERSION_AT_LEAST(0, 11, 13)
 static void gpioISREventLoopHandler(uv_async_t* handle) {
-#else
-static void gpioISREventLoopHandler(uv_async_t* handle, int status) {
-#endif
   Nan::HandleScope scope;
 
   if (gpioISR_g[gpio_g].Callback()) {
@@ -456,11 +447,7 @@ static void gpioAlertHandler(int gpio, int level, uint32_t tick) {
 
 
 // gpioAlertEventLoopHandler is executed in the event loop thread.
-#if NODE_VERSION_AT_LEAST(0, 11, 13)
 static void gpioAlertEventLoopHandler(uv_async_t* handle) {
-#else
-static void gpioAlertEventLoopHandler(uv_async_t* handle, int status) {
-#endif
   Nan::HandleScope scope;
 
   if (gpioAlert_g[gpio_g].Callback()) {
