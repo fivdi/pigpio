@@ -1,7 +1,7 @@
 Unpublished
 ===========
 
-  * add troubleshooting guide (thank you @sznowicki)
+  * add troubleshooting guide (thank you [@sznowicki](https://github.com/sznowicki))
 
 1.1.0 / May 20 2018
 ===================
