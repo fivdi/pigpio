@@ -1,18 +1,18 @@
 'use strict';
 
-var Gpio = require('../').Gpio,
-  button = new Gpio(4, {
-    mode: Gpio.INPUT,
-    pullUpDown: Gpio.PUD_DOWN,
-    edge: Gpio.EITHER_EDGE
-  }),
-  led = new Gpio(17, {mode: Gpio.OUTPUT});
+const Gpio = require('../').Gpio;
+const button = new Gpio(4, {
+  mode: Gpio.INPUT,
+  pullUpDown: Gpio.PUD_DOWN,
+  edge: Gpio.EITHER_EDGE
+});
+const led = new Gpio(17, {mode: Gpio.OUTPUT});
 
-button.on('interrupt', function (level) {
+button.on('interrupt', (level) => {
   led.digitalWrite(level);
 });
 
-setTimeout(function () {
+setTimeout(() => {
   led.digitalWrite(0);
   button.disableInterrupt();
 }, 2000);

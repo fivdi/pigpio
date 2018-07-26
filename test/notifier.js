@@ -1,23 +1,22 @@
 'use strict';
 
-var pigpio = require('../'),
-  Gpio = pigpio.Gpio,
-  Notifier = pigpio.Notifier;
+const pigpio = require('../');
+const Gpio = pigpio.Gpio;
+const Notifier = pigpio.Notifier;
 
-var LED_GPIO = 17,
-  LED_TOGGLES = 1000;
+const LED_GPIO = 17;
+const LED_TOGGLES = 1000;
 
-(function () {
-  var led = new Gpio(LED_GPIO, {mode: Gpio.OUTPUT}),
-    ledToggles = 0,
-    lastTime = process.hrtime(),
-    minSetIntervalDiff = 0xffffffff,
-    maxSetIntervalDiff = 0,
-    iv;
+const blinkLed = () => {
+  const led = new Gpio(LED_GPIO, {mode: Gpio.OUTPUT});
+  let ledToggles = 0;
+  let lastTime = process.hrtime();
+  let minSetIntervalDiff = 0xffffffff;
+  let maxSetIntervalDiff = 0;
 
-  iv = setInterval(function () {
-    var time = process.hrtime(),
-      diff = Math.floor(((time[0] * 1e9 + time[1]) - (lastTime[0] * 1e9 + lastTime[1])) / 1000);
+  const iv = setInterval(() => {
+    const time = process.hrtime();
+    const diff = Math.floor(((time[0] * 1e9 + time[1]) - (lastTime[0] * 1e9 + lastTime[1])) / 1000);
 
     lastTime = time;
 
@@ -40,26 +39,27 @@ var LED_GPIO = 17,
       console.log('  max setInterval diff: %d us', maxSetIntervalDiff);
     }
   }, 1);
-}());
+};
 
-(function () {
-  var ledNotifier = new Notifier({bits: 1 << LED_GPIO}),
-    notificationsReceived = 0,
-    seqnoErrors = 0,
-    ledStateErrors = 0,
-    lastSeqno,
-    lastLedState,
-    lastTick,
-    minTickDiff = 0xffffffff,
-    maxTickDiff = 0;
+blinkLed();
 
-  ledNotifier.stream().on('data', function (buf) {
-    var ix = 0;
+const watchLed = () => {
+  const ledNotifier = new Notifier({bits: 1 << LED_GPIO});
 
-    for (ix = 0; ix < buf.length; ix += Notifier.NOTIFICATION_LENGTH) {
-      var seqno = buf.readUInt16LE(ix);
-      var tick = buf.readUInt32LE(ix + 4);
-      var level = buf.readUInt32LE(ix + 8);
+  let notificationsReceived = 0;
+  let seqnoErrors = 0;
+  let ledStateErrors = 0;
+  let lastSeqno;
+  let lastLedState;
+  let lastTick;
+  let minTickDiff = 0xffffffff;
+  let maxTickDiff = 0;
+
+  ledNotifier.stream().on('data', (buf) => {
+    for (let ix = 0; ix < buf.length; ix += Notifier.NOTIFICATION_LENGTH) {
+      const seqno = buf.readUInt16LE(ix);
+      const tick = buf.readUInt32LE(ix + 4);
+      const level = buf.readUInt32LE(ix + 8);
 
       if (notificationsReceived > 0) {
         if (lastLedState === (level & (1 << LED_GPIO))) {
@@ -96,5 +96,7 @@ var LED_GPIO = 17,
       console.log('  max tick diff: %d us', maxTickDiff);
     }
   });
-}());
+};
+
+watchLed();
 

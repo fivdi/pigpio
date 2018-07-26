@@ -1,10 +1,8 @@
 'use strict';
 
-var assert = require('assert'),
-  Gpio = require('../').Gpio,
-  iv,
-  led = new Gpio(18, {mode: Gpio.OUTPUT}),
-  dutyCycle;
+const assert = require('assert');
+const Gpio = require('../').Gpio;
+const led = new Gpio(18, {mode: Gpio.OUTPUT});
 
 assert.strictEqual(led.getPwmRange(), 255, 'expected pwm range to be 255');
 assert.strictEqual(led.getPwmRealRange(), 250, 'expected pwm real range to be 250');
@@ -20,7 +18,7 @@ assert.strictEqual(led.getPwmRange(), 125, 'expected pwm range to be 125');
 assert.strictEqual(led.getPwmRealRange(), 100, 'expected pwm real range to be 100');
 assert.strictEqual(led.getPwmFrequency(), 2000, 'expected get pwm frequency to be 2000');
 
-dutyCycle = Math.floor(led.getPwmRange() / 2);
+const dutyCycle = Math.floor(led.getPwmRange() / 2);
 led.pwmWrite(dutyCycle);
 assert.strictEqual(led.getPwmDutyCycle(), dutyCycle, 'expected duty cycle to be ' + dutyCycle);
 

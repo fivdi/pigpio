@@ -1,34 +1,26 @@
 'use strict';
 
-var pigpio = require('../'),
-  Gpio = pigpio.Gpio,
-  led,
-  iv;
+const pigpio = require('../');
+const Gpio = pigpio.Gpio;
 
 //pigpio.configureClock(1, pigpio.CLOCK_PCM);
 
-led = new Gpio(17, {
+const led = new Gpio(17, {
   mode: Gpio.OUTPUT,
   alert: true
 });
 
-led.digitalWrite(0);
+const activateTriggerPulseMeasurement = () => {
+  const pulseCounts = [];
+  let pulses = 0;
+  let risingTick;
 
-(function () {
-  var pulseCounts = [],
-    pulses = 0,
-    risingTick,
-    fallingTick,
-    i;
-
-  led.on('alert', function (level, tick) {
-    var pulseLength;
-
+  led.on('alert', (level, tick) => {
     if (level === 1) {
       risingTick = tick;
     } else {
-      fallingTick = tick;
-      pulseLength = fallingTick - risingTick;
+      const fallingTick = tick;
+      const pulseLength = fallingTick - risingTick;
 
       if (pulseCounts[pulseLength] === undefined) {
         pulseCounts[pulseLength] = 0;
@@ -37,9 +29,9 @@ led.digitalWrite(0);
 
       pulses += 1;
       if (pulses === 1000) {
-        for (i = 0; i != pulseCounts.length; i += 1) {
+        for (let i = 0; i != pulseCounts.length; i += 1) {
           if (pulseCounts[i] !== undefined) {
-            console.log(i + 'us - ' + pulseCounts[i]);
+            console.log('  ' + i + 'us - ' + pulseCounts[i]);
           }
         }
 
@@ -49,9 +41,12 @@ led.digitalWrite(0);
       }
     }
   });
-}());
+};
 
-iv = setInterval(function () {
+led.digitalWrite(0);
+activateTriggerPulseMeasurement();
+
+const iv = setInterval(() => {
   led.trigger(10, 1);
 }, 2);
 

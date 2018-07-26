@@ -3,34 +3,27 @@
 // Generate PWM pulses at 250Hz with a 7us duty cycle and measure the length
 // of the pulses with alerts.
 
-var pigpio = require('../'),
-  Gpio = pigpio.Gpio,
-  led;
+const pigpio = require('../');
+const Gpio = pigpio.Gpio;
 
 pigpio.configureClock(1, pigpio.CLOCK_PCM);
 
-led = new Gpio(18, {
+const led = new Gpio(18, {
   mode: Gpio.OUTPUT,
   alert: true
 });
 
-led.digitalWrite(0);
+const activatePwmMeasurement = () => {
+  const pulseCounts = [];
+  let pulses = 0;
+  let risingTick = 0;
 
-(function () {
-  var pulseCounts = [],
-    pulses = 0,
-    risingTick = 0,
-    fallingTick,
-    i;
-
-  led.on('alert', function (level, tick) {
-    var pulseLength;
-
+  led.on('alert', (level, tick) => {
     if (level === 1) {
       risingTick = tick;
     } else {
-      fallingTick = tick;
-      pulseLength = fallingTick - risingTick;
+      const fallingTick = tick;
+      const pulseLength = fallingTick - risingTick;
 
       if (pulseCounts[pulseLength] === undefined) {
         pulseCounts[pulseLength] = 0;
@@ -39,9 +32,9 @@ led.digitalWrite(0);
 
       pulses += 1;
       if (pulses === 1000) {
-        for (i = 0; i != pulseCounts.length; i += 1) {
+        for (let i = 0; i != pulseCounts.length; i += 1) {
           if (pulseCounts[i] !== undefined) {
-            console.log(i + 'us - ' + pulseCounts[i]);
+            console.log('  ' + i + 'us - ' + pulseCounts[i]);
           }
         }
 
@@ -50,8 +43,9 @@ led.digitalWrite(0);
       }
     }
   });
-}());
+};
 
-// frequency 250Hz, duty cycle 7us
+led.digitalWrite(0);
+activatePwmMeasurement();
 led.hardwarePwmWrite(250, 250*7);
 
