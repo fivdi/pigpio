@@ -1,12 +1,13 @@
 'use strict';
 
-var pigpio = require('../'),
-  Gpio = pigpio.Gpio,
-  led = new Gpio(17, {mode: Gpio.OUTPUT});
+const pigpio = require('../');
+const Gpio = pigpio.Gpio;
+
+let led = new Gpio(17, {mode: Gpio.OUTPUT});
 
 led.digitalWrite(1);
 
-setTimeout(function () {
+setTimeout(() => {
   pigpio.terminate();
 
   // Creating a new Gpio object should automatically re-initialize

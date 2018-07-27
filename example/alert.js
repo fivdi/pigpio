@@ -2,32 +2,32 @@
 
 // Assumption: the LED is off when the program is started
 
-var Gpio = require('../').Gpio,
-  led = new Gpio(17, {
-    mode: Gpio.OUTPUT,
-    alert: true
-  });
+const Gpio = require('../').Gpio;
 
-(function () {
-  var startTick;
+const led = new Gpio(17, {
+  mode: Gpio.OUTPUT,
+  alert: true
+});
+
+const watchLed = () => {
+  let startTick;
 
   // Use alerts to determine how long the LED was turned on
-  led.on('alert', function (level, tick) {
-    var endTick,
-      diff;
-
+  led.on('alert', (level, tick) => {
     if (level == 1) {
       startTick = tick;
     } else {
-      endTick = tick;
-      diff = (endTick >> 0) - (startTick >> 0); // Unsigned 32 bit arithmetic
+      const endTick = tick;
+      const diff = (endTick >> 0) - (startTick >> 0); // Unsigned 32 bit arithmetic
       console.log(diff);
     }
   });
-}());
+};
+
+watchLed();
 
 // Turn the LED on for 15 microseconds once per second
-setInterval(function () {
+setInterval(() => {
   led.trigger(15, 1);
 }, 1000);
 

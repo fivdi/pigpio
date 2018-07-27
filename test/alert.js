@@ -1,9 +1,9 @@
 'use strict';
 
-var Gpio = require('../').Gpio,
-  button = new Gpio(4, {alert: true});
+const Gpio = require('../').Gpio;
+const button = new Gpio(4, {alert: true});
 
-button.on('alert', function (level, tick) {
+button.on('alert', (level, tick) => {
   console.log(level + ' ' + tick);
 });
 

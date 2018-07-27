@@ -91,11 +91,13 @@ Use PWM to pulse the LED connected to GPIO17 from fully off to fully on
 continuously.
 
 ```js
-var Gpio = require('pigpio').Gpio,
-  led = new Gpio(17, {mode: Gpio.OUTPUT}),
-  dutyCycle = 0;
+const Gpio = require('pigpio').Gpio;
 
-setInterval(function () {
+const led = new Gpio(17, {mode: Gpio.OUTPUT});
+
+let dutyCycle = 0;
+
+setInterval(() => {
   led.pwmWrite(dutyCycle);
 
   dutyCycle += 5;
@@ -103,7 +105,6 @@ setInterval(function () {
     dutyCycle = 0;
   }
 }, 20);
-
 ```
 
 #### Buttons and Interrupt Handling
@@ -112,15 +113,16 @@ Turn the LED connected to GPIO17 on when the momentary push button connected to
 GPIO4 is pressed. Turn the LED off when the button is released.
 
 ```js
-var Gpio = require('pigpio').Gpio,
-  button = new Gpio(4, {
-    mode: Gpio.INPUT,
-    pullUpDown: Gpio.PUD_DOWN,
-    edge: Gpio.EITHER_EDGE
-  }),
-  led = new Gpio(17, {mode: Gpio.OUTPUT});
+const Gpio = require('pigpio').Gpio;
 
-button.on('interrupt', function (level) {
+const led = new Gpio(17, {mode: Gpio.OUTPUT});
+const button = new Gpio(4, {
+  mode: Gpio.INPUT,
+  pullUpDown: Gpio.PUD_DOWN,
+  edge: Gpio.EITHER_EDGE
+});
+
+button.on('interrupt', (level) => {
   led.digitalWrite(level);
 });
 ```
@@ -132,12 +134,14 @@ Continuously move a servo connected to GPIO10 clockwise and anti-clockwise.
 <img src="https://raw.githubusercontent.com/fivdi/pigpio/master/example/servo.png">
 
 ```js
-var Gpio = require('pigpio').Gpio,
-  motor = new Gpio(10, {mode: Gpio.OUTPUT}),
-  pulseWidth = 1000,
-  increment = 100;
+const Gpio = require('pigpio').Gpio;
 
-setInterval(function () {
+const motor = new Gpio(10, {mode: Gpio.OUTPUT});
+
+let pulseWidth = 1000;
+let increment = 100;
+
+setInterval(() => {
   motor.servoWrite(pulseWidth);
 
   pulseWidth += increment;
@@ -159,34 +163,34 @@ HC-SR04 ultrasonic sensor.
 <img src="https://raw.githubusercontent.com/fivdi/pigpio/master/example/distance-hc-sr04.png">
 
 ```js
-var Gpio = require('pigpio').Gpio,
-  trigger = new Gpio(23, {mode: Gpio.OUTPUT}),
-  echo = new Gpio(24, {mode: Gpio.INPUT, alert: true});
+const Gpio = require('pigpio').Gpio;
 
 // The number of microseconds it takes sound to travel 1cm at 20 degrees celcius
-var MICROSECDONDS_PER_CM = 1e6/34321;
+const MICROSECDONDS_PER_CM = 1e6/34321;
+
+const trigger = new Gpio(23, {mode: Gpio.OUTPUT});
+const echo = new Gpio(24, {mode: Gpio.INPUT, alert: true});
 
 trigger.digitalWrite(0); // Make sure trigger is low
 
-(function () {
-  var startTick;
+const watchHCSR04 = () => {
+  let startTick;
 
-  echo.on('alert', function (level, tick) {
-    var endTick,
-      diff;
-
+  echo.on('alert', (level, tick) => {
     if (level == 1) {
       startTick = tick;
     } else {
-      endTick = tick;
-      diff = (endTick >> 0) - (startTick >> 0); // Unsigned 32 bit arithmetic
+      const endTick = tick;
+      const diff = (endTick >> 0) - (startTick >> 0); // Unsigned 32 bit arithmetic
       console.log(diff / 2 / MICROSECDONDS_PER_CM);
     }
   });
-}());
+};
+
+watchHCSR04();
 
 // Trigger a distance measurement once per second
-setInterval(function () {
+setInterval(() => {
   trigger.trigger(10, 1); // Set trigger high for 10 microseconds
 }, 1000);
 ```
@@ -202,32 +206,32 @@ Alerts are used to measure the length of the pulse.
 ```js
 // Assumption: the LED is off when the program is started
 
-var Gpio = require('pigpio').Gpio,
-  led = new Gpio(17, {
-    mode: Gpio.OUTPUT,
-    alert: true
-  });
+const Gpio = require('pigpio').Gpio;
 
-(function () {
-  var startTick;
+const led = new Gpio(17, {
+  mode: Gpio.OUTPUT,
+  alert: true
+});
+
+const watchLed = () => {
+  let startTick;
 
   // Use alerts to determine how long the LED was turned on
-  led.on('alert', function (level, tick) {
-    var endTick,
-      diff;
-
+  led.on('alert', (level, tick) => {
     if (level == 1) {
       startTick = tick;
     } else {
-      endTick = tick;
-      diff = (endTick >> 0) - (startTick >> 0); // Unsigned 32 bit arithmetic
+      const endTick = tick;
+      const diff = (endTick >> 0) - (startTick >> 0); // Unsigned 32 bit arithmetic
       console.log(diff);
     }
   });
-}());
+};
+
+watchLed();
 
 // Turn the LED on for 15 microseconds once per second
-setInterval(function () {
+setInterval(() => {
   led.trigger(15, 1);
 }, 1000);
 ```
@@ -249,21 +253,27 @@ Here's an example of the typical output to the console:
 ```
 
 #### Debounce a Button
-The GPIO glitch filter will prevent alert events from being emitted if the corresponding level change is not stable for at least a specified number of microseconds. This can be used to filter out unwanted noise from an input signal. In this example, a glitch filter is applied to filter out the contact bounce of a push button.
+The GPIO glitch filter will prevent alert events from being emitted if the
+corresponding level change is not stable for at least a specified number of
+microseconds. This can be used to filter out unwanted noise from an input
+signal. In this example, a glitch filter is applied to filter out the contact
+bounce of a push button.
 
 ![Button debounce circuit](example/button-debounce.png)
 
 ```js
-var Gpio = require('pigpio').Gpio,
-  button = new Gpio(23, {
-    mode: Gpio.INPUT,
-    pullUpDown: Gpio.PUD_UP,
-    alert: true
-  }),
-  count = 0;
+const Gpio = require('pigpio').Gpio;
 
-// Level must be stable for 50 ms before an alert event is emitted.
-button.glitchFilter(50000);
+const button = new Gpio(23, {
+  mode: Gpio.INPUT,
+  pullUpDown: Gpio.PUD_UP,
+  alert: true
+});
+
+let count = 0;
+
+// Level must be stable for 10 ms before an alert event is emitted.
+button.glitchFilter(10000);
 
 button.on('alert', (level, tick) => {
   if (level === 0) {

@@ -1,17 +1,15 @@
 'use strict';
 
-var assert = require('assert'),
-  Gpio = require('../').Gpio,
-  iv,
-  led = new Gpio(17, {mode: Gpio.OUTPUT}),
-  dutyCycle = 0;
+const assert = require('assert');
+const Gpio = require('../').Gpio;
+const led = new Gpio(17, {mode: Gpio.OUTPUT});
 
-iv = setInterval(function () {
-  var dutyCycleRead;
+let dutyCycle = 0;
 
+const iv = setInterval(() => {
   led.pwmWrite(dutyCycle);
 
-  dutyCycleRead = led.getPwmDutyCycle();
+  const dutyCycleRead = led.getPwmDutyCycle();
   assert.strictEqual(dutyCycleRead, dutyCycle,
     'expected dutyCycle to be ' + dutyCycle + ', not ' + dutyCycleRead
   );
@@ -22,7 +20,7 @@ iv = setInterval(function () {
   }
 }, 20);
 
-setTimeout(function () {
+setTimeout(() => {
   led.digitalWrite(0);
   clearInterval(iv);
 }, 2000);

@@ -1,6 +1,6 @@
 'use strict';
 
-var pigpio = require('../');
+const pigpio = require('../');
 
 console.log('Hardware Revision: ' + pigpio.hardwareRevision().toString(16));
 

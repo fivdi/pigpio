@@ -1,11 +1,9 @@
 'use strict';
 
-var Gpio = require('../').Gpio,
-  gpio,
-  gpioNo;
+const Gpio = require('../').Gpio;
 
-for (gpioNo = Gpio.MIN_GPIO; gpioNo <= Gpio.MAX_GPIO; gpioNo += 1) {
-  gpio = new Gpio(gpioNo);
+for (let gpioNo = Gpio.MIN_GPIO; gpioNo <= Gpio.MAX_GPIO; gpioNo += 1) {
+  const gpio = new Gpio(gpioNo);
 
   console.log('GPIO ' + gpioNo + ':' +
     ' mode=' + gpio.getMode() +

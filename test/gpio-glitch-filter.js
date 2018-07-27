@@ -2,24 +2,25 @@
 
 // GPIO7 needs to be connected to GPIO8 with a 1K resistor for this test.
 
-var assert = require('assert'),
-  Gpio = require('../').Gpio,
-  input = new Gpio(7, {
-    mode: Gpio.INPUT,
-    pullUpDown: Gpio.PUD_OFF,
-    alert: true
-  }),
-  output = new Gpio(8, {
-    mode: Gpio.OUTPUT
-  }),
-  count = 0;
+const assert = require('assert');
+const Gpio = require('../').Gpio;
+const input = new Gpio(7, {
+  mode: Gpio.INPUT,
+  pullUpDown: Gpio.PUD_OFF,
+  alert: true
+});
+const output = new Gpio(8, {
+  mode: Gpio.OUTPUT
+});
+
+let alertCount = 0;
 
 output.digitalWrite(0);
 input.glitchFilter(50);
 input.on('alert', (level, tick) => {
   if (level === 1) {
-    count++;
-    console.log('  rising edge, count=' + count);
+    alertCount++;
+    console.log('  rising edge, alertCount = ' + alertCount);
   }
 });
 
@@ -30,7 +31,7 @@ setTimeout(() => {
 }, 500);
 
 setTimeout(() => {
-  assert.strictEqual(count, 1, 'expected 1 alert function call instead of ' + count);
+  assert.strictEqual(alertCount, 1, 'expected 1 alert function call instead of ' + alertCount);
   console.log("  success...");
   process.exit(0);
 }, 1000);

@@ -1,6 +1,8 @@
 #!/bin/sh
-echo hardware-revision
-sudo $(which node) hardware-revision
+echo alert-pwm-measurement
+sudo $(which node) alert-pwm-measurement
+echo alert-trigger-pulse-measurement
+sudo $(which node) alert-trigger-pulse-measurement
 echo banked-leds
 sudo $(which node) banked-leds
 echo blinky
@@ -13,12 +15,14 @@ echo digital-write-performance
 sudo $(which node) digital-write-performance
 echo do-nothing
 sudo $(which node) do-nothing
-echo gpio-mode
-sudo $(which node) gpio-mode
 echo gpio-glitch-filter
 sudo $(which node) gpio-glitch-filter
+echo gpio-mode
+sudo $(which node) gpio-mode
 echo gpio-numbers
 sudo $(which node) gpio-numbers
+echo hardware-revision
+sudo $(which node) hardware-revision
 echo isr-enable-disable
 sudo $(which node) isr-enable-disable
 echo isr-multiple-sources

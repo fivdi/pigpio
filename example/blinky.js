@@ -1,9 +1,10 @@
 'use strict';
 
-var Gpio = require('../').Gpio,
-  led = new Gpio(17, {mode: Gpio.OUTPUT});
+const Gpio = require('../').Gpio;
 
-setInterval(function () {
+const led = new Gpio(17, {mode: Gpio.OUTPUT});
+
+setInterval(() => {
   led.digitalWrite(led.digitalRead() ^ 1);
 }, 100);
 

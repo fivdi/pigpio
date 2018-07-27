@@ -1,36 +1,35 @@
 'use strict';
 
-var pigpio = require('../'),
-  Gpio = pigpio.Gpio,
-  Notifier = pigpio.Notifier;
+const pigpio = require('../');
+const Gpio = pigpio.Gpio;
+const Notifier = pigpio.Notifier;
 
-var LED_GPIO = 18,
-  FREQUENCY = 25000;
+const LED_GPIO = 18;
+const FREQUENCY = 25000;
 
-(function () {
-  var led = new Gpio(LED_GPIO, {mode: Gpio.OUTPUT});
+const blinkLed = () => {
+  const led = new Gpio(LED_GPIO, {mode: Gpio.OUTPUT});
 
   led.hardwarePwmWrite(FREQUENCY, 500000);
-}());
+};
 
-(function () {
-  var ledNotifier = new Notifier({bits: 1 << LED_GPIO}),
-    notificationsReceived = 0,
-    seqnoErrors = 0,
-    ledStateErrors = 0,
-    lastSeqno,
-    lastLedState,
-    lastTick,
-    minTickDiff = 0xffffffff,
-    maxTickDiff = 0;
+const watchLed = () => {
+  const ledNotifier = new Notifier({bits: 1 << LED_GPIO});
 
-  ledNotifier.stream().on('data', function (buf) {
-    var ix = 0;
+  let notificationsReceived = 0;
+  let seqnoErrors = 0;
+  let ledStateErrors = 0;
+  let lastSeqno;
+  let lastLedState;
+  let lastTick;
+  let minTickDiff = 0xffffffff;
+  let maxTickDiff = 0;
 
-    for (ix = 0; ix < buf.length; ix += Notifier.NOTIFICATION_LENGTH) {
-      var seqno = buf.readUInt16LE(ix);
-      var tick = buf.readUInt32LE(ix + 4);
-      var level = buf.readUInt32LE(ix + 8);
+  ledNotifier.stream().on('data', (buf) => {
+    for (let ix = 0; ix < buf.length; ix += Notifier.NOTIFICATION_LENGTH) {
+      const seqno = buf.readUInt16LE(ix);
+      const tick = buf.readUInt32LE(ix + 4);
+      const level = buf.readUInt32LE(ix + 8);
 
       if (notificationsReceived > 0) {
         if (lastLedState === (level & (1 << LED_GPIO))) {
@@ -69,5 +68,8 @@ var LED_GPIO = 18,
       console.log('  max tick diff: %d us', maxTickDiff);
     }
   });
-}());
+};
+
+blinkLed();
+watchLed();
 

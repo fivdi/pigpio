@@ -1,10 +1,12 @@
 'use strict';
 
-var Gpio = require('../').Gpio,
-  led = new Gpio(17, {mode: Gpio.OUTPUT}),
-  dutyCycle = 0;
+const Gpio = require('../').Gpio;
 
-setInterval(function () {
+const led = new Gpio(17, {mode: Gpio.OUTPUT});
+
+let dutyCycle = 0;
+
+setInterval(() => {
   led.pwmWrite(dutyCycle);
 
   dutyCycle += 5;
