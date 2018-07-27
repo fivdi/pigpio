@@ -26,7 +26,7 @@ The following program can be used to print the hardware revision of a
 Raspberry Pi in HEX.
 
 ```js
-var pigpio = require('pigpio');
+const pigpio = require('pigpio');
 
 console.log('Hardware Revision: ' + pigpio.hardwareRevision().toString(16));
 ```
@@ -67,11 +67,12 @@ but unfortunately it doesn't. The `SIGINT` handler is not executed when the
 user hits ctrl+c.
 
 ```js
-var Gpio = require('pigpio').Gpio,
-  led,
-  iv;
+const Gpio = require('pigpio').Gpio;
 
-process.on('SIGINT', function () {
+let led;
+let iv;
+
+process.on('SIGINT', () => {
   led.digitalWrite(0);
   clearInterval(iv);
   console.log('Terminating...');
@@ -79,7 +80,7 @@ process.on('SIGINT', function () {
 
 led = new Gpio(17, {mode: Gpio.OUTPUT}); // pigpio C library automatically initialized here
 
-iv = setInterval(function () {
+iv = setInterval(() => {
   led.digitalWrite(led.digitalRead() ^ 1);
 }, 1000);
 ```
@@ -94,14 +95,15 @@ To resolve this issue the pigpio `initialize` and `terminate` functions can be
 used.
 
 ```js
-var pigpio = require('pigpio'),
-  Gpio = pigpio.Gpio,
-  led,
-  iv;
+const pigpio = require('pigpio');
+const Gpio = pigpio.Gpio;
+
+let led;
+let iv;
 
 pigpio.initialize(); // pigpio C library initialized here
 
-process.on('SIGINT', function () {
+process.on('SIGINT', () => {
   led.digitalWrite(0);
   pigpio.terminate(); // pigpio C library terminated here
   clearInterval(iv);
@@ -110,7 +112,7 @@ process.on('SIGINT', function () {
 
 led = new Gpio(17, {mode: Gpio.OUTPUT});
 
-iv = setInterval(function () {
+iv = setInterval(() => {
   led.digitalWrite(led.digitalRead() ^ 1);
 }, 1000);
 ```
@@ -156,14 +158,13 @@ If `configureClock` is called, it must be called before creating `Gpio` objects.
 For example:
 
 ```js
-var pigpio = require('pigpio'),
-  Gpio = pigpio.Gpio,
-  led;
+const pigpio = require('pigpio');
+const Gpio = pigpio.Gpio;
 
 // Call configureClock before creating Gpio objects
 pigpio.configureClock(1, pigpio.CLOCK_PCM);
 
-led = new Gpio(17, {mode: Gpio.OUTPUT});
+const led = new Gpio(17, {mode: Gpio.OUTPUT});
 ```
 
 #### configureSocketPort(port)
@@ -177,14 +178,13 @@ If `configureSocketPort` is called, it must be called before creating `Gpio`
 objects. For example:
 
 ```js
-var pigpio = require('pigpio'),
-  Gpio = pigpio.Gpio,
-  led;
+const pigpio = require('pigpio');
+const Gpio = pigpio.Gpio;
 
 // Call configureSocketPort before creating Gpio objects
 pigpio.configureSocketPort(8889);
 
-led = new Gpio(17, {mode: Gpio.OUTPUT});
+const led = new Gpio(17, {mode: Gpio.OUTPUT});
 ```
 
 ### Constants
