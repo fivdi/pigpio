@@ -64,7 +64,7 @@ sudo apt-get update
 sudo apt-get install pigpio
 ```
 
-The pigpio C library contains a number of utilities. One of these utilities
+**Warning:** The pigpio C library contains a number of utilities. One of these utilities
 is pigpiod which launches the pigpio C library as a daemon. This utility
 should not be used as the pigpio Node.js package uses the C library directly.
 
