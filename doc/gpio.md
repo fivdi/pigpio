@@ -49,6 +49,8 @@
   - [waveGetCbs()](#wavegetcbs)
   - [waveGetHighCbs()](#wavegethighcbs)
   - [waveGetMaxCbs()](#wavegetmaxcbs)
+- Filters
+  - [glitchFilter(steady)](#glitchfiltersteady)
 
 #### Events
   - [Event: 'alert'](#event-alert)
@@ -110,12 +112,10 @@ print information about the current mode and logic level for all GPIOs, for
 example:
 
 ```js
-var Gpio = require('pigpio').Gpio,
-  gpio,
-  gpioNo;
+const Gpio = require('pigpio').Gpio;
 
-for (gpioNo = Gpio.MIN_GPIO; gpioNo <= Gpio.MAX_GPIO; gpioNo += 1) {
-  gpio = new Gpio(gpioNo);
+for (let gpioNo = Gpio.MIN_GPIO; gpioNo <= Gpio.MAX_GPIO; gpioNo += 1) {
+  const gpio = new Gpio(gpioNo);
 
   console.log('GPIO ' + gpioNo + ':' +
     ' mode=' + gpio.getMode() +
@@ -141,10 +141,19 @@ microseconds are passed to the alert event listener. GPIOs are sampled at a
 rate set when the library is started. The default sample rate is 5 microseconds
 but it can be set 1, 2, 4, 5, 8, or 10 microseconds with the
 [configureClock](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureclockmicroseconds-peripheral)
-function. State changes shorter that the sample rate may be missed.
+function. State changes shorter than the sample rate may be missed.
 Alert events are emitted nominally 1000 times per second and there will be one
 alert event for each state change detected. i.e. There will be alert events for
 all state changes but there will be a latency.
+
+#### The Difference Between Interrupts and Alerts
+
+Both interrupts and alerts provide information about state changes. Interrupts
+provide this information as quickly as possible and the latency is as low as
+possible. Alerts are queued and fired once per millisecond so the latency is
+higher. However, alerts also provide `tick` information that's accurate to a
+few microseconds. In addition, it's possible to detect more alerts than
+interrupts per second.
 
 #### mode(mode)
 - mode - INPUT, OUTPUT, ALT0, ALT1, ALT2, ALT3, ALT4, or ALT5
@@ -323,7 +332,15 @@ Enables alerts for the GPIO. Returns this.
 An alert event will be emitted every time the GPIO changes state.
 
 #### disableAlert()
-Disables aterts for the GPIO. Returns this.
+Disables alerts for the GPIO. Returns this.
+
+#### glitchFilter(steady)
+Sets a glitch filter on a GPIO. Returns this.
+- steady - Time, in microseconds, during which the level must be stable. Maximum value: 300000
+
+Level changes on the GPIO are not reported unless the level has been stable for at least `steady` microseconds. The level is then reported. Level changes of less than `steady` microseconds are ignored. This means that event callbacks will only be executed if the level change is at least `steady` microseconds long. Note that each (stable) edge will be timestamped `steady` microseconds after it was first detected.
+
+This filter only affects the execution of callbacks from the `alert` event, not those of the `interrupt` event.
 
 #### waveClear()
 Deletes all waveforms
@@ -401,9 +418,9 @@ another tick if the JavaScript sign propagating right shift operator `>>` is use
 For example, the following code which simply subtracts `startTick` from `endTick`
 prints -4294967294 which isn't the difference we're looking for:
 
-```
-var startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
-var endTick = 1;
+```js
+const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+const endTick = 1;
 console.log(endTick - startTick); // prints -4294967294 which isn't what we want
 ```
 
@@ -411,9 +428,9 @@ However, the following code which right shifts both `startTick` and `endTick` 0
 bits to the right before subtracting prints 2 which is the difference we're
 looking for:
 
-```
-var startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
-var endTick = 1;
+```js
+const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+const endTick = 1;
 console.log((endTick >> 0) - (startTick >> 0)); // prints 2 which is what we want
 ```
 

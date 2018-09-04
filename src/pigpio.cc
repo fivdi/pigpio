@@ -3,13 +3,8 @@
 #include <nan.h>
 #include <memory>
 
-#if NODE_VERSION_AT_LEAST(0, 11, 13)
 static void gpioISREventLoopHandler(uv_async_t* handle);
 static void gpioAlertEventLoopHandler(uv_async_t* handle);
-#else
-static void gpioISREventLoopHandler(uv_async_t* handle, int status);
-static void gpioAlertEventLoopHandler(uv_async_t* handle, int status);
-#endif
 
 // TODO errors returned by uv calls are ignored
 
@@ -21,18 +16,26 @@ static void gpioAlertEventLoopHandler(uv_async_t* handle, int status);
 
 class GpioCallback_t {
 public:
-  GpioCallback_t() : callback_(0) {
+  GpioCallback_t() : callback_(0), async_resource_(0) {
+    Nan::HandleScope scope;
   }
 
   virtual ~GpioCallback_t() {
+    Nan::HandleScope scope;
+
     if (callback_) {
       uv_unref((uv_handle_t *) &async_);
       delete callback_;
     }
 
+    if (async_resource_) {
+      delete async_resource_;
+    }
+
     uv_close((uv_handle_t *) &async_, 0);
 
     callback_ = 0;
+    async_resource_ = 0;
   }
 
   void AsyncSend() {
@@ -45,9 +48,15 @@ public:
       delete callback_;
     }
 
+    if (async_resource_) {
+      delete async_resource_;
+    }
+
     callback_ = callback;
+    async_resource_ = 0;
 
     if (callback_) {
+      async_resource_ = new Nan::AsyncResource("pigpio:eventHandler");
       uv_ref((uv_handle_t *) &async_);
     }
   }
@@ -56,11 +65,16 @@ public:
     return callback_;
   }
 
+  Nan::AsyncResource *Resource() {
+    return async_resource_;
+  }
+
 protected:
   uv_async_t async_;
 
 private:
   Nan::Callback *callback_;
+  Nan::AsyncResource *async_resource_;
 };
 
 
@@ -86,8 +100,8 @@ public:
 };
 
 
-static GpioISR_t gpioISR_g[PI_MAX_USER_GPIO + 1];
-static GpioAlert_t gpioAlert_g[PI_MAX_USER_GPIO + 1];
+static GpioISR_t *gpioISR_g;
+static GpioAlert_t *gpioAlert_g;
 static int gpio_g;
 static int level_g;
 static uint32_t tick_g;
@@ -388,11 +402,7 @@ static void gpioISRHandler(int gpio, int level, uint32_t tick) {
 
 
 // gpioISREventLoopHandler is executed in the event loop thread.
-#if NODE_VERSION_AT_LEAST(0, 11, 13)
 static void gpioISREventLoopHandler(uv_async_t* handle) {
-#else
-static void gpioISREventLoopHandler(uv_async_t* handle, int status) {
-#endif
   Nan::HandleScope scope;
 
   if (gpioISR_g[gpio_g].Callback()) {
@@ -401,7 +411,12 @@ static void gpioISREventLoopHandler(uv_async_t* handle, int status) {
       Nan::New<v8::Integer>(level_g),
       Nan::New<v8::Integer>(tick_g)
     };
-    gpioISR_g[gpio_g].Callback()->Call(3, args);
+
+    gpioISR_g[gpio_g].Callback()->Call(
+      3,
+      args,
+      gpioISR_g[gpio_g].Resource()
+    );
   }
 
   uv_sem_post(&sem_g);
@@ -456,11 +471,7 @@ static void gpioAlertHandler(int gpio, int level, uint32_t tick) {
 
 
 // gpioAlertEventLoopHandler is executed in the event loop thread.
-#if NODE_VERSION_AT_LEAST(0, 11, 13)
 static void gpioAlertEventLoopHandler(uv_async_t* handle) {
-#else
-static void gpioAlertEventLoopHandler(uv_async_t* handle, int status) {
-#endif
   Nan::HandleScope scope;
 
   if (gpioAlert_g[gpio_g].Callback()) {
@@ -469,7 +480,12 @@ static void gpioAlertEventLoopHandler(uv_async_t* handle, int status) {
       Nan::New<v8::Integer>(level_g),
       Nan::New<v8::Integer>(tick_g)
     };
-    gpioAlert_g[gpio_g].Callback()->Call(3, args);
+
+    gpioAlert_g[gpio_g].Callback()->Call(
+      3,
+      args,
+      gpioAlert_g[gpio_g].Resource()
+    );
   }
 
   uv_sem_post(&sem_g);
@@ -503,6 +519,20 @@ static NAN_METHOD(gpioSetAlertFunc) {
   int rc = gpioSetAlertFunc(user_gpio, alertFunc);
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioSetAlertFunc");
+  }
+}
+
+NAN_METHOD(gpioGlitchFilter) {
+  if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGlitchFilter", ""));
+  }
+
+  unsigned user_gpio = info[0]->Uint32Value();
+  unsigned steady = info[1]->Uint32Value();
+
+  int rc = gpioGlitchFilter(user_gpio, steady);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioGlitchFilter");
   }
 }
 
@@ -946,6 +976,7 @@ NAN_MODULE_INIT(InitAll) {
 
   SetFunction(target, "gpioSetISRFunc", gpioSetISRFunc);
   SetFunction(target, "gpioSetAlertFunc", gpioSetAlertFunc);
+  SetFunction(target, "gpioGlitchFilter", gpioGlitchFilter);
 
   SetFunction(target, "GpioReadBits_0_31", GpioReadBits_0_31);
   SetFunction(target, "GpioReadBits_32_53", GpioReadBits_32_53);
@@ -981,6 +1012,9 @@ NAN_MODULE_INIT(InitAll) {
 
   SetFunction(target, "gpioCfgClock", gpioCfgClock);
   SetFunction(target, "gpioCfgSocketPort", gpioCfgSocketPort);
+
+  gpioISR_g = new GpioISR_t[PI_MAX_USER_GPIO + 1];
+  gpioAlert_g = new GpioAlert_t[PI_MAX_USER_GPIO + 1];
 }
 
 NODE_MODULE(pigpio, InitAll)

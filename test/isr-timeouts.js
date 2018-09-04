@@ -1,22 +1,23 @@
 'use strict';
 
-var Gpio = require('../').Gpio,
-  timeoutCount = 0,
-  input = new Gpio(7, {mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE, timeout: 10});
+const Gpio = require('../').Gpio;
+const input = new Gpio(7, {mode: Gpio.INPUT, edge: Gpio.EITHER_EDGE, timeout: 10});
 
-input.on('interrupt', function (level) {
+let timeoutCount = 0;
+
+input.on('interrupt', (level) => {
   if (level === Gpio.TIMEOUT) {
     timeoutCount++;
   }
 });
 
-setTimeout(function () {
+setTimeout(() => {
   console.log('  ' + timeoutCount + ' timeouts detected (~100 expected)');
 
-  input.enableInterrupt(Gpio.EITHER_EDGE);
+  input.enableInterrupt(Gpio.EITHER_EDGE, 0);
   timeoutCount = 0;
 
-  setTimeout(function () {
+  setTimeout(() => {
     input.disableInterrupt();
     console.log('  ' + timeoutCount + ' timeouts detected (0 expected)');
   }, 1000);

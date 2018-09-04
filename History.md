@@ -1,3 +1,33 @@
+1.1.2 / Jul 27 2018
+===================
+
+  * modernize codebase
+
+1.1.1 / Jul 22 2018
+===================
+
+  * add troubleshooting guide (thank you [@sznowicki](https://github.com/sznowicki))
+  * construct AsyncResource for callback when callback is stored
+
+1.1.0 / May 20 2018
+===================
+
+  * add Gpio.glitchFilter
+
+1.0.0 / Apr 07 2018
+===================
+
+  * document difference between interrupts and alerts
+  * update dependencies (nan v2.10.0)
+
+0.7.0 / Feb 25 2018
+===================
+
+  * update dependencies (nan v2.9.2)
+  * fix deprecations
+  * drop support for node.js v0.10, v0.12, v5 and v7
+  * use default pipe size for notifiers
+
 0.6.4 / Dec 24 2017
 ===================
 

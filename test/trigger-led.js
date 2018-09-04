@@ -1,14 +1,13 @@
 'use strict';
 
-var Gpio = require('../').Gpio,
-  iv,
-  led = new Gpio(17, {mode: Gpio.OUTPUT});
+const Gpio = require('../').Gpio;
+const led = new Gpio(17, {mode: Gpio.OUTPUT});
 
-iv = setInterval(function () {
+const iv = setInterval(() => {
   led.trigger(100, 1);
 }, 2);
 
-setTimeout(function () {
+setTimeout(() => {
   led.digitalWrite(0);
   clearInterval(iv);
 }, 2000);

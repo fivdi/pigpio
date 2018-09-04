@@ -1,22 +1,21 @@
 'use strict';
 
-var Gpio = require('../').Gpio,
-  button = new Gpio(4, {
-    mode: Gpio.INPUT,
-    pullUpDown: Gpio.PUD_DOWN
-  }),
-  time,
-  ops,
-  i;
+const Gpio = require('../').Gpio;
+const button = new Gpio(4, {
+  mode: Gpio.INPUT,
+  pullUpDown: Gpio.PUD_DOWN
+});
 
-time = process.hrtime();
+const ITERATIONS = 2000000;
 
-for (i = 0; i !== 2000000; i += 1) {
+let time = process.hrtime();
+
+for (let i = 0; i !== ITERATIONS; i += 1) {
   button.digitalRead();
 }
 
 time = process.hrtime(time);
-ops = Math.floor(i / (time[0] + time[1] / 1E9));
+const ops = Math.floor(ITERATIONS / (time[0] + time[1] / 1E9));
 
 console.log('  ' + ops + ' read ops per second');
 
