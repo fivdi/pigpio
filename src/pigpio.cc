@@ -662,81 +662,6 @@ NAN_METHOD(gpioNotifyClose) {
 /* Waves                                                                    */
 /* ------------------------------------------------------------------------ */
     
-class gpioPulse : public Nan::ObjectWrap
-{
-public:
-    static NAN_MODULE_INIT(Init)
-    {
-        v8::Local<v8::FunctionTemplate> tpl = Nan::New<v8::FunctionTemplate>(New);
-        tpl->InstanceTemplate()->SetInternalFieldCount(1);
-        tpl->SetClassName(Nan::New("gpioPulse").ToLocalChecked());
-        
-        Isolate* isolate = v8::Isolate::GetCurrent();
-        
-        Nan::SetAccessor(tpl->InstanceTemplate(), v8::String::NewFromUtf8(isolate, "gpioOn"), gpioOn);
-        Nan::SetAccessor(tpl->InstanceTemplate(), v8::String::NewFromUtf8(isolate, "gpioOff"), gpioOff);
-        Nan::SetAccessor(tpl->InstanceTemplate(), v8::String::NewFromUtf8(isolate, "gpioDelay"), gpioDelay);
-        
-        constructor().Reset(tpl->GetFunction());
-    }
-    
-    static v8::Local<v8::Oject> NewObject(gpioPulse_t pulse)
-    {
-        Nan::EscapableHandleScope scope;
-        v8::Local<v8::Oject> instance = Nan::New<v8::Function>(constructor())->NewInstance();
-        
-        // Set internal data
-        ObjectWrap::Unwrap<gpioPulse_t>(instance)->nativePulse = pulse;
-        return scope.Escape(instance);
-    }
-    
-    #define NAN_GETTER_UINT32(name, property) \
-        NAN_GETTER(name) { \
-            auto obj = ObjectWrap::Unwrap<gpioPulse_t>(info.Holder()); \
-            info.GetReturnValue().Set(Nan::New(obj->nativePulse.property).ToLocalChecked()); \
-        }
-    
-    static NAN_GETTER_UINT32(gpioOn, gpioOn);
-    static NAN_GETTER_UINT32(gpioOff, gpioOff);
-    static NAN_GETTER_UINT32(gpioDelay, gpioDelay);
-    
-    #undef NAN_GETTER_UINT32
-    
-private:
-    explicit gpioPulse(uint32_t on, uint32_t off, uint32_t delay)
-    {
-        nativePulse->gpioOn = on;
-        nativePulse->gpioOff = off;
-        nativePulse->gpioDelay = delay;
-    }
-    
-    virtual ~gpioPulse() {}
-    
-    static NAN_METHOD(New)
-    {
-        if (info.Length() < 3 || !info[0]->IsUint32() || !info[1]->IsUint32() || !info[2]->IsUint32() ) {
-            return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioPulse::New", ""));
-        }
-        
-        unsigned on = info[0]->Uint32Value();
-        unsigned off = info[1]->Uint32Value();
-        unsigned delay = info[2]->Uint32Value();
-        
-        gpioPulse* obj = new gpioPulse(on, off, delay);
-        obj->Wrap(info.This());
-        info.GetReturnValue().Set(info.This());
-    }
-    
-    // Static field: constructor
-    static inline Nan::Persistent<v8::Function> & constructor()
-    {
-        static Nan::Persistent<v8::Function> my_constructor;
-        return my_constructor;
-    }
-    
-    gpioPulse_t nativePulse;
-}
-    
 NAN_METHOD(gpioWaveClear) {
     int rc = gpioWaveClear();
     if (rc < 0) {
@@ -757,23 +682,29 @@ NAN_METHOD(gpioWaveAddGeneric) {
     }
     
     unsigned numPulses = info[0]->Uint32Value();
-    Local<v8::Array> array = Local<v8::Array>::Cast(info[1]);
-    
-    if (pulses.IsEmpty()) {
-        return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", ""));
-    }
+    v8::Local<v8::Array> array = v8::Local<v8::Array>::Cast(info[1]);
     
     gpioPulse_t pulses[12000];
     
-    auto pulses = std::make_unique<gpioPulse_t[]>(array->Length());
+    //auto pulses = std::make_unique<gpioPulse_t[]>(array->Length());
     
     for (unsigned i=0; i < array->Length(); i++) {
         if (Nan::Has(array, i).FromJust()) {
-            gpioPulse * pulse = Nan::Get(array, i).ToLocalChecked();
-            
-            pulses[i].gpioOn = pulse.gpioOn;
-            pulses[i].gpioOff = pulse.gpioOff;
-            pulses[i].gpioDelay = pulse.gpioDelay;
+            v8::Local<v8::Object> pulse = v8::Local<v8::Object>::Cast(array->Get(i)); //Nan::Get(array, i).ToLocalChecked();
+   
+            v8::Isolate* isolate = v8::Isolate::GetCurrent();
+         
+            v8::Local<v8::Value> _on = pulse->Get(v8::String::NewFromUtf8(isolate, "gpioOn"));
+            v8::Local<v8::Value> _off = pulse->Get(v8::String::NewFromUtf8(isolate, "gpioOff"));
+            v8::Local<v8::Value> _delay = pulse->Get(v8::String::NewFromUtf8(isolate, "usDelay"));
+
+            uint32_t on = _on->Uint32Value();
+            uint32_t off = _off->Uint32Value();
+            uint32_t delay = _delay->Uint32Value();
+
+            pulses[i].gpioOn = on; //->Uint32Value();
+            pulses[i].gpioOff = off; //->Uint32Value();
+            pulses[i].usDelay = delay; //->Uint32Value();
         }
     }
     
@@ -986,8 +917,6 @@ NAN_MODULE_INIT(InitAll) {
 /*  SetConst(target, "PI_CLOCK_PWM", PI_CLOCK_PWM);
   SetConst(target, "PI_CLOCK_PCM", PI_CLOCK_PCM);*/
 
-  /* Wrapper Objects */
-  gpioPulse::Init(target);
     
   /* functions */
   SetFunction(target, "gpioHardwareRevision", gpioHardwareRevision);
@@ -1030,6 +959,25 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioNotifyBegin", gpioNotifyBegin);
   SetFunction(target, "gpioNotifyPause", gpioNotifyPause);
   SetFunction(target, "gpioNotifyClose", gpioNotifyClose);
+
+  SetFunction(target, "gpioWaveClear", gpioWaveClear);
+  SetFunction(target, "gpioWaveAddNew", gpioWaveAddNew);
+  SetFunction(target, "gpioWaveAddGeneric", gpioWaveAddGeneric);
+  SetFunction(target, "gpioWaveCreate", gpioWaveCreate);
+  SetFunction(target, "gpioWaveDelete", gpioWaveDelete);
+  SetFunction(target, "gpioWaveTxSend", gpioWaveTxSend);
+  SetFunction(target, "gpioWaveTxAt", gpioWaveTxAt);
+  SetFunction(target, "gpioWaveTxBusy", gpioWaveTxBusy);
+  SetFunction(target, "gpioWaveTxStop", gpioWaveTxStop);
+  SetFunction(target, "gpioWaveGetMicros", gpioWaveGetMicros);
+  SetFunction(target, "gpioWaveGetHighMicros", gpioWaveGetHighMicros);
+  SetFunction(target, "gpioWaveGetMaxMicros", gpioWaveGetMaxMicros);
+  SetFunction(target, "gpioWaveGetPulses", gpioWaveGetPulses);
+  SetFunction(target, "gpioWaveGetHighPulses", gpioWaveGetHighPulses);
+  SetFunction(target, "gpioWaveGetMaxPulses", gpioWaveGetMaxPulses);
+  SetFunction(target, "gpioWaveGetCbs", gpioWaveGetCbs);
+  SetFunction(target, "gpioWaveGetHighCbs", gpioWaveGetHighCbs);
+  SetFunction(target, "gpioWaveGetMaxCbs", gpioWaveGetMaxCbs);
 
   SetFunction(target, "gpioCfgClock", gpioCfgClock);
   SetFunction(target, "gpioCfgSocketPort", gpioCfgSocketPort);
