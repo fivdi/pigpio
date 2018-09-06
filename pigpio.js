@@ -376,9 +376,11 @@ Gpio.prototype.waveDelete = function(waveId) {
 	pigpio.gpioWaveDelete(waveId);
 	return this;
 };
-
 Gpio.prototype.waveTxSend = function(waveId, waveMode) {
 	return pigpio.gpioWaveTxSend(waveId, waveMode);
+};
+Gpio.prototype.waveAddSerial = function(user_gpio, baud, data_bits, stop_bits, offset, numBytes, str) {
+	return pigpio.gpioWaveAddSerial(user_gpio, baud, data_bits, stop_bits, offset, numBytes, str);
 };
 Gpio.prototype.waveChain = function(buf, bufLength) {
 	return pigpio.gpioWaveChain(buf, bufLength);
