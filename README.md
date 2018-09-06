@@ -317,7 +317,7 @@ var Gpio = require('pigpio').Gpio,
   
 }());
 ```
-#### Generate a waveform
+#### Sending a wavechain
 
 ```js
       var outPin = 17;
