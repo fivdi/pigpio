@@ -766,7 +766,7 @@ NAN_METHOD(gpioWaveAddGeneric) {
 
 
 NAN_METHOD(gpioWaveAddSerial) {
-  if (info.Length() < 6 || 
+  if (info.Length() < 7 || 
        !info[0]->IsUint32() ||
        !info[1]->IsUint32() ||
        !info[2]->IsUint32() ||
