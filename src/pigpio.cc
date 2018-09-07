@@ -776,15 +776,15 @@ NAN_METHOD(gpioWaveAddSerial) {
        info[6]->IsNull()){
       return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddSerial", ""));
   }
-  unsigned user_gpio = info[0]->Uint32Value();
+  unsigned gpio = info[0]->Uint32Value();
   unsigned baud = info[1]->Uint32Value();
-  unsigned data_bits = info[2]->Uint32Value();
-  unsigned stop_bits = info[3]->Uint32Value();
+  unsigned dataBits = info[2]->Uint32Value();
+  unsigned stopBits = info[3]->Uint32Value();
   unsigned offset = info[4]->Uint32Value();
   unsigned numBytes = info[5]->Uint32Value();
   char* str =  node::Buffer::Data(info[6]);
 
-  int rc = gpioWaveAddSerial(user_gpio,baud,data_bits,stop_bits,offset,numBytes,str);
+  int rc = gpioWaveAddSerial(gpio,baud,dataBits,stopBits,offset,numBytes,str);
   if (rc < 0)
     return ThrowPigpioError(rc,"gpioWaveAddSerial");
   info.GetReturnValue().Set(rc);
