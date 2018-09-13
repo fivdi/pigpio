@@ -199,10 +199,8 @@ setInterval(() => {
 ```js
     const Gpio = require('pigpio').Gpio;
 
-    const button = new Gpio(17, {
-      mode: Gpio.INPUT
-    });
-    var current_tick = button.tick(); //this is unsigned 32bit 
+    
+    var current_tick = Gpio.tick(); //this is unsigned 32bit 
 ```
 
 #### Determine the Width of a Pulse with Alerts
