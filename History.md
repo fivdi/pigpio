@@ -1,5 +1,5 @@
-Unpublished
-===========
+1.1.3 / Sep 29 2018
+===================
 
   * update dependencies (nan v2.11.1)
   * adapt to V8 7.0: replace v8Value->Uint32Value() with Nan::To<uint32_t>(v8Value).FromJust()
