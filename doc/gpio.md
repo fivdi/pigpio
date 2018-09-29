@@ -176,6 +176,11 @@ can be used to change the default range of 255.
 Starts hardware PWM on the GPIO at the specified frequency and dutyCycle.
 Frequencies above 30MHz are unlikely to work. Returns this.
 
+hardwarePwmWrite can only be invoked if the pigpio main clock is PCM. The main
+clock defaults to PCM but can be overridden by invoking the
+[configureClock](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md#configureclockmicroseconds-peripheral)
+function.
+
 The actual number of steps bteween off and fully on is the integral part of 250
 million divided by frequency.
 
