@@ -141,8 +141,8 @@ NAN_METHOD(gpioSetMode) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetMode", ""));
   }
 
-  unsigned gpio = info[0]->Uint32Value();
-  unsigned mode = info[1]->Uint32Value();
+  unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned mode = Nan::To<uint32_t>(info[1]).FromJust();
 
   int rc = gpioSetMode(gpio, mode);
   if (rc < 0) {
@@ -156,7 +156,7 @@ NAN_METHOD(gpioGetMode) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetMode", ""));
   }
 
-  unsigned gpio = info[0]->Uint32Value();
+  unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioGetMode(gpio);
   if (rc < 0) {
@@ -172,8 +172,8 @@ NAN_METHOD(gpioSetPullUpDown) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPullUpDown", ""));
   }
 
-  unsigned gpio = info[0]->Uint32Value();
-  unsigned pud = info[1]->Uint32Value();
+  unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned pud = Nan::To<uint32_t>(info[1]).FromJust();
 
   int rc = gpioSetPullUpDown(gpio, pud);
   if (rc < 0) {
@@ -187,7 +187,7 @@ NAN_METHOD(gpioRead) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioRead", ""));
   }
 
-  unsigned gpio = info[0]->Uint32Value();
+  unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioRead(gpio);
   if (rc < 0) {
@@ -203,8 +203,8 @@ NAN_METHOD(gpioWrite) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPullUpDown", ""));
   }
 
-  unsigned gpio = info[0]->Uint32Value();
-  unsigned level = info[1]->Uint32Value();
+  unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned level = Nan::To<uint32_t>(info[1]).FromJust();
 
   int rc = gpioWrite(gpio, level);
   if (rc < 0) {
@@ -218,9 +218,9 @@ NAN_METHOD(gpioTrigger) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioTrigger", ""));
   }
 
-  unsigned gpio = info[0]->Uint32Value();
-  unsigned pulseLen = info[1]->Uint32Value();
-  unsigned level = info[2]->Uint32Value();
+  unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned pulseLen = Nan::To<uint32_t>(info[1]).FromJust();
+  unsigned level = Nan::To<uint32_t>(info[2]).FromJust();
 
   int rc = gpioTrigger(gpio, pulseLen, level);
   if (rc < 0) {
@@ -234,8 +234,8 @@ NAN_METHOD(gpioPWM) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioPWM", ""));
   }
 
-  unsigned user_gpio = info[0]->Uint32Value();
-  unsigned dutycycle = info[1]->Uint32Value();
+  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned dutycycle = Nan::To<uint32_t>(info[1]).FromJust();
 
   int rc = gpioPWM(user_gpio, dutycycle);
   if (rc < 0) {
@@ -252,9 +252,9 @@ NAN_METHOD(gpioHardwarePWM) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioHardwarePWM", ""));
   }
 
-  unsigned gpio = info[0]->Uint32Value();
-  unsigned frequency = info[1]->Uint32Value();
-  unsigned dutycycle = info[2]->Uint32Value();
+  unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned frequency = Nan::To<uint32_t>(info[1]).FromJust();
+  unsigned dutycycle = Nan::To<uint32_t>(info[2]).FromJust();
 
   int rc = gpioHardwarePWM(gpio, frequency, dutycycle);
   if (rc < 0) {
@@ -268,7 +268,7 @@ NAN_METHOD(gpioGetPWMdutycycle) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMdutycycle", ""));
   }
 
-  unsigned user_gpio = info[0]->Uint32Value();
+  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioGetPWMdutycycle(user_gpio);
   if (rc < 0) {
@@ -284,8 +284,8 @@ NAN_METHOD(gpioSetPWMrange) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPWMrange", ""));
   }
 
-  unsigned user_gpio = info[0]->Uint32Value();
-  unsigned range = info[1]->Uint32Value();
+  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned range = Nan::To<uint32_t>(info[1]).FromJust();
 
   int rc = gpioSetPWMrange(user_gpio, range);
   if (rc < 0) {
@@ -299,7 +299,7 @@ NAN_METHOD(gpioGetPWMrange) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMrange", ""));
   }
 
-  unsigned user_gpio = info[0]->Uint32Value();
+  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioGetPWMrange(user_gpio);
   if (rc < 0) {
@@ -315,7 +315,7 @@ NAN_METHOD(gpioGetPWMrealRange) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMrealRange", ""));
   }
 
-  unsigned user_gpio = info[0]->Uint32Value();
+  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioGetPWMrealRange(user_gpio);
   if (rc < 0) {
@@ -331,8 +331,8 @@ NAN_METHOD(gpioSetPWMfrequency) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetPWMfrequency", ""));
   }
 
-  unsigned user_gpio = info[0]->Uint32Value();
-  unsigned frequency = info[1]->Uint32Value();
+  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned frequency = Nan::To<uint32_t>(info[1]).FromJust();
 
   int rc = gpioSetPWMfrequency(user_gpio, frequency);
   if (rc < 0) {
@@ -346,7 +346,7 @@ NAN_METHOD(gpioGetPWMfrequency) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetPWMfrequency", ""));
   }
 
-  unsigned user_gpio = info[0]->Uint32Value();
+  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioGetPWMfrequency(user_gpio);
   if (rc < 0) {
@@ -362,8 +362,8 @@ NAN_METHOD(gpioServo) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioServo", ""));
   }
 
-  unsigned user_gpio = info[0]->Uint32Value();
-  unsigned pulsewidth = info[1]->Uint32Value();
+  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned pulsewidth = Nan::To<uint32_t>(info[1]).FromJust();
 
   int rc = gpioServo(user_gpio, pulsewidth);
   if (rc < 0) {
@@ -377,7 +377,7 @@ NAN_METHOD(gpioGetServoPulsewidth) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGetServoPulsewidth", ""));
   }
 
-  unsigned user_gpio = info[0]->Uint32Value();
+  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioGetServoPulsewidth(user_gpio);
   if (rc < 0) {
@@ -437,9 +437,9 @@ static NAN_METHOD(gpioSetISRFunc) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetISRFunc", ""));
   }
 
-  unsigned user_gpio = info[0]->Uint32Value();
-  unsigned edge = info[1]->Uint32Value();
-  int timeout = info[2]->Int32Value();
+  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned edge = Nan::To<uint32_t>(info[1]).FromJust();
+  int timeout = Nan::To<int32_t>(info[2]).FromJust();
   Nan::Callback *callback = 0;
   gpioISRFunc_t isrFunc = 0;
 
@@ -504,7 +504,7 @@ static NAN_METHOD(gpioSetAlertFunc) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetAlertFunc"));
   }
 
-  unsigned user_gpio = info[0]->Uint32Value();
+  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
   Nan::Callback *callback = 0;
   gpioAlertFunc_t alertFunc = 0;
 
@@ -526,8 +526,8 @@ NAN_METHOD(gpioGlitchFilter) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGlitchFilter", ""));
   }
 
-  unsigned user_gpio = info[0]->Uint32Value();
-  unsigned steady = info[1]->Uint32Value();
+  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned steady = Nan::To<uint32_t>(info[1]).FromJust();
 
   int rc = gpioGlitchFilter(user_gpio, steady);
   if (rc < 0) {
@@ -556,7 +556,7 @@ NAN_METHOD(GpioWriteBitsSet_0_31) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "GpioWriteBitsSet_0_31", ""));
   }
 
-  unsigned bits = info[0]->Uint32Value();
+  unsigned bits = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioWrite_Bits_0_31_Set(bits);
   if (rc < 0) {
@@ -572,7 +572,7 @@ NAN_METHOD(GpioWriteBitsSet_32_53) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "GpioWriteBitsSet_32_53", ""));
   }
 
-  unsigned bits = info[0]->Uint32Value();
+  unsigned bits = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioWrite_Bits_32_53_Set(bits);
   if (rc < 0) {
@@ -588,7 +588,7 @@ NAN_METHOD(GpioWriteBitsClear_0_31) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "GpioWriteBitsClear_0_31", ""));
   }
 
-  unsigned bits = info[0]->Uint32Value();
+  unsigned bits = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioWrite_Bits_0_31_Clear(bits);
   if (rc < 0) {
@@ -604,7 +604,7 @@ NAN_METHOD(GpioWriteBitsClear_32_53) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "GpioWriteBitsClear_32_53", ""));
   }
 
-  unsigned bits = info[0]->Uint32Value();
+  unsigned bits = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioWrite_Bits_32_53_Clear(bits);
   if (rc < 0) {
@@ -634,7 +634,7 @@ NAN_METHOD(gpioNotifyOpenWithSize) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyOpenWithSize", ""));
   }
 
-  unsigned bufSize = info[0]->Uint32Value();
+  unsigned bufSize = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioNotifyOpenWithSize(bufSize);
   if (rc < 0) {
@@ -650,8 +650,8 @@ NAN_METHOD(gpioNotifyBegin) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyBegin", ""));
   }
 
-  unsigned handle = info[0]->Uint32Value();
-  unsigned bits = info[1]->Uint32Value();
+  unsigned handle = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned bits = Nan::To<uint32_t>(info[1]).FromJust();
 
   int rc = gpioNotifyBegin(handle, bits);
   if (rc < 0) {
@@ -665,7 +665,7 @@ NAN_METHOD(gpioNotifyPause) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyPause", ""));
   }
 
-  unsigned handle = info[0]->Uint32Value();
+  unsigned handle = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioNotifyPause(handle);
   if (rc < 0) {
@@ -679,7 +679,7 @@ NAN_METHOD(gpioNotifyClose) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioNotifyClose", ""));
   }
 
-  unsigned handle = info[0]->Uint32Value();
+  unsigned handle = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioNotifyClose(handle);
   if (rc < 0) {
@@ -698,8 +698,8 @@ NAN_METHOD(gpioCfgClock) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioCfgClock", ""));
   }
 
-  unsigned cfgMicros = info[0]->Uint32Value();
-  unsigned cfgPeripheral = info[1]->Uint32Value();
+  unsigned cfgMicros = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned cfgPeripheral = Nan::To<uint32_t>(info[1]).FromJust();
   unsigned cfgSource = 0;
 
   gpioCfgClock(cfgMicros, cfgPeripheral, cfgSource);
@@ -711,7 +711,7 @@ NAN_METHOD(gpioCfgSocketPort) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioCfgSocketPort", ""));
   }
 
-  unsigned cfgPort = info[0]->Uint32Value();
+  unsigned cfgPort = Nan::To<uint32_t>(info[0]).FromJust();
 
   gpioCfgSocketPort(cfgPort);
 }

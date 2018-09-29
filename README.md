@@ -20,7 +20,6 @@ pigpio supports Node.js versions 4, 6, 8 and 10.
    * [Determine the Width of a Pulse with Alerts](#determine-the-width-of-a-pulse-with-alerts)
    * [Debounce a Button](#debounce-a-button)
  * [API Documentation](#api-documentation)
- * [Performance](#performance)
  * [Limitations](#limitations)
  * [Troubleshooting](#troubleshooting)
  * [Related Packages](#related-packages)
@@ -28,8 +27,8 @@ pigpio supports Node.js versions 4, 6, 8 and 10.
 ## Features
 
  * Digital IO
-   * Up to 2.1 million digital reads per second <sup>*)</sup>
-   * Up to 2.3 million digital writes per second <sup>*)</sup>
+   * Up to 1.4 million digital reads per second <sup>*)</sup>
+   * Up to 1 million digital writes per second <sup>*)</sup>
  * PWM on any of GPIOs 0 through 31
    * Multiple frequencies and duty cycle ranges supported
  * Servo control on any of GPIOs 0 through 31
@@ -44,7 +43,7 @@ pigpio supports Node.js versions 4, 6, 8 and 10.
  * Trigger pulse generation
  * Pull up/down resistor configuration
 
-*) On a Raspberry Pi 3 Model B V1.2 running at 1.2 GHz ([Performance](#performance))
+*) On a Raspberry Pi 3 Model B V1.2 running at 1.2 GHz
 
 ## Installation
 
@@ -293,28 +292,6 @@ button.on('alert', (level, tick) => {
 ### Configuring pigpio
 
 - [Configuration](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md) - pigpio configuration
-
-## Performance
-
-Three of the pigpio tests are used to monitor performance:
-
- * digital-read-performance.js - determine max. no. of digitalRead ops per second
- * digital-write-performance.js - determine max. no. of digitalWrite ops per second
- * isr-performance.js - determine max. no. of interrupts per second
-
-The average of ten runs of these tests are shown in the table below.
-
- Name | Pi 2 | Pi 3
-:--- | :--- | :---
-Pi Model | Raspberry Pi 2 Model B V1.1 | Raspberry Pi 3 Model B V1.2
-OS | Raspbian Jessie 2016-02-09 | Raspbian Jessie 2016-02-26
-Kernel | 4.1.17-v7+ | 4.1.18-v7+
-Node.js | v5.6.0 armv7l | v5.7.0 armv7l
-pigpio | v0.3.0 | v0.3.2
-pigpio C library | V45 | V47
-Reads per second | 1,232,588 | 2,129,221
-Writes per second | 1,323,039 | 2,336,157
-Interrupts per second | 8,881 | 20,533
 
 ## Limitations
 
