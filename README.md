@@ -42,6 +42,7 @@ pigpio supports Node.js versions 4, 6, 8 and 10.
  * Read or write up to 32 GPIOs as one operation with banked GPIO
  * Trigger pulse generation
  * Pull up/down resistor configuration
+ * Waveforms to generate GPIO level changes (time accurate to a few µs)
 
 *) On a Raspberry Pi 3 Model B V1.2 running at 1.2 GHz
 
@@ -193,6 +194,15 @@ setInterval(() => {
   trigger.trigger(10, 1); // Set trigger high for 10 microseconds
 }, 1000);
 ```
+#### Determine Current Tick
+```js
+    const Gpio = require('pigpio').Gpio;
+
+    const button = new Gpio(17, {
+      mode: Gpio.INPUT
+    });
+    var current_tick = button.tick(); //this is unsigned 32bit 
+```
 
 #### Determine the Width of a Pulse with Alerts
 
@@ -251,6 +261,128 @@ Here's an example of the typical output to the console:
 15
 ```
 
+#### Generate a waveform
+
+```js
+var outPin = 17;
+
+var Gpio = require('pigpio').Gpio,
+  out = new Gpio(outPin, {
+    mode: Gpio.OUTPUT
+  });
+  
+(function () {
+  var waveform = [];
+  
+  var x = 0;
+  for (x=0; x < 10; x++) {
+    if (x % 2 == 0) {
+      waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+    } else {
+      waveform[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:20 };
+    }
+  }
+  
+  for (x=10; x < 20; x++) {
+    if (x % 2 == 0) {
+      waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:30 };
+    } else {
+      waveform[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:30 };
+    }
+  }
+  
+  for (x=20; x < 30; x++) {
+    if (x % 2 == 0) {
+      waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+    } else {
+      waveform[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:20 };
+    }
+  }
+  
+  Gpio.waveClear();
+  
+  Gpio.waveAddGeneric(waveform.length, waveform);
+  
+  var waveId = Gpio.waveCreate();
+
+  if (waveId >= 0)
+  {
+    Gpio.waveTxSend(waveId, Gpio.WAVE_MODE_ONE_SHOT);
+  }
+
+  while (Gpio.waveTxBusy()) {}
+  
+  Gpio.waveDelete(waveId);
+  
+}());
+```
+#### Sending a wavechain
+
+```js
+      var outPin = 17;
+
+      var Gpio = require('pigpio').Gpio,
+              out = new Gpio(outPin, {
+                mode: Gpio.OUTPUT
+              });
+      var chain = [];
+      var waveform = [];
+      var waveId;
+      var x = 0;
+      for (x=0; x < 10; x++) {
+        if (x % 2 == 0) {
+          chain[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+        } else {
+          chain[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:20 };
+        }
+      }
+      Gpio.waveClear();
+      Gpio.waveAddGeneric(waveform.length, waveform);
+      waveId = Gpio.waveCreate();
+      
+      chain.push(255)
+      chain.push(1)
+      chain.push(6)
+      chain.push(0);
+      
+      var bufchain = Buffer.from(chain)
+      Gpio.waveChain(bufchain, bufchain.length);
+      while(Gpio.waveTxBusy()){
+      }
+      Gpio.waveDelete(waveId);
+
+```
+#### Adding a waveform representing serial data
+```js
+      var outPin = 17;
+      var baud = 9600;
+      var data_bits = 8;
+      var stop_bits = 2;
+      var offset = 0;
+
+      var Gpio = require('pigpio').Gpio,
+              out = new Gpio(outPin, {
+                mode: Gpio.OUTPUT
+              });
+      var str = "Hello world!";
+      var buf = Buffer.from(str);
+      var numBytes = buf.length;
+
+      Gpio.waveAddSerial(outPin,baud,data_bits,stop_bits,offset,numBytes,buf);
+
+```
+#### Setting a watchdog for a GPIO.
+```js
+      var outPin = 17;
+      var watchdog_ms = 2000;
+      var Gpio = require('pigpio').Gpio,
+              out = new Gpio(outPin, {
+                mode: Gpio.INPUT
+              });
+      Gpio.setWatchdog(outPin,watchdog_ms);
+```
+
+## API documentation
 #### Debounce a Button
 The GPIO glitch filter will prevent alert events from being emitted if the
 corresponding level change is not stable for at least a specified number of
