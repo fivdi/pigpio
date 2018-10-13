@@ -2,9 +2,9 @@
   "targets": [{
     "target_name": "pigpio",
     "conditions": [[
-      "OS == \"linux\"", {
+      '"<!(echo $V)" != "1"', {
         "cflags": [
-          "-Wno-unused-local-typedefs"
+          "-Wno-deprecated-declarations"
         ]
       }]
     ],
