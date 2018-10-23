@@ -1,3 +1,16 @@
+1.1.4 / Oct 13 2018
+===================
+
+  * fix deprecation warnings on node.js v10.12 (see https://github.com/nodejs/nan/pull/811)
+
+1.1.3 / Sep 29 2018
+===================
+
+  * update dependencies (nan v2.11.1)
+  * adapt to V8 7.0: replace v8Value->Uint32Value() with Nan::To<uint32_t>(v8Value).FromJust()
+  * adapt to V8 7.0: replace v8Value->Int32Value() with Nan::To<int32_t>(v8Value).FromJust()
+  * adapting to V8 7.0 had a negative impact on performance
+
 1.1.2 / Jul 27 2018
 ===================
 
