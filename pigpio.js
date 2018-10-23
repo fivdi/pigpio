@@ -353,83 +353,83 @@ module.exports.Notifier = Notifier;
 
 Gpio.prototype.gpioPulse = pigpio.gpioPulse;
 
-Gpio.prototype.waveClear = function() {
+Gpio.prototype.waveClear = function () {
   pigpio.gpioWaveClear();
   return this;
 };
 
-Gpio.prototype.waveAddNew = function() {
+Gpio.prototype.waveAddNew = function () {
   pigpio.gpioWaveAddNew();
   return this;
 };
 
-Gpio.prototype.waveAddGeneric = function(numPulses, pulses) {
+Gpio.prototype.waveAddGeneric = function (numPulses, pulses) {
   pigpio.gpioWaveAddGeneric(numPulses, pulses);
   return this;
 };
 
-Gpio.prototype.waveCreate = function() {
+Gpio.prototype.waveCreate = function () {
   return pigpio.gpioWaveCreate();
 };
 
-Gpio.prototype.waveDelete = function(waveId) {
+Gpio.prototype.waveDelete = function (waveId) {
   pigpio.gpioWaveDelete(waveId);
   return this;
 };
-Gpio.prototype.waveTxSend = function(waveId, waveMode) {
+Gpio.prototype.waveTxSend = function (waveId, waveMode) {
   return pigpio.gpioWaveTxSend(waveId, waveMode);
 };
-Gpio.prototype.waveAddSerial = function(gpio, baud, dataBits, stopBits, offset, numBytes, str) {
+Gpio.prototype.waveAddSerial = function (gpio, baud, dataBits, stopBits, offset, numBytes, str) {
   return pigpio.gpioWaveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, str);
 };
-Gpio.prototype.waveChain = function(buf, bufLength) {
+Gpio.prototype.waveChain = function (buf, bufLength) {
   return pigpio.gpioWaveChain(buf, bufLength);
 };
-Gpio.prototype.waveTxAt = function() {
+Gpio.prototype.waveTxAt = function () {
   return pigpio.gpioWaveTxAt();
 };
 
-Gpio.prototype.waveTxBusy = function() {
+Gpio.prototype.waveTxBusy = function () {
   return pigpio.gpioWaveTxBusy();
 };
 
-Gpio.prototype.waveTxStop = function() {
+Gpio.prototype.waveTxStop = function () {
   return pigpio.gpioWaveTxStop();
 };
 
-Gpio.prototype.waveGetMicros = function() {
+Gpio.prototype.waveGetMicros = function () {
   return pigpio.gpioWaveGetMicros();
 };
 
-Gpio.prototype.waveGetHighMicros = function() {
+Gpio.prototype.waveGetHighMicros = function () {
   return pigpio.gpioWaveGetHighMicros();
 };
 
-Gpio.prototype.waveGetMaxMicros = function() {
+Gpio.prototype.waveGetMaxMicros = function () {
   return pigpio.gpioWaveGetMaxMicros();
 };
 
-Gpio.prototype.waveGetPulses = function() {
+Gpio.prototype.waveGetPulses = function () {
   return pigpio.gpioWaveGetPulses();
 };
 
-Gpio.prototype.waveGetHighPulses = function() {
+Gpio.prototype.waveGetHighPulses = function () {
   return pigpio.gpioWaveGetHighPulses();
 };
 
-Gpio.prototype.waveGetMaxPulses = function() {
+Gpio.prototype.waveGetMaxPulses = function () {
   return pigpio.gpioWaveGetMaxPulses();
 };
 
-Gpio.prototype.waveGetCbs = function() {
+Gpio.prototype.waveGetCbs = function () {
   return pigpio.gpioWaveGetCbs();
 };
 
-Gpio.prototype.waveGetHighCbs = function() {
+Gpio.prototype.waveGetHighCbs = function () {
   return pigpio.gpioWaveGetHighCbs();
 };
 
-Gpio.prototype.waveGetMaxCbs = function() {
+Gpio.prototype.waveGetMaxCbs = function () {
   return pigpio.gpioWaveGetMaxCbs();
 };
 

@@ -198,8 +198,6 @@ setInterval(() => {
 #### Determine Current Tick
 ```js
     const Gpio = require('pigpio').Gpio;
-
-    
     var current_tick = Gpio.tick(); //this is unsigned 32bit 
 ```
 
