@@ -6,8 +6,11 @@ const pigpio = require('../');
 // Only suitable as a test, don't do this for real as you lock up
 // the Node.js main thread with this pattern.
 let startUsec = pigpio.getTick();
+let nowUsec;
+let deltaUsec;
 do {
-  let nowUsec = pigpio.getTick();
-  let deltaUsec = pigpio.tickDiff(startUsec - nowUsec);
+  nowUsec = pigpio.getTick();
+  deltaUsec = pigpio.tickDiff(startUsec - nowUsec);
 } while (deltaUsec < 500);
-console.log(`Start (us) = ${startUsec}, now (us) = ${pigpio.getTick()}`);
+
+console.log(`Start (us) = ${startUsec}, now (us) = ${nowUsec}, diff (us) = ${deltaUsec}`);
