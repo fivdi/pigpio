@@ -90,12 +90,11 @@ class Gpio extends EventEmitter {
     pigpio.gpioHardwarePWM(this.gpio, +frequency, +dutyCycle);
     return this;
   }
-  tick() {
-    return pigpio.gpioTick();
-  }
+  
   setWatchdog(gpio, timeout) {
     return pigpio.gpioSetWatchdog(gpio, timeout);
   }
+  
   getPwmDutyCycle() {
     return pigpio.gpioGetPWMdutycycle(this.gpio);
   }
@@ -395,6 +394,10 @@ Gpio.prototype.waveGetMaxCbs = function () {
 
 module.exports.hardwareRevision = () => {
   return pigpio.gpioHardwareRevision();
+};
+
+module.exports.tick = () => {
+    return pigpio.gpioTick();
 };
 
 module.exports.initialize = () => {

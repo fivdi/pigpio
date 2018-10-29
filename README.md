@@ -196,8 +196,8 @@ setInterval(() => {
 ```
 #### Determine Current Tick
 ```js
-    const Gpio = require('pigpio').Gpio;
-    var current_tick = Gpio.tick(); //this is unsigned 32bit 
+const Gpio = require('pigpio').Gpio;
+var current_tick = Gpio.tick(); //this is unsigned 32bit 
 ```
 
 #### Determine the Width of a Pulse with Alerts
@@ -259,6 +259,11 @@ Here's an example of the typical output to the console:
 
 #### Generate a waveform
 
+This example generates a custom pulses number to a new waveform.
+The waveform definition is a simple Array where each entry is a custom PULSE definition
+The method `waveAddGeneric` adds the provided pulses to the waveform.
+The method `waveClear` clear the waveform by any data added before
+
 ```js
 var outPin = 17;
 
@@ -301,8 +306,7 @@ var Gpio = require('pigpio').Gpio,
   
   var waveId = Gpio.waveCreate();
 
-  if (waveId >= 0)
-  {
+  if (waveId >= 0) {
     Gpio.waveTxSend(waveId, Gpio.WAVE_MODE_ONE_SHOT);
   }
 
@@ -313,6 +317,11 @@ var Gpio = require('pigpio').Gpio,
 }());
 ```
 #### Sending a wavechain
+
+This example demostrates how to transmits a chain of waveforms.
+NOTE: Any hardware PWM started by `gpioHardwarePWM` will be cancelled.
+In the example the `chain` represents the list of waveforms
+
 
 ```js
       var outPin = 17;

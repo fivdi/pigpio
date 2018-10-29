@@ -39,8 +39,7 @@ var Gpio = require('pigpio').Gpio,
   
   var waveId = Gpio.waveCreate();
 
-  if (waveId >= 0)
-  {
+  if (waveId >= 0) {
     Gpio.waveTxSend(waveId, Gpio.WAVE_MODE_ONE_SHOT);
   }
 
