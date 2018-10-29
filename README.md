@@ -316,6 +316,6 @@ Here are a few links to other hardware specific Node.js packages that may be of 
 - [i2c-bus](https://github.com/fivdi/i2c-bus) - I2C serial bus access
 - [spi-device](https://github.com/fivdi/spi-device) - SPI serial bus access
 - [mcp-spi-adc](https://github.com/fivdi/mcp-spi-adc) - Analog to digital conversion with the MCP3002/4/8, MCP3202/4/8 and MCP3304
+- [pigpio-dht](https://github.com/depuits/pigpio-dht) - Implements logic to read a DHT11 temperature and relative humidity sensor
 - [pigpio-mock](https://github.com/deepsyx/pigpio-mock) - A pigpio mock library for development on your local machine
-- [pigpio-dht](https://github.com/deepsyx/pigpio-mock) - A pigpio mock library for development on your local machine
 
