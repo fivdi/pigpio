@@ -23,7 +23,7 @@ const initializePigpio = () => {
 /* ------------------------------------------------------------------------ */
 
 module.exports.getTick = () => {
-  pigpio.gpioTick();
+  return pigpio.gpioTick();
 }
 
 module.exports.tickDiff = (startUsec, endUsec) => {
