@@ -727,7 +727,7 @@ NAN_METHOD(gpioWaveAddNew) {
 }
 
 NAN_METHOD(gpioWaveAddGeneric) {
-  if (info.Length() < 1 || !info[0]->isArray()) {
+  if (info.Length() < 1 || !info[0]->IsArray()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", ""));
   }
 
@@ -741,7 +741,14 @@ NAN_METHOD(gpioWaveAddGeneric) {
 
   for (unsigned i = 0; i < array->Length(); i++) {
     if (Nan::Has(array, i).FromJust()) {
-      v8::Local < v8::Object > pulse = v8::Local < v8::Object > ::Cast(array->Get(i)); //Nan::Get(array, i).ToLocalChecked();
+      
+      v8::Local<v8::Value> element = array->Get(i);
+      
+      if (!element->IsObject()) {
+        return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", "")); 
+      }
+
+      v8::Local<v8::Object> pulse = v8::Local<v8::Object>::Cast(element);
 
       v8::Isolate * isolate = v8::Isolate::GetCurrent();
 
