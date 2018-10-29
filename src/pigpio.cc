@@ -829,6 +829,8 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioCfgClock", gpioCfgClock);
   SetFunction(target, "gpioCfgSocketPort", gpioCfgSocketPort);
 
+  SetFunction(target, "gpioTick", gpioTick);
+  
   gpioISR_g = new GpioISR_t[PI_MAX_USER_GPIO + 1];
   gpioAlert_g = new GpioAlert_t[PI_MAX_USER_GPIO + 1];
 }
