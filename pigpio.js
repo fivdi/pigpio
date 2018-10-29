@@ -19,6 +19,18 @@ const initializePigpio = () => {
 };
 
 /* ------------------------------------------------------------------------ */
+/* Global                                                                   */
+/* ------------------------------------------------------------------------ */
+
+module.exports.getTick = () => {
+  pigpio.gpioTick();
+}
+
+module.exports.tickDiff = (startUsec, endUsec) => {
+  return (endUsec >> 0) - (startUsec >> 0);
+}
+
+/* ------------------------------------------------------------------------ */
 /* Gpio                                                                     */
 /* ------------------------------------------------------------------------ */
 
@@ -317,12 +329,6 @@ module.exports.configureClock = (microseconds, peripheral) => {
 module.exports.configureSocketPort = (port) => {
   pigpio.gpioCfgSocketPort(+port);
 };
-
-module.exports.getTick = () => pigpio.gpioTick();
-
-module.exports.tickDiff = (startUsec, endUsec) => {
-  return (endUsec >> 0) - (startUsec >> 0);
-}
 
 module.exports.CLOCK_PWM = 0; // PI_CLOCK_PWM;
 module.exports.CLOCK_PCM = 1; // PI_CLOCK_PCM;
