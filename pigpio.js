@@ -166,68 +166,32 @@ class Gpio extends EventEmitter {
   }
 
   /* mode */
-  static get INPUT() {
-      return 0;
-    } // PI_INPUT
-  static get OUTPUT() {
-      return 1;
-    } //PI_OUTPUT;
-  static get ALT0() {
-      return 4;
-    } // PI_ALT0;
-  static get ALT1() {
-      return 5;
-    } // PI_ALT1;
-  static get ALT2() {
-      return 6;
-    } // PI_ALT2;
-  static get ALT3() {
-      return 7;
-    } // PI_ALT3;
-  static get ALT4() {
-      return 3;
-    } // PI_ALT4;
-  static get ALT5() {
-      return 2;
-    } // PI_ALT5;
+  static get INPUT() { return 0; } // PI_INPUT
+  static get OUTPUT() { return 1; } //PI_OUTPUT;
+  static get ALT0() { return 4; } // PI_ALT0;
+  static get ALT1() { return 5; } // PI_ALT1;
+  static get ALT2() { return 6; } // PI_ALT2;
+  static get ALT3() { return 7; } // PI_ALT3;
+  static get ALT4() { return 3; } // PI_ALT4;
+  static get ALT5() { return 2; } // PI_ALT5;
 
   /* pull up/down resistors */
-  static get PUD_OFF() {
-      return 0;
-    } // PI_PUD_OFF;
-  static get PUD_DOWN() {
-      return 1;
-    } // PI_PUD_DOWN;
-  static get PUD_UP() {
-      return 2;
-    } // PI_PUD_UP;
+  static get PUD_OFF() { return 0; } // PI_PUD_OFF;
+  static get PUD_DOWN() { return 1; } // PI_PUD_DOWN;
+  static get PUD_UP() { return 2; } // PI_PUD_UP;
 
   /* isr */
-  static get RISING_EDGE() {
-      return 0;
-    } // RISING_EDGE;
-  static get FALLING_EDGE() {
-      return 1;
-    } // FALLING_EDGE;
-  static get EITHER_EDGE() {
-      return 2;
-    } // EITHER_EDGE;
+  static get RISING_EDGE() { return 0; } // RISING_EDGE;
+  static get FALLING_EDGE() { return 1; } // FALLING_EDGE;
+  static get EITHER_EDGE() { return 2; } // EITHER_EDGE;
 
   /* timeout */
-  static get TIMEOUT() {
-      return 2;
-    } // PI_TIMEOUT;
+  static get TIMEOUT() { return 2; } // PI_TIMEOUT;
 
   /* gpio numbers */
-  static get MIN_GPIO() {
-      return 0;
-    } // PI_MIN_GPIO;
-  static get MAX_GPIO() {
-      return 53;
-    } // PI_MAX_GPIO;
-  static get MAX_USER_GPIO() {
-      return 31;
-    } // PI_MAX_USER_GPIO;
+  static get MIN_GPIO() { return 0; } // PI_MIN_GPIO;
+  static get MAX_GPIO() { return 53; } // PI_MAX_GPIO;
+  static get MAX_USER_GPIO() { return 31; } // PI_MAX_USER_GPIO;
 }
 
 Gpio.prototype.analogWrite = Gpio.prototype.pwmWrite;
@@ -283,12 +247,8 @@ class GpioBank {
     return this.bankNo;
   }
 
-  static get BANK1() {
-    return 1;
-  }
-  static get BANK2() {
-    return 2;
-  }
+  static get BANK1() { return 1; }
+  static get BANK2() { return 2; }
 }
 
 module.exports.GpioBank = GpioBank;
@@ -337,12 +297,8 @@ class Notifier {
     return this.notificationStream;
   }
 
-  static get NOTIFICATION_LENGTH() {
-    return 12;
-  }
-  static get PI_NTFY_FLAGS_ALIVE() {
-    return 1 << 6;
-  }
+  static get NOTIFICATION_LENGTH() { return 12; }
+  static get PI_NTFY_FLAGS_ALIVE() { return 1 << 6; }
 }
 
 module.exports.Notifier = Notifier;
@@ -461,3 +417,4 @@ module.exports.configureSocketPort = (port) => {
 
 module.exports.CLOCK_PWM = 0; // PI_CLOCK_PWM;
 module.exports.CLOCK_PCM = 1; // PI_CLOCK_PCM;
+
