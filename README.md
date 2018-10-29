@@ -324,67 +324,77 @@ In the example the `chain` represents the list of waveforms
 
 
 ```js
-      var outPin = 17;
+var outPin = 17;
+var Gpio = require('pigpio').Gpio,
+        out = new Gpio(outPin, {
+          mode: Gpio.OUTPUT
+        });
+var chain = [];
+var waveform = [];
+var waveId;
+var x = 0;
+for (x=0; x < 10; x++) {
+  if (x % 2 == 0) {
+    chain[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+  } else {
+    chain[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:20 };
+  }
+}
+Gpio.waveClear();
+Gpio.waveAddGeneric(waveform.length, waveform);
+waveId = Gpio.waveCreate();
 
-      var Gpio = require('pigpio').Gpio,
-              out = new Gpio(outPin, {
-                mode: Gpio.OUTPUT
-              });
-      var chain = [];
-      var waveform = [];
-      var waveId;
-      var x = 0;
-      for (x=0; x < 10; x++) {
-        if (x % 2 == 0) {
-          chain[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
-        } else {
-          chain[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:20 };
-        }
-      }
-      Gpio.waveClear();
-      Gpio.waveAddGeneric(waveform.length, waveform);
-      waveId = Gpio.waveCreate();
-      
-      chain.push(255)
-      chain.push(1)
-      chain.push(6)
-      chain.push(0);
-      
-      var bufchain = Buffer.from(chain)
-      Gpio.waveChain(bufchain, bufchain.length);
-      while(Gpio.waveTxBusy()){
-      }
-      Gpio.waveDelete(waveId);
+chain.push(255)
+chain.push(1)
+chain.push(6)
+chain.push(0);
+
+var bufchain = Buffer.from(chain)
+Gpio.waveChain(bufchain, bufchain.length);
+while(Gpio.waveTxBusy()){
+}
+Gpio.waveDelete(waveId);
 
 ```
 #### Adding a waveform representing serial data
+
+In this example `waveAddSerial` permits to create a waveform rapresentin SerialData
+
 ```js
-      var outPin = 17;
-      var baud = 9600;
-      var data_bits = 8;
-      var stop_bits = 2;
-      var offset = 0;
+var outPin = 17;
+var baud = 9600;
+var data_bits = 8;
+var stop_bits = 2;
+var offset = 0;
 
-      var Gpio = require('pigpio').Gpio,
-              out = new Gpio(outPin, {
-                mode: Gpio.OUTPUT
-              });
-      var str = "Hello world!";
-      var buf = Buffer.from(str);
-      var numBytes = buf.length;
+var Gpio = require('pigpio').Gpio,
+        out = new Gpio(outPin, {
+          mode: Gpio.OUTPUT
+        });
+var str = "Hello world!";
+var buf = Buffer.from(str);
+var numBytes = buf.length;
 
-      Gpio.waveAddSerial(outPin,baud,data_bits,stop_bits,offset,numBytes,buf);
+Gpio.waveAddSerial(outPin,baud,data_bits,stop_bits,offset,numBytes,buf);
+var waveId = Gpio.waveCreate();
 
+if (waveId >= 0) {
+  Gpio.waveTxSend(waveId, Gpio.WAVE_MODE_ONE_SHOT);
+}
+
+while (Gpio.waveTxBusy()) {}
+
+Gpio.waveDelete(waveId);
 ```
 #### Setting a watchdog for a GPIO.
 ```js
-      var outPin = 17;
-      var watchdog_ms = 2000;
-      var Gpio = require('pigpio').Gpio,
-              out = new Gpio(outPin, {
-                mode: Gpio.INPUT
-              });
-      Gpio.setWatchdog(outPin,watchdog_ms);
+var outPin = 17;
+var watchdog_ms = 2000;
+var Gpio = require('pigpio').Gpio,
+    out = new Gpio(outPin, {
+      mode: Gpio.INPUT
+    });
+Gpio.setWatchdog(outPin,watchdog_ms);
 ```
 
 ## API documentation
