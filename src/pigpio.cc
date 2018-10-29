@@ -755,7 +755,11 @@ NAN_METHOD(gpioWaveAddGeneric) {
       v8::Local < v8::Value > _on = pulse->Get(v8::String::NewFromUtf8(isolate, "gpioOn"));
       v8::Local < v8::Value > _off = pulse->Get(v8::String::NewFromUtf8(isolate, "gpioOff"));
       v8::Local < v8::Value > _delay = pulse->Get(v8::String::NewFromUtf8(isolate, "usDelay"));
-
+      
+      if (!_on->IsUint32() || !_off->IsUint32() || !_delay->IsUint32()){
+        return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", ""));
+      }
+      
       uint32_t on = _on->Uint32Value();
       uint32_t off = _off->Uint32Value();
       uint32_t delay = _delay->Uint32Value();
