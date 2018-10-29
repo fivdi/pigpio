@@ -228,6 +228,10 @@ NAN_METHOD(gpioTrigger) {
   }
 }
 
+NAN_METHOD(gpioTick) {
+    uint32_t rc = gpioTick();
+    info.GetReturnValue().Set(rc);
+}
 
 NAN_METHOD(gpioPWM) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {

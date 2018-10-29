@@ -49,6 +49,8 @@ echo servo-control
 sudo $(which node) servo-control
 echo terminate
 sudo $(which node) terminate
+echo tick
+sudo $(which node) tick
 echo trigger-led
 sudo $(which node) trigger-led
 
