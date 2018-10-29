@@ -163,6 +163,88 @@ class Gpio extends EventEmitter {
     pigpio.gpioGlitchFilter(this.gpio, +steady);
     return this;
   }
+  
+  /** WaveForm **/
+
+  waveClear() {
+    pigpio.gpioWaveClear();
+    return this;
+  }
+  
+  waveAddNew() {
+    pigpio.gpioWaveAddNew();
+    return this;
+  }
+
+  waveAddGeneric(numPulses, pulses) {
+    pigpio.gpioWaveAddGeneric(numPulses, pulses);
+    return this;
+  }
+
+  waveCreate() {
+    return pigpio.gpioWaveCreate();
+  }
+
+  waveDelete(waveId) {
+    pigpio.gpioWaveDelete(waveId);
+    return this;
+  }
+  waveTxSend(waveId, waveMode) {
+    return pigpio.gpioWaveTxSend(waveId, waveMode);
+  }
+  waveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, str) {
+    return pigpio.gpioWaveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, str);
+  }
+  waveChain(buf, bufLength) {
+    return pigpio.gpioWaveChain(buf, bufLength);
+  }
+  waveTxAt() {
+    return pigpio.gpioWaveTxAt();
+  }
+
+  waveTxBusy() {
+    return pigpio.gpioWaveTxBusy();
+  }
+
+  waveTxStop() {
+    return pigpio.gpioWaveTxStop();
+  }
+
+  waveGetMicros() {
+    return pigpio.gpioWaveGetMicros();
+  }
+
+  waveGetHighMicros() {
+    return pigpio.gpioWaveGetHighMicros();
+  }
+
+  waveGetMaxMicros() {
+    return pigpio.gpioWaveGetMaxMicros();
+  }
+
+  waveGetPulses() {
+    return pigpio.gpioWaveGetPulses();
+  }
+
+  waveGetHighPulses() {
+    return pigpio.gpioWaveGetHighPulses();
+  }
+
+  waveGetMaxPulses() {
+    return pigpio.gpioWaveGetMaxPulses();
+  }
+
+  waveGetCbs() {
+    return pigpio.gpioWaveGetCbs();
+  }
+
+  waveGetHighCbs() {
+    return pigpio.gpioWaveGetHighCbs();
+  }
+
+  waveGetMaxCbs = function () {
+    return pigpio.gpioWaveGetMaxCbs();
+  }
 
   /* mode */
   static get INPUT() { return 0; } // PI_INPUT
@@ -301,92 +383,6 @@ class Notifier {
 }
 
 module.exports.Notifier = Notifier;
-
-/* ------------------------------------------------------------------------ */
-/* Waves                                                                    */
-/* ------------------------------------------------------------------------ */
-
-Gpio.prototype.gpioPulse = pigpio.gpioPulse;
-
-Gpio.prototype.waveClear = function () {
-  pigpio.gpioWaveClear();
-  return this;
-};
-
-Gpio.prototype.waveAddNew = function () {
-  pigpio.gpioWaveAddNew();
-  return this;
-};
-
-Gpio.prototype.waveAddGeneric = function (numPulses, pulses) {
-  pigpio.gpioWaveAddGeneric(numPulses, pulses);
-  return this;
-};
-
-Gpio.prototype.waveCreate = function () {
-  return pigpio.gpioWaveCreate();
-};
-
-Gpio.prototype.waveDelete = function (waveId) {
-  pigpio.gpioWaveDelete(waveId);
-  return this;
-};
-Gpio.prototype.waveTxSend = function (waveId, waveMode) {
-  return pigpio.gpioWaveTxSend(waveId, waveMode);
-};
-Gpio.prototype.waveAddSerial = function (gpio, baud, dataBits, stopBits, offset, numBytes, str) {
-  return pigpio.gpioWaveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, str);
-};
-Gpio.prototype.waveChain = function (buf, bufLength) {
-  return pigpio.gpioWaveChain(buf, bufLength);
-};
-Gpio.prototype.waveTxAt = function () {
-  return pigpio.gpioWaveTxAt();
-};
-
-Gpio.prototype.waveTxBusy = function () {
-  return pigpio.gpioWaveTxBusy();
-};
-
-Gpio.prototype.waveTxStop = function () {
-  return pigpio.gpioWaveTxStop();
-};
-
-Gpio.prototype.waveGetMicros = function () {
-  return pigpio.gpioWaveGetMicros();
-};
-
-Gpio.prototype.waveGetHighMicros = function () {
-  return pigpio.gpioWaveGetHighMicros();
-};
-
-Gpio.prototype.waveGetMaxMicros = function () {
-  return pigpio.gpioWaveGetMaxMicros();
-};
-
-Gpio.prototype.waveGetPulses = function () {
-  return pigpio.gpioWaveGetPulses();
-};
-
-Gpio.prototype.waveGetHighPulses = function () {
-  return pigpio.gpioWaveGetHighPulses();
-};
-
-Gpio.prototype.waveGetMaxPulses = function () {
-  return pigpio.gpioWaveGetMaxPulses();
-};
-
-Gpio.prototype.waveGetCbs = function () {
-  return pigpio.gpioWaveGetCbs();
-};
-
-Gpio.prototype.waveGetHighCbs = function () {
-  return pigpio.gpioWaveGetHighCbs();
-};
-
-Gpio.prototype.waveGetMaxCbs = function () {
-  return pigpio.gpioWaveGetMaxCbs();
-};
 
 /* ------------------------------------------------------------------------ */
 /* Configuration                                                            */

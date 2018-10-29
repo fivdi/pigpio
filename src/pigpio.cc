@@ -1,7 +1,6 @@
 #include <errno.h>
 #include <pigpio.h>
 #include <nan.h>
-#include <memory>
 
 static void gpioISREventLoopHandler(uv_async_t* handle);
 static void gpioAlertEventLoopHandler(uv_async_t* handle);
@@ -728,7 +727,7 @@ NAN_METHOD(gpioWaveAddNew) {
 }
 
 NAN_METHOD(gpioWaveAddGeneric) {
-  if (info.Length() < 2 || !info[0]->IsUint32() || info[1]->IsNull()) {
+  if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->isArray()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", ""));
   }
 
