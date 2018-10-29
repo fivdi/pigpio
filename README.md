@@ -302,7 +302,7 @@ var Gpio = require('pigpio').Gpio,
   
   Gpio.waveClear();
   
-  Gpio.waveAddGeneric(waveform.length, waveform);
+  Gpio.waveAddGeneric(waveform);
   
   var waveId = Gpio.waveCreate();
 
@@ -341,7 +341,7 @@ for (x=0; x < 10; x++) {
   }
 }
 Gpio.waveClear();
-Gpio.waveAddGeneric(waveform.length, waveform);
+Gpio.waveAddGeneric(waveform);
 waveId = Gpio.waveCreate();
 
 chain.push(255)

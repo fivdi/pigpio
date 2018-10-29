@@ -176,8 +176,8 @@ class Gpio extends EventEmitter {
     return this;
   }
 
-  waveAddGeneric(numPulses, pulses) {
-    pigpio.gpioWaveAddGeneric(numPulses, pulses);
+  waveAddGeneric(pulses) {
+    pigpio.gpioWaveAddGeneric(pulses);
     return this;
   }
 

@@ -727,14 +727,15 @@ NAN_METHOD(gpioWaveAddNew) {
 }
 
 NAN_METHOD(gpioWaveAddGeneric) {
-  if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->isArray()) {
+  if (info.Length() < 1 || !info[0]->isArray()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", ""));
   }
 
-  unsigned numPulses = info[0]->Uint32Value();
-  v8::Local<v8::Array> array = info[1].As<v8::Array>();
+  
+  v8::Local<v8::Array> array = info[0].As<v8::Array>();
+  unsigned numPulses = array->Length();
 
-  gpioPulse_t pulses[12000];
+  gpioPulse_t pulses[numPulses];
 
   //auto pulses = std::make_unique<gpioPulse_t[]>(array->Length());
 
