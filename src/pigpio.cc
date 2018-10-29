@@ -732,7 +732,7 @@ NAN_METHOD(gpioWaveAddGeneric) {
   }
 
   unsigned numPulses = info[0]->Uint32Value();
-  v8::Local < v8::Array > array = v8::Local < v8::Array > ::Cast(info[1]);
+  v8::Local<v8::Array> array = info[1].As<v8::Array>();
 
   gpioPulse_t pulses[12000];
 
