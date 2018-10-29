@@ -237,8 +237,8 @@ NAN_METHOD(gpioSetWatchdog) {
     if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
         return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetWatchdog", ""));
     }
-    unsigned user_gpio = info[0]->Uint32Value();
-    unsigned timeout = info[1]->Uint32Value();
+    unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
+    unsigned timeout = Nan::To<uint32_t>(info[1]).FromJust();;
 
     int rc = gpioSetWatchdog(user_gpio, timeout);
     if (rc < 0) {
@@ -781,12 +781,12 @@ NAN_METHOD(gpioWaveAddSerial) {
   if (info.Length() < 7 || !info[0]->IsUint32() || !info[1]->IsUint32() || !info[2]->IsUint32() || !info[3]->IsUint32() || !info[4]->IsUint32() || !info[5]->IsUint32() || info[6]->IsNull()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddSerial", ""));
   }
-  unsigned gpio = info[0]->Uint32Value();
-  unsigned baud = info[1]->Uint32Value();
-  unsigned dataBits = info[2]->Uint32Value();
-  unsigned stopBits = info[3]->Uint32Value();
-  unsigned offset = info[4]->Uint32Value();
-  unsigned numBytes = info[5]->Uint32Value();
+  unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned baud = Nan::To<uint32_t>(info[1]).FromJust();
+  unsigned dataBits = Nan::To<uint32_t>(info[2]).FromJust();
+  unsigned stopBits = Nan::To<uint32_t>(info[3]).FromJust();
+  unsigned offset = Nan::To<uint32_t>(info[4]).FromJust();
+  unsigned numBytes = Nan::To<uint32_t>(info[5]).FromJust();
   char * str = node::Buffer::Data(info[6]);
 
   int rc = gpioWaveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, str);
@@ -809,7 +809,7 @@ NAN_METHOD(gpioWaveDelete) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveDelete", ""));
   }
 
-  unsigned waveId = info[0]->Uint32Value();
+  unsigned waveId = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioWaveDelete(waveId);
   if (rc < 0) {
@@ -823,8 +823,8 @@ NAN_METHOD(gpioWaveTxSend) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveTxSend", ""));
   }
   
-  unsigned waveId = info[0]->Uint32Value();
-  unsigned waveMode = info[1]->Uint32Value();
+  unsigned waveId = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned waveMode = Nan::To<uint32_t>(info[1]).FromJust();
 
   int rc = gpioWaveTxSend(waveId, waveMode);
   if (rc < 0) {
@@ -840,7 +840,7 @@ NAN_METHOD(gpioWaveChain) {
   }
 
   char * buf = node::Buffer::Data(info[0]);
-  unsigned bufSize = info[1]->Uint32Value();
+  unsigned bufSize = Nan::To<uint32_t>(info[1]).FromJust();
 
   int rc = gpioWaveChain(buf, bufSize);
   if (rc < 0) {
