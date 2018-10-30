@@ -4,7 +4,7 @@ The global functions are defined at the pigpio module level.
 
 #### Functions
   - [getTick()](#getTick)
-  - [tickDiff(startTick, endTick)](#tickDiff)
+  - [tickDiff(startTick, endTick)](#tickdiffstarttick-endtick)
 
 ### Functions
 
@@ -18,12 +18,12 @@ of overflow.
 ```js
 const pigpio = require('pigpio');
 
-let startUsec = gpio.getTick();
+let startUsec = pigpio.getTick();
 
 // Do some time-consuming things.
 
-let currentUsec = gpio.getTick();
-let deltaUsec = gpio.tickDiff(startUsec, currentUsec);
+let currentUsec = pigpio.getTick();
+let deltaUsec = pigpio.tickDiff(startUsec, currentUsec);
 ```
 
 #### tickDiff(startTick, endTick)
@@ -34,10 +34,10 @@ in a GPIO event callback.
 ```js
 const pigpio = require('pigpio');
 
-let startUsec = gpio.getTick();
+let startUsec = pigpio.getTick();
 
 // Do some time-consuming things.
 
-let currentUsec = gpio.getTick();
-let deltaUsec = gpio.tickDiff(startUsec, currentUsec);
+let currentUsec = pigpio.getTick();
+let deltaUsec = pigpio.tickDiff(startUsec, currentUsec);
 ```
