@@ -283,15 +283,15 @@ button.on('alert', (level, tick) => {
 
 ## API Documentation
 
-### pigpio Module
-
-- [Global](https://github.com/fivdi/pigpio/blob/master/doc/global.md) - Module Globals
-
 ### Classes
 
 - [Gpio](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md) - General Purpose Input Output
 - [GpioBank](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md) - Banked General Purpose Input Output
 - [Notifier](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md) - Notification Stream
+
+### pigpio Module
+
+- [Global](https://github.com/fivdi/pigpio/blob/master/doc/global.md) - Module Globals
 
 ### Configuring pigpio
 

@@ -1,5 +1,6 @@
 'use strict';
 
+const assert = require('assert');
 const pigpio = require('../');
 
 pigpio.initialize();
@@ -10,11 +11,15 @@ pigpio.initialize();
 let startUsec = pigpio.getTick();
 let nowUsec;
 let deltaUsec;
+
 do {
   nowUsec = pigpio.getTick();
   deltaUsec = pigpio.tickDiff(startUsec - nowUsec);
 } while (deltaUsec < 500);
 
-console.log(`Start (us) = ${startUsec}, now (us) = ${nowUsec}, diff (us) = ${deltaUsec}`);
+console.log(`  start = ${startUsec} us, now = ${nowUsec} us, diff = ${deltaUsec} us`);
+
+assert(deltaUsec >= 500 && deltaUsec <= 510, `expected tick diff to be approximately 500 us, got ${deltaUsec} us`);
 
 pigpio.terminate();
+
