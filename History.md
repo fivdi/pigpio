@@ -1,3 +1,8 @@
+1.2.0 / Nov 25 2018
+===================
+
+  * add getTick and tickDiff (thank you [@erikma](https://github.com/erikma))
+
 1.1.4 / Oct 13 2018
 ===================
 
