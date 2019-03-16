@@ -1,7 +1,12 @@
+Unpublished
+===========
+
+  * update dependencies (nan v2.13.1, bindings v1.5.0)
+
 1.2.1 / Dec 19 2018
 ===================
 
-  * update dependencies (nan v2.12.1, bindings 1.3.1)
+  * update dependencies (nan v2.12.1, bindings v1.3.1)
 
 1.2.0 / Nov 25 2018
 ===================
