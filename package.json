@@ -8,7 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Tests can only be run manually from the command line.\" && exit 1",
+    "lint": "jshint *.js example/*.js test/*.js test/*/*.js",
+    "test": "cd test && ./run-tests && cd ..",
     "install": "node-gyp rebuild"
   },
   "repository": {
@@ -22,6 +23,9 @@
     "bindings": "^1.5.0",
     "nan": "^2.13.1"
   },
+  "devDependencies": {
+    "jshint": "^2.10.2"
+  },
   "keywords": [
     "gpio",
     "pwm",
@@ -34,4 +38,3 @@
   "license": "MIT",
   "gypfile": true
 }
-

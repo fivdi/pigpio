@@ -22,7 +22,7 @@ const noEdge = () => {
 
     clearInterval(iv);
     input.disableInterrupt();
-  }, 1000)
+  }, 1000);
 };
 
 const fallingEdge = () => {
@@ -37,7 +37,7 @@ const fallingEdge = () => {
     console.log('    ' + fallingCount + ' falling edge interrupts (~50 expected)');
 
     noEdge();
-  }, 1000)
+  }, 1000);
 };
 
 const risingEdge = () => {
@@ -52,7 +52,7 @@ const risingEdge = () => {
     console.log('    ' + fallingCount + ' falling edge interrupts (0 expected)');
 
     fallingEdge();
-  }, 1000)
+  }, 1000);
 };
 
 const eitherEdge = () => {

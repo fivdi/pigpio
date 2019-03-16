@@ -1,3 +1,4 @@
+/* jshint -W078 */
 'use strict';
 
 const EventEmitter = require('events').EventEmitter;
@@ -24,11 +25,11 @@ const initializePigpio = () => {
 
 module.exports.getTick = () => {
   return pigpio.gpioTick();
-}
+};
 
 module.exports.tickDiff = (startUsec, endUsec) => {
   return (endUsec >> 0) - (startUsec >> 0);
-}
+};
 
 /* ------------------------------------------------------------------------ */
 /* Gpio                                                                     */
@@ -58,7 +59,7 @@ class Gpio extends EventEmitter {
       );
     }
 
-    if (typeof options.alert === "boolean" && options.alert) {
+    if (typeof options.alert === 'boolean' && options.alert) {
       this.enableAlert();
     }
   }

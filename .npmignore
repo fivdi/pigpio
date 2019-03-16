@@ -1,0 +1,5 @@
+*~
+.jshintrc
+build/
+node_modules/
+
