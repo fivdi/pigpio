@@ -71,7 +71,7 @@ should not be used as the pigpio Node.js package uses the C library directly.
 
 Installation instructions for the pigpio C library on versions of Raspbian
 prior to 2016-05-10 can be found
-[here](http://abyz.co.uk/rpi/pigpio/download.html).
+[here](http://abyz.me.uk/rpi/pigpio/download.html).
 
 #### Step 2 - Install the pigpio Node.js package
 
