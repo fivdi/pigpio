@@ -242,7 +242,7 @@ class Gpio extends EventEmitter {
     return pigpio.gpioWaveGetHighCbs();
   }
 
-  waveGetMaxCbs = function () {
+  waveGetMaxCbs() {
     return pigpio.gpioWaveGetMaxCbs();
   }
 
