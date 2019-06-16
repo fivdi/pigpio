@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "bindings": "^1.5.0",
-    "nan": "^2.13.1"
+    "nan": "^2.14.0"
   },
   "devDependencies": {
     "jshint": "^2.10.2"
