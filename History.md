@@ -1,3 +1,9 @@
+1.2.3 / Jun 16 2019
+===================
+
+  * update dependencies
+  * update npm keywords
+
 1.2.2 / Mar 16 2019
 ===================
 
