@@ -30,8 +30,11 @@
     "gpio",
     "pwm",
     "servo",
+    "iot",
     "interrupt",
     "raspberry",
+    "raspi",
+    "rpi",
     "pi"
   ],
   "author": "fivdi",
