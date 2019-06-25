@@ -1,0 +1,13 @@
+{
+  "curly": true,
+  "esversion": 6,
+  "eqeqeq": true,
+  "latedef": false,
+  "noarg": true,
+  "node": true,
+  "quotmark": "single",
+  "strict": "global",
+  "undef": true,
+  "varstmt": true
+}
+

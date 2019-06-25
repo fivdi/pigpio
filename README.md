@@ -1,12 +1,14 @@
+[![npm Version](http://img.shields.io/npm/v/pigpio.svg)](https://www.npmjs.com/package/pigpio)
+[![Downloads Per Month](http://img.shields.io/npm/dm/pigpio.svg)](https://www.npmjs.com/package/pigpio)
+[![Mentioned in Awesome Node.js](https://awesome.re/mentioned-badge.svg)](https://github.com/sindresorhus/awesome-nodejs)
+
 # pigpio
 
 A wrapper for the [pigpio C library](https://github.com/joan2937/pigpio) to
 enable fast GPIO, PWM, servo control, state change notification and interrupt
 handling with **Node.js** on the Raspberry Pi Zero, 1, 2 or 3.
 
-pigpio supports Node.js versions 4, 6, 8 and 10.
-
-[![Mentioned in Awesome Node.js](https://awesome.re/mentioned-badge.svg)](https://github.com/sindresorhus/awesome-nodejs)
+pigpio supports Node.js versions 4, 6, 8, 10 and 12.
 
 ## Contents
 
@@ -70,7 +72,7 @@ should not be used as the pigpio Node.js package uses the C library directly.
 
 Installation instructions for the pigpio C library on versions of Raspbian
 prior to 2016-05-10 can be found
-[here](http://abyz.co.uk/rpi/pigpio/download.html).
+[here](http://abyz.me.uk/rpi/pigpio/download.html).
 
 #### Step 2 - Install the pigpio Node.js package
 
@@ -436,6 +438,10 @@ button.on('alert', (level, tick) => {
 - [GpioBank](https://github.com/fivdi/pigpio/blob/master/doc/gpiobank.md) - Banked General Purpose Input Output
 - [Notifier](https://github.com/fivdi/pigpio/blob/master/doc/notifier.md) - Notification Stream
 
+### pigpio Module
+
+- [Global](https://github.com/fivdi/pigpio/blob/master/doc/global.md) - Module Globals
+
 ### Configuring pigpio
 
 - [Configuration](https://github.com/fivdi/pigpio/blob/master/doc/configuration.md) - pigpio configuration
@@ -459,5 +465,6 @@ Here are a few links to other hardware specific Node.js packages that may be of 
 - [i2c-bus](https://github.com/fivdi/i2c-bus) - I2C serial bus access
 - [spi-device](https://github.com/fivdi/spi-device) - SPI serial bus access
 - [mcp-spi-adc](https://github.com/fivdi/mcp-spi-adc) - Analog to digital conversion with the MCP3002/4/8, MCP3202/4/8 and MCP3304
+- [pigpio-dht](https://github.com/depuits/pigpio-dht) - Implements logic to read DHT11 or DHT22/AM2302 temperature and relative humidity sensor
 - [pigpio-mock](https://github.com/deepsyx/pigpio-mock) - A pigpio mock library for development on your local machine
 
