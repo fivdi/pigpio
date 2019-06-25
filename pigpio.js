@@ -103,7 +103,11 @@ class Gpio extends EventEmitter {
     pigpio.gpioHardwarePWM(this.gpio, +frequency, +dutyCycle);
     return this;
   }
-
+  
+  setWatchdog(gpio, timeout) {
+    return pigpio.gpioSetWatchdog(gpio, timeout);
+  }
+  
   getPwmDutyCycle() {
     return pigpio.gpioGetPWMdutycycle(this.gpio);
   }
@@ -141,7 +145,7 @@ class Gpio extends EventEmitter {
 
   enableInterrupt(edge, timeout) {
     const handler = (gpio, level, tick) => {
-      this.emit('interrupt', level);
+      this.emit('interrupt', level, tick);
     };
 
     timeout = timeout || 0;
@@ -171,6 +175,88 @@ class Gpio extends EventEmitter {
   glitchFilter(steady) {
     pigpio.gpioGlitchFilter(this.gpio, +steady);
     return this;
+  }
+  
+  /** WaveForm **/
+
+  waveClear() {
+    pigpio.gpioWaveClear();
+    return this;
+  }
+  
+  waveAddNew() {
+    pigpio.gpioWaveAddNew();
+    return this;
+  }
+
+  waveAddGeneric(pulses) {
+    pigpio.gpioWaveAddGeneric(pulses);
+    return this;
+  }
+
+  waveCreate() {
+    return pigpio.gpioWaveCreate();
+  }
+
+  waveDelete(waveId) {
+    pigpio.gpioWaveDelete(waveId);
+    return this;
+  }
+  waveTxSend(waveId, waveMode) {
+    return pigpio.gpioWaveTxSend(waveId, waveMode);
+  }
+  waveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, str) {
+    return pigpio.gpioWaveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, str);
+  }
+  waveChain(buf, bufLength) {
+    return pigpio.gpioWaveChain(buf, bufLength);
+  }
+  waveTxAt() {
+    return pigpio.gpioWaveTxAt();
+  }
+
+  waveTxBusy() {
+    return pigpio.gpioWaveTxBusy();
+  }
+
+  waveTxStop() {
+    return pigpio.gpioWaveTxStop();
+  }
+
+  waveGetMicros() {
+    return pigpio.gpioWaveGetMicros();
+  }
+
+  waveGetHighMicros() {
+    return pigpio.gpioWaveGetHighMicros();
+  }
+
+  waveGetMaxMicros() {
+    return pigpio.gpioWaveGetMaxMicros();
+  }
+
+  waveGetPulses() {
+    return pigpio.gpioWaveGetPulses();
+  }
+
+  waveGetHighPulses() {
+    return pigpio.gpioWaveGetHighPulses();
+  }
+
+  waveGetMaxPulses() {
+    return pigpio.gpioWaveGetMaxPulses();
+  }
+
+  waveGetCbs() {
+    return pigpio.gpioWaveGetCbs();
+  }
+
+  waveGetHighCbs() {
+    return pigpio.gpioWaveGetHighCbs();
+  }
+
+  waveGetMaxCbs() {
+    return pigpio.gpioWaveGetMaxCbs();
   }
 
   /* mode */
@@ -205,6 +291,12 @@ class Gpio extends EventEmitter {
 Gpio.prototype.analogWrite = Gpio.prototype.pwmWrite;
 
 module.exports.Gpio = Gpio;
+
+/* wave mode */
+Gpio.WAVE_MODE_ONE_SHOT = 0 // PI_WAVE_MODE_ONE_SHOT
+Gpio.WAVE_MODE_REPEAT = 1 // PI_WAVE_MODE_REPEAT
+Gpio.WAVE_MODE_ONE_SHOT_SYNC = 2 // PI_WAVE_MODE_ONE_SHOT_SYNC
+Gpio.WAVE_MODE_REPEAT_SYNC = 3 // PI_WAVE_MODE_REPEAT_SYNC
 
 /* ------------------------------------------------------------------------ */
 /* GpioBank                                                                 */
@@ -311,6 +403,10 @@ module.exports.Notifier = Notifier;
 
 module.exports.hardwareRevision = () => {
   return pigpio.gpioHardwareRevision();
+};
+
+module.exports.tick = () => {
+    return pigpio.gpioTick();
 };
 
 module.exports.initialize = () => {
