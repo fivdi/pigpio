@@ -50,10 +50,10 @@
   - [waveGetHighCbs()](#wavegethighcbs)
   - [waveGetMaxCbs()](#wavegetmaxcbs)
 - Serial
-  - [serialReadOpen()](#serialReadOpen)
-  - [serialReadInvert()](#serialReadInvert)
-  - [serialRead()](#serialRead)
-  - [serialReadClose()](#serialReadClose)
+  - [serialReadOpen()](#serialreadopen)
+  - [serialReadInvert()](#serialreadinvert)
+  - [serialRead()](#serialread)
+  - [serialReadClose()](#serialreadclose)
 - Filters
   - [glitchFilter(steady)](#glitchfiltersteady)
 
