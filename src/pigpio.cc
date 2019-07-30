@@ -924,7 +924,7 @@ NAN_METHOD(gpioWaveGetMaxCbs) {
 /* ------------------------------------------------------------------------ */
 
 NAN_METHOD(gpioSerialReadOpen) {
-  if (info.Length() < 7 || !info[0]->IsUint32() || !info[1]->IsUint32() || !info[2]->IsUint32()) {
+  if (info.Length() < 3 || !info[0]->IsUint32() || !info[1]->IsUint32() || !info[2]->IsUint32()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSerialReadOpen", ""));
   }
 
