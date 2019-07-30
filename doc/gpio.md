@@ -49,6 +49,11 @@
   - [waveGetCbs()](#wavegetcbs)
   - [waveGetHighCbs()](#wavegethighcbs)
   - [waveGetMaxCbs()](#wavegetmaxcbs)
+- Serial
+  - [serialReadOpen()](#serialReadOpen)
+  - [serialReadInvert()](#serialReadInvert)
+  - [serialRead()](#serialRead)
+  - [serialReadClose()](#serialReadClose)
 - Filters
   - [glitchFilter(steady)](#glitchfiltersteady)
 
@@ -358,6 +363,15 @@ Starts a new waveform
 - pulses - an array of pulses { gpioOn: int, gpioOff: int, usDelay: int }
 Adds a series of pulses to the waveform
 
+#### waveAddSerial(baud, dataBits, stopBits, offset, numBytes, str)
+Adds a waveform representing serial data to the existing waveform (if any). 
+- baud - the baud rate, 50 - 1000000
+- dataBits - 1 - 32
+- stopBits - 2 - 8
+- offset - The serial data starts offset microseconds from the start of the waveform, 2 - 8
+- numBytes - Number of bytes to be sent
+- str - String message to be sent
+
 #### waveCreate()
 Creates a waveform from added data
 
@@ -404,6 +418,22 @@ Length of longest waveform so far
 
 #### waveGetMaxCbs()
 Absolute maximum allowed control blocks
+
+#### serialReadOpen(baud)
+Opens a GPIO for bit bang reading of serial data. 
+- baud - the baud rate, 50 - 250000
+
+#### serialReadInvert(inver)
+Configures the level logic for bit bang serial reads. 
+- invert - if the level should be invertet or not, 0 or 1
+
+#### serialRead(buf, bufSize)
+Copies up to bufSize bytes of data read from the bit bang serial cyclic buffer to the buffer starting at buf. 
+- buf - an array to receive the read bytes
+- bufSize - > 0
+
+#### serialReadClose()
+Closes a GPIO for bit bang reading of serial data. 
 
 ### Events
 

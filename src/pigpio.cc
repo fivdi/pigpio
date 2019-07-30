@@ -780,6 +780,7 @@ NAN_METHOD(gpioWaveAddSerial) {
   if (info.Length() < 7 || !info[0]->IsUint32() || !info[1]->IsUint32() || !info[2]->IsUint32() || !info[3]->IsUint32() || !info[4]->IsUint32() || !info[5]->IsUint32() || info[6]->IsNull()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddSerial", ""));
   }
+
   unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
   unsigned baud = Nan::To<uint32_t>(info[1]).FromJust();
   unsigned dataBits = Nan::To<uint32_t>(info[2]).FromJust();
@@ -916,6 +917,65 @@ NAN_METHOD(gpioWaveGetMaxCbs) {
   int rc = gpioWaveGetMaxCbs();
   info.GetReturnValue().Set(rc);
 }
+
+
+/* ------------------------------------------------------------------------ */
+/* Serial                                                            */
+/* ------------------------------------------------------------------------ */
+
+NAN_METHOD(gpioSerialReadOpen) {
+  if (info.Length() < 7 || !info[0]->IsUint32() || !info[1]->IsUint32() || !info[2]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSerialReadOpen", ""));
+  }
+
+  unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned baud = Nan::To<uint32_t>(info[1]).FromJust();
+  unsigned dataBits = Nan::To<uint32_t>(info[2]).FromJust();
+
+  int rc = gpioSerialReadOpen(gpio, baud, dataBits);
+  if (rc < 0)
+    return ThrowPigpioError(rc, "gpioSerialReadOpen");
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioSerialReadInvert) {
+  if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSerialReadInvert", ""));
+  }
+
+  unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned invert = Nan::To<uint32_t>(info[1]).FromJust();
+
+  int rc = gpioSerialReadInvert(gpio, invert);
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioSerialRead) {
+  if (info.Length() < 2 || info[0]->IsNull() || !info[1]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveChain", ""));
+  }
+
+  unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
+  void * buf = node::Buffer::Data(info[1]);
+  size_t bufSize = Nan::To<size_t>(info[2]).FromJust();
+
+  int rc = gpioSerialRead(gpio, buf, bufSize);
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioSerialReadClose) {
+if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSerialReadClose", ""));
+  }
+
+  unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
+
+  int rc = gpioSerialReadClose(gpio);
+  if (rc < 0)
+    return ThrowPigpioError(rc, "gpioSerialReadClose");
+  info.GetReturnValue().Set(rc);
+}
+
 
 /* ------------------------------------------------------------------------ */
 /* Configuration                                                            */
@@ -1074,6 +1134,11 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioWaveGetCbs", gpioWaveGetCbs);
   SetFunction(target, "gpioWaveGetHighCbs", gpioWaveGetHighCbs);
   SetFunction(target, "gpioWaveGetMaxCbs", gpioWaveGetMaxCbs);
+
+  SetFunction(target, "gpioSerialReadOpen", gpioSerialReadOpen);
+  SetFunction(target, "gpioSerialReadInvert", gpioSerialReadInvert);
+  SetFunction(target, "gpioSerialRead", gpioSerialRead);
+  SetFunction(target, "gpioSerialReadClose", gpioSerialReadClose);
 
   SetFunction(target, "gpioCfgClock", gpioCfgClock);
   SetFunction(target, "gpioCfgSocketPort", gpioCfgSocketPort);

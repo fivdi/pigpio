@@ -202,15 +202,19 @@ class Gpio extends EventEmitter {
     pigpio.gpioWaveDelete(waveId);
     return this;
   }
+
   waveTxSend(waveId, waveMode) {
     return pigpio.gpioWaveTxSend(waveId, waveMode);
   }
-  waveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, str) {
-    return pigpio.gpioWaveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, str);
+
+  waveAddSerial(baud, dataBits, stopBits, offset, numBytes, str) {
+    return pigpio.gpioWaveAddSerial(this.gpio, baud, dataBits, stopBits, offset, numBytes, str);
   }
+
   waveChain(buf, bufLength) {
     return pigpio.gpioWaveChain(buf, bufLength);
   }
+
   waveTxAt() {
     return pigpio.gpioWaveTxAt();
   }
@@ -257,6 +261,24 @@ class Gpio extends EventEmitter {
 
   waveGetMaxCbs() {
     return pigpio.gpioWaveGetMaxCbs();
+  }
+
+  /* Serial */
+
+  gpioSerialReadOpen(baud, dataBits) {
+    return pigpio.gpioSerialReadOpen(this.gpio, baud, dataBits);
+  }
+
+  gpioSerialReadInvert(invert){
+    return pigpio.gpioSerialReadInvert(this.gpio, invert);
+  }
+
+  gpioSerialRead(buf, bufLength){
+    return pigpio.gpioSerialRead(this.gpio, buf, bufLength);
+  }
+
+  gpioSerialReadClose(){
+    return pigpio.gpioSerialReadClose(this.gpio);
   }
 
   /* mode */
