@@ -951,8 +951,8 @@ NAN_METHOD(gpioSerialReadInvert) {
 }
 
 NAN_METHOD(gpioSerialRead) {
-  if (info.Length() < 2 || info[0]->IsNull() || !info[1]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveChain", ""));
+  if (info.Length() < 3 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSerialRead", ""));
   }
 
   unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
