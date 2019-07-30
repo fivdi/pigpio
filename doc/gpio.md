@@ -50,9 +50,9 @@
   - [waveGetHighCbs()](#wavegethighcbs)
   - [waveGetMaxCbs()](#wavegetmaxcbs)
 - Serial
-  - [serialReadOpen()](#serialreadopen)
-  - [serialReadInvert()](#serialreadinvert)
-  - [serialRead()](#serialread)
+  - [serialReadOpen()](#serialreadopenbaud)
+  - [serialReadInvert()](#serialreadinvertinvert)
+  - [serialRead()](#serialreadbuf-bufsize)
   - [serialReadClose()](#serialreadclose)
 - Filters
   - [glitchFilter(steady)](#glitchfiltersteady)
@@ -423,7 +423,7 @@ Absolute maximum allowed control blocks
 Opens a GPIO for bit bang reading of serial data. 
 - baud - the baud rate, 50 - 250000
 
-#### serialReadInvert(inver)
+#### serialReadInvert(invert)
 Configures the level logic for bit bang serial reads. 
 - invert - if the level should be invertet or not, 0 or 1
 
