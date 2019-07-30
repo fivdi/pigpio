@@ -265,19 +265,19 @@ class Gpio extends EventEmitter {
 
   /* Serial */
 
-  gpioSerialReadOpen(baud, dataBits) {
+  serialReadOpen(baud, dataBits) {
     return pigpio.gpioSerialReadOpen(this.gpio, baud, dataBits);
   }
 
-  gpioSerialReadInvert(invert){
+  serialReadInvert(invert) {
     return pigpio.gpioSerialReadInvert(this.gpio, invert);
   }
 
-  gpioSerialRead(buf, bufLength){
+  serialRead(buf, bufLength) {
     return pigpio.gpioSerialRead(this.gpio, buf, bufLength);
   }
 
-  gpioSerialReadClose(){
+  serialReadClose() {
     return pigpio.gpioSerialReadClose(this.gpio);
   }
 
