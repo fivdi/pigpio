@@ -428,7 +428,7 @@ module.exports.hardwareRevision = () => {
 };
 
 module.exports.tick = () => {
-    return pigpio.gpioTick();
+  return pigpio.gpioTick();
 };
 
 module.exports.initialize = () => {
