@@ -34,7 +34,7 @@
   - [waveClear()](#waveclear)
   - [waveAddNew()](#waveaddnew)
   - [waveAddGeneric(numPulses, pulses)](#waveaddgenericnumpulses-pulses)
-  - [waveAddSerial()](#waveaddserialbaud-databits-stopbits-offset-numbytes-str)
+  - [waveAddSerial(baud, dataBits, stopBits, offset, numBytes, str)](#waveaddserialbaud-databits-stopbits-offset-numbytes-str)
   - [waveCreate()](#wavecreate)
   - [waveDelete()](#wavedelete)
   - [waveTxSend(waveId, waveMode)](#wavetxsendwaveid-wavemode)
