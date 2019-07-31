@@ -951,7 +951,7 @@ NAN_METHOD(gpioSerialReadInvert) {
 }
 
 NAN_METHOD(gpioSerialRead) {
-  if (info.Length() < 3 || !info[0]->IsUint32()) {
+  if (info.Length() < 3 || !info[0]->IsUint32() || !info[1]->IsArrayBufferView() || !info[2]->IsUint32()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSerialRead", ""));
   }
 
