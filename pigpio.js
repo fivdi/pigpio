@@ -314,6 +314,11 @@ Gpio.prototype.analogWrite = Gpio.prototype.pwmWrite;
 
 module.exports.Gpio = Gpio;
 
+/* interfaces */
+
+Gpio.DISABLE_FIFO_IF = 1; // PI_DISABLE_FIFO_IF
+Gpio.DISABLE_SOCK_IF = 2; // PI_DISABLE_SOCK_IF
+
 /* wave mode */
 Gpio.WAVE_MODE_ONE_SHOT = 0 // PI_WAVE_MODE_ONE_SHOT
 Gpio.WAVE_MODE_REPEAT = 1 // PI_WAVE_MODE_REPEAT
@@ -425,6 +430,10 @@ module.exports.Notifier = Notifier;
 
 module.exports.hardwareRevision = () => {
   return pigpio.gpioHardwareRevision();
+};
+
+module.exports.cfgInterfaces = (flag) => {
+  return pigpio.gpioCfgInterfaces(flag);
 };
 
 module.exports.tick = () => {
