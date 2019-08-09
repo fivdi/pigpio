@@ -7,7 +7,7 @@ the default behavior will suffice.
 
 #### Functions
   - [hardwareRevision()](#hardwarerevision)
-  - [cfgInterfaces()](#cfgInterfaces-flag)
+  - [cfgInterfaces(flag)](#cfginterfaces-flag)
   - [initialize()](#initialize)
   - [terminate()](#terminate)
   - [configureClock(microseconds, peripheral)](#configureclockmicroseconds-peripheral)
