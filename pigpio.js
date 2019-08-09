@@ -432,7 +432,7 @@ module.exports.hardwareRevision = () => {
   return pigpio.gpioHardwareRevision();
 };
 
-module.exports.cfgInterfaces = (flag) => {
+module.exports.configureInterfaces = (flag) => {
   return pigpio.gpioCfgInterfaces(flag);
 };
 

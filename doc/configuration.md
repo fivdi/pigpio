@@ -7,7 +7,7 @@ the default behavior will suffice.
 
 #### Functions
   - [hardwareRevision()](#hardwarerevision)
-  - [cfgInterfaces(flag)](#cfginterfaces-flag)
+  - [configureInterfaces(flag)](#configureinterfacesflag)
   - [initialize()](#initialize)
   - [terminate()](#terminate)
   - [configureClock(microseconds, peripheral)](#configureclockmicroseconds-peripheral)
@@ -36,7 +36,7 @@ For further details related to Raspberry Pi hardware revisions see
 [here](http://elinux.org/RPi_HardwareHistory) and
 [here](https://github.com/joan2937/pigpio#gpio).
 
-#### cfgInterfaces(flag)
+#### configureInterfaces(flag)
 - flag - DISABLE_FIFO_IF to disable the pipe interface, DISABLE_SOCK_IF to disable the socket interface.
 The default setting is that both interfaces are enabled. 
 Configures pigpio support of the fifo and socket interfaces.
