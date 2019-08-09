@@ -313,6 +313,16 @@ module.exports.hardwareRevision = () => {
   return pigpio.gpioHardwareRevision();
 };
 
+module.exports.cfgInterfaces = (interfaces) => {
+  if (Number.isInteger(interfaces)) {
+    // All set
+  } else {
+    // Probably going to have an issue but let the C throw if appropriate
+  }
+
+  return pigpio.gpioCfgInterfaces(interfaces);
+};
+
 module.exports.initialize = () => {
   initializePigpio();
 };
