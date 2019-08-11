@@ -313,15 +313,14 @@ module.exports.hardwareRevision = () => {
   return pigpio.gpioHardwareRevision();
 };
 
-module.exports.cfgInterfaces = (interfaces) => {
-  if (Number.isInteger(interfaces)) {
-    // All set
-  } else {
-    // Probably going to have an issue but let the C throw if appropriate
-  }
-
-  return pigpio.gpioCfgInterfaces(interfaces);
+module.exports.configureInterfaces = (interfaces) => {
+  return pigpio.gpioCfgInterfaces(+interfaces);
 };
+
+module.exports.DISABLE_FIFO_IF = 1; // PI_DISABLE_FIFO_IF;
+module.exports.DISABLE_SOCK_IF = 2; // PI_DISABLE_SOCK_IF;
+module.exports.LOCALHOST_SOCK_IF = 4; // PI_LOCALHOST_SOCK_IF;
+module.exports.DISABLE_ALERT = 8; // PI_DISABLE_ALERT;
 
 module.exports.initialize = () => {
   initializePigpio();
