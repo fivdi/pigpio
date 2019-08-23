@@ -33,7 +33,7 @@
 - Waveform
   - [waveClear()](#waveclear)
   - [waveAddNew()](#waveaddnew)
-  - [waveAddGeneric(numPulses, pulses)](#waveaddgenericnumpulses-pulses)
+  - [waveAddGeneric(pulses)](#waveaddgeneric-pulses)
   - [waveAddSerial(baud, dataBits, stopBits, offset, numBytes, str)](#waveaddserialbaud-databits-stopbits-offset-numbytes-str)
   - [waveCreate()](#wavecreate)
   - [waveDelete()](#wavedelete)
@@ -359,10 +359,11 @@ Deletes all waveforms
 #### waveAddNew()
 Starts a new waveform
 
-#### waveAddGeneric(numPulses, pulses)
-- numPulses - the number of pulses
+#### waveAddGeneric(pulses)
 - pulses - an array of pulses { gpioOn: int, gpioOff: int, usDelay: int }
-Adds a series of pulses to the waveform
+Adds a series of pulses to the 
+
+Returns the number of pulses
 
 #### waveAddSerial(baud, dataBits, stopBits, offset, numBytes, str)
 Adds a waveform representing serial data to the existing waveform (if any). 
