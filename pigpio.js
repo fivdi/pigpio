@@ -313,10 +313,6 @@ Gpio.prototype.analogWrite = Gpio.prototype.pwmWrite;
 
 module.exports.Gpio = Gpio;
 
-/* interfaces */
-
-pigpio.DISABLE_FIFO_IF = 1; // PI_DISABLE_FIFO_IF
-pigpio.DISABLE_SOCK_IF = 2; // PI_DISABLE_SOCK_IF
 
 /* wave mode */
 Gpio.WAVE_MODE_ONE_SHOT = 0 // PI_WAVE_MODE_ONE_SHOT
@@ -459,4 +455,6 @@ module.exports.configureSocketPort = (port) => {
 
 module.exports.CLOCK_PWM = 0; // PI_CLOCK_PWM;
 module.exports.CLOCK_PCM = 1; // PI_CLOCK_PCM;
+module.exports.DISABLE_FIFO_IF = 1; // PI_DISABLE_FIFO_IF
+module.exports.DISABLE_SOCK_IF = 2; // PI_DISABLE_SOCK_IF
 
