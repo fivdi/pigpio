@@ -121,6 +121,22 @@ NAN_METHOD(gpioHardwareRevision) {
 }
 
 
+NAN_METHOD(gpioCfgInterfaces) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioCfgInterfaces", ""));
+  }
+
+  unsigned ifFlags = Nan::To<uint32_t>(info[0]).FromJust();
+
+  int rc = gpioCfgInterfaces(ifFlags);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioCfgInterfaces");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+
 NAN_METHOD(gpioInitialise) {
   int rc = gpioInitialise();
   if (rc < 0) {
@@ -785,6 +801,7 @@ NAN_MODULE_INIT(InitAll) {
 
   /* functions */
   SetFunction(target, "gpioHardwareRevision", gpioHardwareRevision);
+  SetFunction(target, "gpioCfgInterfaces", gpioCfgInterfaces);
   SetFunction(target, "gpioInitialise", gpioInitialise);
   SetFunction(target, "gpioTerminate", gpioTerminate);
 
