@@ -10,7 +10,7 @@ the default behavior will suffice.
   - [initialize()](#initialize)
   - [terminate()](#terminate)
   - [configureClock(microseconds, peripheral)](#configureclockmicroseconds-peripheral)
-  - [configureinterfaces(ifFlags)](#configureinterfacesifflags)
+  - [configureInterfaces(ifFlags)](#configureinterfacesifflags)
   - [configureSocketPort(port)](#configuresocketportport)
 
 #### Constants
@@ -19,7 +19,7 @@ the default behavior will suffice.
   - [DISABLE_FIFO_IF](#disable_fifo_if)
   - [DISABLE_SOCK_IF](#disable_sock_if)
   - [LOCALHOST_SOCK_IF](#localhost_sock_if)
-  - [DISABLE_ALERT](#disable_alter)
+  - [DISABLE_ALERT](#disable_alert)
 
 ### Functions
 
