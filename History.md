@@ -1,5 +1,5 @@
-Unpublished
-===========
+1.3.0 / Sep 06 2019
+===================
 
   * add configureInterfaces (thank you [@cinderblock](https://github.com/cinderblock))
 
