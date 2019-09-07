@@ -210,8 +210,8 @@ class Gpio extends EventEmitter {
     return pigpio.gpioWaveAddSerial(this.gpio, baud, dataBits, stopBits, offset, numBytes, str);
   }
 
-  waveChain(buf, bufLength) {
-    return pigpio.gpioWaveChain(buf, bufLength);
+  waveChain(buf) {
+    return pigpio.gpioWaveChain(buf, buf.length);
   }
 
   waveTxAt() {

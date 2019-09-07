@@ -385,6 +385,30 @@ Deletes a waveform
 - waveMode - WAVE_MODE_ONE_SHOT, WAVE_MODE_REPEAT, WAVE_MODE_ONE_SHOT_SYNC or WAVE_MODE_REPEAT_SYNC
 Transmits a waveform
 
+#### waveChain(waveChain)
+- waveChain - Buffer of waves to be transmitted, contains an ordered list of wave_ids and optional command codes and related data
+Transmits a chain of waveforms.
+
+The following command codes are supported:
+
+Name | Command & Data | Description |
+---: | ---: | ---: |
+Loop Start | 255 0	| Identify start of a wave block
+Loop Repeat	| 255 1 x y	| loop x + y*256 times
+Delay	| 255 2 x y	| delay x + y*256 microseconds
+Loop Forever |	255 3	| loop forever
+
+Each wave is transmitted in the order specified. A wave may occur multiple times per chain. 
+A blocks of waves may be transmitted multiple times by using the loop commands. The block is bracketed by loop start and end commands. Loops may be nested.
+Delays between waves may be added with the delay command. 
+
+For example, the following code creates a waveChain buffer containing a wave specified by `firstWaveID` and a wave specified by `secondWaveID`. The `secondWaveID` wave will loop forever until waveTXStop is called on the gpio
+
+```js
+let waveChain = Buffer.from([firstWaveID, 255, 0, secondWaveID,	255, 3]); 
+gpio.waveChain(waveChain);
+```
+
 #### waveTxAt()
 Returns the current transmitting waveform
 
