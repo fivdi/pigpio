@@ -38,7 +38,7 @@
   - [waveCreate()](#wavecreate)
   - [waveDelete()](#wavedelete)
   - [waveTxSend(waveId, waveMode)](#wavetxsendwaveid-wavemode)
-  - [#waveChain(waveChain)](#wavechainwavechain)
+  - [waveChain(waveChain)](#wavechainwavechain)
   - [waveTxAt()](#wavetxat)
   - [waveTxBusy()](#wavetxbusy)
   - [waveTxStop()](#wavetxstop)
