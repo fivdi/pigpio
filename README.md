@@ -78,7 +78,7 @@ pigpiod -v
 ```
 
 For the Raspberry Pi Zero, 1, 2 and 3 V41 or higher of the pigpio C library is
-required. For the Raspberry Pi 4 V69 is higher is required.
+required. For the Raspberry Pi 4 V69 or higher is required.
 
 If the pigpio C library is not installed or if the installed version is too
 old, the latest version can be installed with the following commands:
