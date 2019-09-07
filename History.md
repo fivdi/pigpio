@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * suppress cast-function-type warnings
+
 1.3.0 / Sep 06 2019
 ===================
 
