@@ -1,5 +1,5 @@
-Unpublished
-===========
+2.0.0 / Sep 06 2019
+===================
 
   * suppress cast-function-type warnings
   * raspberry pi 4 support
