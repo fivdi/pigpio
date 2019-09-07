@@ -2,6 +2,7 @@ Unpublished
 ===========
 
   * suppress cast-function-type warnings
+  * raspberry pi 4 support
 
 1.3.0 / Sep 06 2019
 ===================
