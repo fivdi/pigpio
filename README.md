@@ -32,7 +32,7 @@ pigpio supports Node.js versions 4, 6, 8, 10 and 12.
 
 ## News & Updates
 
-### Septemper 2019: pigpio v2.0.0
+### September 2019: pigpio v2.0.0
 
 pigpio v2.0.0 adds experimental support for the Raspberry Pi 4 Model B. Adding
 this support has resulted in a number of changes related to hardware PWM.
