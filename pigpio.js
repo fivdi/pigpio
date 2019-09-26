@@ -427,13 +427,14 @@ module.exports.hardwareRevision = () => {
   return pigpio.gpioHardwareRevision();
 };
 
-module.exports.configureInterfaces = (flag) => {
-  return pigpio.gpioCfgInterfaces(flag);
+module.exports.configureInterfaces = (interfaces) => {
+  return pigpio.gpioCfgInterfaces(+interfaces);
 };
 
-module.exports.tick = () => {
-  return pigpio.gpioTick();
-};
+module.exports.DISABLE_FIFO_IF = 1; // PI_DISABLE_FIFO_IF;
+module.exports.DISABLE_SOCK_IF = 2; // PI_DISABLE_SOCK_IF;
+module.exports.LOCALHOST_SOCK_IF = 4; // PI_LOCALHOST_SOCK_IF;
+module.exports.DISABLE_ALERT = 8; // PI_DISABLE_ALERT;
 
 module.exports.initialize = () => {
   initializePigpio();
@@ -455,6 +456,4 @@ module.exports.configureSocketPort = (port) => {
 
 module.exports.CLOCK_PWM = 0; // PI_CLOCK_PWM;
 module.exports.CLOCK_PCM = 1; // PI_CLOCK_PCM;
-module.exports.DISABLE_FIFO_IF = 1; // PI_DISABLE_FIFO_IF
-module.exports.DISABLE_SOCK_IF = 2; // PI_DISABLE_SOCK_IF
 

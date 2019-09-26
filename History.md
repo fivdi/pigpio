@@ -1,3 +1,19 @@
+2.0.1 / Sep 22 2019
+===================
+
+  * drop support for node.js v4
+
+2.0.0 / Sep 06 2019
+===================
+
+  * suppress cast-function-type warnings
+  * raspberry pi 4 support
+
+1.3.0 / Sep 06 2019
+===================
+
+  * add configureInterfaces (thank you [@cinderblock](https://github.com/cinderblock))
+
 1.2.3 / Jun 16 2019
 ===================
 

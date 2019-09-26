@@ -200,7 +200,7 @@ Uses DMA to control and schedule the pulse lengths and duty cycles. pwmRange
 can be used to change the default range of 255.
 
 #### hardwarePwmWrite(frequency, dutyCycle)
-- frequency - an unsigned integer >= 0 and <= 125000000
+- frequency - an unsigned integer >= 0 and <= 125000000 (>= 0 and <= 187500000 for the BCM2711)
 - dutyCycle - an unsigned integer >= 0 (off) and <= 1000000 (fully on).
 
 Starts hardware PWM on the GPIO at the specified frequency and dutyCycle.
@@ -212,13 +212,15 @@ clock defaults to PCM but can be overridden by invoking the
 function.
 
 The actual number of steps bteween off and fully on is the integral part of 250
-million divided by frequency.
+million divided by frequency (375 million divided by frequency for the
+BCM2711).
 
-The actual frequency set is 250 million / steps. 
+The actual frequency set is 250 million / steps (375 million / steps for the
+BCM2711).
 
-There will only be a million steps for a frequency of 250. Lower frequencies
-will have more steps and higher frequencies will have fewer steps. duytCycle is
-automatically scaled to take this into account.
+There will only be a million steps for a frequency of 250 (375 for the
+BCM2711). Lower frequencies will have more steps and higher frequencies will
+have fewer steps. duytCycle is automatically scaled to take this into account.
 
 All models of the Raspberry Pi support hardware PWM on GPIO18.
 
@@ -235,7 +237,7 @@ If PWM is currently active on the GPIO its duty cycle will be scaled to reflect
 the new range. 
 
 The real range, the number of steps between fully off and fully on for each
-frequency ans sample rate, is given in the following table.
+frequency and sample rate, is given in the following table.
 
 1us | 2us | 4us | 5us | 8us | 10us | Real Range |
 ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -269,7 +271,7 @@ If hardware PWM is active on the GPIO the reported range will be 1000000.
 Returns the real range used for the GPIO.
 
 If hardware PWM is active on the GPIO the reported real range will be
-approximately 250M divided by the set PWM frequency.
+approximately 250M (375M for the BCM2711) divided by the set PWM frequency.
 
 #### pwmFrequency(frequency)
 - frequency - an unsigned integer >= 0

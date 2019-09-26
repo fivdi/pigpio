@@ -6,12 +6,16 @@
 
 A wrapper for the [pigpio C library](https://github.com/joan2937/pigpio) to
 enable fast GPIO, PWM, servo control, state change notification and interrupt
-handling with **Node.js** on the Raspberry Pi Zero, 1, 2 or 3.
+handling with **Node.js** on the Raspberry Pi Zero, 1, 2, 3 or 4.
 
-pigpio supports Node.js versions 4, 6, 8, 10 and 12.
+**At the moment both the pigpio Node.js module and the pigpio C library are
+experimental on the Raspberry Pi 4 Model B.**
+
+pigpio supports Node.js versions 6, 8, 10 and 12.
 
 ## Contents
 
+ * [News & Updates](#news--updates)
  * [Features](#features)
  * [Installation](#installation)
  * [Usage](#usage)
@@ -26,11 +30,22 @@ pigpio supports Node.js versions 4, 6, 8, 10 and 12.
  * [Troubleshooting](#troubleshooting)
  * [Related Packages](#related-packages)
 
+## News & Updates
+
+### September 2019: pigpio v2.0.0
+
+pigpio v2.0.0 adds experimental support for the Raspberry Pi 4 Model B. Adding
+this support has resulted in a number of changes related to hardware PWM.
+These changes are specific to the Raspberry Pi 4 Model B. There have been no
+changes for the Raspberry Pi Zero, 1, 2 or 3. For further details see
+[hardwarePwmWrite](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#hardwarepwmwritefrequency-dutycycle) and
+[getPwmRealRange](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getpwmrealrange).
+
 ## Features
 
  * Digital IO
-   * Up to 1.4 million digital reads per second <sup>*)</sup>
-   * Up to 1 million digital writes per second <sup>*)</sup>
+   * Up to 3.5 million digital reads per second <sup>*)</sup>
+   * Up to 2.5 million digital writes per second <sup>*)</sup>
  * PWM on any of GPIOs 0 through 31
    * Multiple frequencies and duty cycle ranges supported
  * Servo control on any of GPIOs 0 through 31
@@ -46,33 +61,41 @@ pigpio supports Node.js versions 4, 6, 8, 10 and 12.
  * Pull up/down resistor configuration
  * Waveforms to generate GPIO level changes (time accurate to a few µs)
 
-*) On a Raspberry Pi 3 Model B V1.2 running at 1.2 GHz
+*) On a Raspberry Pi 4 Model B running Raspbian Buster 2019-07-10 with pigpio
+v2.0.0, Node.js v12.10.0 and V70 of the pigpio C library.
 
 ## Installation
 
 #### Step 1 - Install the pigpio C library
 
-The pigpio Node.js package requires the pigpio C library V41 or higher.
+The [pigpio C library](https://github.com/joan2937/pigpio) is a prerequisite
+for the pigpio Node.js module.
 
-Raspbian Jessie 2016-05-10 or newer comes with the pigpio C library
-pre-installed so it need not be manually installed.
+Run the following command to determine which version of the pigpio C library
+is installed:
 
-Raspbian Jessie Lite 2016-05-10 or newer does not come with the pigpio C
-library pre-installed so it must be manually installed with the following
-commands:
+```
+pigpiod -v
+```
+
+For the Raspberry Pi Zero, 1, 2 and 3 V41 or higher of the pigpio C library is
+required. For the Raspberry Pi 4 V69 or higher is required.
+
+If the pigpio C library is not installed or if the installed version is too
+old, the latest version can be installed with the following commands:
 
 ```
 sudo apt-get update
 sudo apt-get install pigpio
 ```
 
-**Warning:** The pigpio C library contains a number of utilities. One of these utilities
-is pigpiod which launches the pigpio C library as a daemon. This utility
-should not be used as the pigpio Node.js package uses the C library directly.
-
-Installation instructions for the pigpio C library on versions of Raspbian
-prior to 2016-05-10 can be found
+Alternative installation instructions for the pigpio C library can be found
 [here](http://abyz.me.uk/rpi/pigpio/download.html).
+
+**Warning:** The pigpio C library contains a number of utilities. One of these
+utilities is pigpiod which launches the pigpio C library as a daemon. This
+utility should not be used as the pigpio Node.js package uses the C library
+directly.
 
 #### Step 2 - Install the pigpio Node.js package
 

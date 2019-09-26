@@ -1,8 +1,11 @@
 'use strict';
 
 const assert = require('assert');
+const pigpio = require('../');
 const Gpio = require('../').Gpio;
 const led = new Gpio(18, {mode: Gpio.OUTPUT});
+
+const bcm2711 = pigpio.hardwareRevision() === 0xa03111;
 
 assert.strictEqual(led.getPwmRange(), 255, 'expected pwm range to be 255');
 assert.strictEqual(led.getPwmRealRange(), 250, 'expected pwm real range to be 250');
@@ -23,9 +26,12 @@ led.pwmWrite(dutyCycle);
 assert.strictEqual(led.getPwmDutyCycle(), dutyCycle, 'expected duty cycle to be ' + dutyCycle);
 
 led.hardwarePwmWrite(1e7, 500000);
+const hardwareClockFrequency = bcm2711 ? 375000000: 250000000;
+const expectedRealRange = Math.round(hardwareClockFrequency / 1e7);
+const expectedFrequency = Math.round(hardwareClockFrequency / expectedRealRange);
 assert.strictEqual(led.getPwmRange(), 1e6, 'expected pwm range to be 1e6');
-assert.strictEqual(led.getPwmRealRange(), 25, 'expected pwm real range to be 25');
-assert.strictEqual(led.getPwmFrequency(), 1e7, 'expected get pwm frequency to be 1e7');
+assert.strictEqual(led.getPwmRealRange(), expectedRealRange, 'expected pwm real range to be ' + expectedRealRange);
+assert.strictEqual(led.getPwmFrequency(), expectedFrequency, 'expected get pwm frequency to be ' + expectedFrequency);
 assert.strictEqual(led.getPwmDutyCycle(), 500000, 'expected duty cycle to be 500000');
 
 led.digitalWrite(0);
