@@ -129,7 +129,6 @@ NAN_METHOD(gpioCfgInterfaces) {
   unsigned ifFlags = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioCfgInterfaces(ifFlags);
->>>>>>> 1de94ab306b2e354ab74754ed9402ccea59e9cbd
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioCfgInterfaces");
   }
