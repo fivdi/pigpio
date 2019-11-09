@@ -775,13 +775,13 @@ NAN_METHOD(gpioWaveAddGeneric) {
         return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", ""));
       }
       
-      uint32_t on = _on->Uint32Value();
-      uint32_t off = _off->Uint32Value();
-      uint32_t delay = _delay->Uint32Value();
+      uint32_t on = _on->Uint32Value(Nan::GetCurrentContext()).FromJust();
+      uint32_t off = _off->Uint32Value(Nan::GetCurrentContext()).FromJust();
+      uint32_t delay = _delay->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
-      pulses[i].gpioOn = on; //->Uint32Value();
-      pulses[i].gpioOff = off; //->Uint32Value();
-      pulses[i].usDelay = delay; //->Uint32Value();
+      pulses[i].gpioOn = on;
+      pulses[i].gpioOff = off;
+      pulses[i].usDelay = delay;
     }
   }
 
