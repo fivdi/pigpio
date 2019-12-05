@@ -177,7 +177,7 @@ class Gpio extends EventEmitter {
     return this;
   }
   
-  /** WaveForm **/
+  /* WaveForm */
 
   waveClear() {
     pigpio.gpioWaveClear();
