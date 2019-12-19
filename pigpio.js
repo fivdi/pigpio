@@ -314,12 +314,6 @@ Gpio.prototype.analogWrite = Gpio.prototype.pwmWrite;
 module.exports.Gpio = Gpio;
 
 
-/* wave mode */
-Gpio.WAVE_MODE_ONE_SHOT = 0 // PI_WAVE_MODE_ONE_SHOT
-Gpio.WAVE_MODE_REPEAT = 1 // PI_WAVE_MODE_REPEAT
-Gpio.WAVE_MODE_ONE_SHOT_SYNC = 2 // PI_WAVE_MODE_ONE_SHOT_SYNC
-Gpio.WAVE_MODE_REPEAT_SYNC = 3 // PI_WAVE_MODE_REPEAT_SYNC
-
 /* ------------------------------------------------------------------------ */
 /* GpioBank                                                                 */
 /* ------------------------------------------------------------------------ */
@@ -435,6 +429,11 @@ module.exports.DISABLE_FIFO_IF = 1; // PI_DISABLE_FIFO_IF;
 module.exports.DISABLE_SOCK_IF = 2; // PI_DISABLE_SOCK_IF;
 module.exports.LOCALHOST_SOCK_IF = 4; // PI_LOCALHOST_SOCK_IF;
 module.exports.DISABLE_ALERT = 8; // PI_DISABLE_ALERT;
+module.exports.WAVE_MODE_ONE_SHOT = 0 // PI_WAVE_MODE_ONE_SHOT
+module.exports.WAVE_MODE_REPEAT = 1 // PI_WAVE_MODE_REPEAT
+module.exports.WAVE_MODE_ONE_SHOT_SYNC = 2 // PI_WAVE_MODE_ONE_SHOT_SYNC
+module.exports.WAVE_MODE_REPEAT_SYNC = 3 // PI_WAVE_MODE_REPEAT_SYNC
+
 
 module.exports.initialize = () => {
   initializePigpio();
