@@ -379,9 +379,10 @@ Adds a waveform representing serial data to the existing waveform (if any).
 
 #### waveCreate()
 Creates a waveform from added data
+Returns a waveId
 
-#### waveDelete()
-Deletes a waveform
+#### waveDelete(waveId)
+Deletes a waveform by the given waveId
 
 #### waveTxSend(waveId, waveMode)
 - waveId - >=0, as returned by waveCreate
@@ -413,7 +414,7 @@ gpio.waveChain(waveChain);
 ```
 
 #### waveTxAt()
-Returns the current transmitting waveform
+Returns the current transmitting waveId
 
 #### waveTxBusy()
 Checks to see if the waveform has ended
