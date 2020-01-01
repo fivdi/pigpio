@@ -357,16 +357,53 @@ Level changes on the GPIO are not reported unless the level has been stable for 
 This filter only affects the execution of callbacks from the `alert` event, not those of the `interrupt` event.
 
 #### waveClear()
-Deletes all waveforms
+Clears all waveforms and any data added by calls to the `gpioWaveAdd*` functions.
 
 #### waveAddNew()
-Starts a new waveform
+Starts a new empty waveform. 
+
+You wouldn't normally need to call this function as it is automatically called after a waveform is created with the gpioWaveCreate function. 
 
 #### waveAddGeneric(pulses)
-- pulses - an array of pulses { gpioOn: int, gpioOff: int, usDelay: int }
-Adds a series of pulses to the 
+- pulses - an array of pulses
+Adds a series of pulses to the current waveform.
 
-Returns the number of pulses
+Returns the number of pulses.
+
+```js
+const Gpio = require('pigpio').Gpio;
+
+const outPin = 17;
+
+const outPut = new Gpio(outPin, {
+  mode: Gpio.OUTPUT
+});
+  
+let waveform = [];
+
+for (let x = 0; x < 10; x++) {
+  if (x % 2 == 0) {
+    waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+  } else {
+    waveform[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:20 };
+  }
+}
+
+Gpio.waveClear();
+
+Gpio.waveAddGeneric(waveform);
+
+let waveId = Gpio.waveCreate();
+
+if (waveId >= 0) {
+  Gpio.waveTxSend(waveId, Gpio.WAVE_MODE_ONE_SHOT);
+}
+
+while (Gpio.waveTxBusy()) {}
+
+Gpio.waveDelete(waveId);
+
+```
 
 #### waveAddSerial(baud, dataBits, stopBits, offset, numBytes, str)
 Adds a waveform representing serial data to the existing waveform (if any). 
@@ -378,8 +415,9 @@ Adds a waveform representing serial data to the existing waveform (if any).
 - str - String message to be sent
 
 #### waveCreate()
-Creates a waveform from added data
-Returns a waveId
+Creates a waveform from added data.
+
+Returns a waveId.
 
 #### waveDelete(waveId)
 Deletes a waveform by the given waveId
