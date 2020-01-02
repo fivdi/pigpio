@@ -988,7 +988,7 @@ NAN_METHOD(gpioSerialRead) {
 }
 
 NAN_METHOD(gpioSerialReadClose) {
-if (info.Length() < 1 || !info[0]->IsUint32()) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSerialReadClose", ""));
   }
 
@@ -998,7 +998,7 @@ if (info.Length() < 1 || !info[0]->IsUint32()) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioSerialReadClose");
   }
-  
+
   info.GetReturnValue().Set(rc);
 }
 
@@ -1099,8 +1099,6 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioCfgInterfaces", gpioCfgInterfaces);
   SetFunction(target, "gpioInitialise", gpioInitialise);
   SetFunction(target, "gpioTerminate", gpioTerminate);
-  
-  SetFunction(target, "gpioTick", gpioTick);
   SetFunction(target, "gpioSetWatchdog", gpioSetWatchdog);
 
   SetFunction(target, "gpioSetMode", gpioSetMode);
@@ -1177,4 +1175,3 @@ NAN_MODULE_INIT(InitAll) {
 }
 
 NODE_MODULE(pigpio, InitAll)
-
