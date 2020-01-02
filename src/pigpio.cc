@@ -730,6 +730,7 @@ NAN_METHOD(gpioWaveClear) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioWaveClear");
   }
+  
   info.GetReturnValue().Set(rc);
 }
 
@@ -738,6 +739,7 @@ NAN_METHOD(gpioWaveAddNew) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioWaveAddNew");
   }
+
   info.GetReturnValue().Set(rc);
 }
 
@@ -789,6 +791,7 @@ NAN_METHOD(gpioWaveAddGeneric) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioWaveAddGeneric");
   }
+
   info.GetReturnValue().Set(rc);
 }
 
@@ -806,8 +809,10 @@ NAN_METHOD(gpioWaveAddSerial) {
   char * str = node::Buffer::Data(info[6]);
 
   int rc = gpioWaveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, str);
-  if (rc < 0)
+  if (rc < 0) {
     return ThrowPigpioError(rc, "gpioWaveAddSerial");
+  }
+
   info.GetReturnValue().Set(rc);
 }
 
@@ -831,6 +836,7 @@ NAN_METHOD(gpioWaveDelete) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioWaveDelete");
   }
+
   info.GetReturnValue().Set(rc);
 }
 
@@ -864,7 +870,6 @@ NAN_METHOD(gpioWaveChain) {
   }
 
   info.GetReturnValue().Set(rc);
-
 }
 
 NAN_METHOD(gpioWaveTxAt) {
@@ -886,6 +891,7 @@ NAN_METHOD(gpioWaveTxStop) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioWaveTxStop");
   }
+
   info.GetReturnValue().Set(rc);
 }
 
@@ -949,8 +955,10 @@ NAN_METHOD(gpioSerialReadOpen) {
   unsigned dataBits = Nan::To<uint32_t>(info[2]).FromJust();
 
   int rc = gpioSerialReadOpen(gpio, baud, dataBits);
-  if (rc < 0)
+  if (rc < 0) {
     return ThrowPigpioError(rc, "gpioSerialReadOpen");
+  }
+
   info.GetReturnValue().Set(rc);
 }
 
@@ -987,8 +995,10 @@ if (info.Length() < 1 || !info[0]->IsUint32()) {
   unsigned gpio = Nan::To<uint32_t>(info[0]).FromJust();
 
   int rc = gpioSerialReadClose(gpio);
-  if (rc < 0)
+  if (rc < 0) {
     return ThrowPigpioError(rc, "gpioSerialReadClose");
+  }
+  
   info.GetReturnValue().Set(rc);
 }
 
