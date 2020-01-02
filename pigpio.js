@@ -223,7 +223,8 @@ class Gpio extends EventEmitter {
   }
 
   waveTxStop() {
-    return pigpio.gpioWaveTxStop();
+    pigpio.gpioWaveTxStop();
+    return this;
   }
 
   waveGetMicros() {
@@ -265,11 +266,13 @@ class Gpio extends EventEmitter {
   /* Serial */
 
   serialReadOpen(baud, dataBits) {
-    return pigpio.gpioSerialReadOpen(this.gpio, baud, dataBits);
+    pigpio.gpioSerialReadOpen(this.gpio, baud, dataBits);
+    return this;
   }
 
   serialReadInvert(invert) {
-    return pigpio.gpioSerialReadInvert(this.gpio, invert);
+    pigpio.gpioSerialReadInvert(this.gpio, invert);
+    return this;
   }
 
   serialRead(buf, bufLength) {
@@ -277,7 +280,8 @@ class Gpio extends EventEmitter {
   }
 
   serialReadClose() {
-    return pigpio.gpioSerialReadClose(this.gpio);
+    pigpio.gpioSerialReadClose(this.gpio);
+    return this;
   }
 
   /* mode */
