@@ -357,7 +357,7 @@ Level changes on the GPIO are not reported unless the level has been stable for 
 This filter only affects the execution of callbacks from the `alert` event, not those of the `interrupt` event.
 
 #### waveClear()
-Clears all waveforms and any data added by calls to the `gpioWaveAdd*` functions.
+Clears all waveforms and any data added by calls to the `waveAdd*` functions.
 
 #### waveAddNew()
 Starts a new empty waveform. 
@@ -452,56 +452,62 @@ gpio.waveChain(waveChain);
 ```
 
 #### waveTxAt()
-Returns the current transmitting waveId
+Returns the current transmitting waveId.
 
 #### waveTxBusy()
-Checks to see if the waveform has ended
+Returns 1 if the current waveform is still transmitting, otherwise 0.
 
 #### waveTxStop()
-Aborts the current waveform
+Aborts the current waveform. Returns this.
 
 #### waveGetMicros()
-Length in microseconds of the current waveform
+Returns the length in microseconds of the current waveform.
 
 #### waveGetHighMicros()
-Length of longest waveform so far
+Returns the length in microseconds of the longest waveform created since gpioInitialise was called.
 
 #### waveGetMaxMicros()
-Absolute maximum allowed micros
+Returns the maximum possible size of a waveform in microseconds.
 
 #### waveGetPulses()
-Length in pulses of the current waveform
+Returns the length in pulses of the current waveform.
 
 #### waveGetHighPulses()
-Length of longest waveform so far
+Returns the length in pulses of the longest waveform created since gpioInitialise was called.
 
 #### waveGetMaxPulses()
-Absolute maximum allowed pulses
+Returns the maximum possible size of a waveform in pulses.
 
 #### waveGetCbs()
-Length in control blocks of the current waveform
+Returns the length in DMA control blocks of the current waveform.
 
 #### waveGetHighCbs()
-Length of longest waveform so far
+Returns the length in DMA control blocks of the longest waveform created since gpioInitialise was called.
 
 #### waveGetMaxCbs()
-Absolute maximum allowed control blocks
+Returns the maximum possible size of a waveform in DMA control blocks.
 
 #### serialReadOpen(baud)
 Opens a GPIO for bit bang reading of serial data. 
 - baud - the baud rate, 50 - 250000
 
+Returns this.
+
 #### serialReadInvert(invert)
 Configures the level logic for bit bang serial reads. 
 - invert - if the level should be invertet or not, 0 or 1
+
+Returns this.
 
 #### serialRead(buf, bufSize)
 Copies up to bufSize bytes of data read from the bit bang serial cyclic buffer to the buffer starting at buf. 
 - buf - an array to receive the read bytes
 - bufSize - > 0
 
+Returns the number of bytes read.
+
 #### serialReadClose()
-Closes a GPIO for bit bang reading of serial data. 
+Closes a GPIO for bit bang reading of serial data. Returns this.
 
 ### Events
 
