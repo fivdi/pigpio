@@ -317,7 +317,6 @@ Gpio.prototype.analogWrite = Gpio.prototype.pwmWrite;
 
 module.exports.Gpio = Gpio;
 
-
 /* ------------------------------------------------------------------------ */
 /* GpioBank                                                                 */
 /* ------------------------------------------------------------------------ */
@@ -459,4 +458,3 @@ module.exports.configureSocketPort = (port) => {
 
 module.exports.CLOCK_PWM = 0; // PI_CLOCK_PWM;
 module.exports.CLOCK_PCM = 1; // PI_CLOCK_PCM;
-
