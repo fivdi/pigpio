@@ -193,6 +193,10 @@ class Gpio extends EventEmitter {
     return pigpio.gpioWaveAddGeneric(pulses);
   }
 
+  waveAddSerial(baud, dataBits, stopBits, offset, numBytes, message) {
+    return pigpio.gpioWaveAddSerial(this.gpio, baud, dataBits, stopBits, offset, numBytes, message);
+  }
+
   waveCreate() {
     return pigpio.gpioWaveCreate();
   }
@@ -206,12 +210,9 @@ class Gpio extends EventEmitter {
     return pigpio.gpioWaveTxSend(waveId, waveMode);
   }
 
-  waveAddSerial(baud, dataBits, stopBits, offset, numBytes, str) {
-    return pigpio.gpioWaveAddSerial(this.gpio, baud, dataBits, stopBits, offset, numBytes, str);
-  }
-
   waveChain(buf) {
-    return pigpio.gpioWaveChain(buf, buf.length);
+    pigpio.gpioWaveChain(buf, buf.length);
+    return this;
   }
 
   waveTxAt() {
