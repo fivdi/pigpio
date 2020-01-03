@@ -158,9 +158,10 @@ all state changes but there will be a latency.
 Both interrupts and alerts provide information about state changes. Interrupts
 provide this information as quickly as possible and the latency is as low as
 possible. Alerts are queued and fired once per millisecond so the latency is
-higher. Both alerts and interrupts provide `tick` information that's accurate to a
-few microseconds. In addition, it's possible to detect more alerts than
-interrupts per second.
+higher. It's possible to detect more alerts than interrupts per second.
+
+Both interrupts and alerts provide `tick` information that are accurate to a
+few microseconds.
 
 #### mode(mode)
 - mode - INPUT, OUTPUT, ALT0, ALT1, ALT2, ALT3, ALT4, or ALT5
