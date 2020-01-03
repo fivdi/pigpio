@@ -33,8 +33,8 @@
 - Waveform
   - [waveClear()](#waveclear)
   - [waveAddNew()](#waveaddnew)
-  - [waveAddGeneric(pulses)](#waveaddgeneric-pulses)
-  - [waveAddSerial(baud, dataBits, stopBits, offset, numBytes, str)](#waveaddserialbaud-databits-stopbits-offset-numbytes-str)
+  - [waveAddGeneric(pulses)](#waveaddgenericpulses)
+  - [waveAddSerial(baud, dataBits, stopBits, offset, numBytes, message)](#waveaddserialbaud-databits-stopbits-offset-numbytes-message)
   - [waveCreate()](#wavecreate)
   - [waveDelete()](#wavedelete)
   - [waveTxSend(waveId, waveMode)](#wavetxsendwaveid-wavemode)
@@ -158,7 +158,7 @@ all state changes but there will be a latency.
 Both interrupts and alerts provide information about state changes. Interrupts
 provide this information as quickly as possible and the latency is as low as
 possible. Alerts are queued and fired once per millisecond so the latency is
-higher. However, alerts also provide `tick` information that's accurate to a
+higher. Both alerts and interrupts provide `tick` information that's accurate to a
 few microseconds. In addition, it's possible to detect more alerts than
 interrupts per second.
 
@@ -357,18 +357,21 @@ Level changes on the GPIO are not reported unless the level has been stable for 
 This filter only affects the execution of callbacks from the `alert` event, not those of the `interrupt` event.
 
 #### waveClear()
-Clears all waveforms and any data added by calls to the `waveAdd*` functions.
+Clears all waveforms and any data added by calls to the `waveAdd*` functions. Returns this.
 
 #### waveAddNew()
 Starts a new empty waveform. 
 
 You wouldn't normally need to call this function as it is automatically called after a waveform is created with the gpioWaveCreate function. 
 
+Returns this.
+
 #### waveAddGeneric(pulses)
 - pulses - an array of pulses
+
 Adds a series of pulses to the current waveform.
 
-Returns the number of pulses.
+Returns the new total number of pulses in the current waveform.
 
 ```js
 const Gpio = require('pigpio').Gpio;
@@ -405,31 +408,37 @@ Gpio.waveDelete(waveId);
 
 ```
 
-#### waveAddSerial(baud, dataBits, stopBits, offset, numBytes, str)
+#### waveAddSerial(baud, dataBits, stopBits, offset, numBytes, message)
 Adds a waveform representing serial data to the existing waveform (if any). 
 - baud - the baud rate, 50 - 1000000
 - dataBits - 1 - 32
 - stopBits - 2 - 8
 - offset - The serial data starts offset microseconds from the start of the waveform, 2 - 8
 - numBytes - Number of bytes to be sent
-- str - String message to be sent
+- message - Message as string to be sent
+
+Returns the new total number of pulses in the current waveform.
 
 #### waveCreate()
-Creates a waveform from added data.
-
-Returns a waveId.
+Creates a waveform from added data. Returns a wave id.
 
 #### waveDelete(waveId)
-Deletes a waveform by the given waveId
+Deletes a waveform by the given wave id. Returns this.
 
 #### waveTxSend(waveId, waveMode)
 - waveId - >=0, as returned by waveCreate
 - waveMode - WAVE_MODE_ONE_SHOT, WAVE_MODE_REPEAT, WAVE_MODE_ONE_SHOT_SYNC or WAVE_MODE_REPEAT_SYNC
-Transmits a waveform
+Transmits a waveform.
+
+NOTE: Any hardware PWM started by hardwarePwmWrite will be cancelled.
+
+Returns the number of DMA control blocks in the waveform.
 
 #### waveChain(waveChain)
 - waveChain - Buffer of waves to be transmitted, contains an ordered list of wave_ids and optional command codes and related data
 Transmits a chain of waveforms.
+
+Returns this.
 
 The following command codes are supported:
 
@@ -452,7 +461,7 @@ gpio.waveChain(waveChain);
 ```
 
 #### waveTxAt()
-Returns the current transmitting waveId.
+Returns the current transmitting wave id.
 
 #### waveTxBusy()
 Returns 1 if the current waveform is still transmitting, otherwise 0.
@@ -545,6 +554,9 @@ console.log((endTick >> 0) - (startTick >> 0)); // prints 2 which is what we wan
 
 #### Event: 'interrupt'
 - level - the GPIO level when the interrupt occurred, 0, 1, or TIMEOUT (2)
+- tick - the time stamp of the state change, an unsigned 32 bit integer
+
+You can find more information about ticks above in the event [alert](#event-alert).
 
 Emitted on interrupts.
 
