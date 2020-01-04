@@ -25,6 +25,9 @@ pigpio supports Node.js versions 6, 8, 10 and 12.
    * [Measure Distance with a HC-SR04 Ultrasonic Sensor](#measure-distance-with-a-hc-sr04-ultrasonic-sensor)
    * [Determine the Width of a Pulse with Alerts](#determine-the-width-of-a-pulse-with-alerts)
    * [Debounce a Button](#debounce-a-button)
+   * [Generate a waveform](#generate-a-waveform)
+   * [Sending a wavechain](#sending-a-wavechain)
+   * [Sending serial data](#sending-serial-data)
  * [API Documentation](#api-documentation)
  * [Limitations](#limitations)
  * [Troubleshooting](#troubleshooting)
@@ -219,11 +222,6 @@ setInterval(() => {
   trigger.trigger(10, 1); // Set trigger high for 10 microseconds
 }, 1000);
 ```
-#### Determine Current Tick
-```js
-const Gpio = require('pigpio').Gpio;
-var current_tick = Gpio.tick(); //this is unsigned 32bit 
-```
 
 #### Determine the Width of a Pulse with Alerts
 
@@ -403,7 +401,8 @@ output.waveAddGeneric(secondWaveForm);
 let secondWaveId = output.waveCreate();
 
 if (firstWaveId >= 0 && secondWaveId >= 0) {
-  output.waveChain([firstWaveId, 255, 0, secondWaveId,	255, 1, 3, 0]);
+  let chain = [firstWaveId, 255, 0, secondWaveId,	255, 1, 3, 0];
+  output.waveChain(chain);
 }
 
 while (output.waveTxBusy()) {}
@@ -411,7 +410,7 @@ while (output.waveTxBusy()) {}
 output.waveDelete(firstWaveId);
 output.waveDelete(secondWaveId);
 ```
-#### Adding a waveform representing serial data
+#### Sending serial data
 
 In this example `waveAddSerial` permits to create a waveform representing serial data.
 
@@ -457,37 +456,6 @@ const output = new Gpio(outPin, {
 });
 
 Gpio.setWatchdog(outPin,watchdog_ms);
-```
-
-## API documentation
-#### Debounce a Button
-The GPIO glitch filter will prevent alert events from being emitted if the
-corresponding level change is not stable for at least a specified number of
-microseconds. This can be used to filter out unwanted noise from an input
-signal. In this example, a glitch filter is applied to filter out the contact
-bounce of a push button.
-
-![Button debounce circuit](example/button-debounce.png)
-
-```js
-const Gpio = require('pigpio').Gpio;
-
-const button = new Gpio(23, {
-  mode: Gpio.INPUT,
-  pullUpDown: Gpio.PUD_UP,
-  alert: true
-});
-
-let count = 0;
-
-// Level must be stable for 10 ms before an alert event is emitted.
-button.glitchFilter(10000);
-
-button.on('alert', (level, tick) => {
-  if (level === 0) {
-    console.log(++count);
-  }
-});
 ```
 
 ## API Documentation
