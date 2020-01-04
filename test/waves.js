@@ -52,3 +52,5 @@ if (waveId >= 0) {
 while (outPut.waveTxBusy()) {}
 
 outPut.waveDelete(waveId);
+
+outPut.disableAlert();
