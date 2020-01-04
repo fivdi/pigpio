@@ -220,7 +220,8 @@ class Gpio extends EventEmitter {
     return pigpio.gpioWaveTxSend(waveId, waveMode);
   }
 
-  waveChain(buf) {
+  waveChain(chain) {
+    let buf = Buffer.from(chain);
     pigpio.gpioWaveChain(buf, buf.length);
     return this;
   }
