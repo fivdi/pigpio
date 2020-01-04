@@ -387,6 +387,7 @@ The following example shows a pulse that switches GPIO 17 on for 50 microseconds
   usDelay: 50
 }
 ```
+The following example generates a waveform that starts with a 1µs pulse, then has a 2µs pause, followed by a 3µs pulse and so on.
 
 ```js
 const pigpio = require('pigpio');
@@ -427,7 +428,7 @@ outPut.waveDelete(waveId);
 - baud - an unsigned integer from 50 - 1000000, specifies the baud rate.
 - dataBits - an unsigned integer from 1 - 32, number of data bits.
 - stopBits - an unsigned integer from 1 - 4, number of stop bits.
-- offset - an unsigned integer >= 0, the serial data starts offset microseconds from the start of the waveform.
+- offset - an unsigned integer >= 0, the serial data starts `offset` microseconds from the start of the waveform.
 - message - a string, the Message to be sent.
 
 Adds a waveform representing serial data to the existing waveform.
@@ -451,7 +452,6 @@ Transmits a waveform. Returns the number of DMA control blocks in the waveform.
 The SYNC variants of the waveMode wait for the current waveform to reach the end of a cycle or finish before starting the new waveform.
 
 WARNING: bad things may happen if you delete the previous waveform before it has been synced to the new waveform.
-
 
 NOTE: Any hardware PWM started by hardwarePwmWrite will be cancelled.
 
