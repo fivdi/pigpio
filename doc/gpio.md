@@ -38,7 +38,7 @@
   - [waveCreate()](#wavecreate)
   - [waveDelete()](#wavedelete)
   - [waveTxSend(waveId, waveMode)](#wavetxsendwaveid-wavemode)
-  - [waveChain(waveChain)](#wavechainwavechain)
+  - [waveChain(chain)](#wavechainchain)
   - [waveTxAt()](#wavetxat)
   - [waveTxBusy()](#wavetxbusy)
   - [waveTxStop()](#wavetxstop)
@@ -435,6 +435,7 @@ Returns the new total number of pulses in the current waveform.
 
 #### waveCreate()
 Creates a waveform from added data. Returns a wave id.
+All data previously added with `waveAdd*` methods get cleared.
 
 #### waveDelete(waveId)
 Deletes a waveform by the given wave id. Returns this.
@@ -448,9 +449,11 @@ NOTE: Any hardware PWM started by hardwarePwmWrite will be cancelled.
 
 Returns the number of DMA control blocks in the waveform.
 
-#### waveChain(waveChain)
-- waveChain - Buffer of waves to be transmitted, contains an ordered list of wave_ids and optional command codes and related data
+#### waveChain(chain)
+- chain - Array of waves to be transmitted, contains an ordered list of wave_ids and optional command codes and related data.
 Transmits a chain of waveforms.
+
+NOTE: Any hardware PWM started by hardwarePwmWrite will be cancelled.
 
 Returns this.
 
