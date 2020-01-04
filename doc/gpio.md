@@ -375,7 +375,8 @@ Adds a series of pulses to the current waveform.
 Returns the new total number of pulses in the current waveform.
 
 ```js
-const Gpio = require('pigpio').Gpio;
+const pigpio = require('pigpio');
+const Gpio = pigpio.Gpio;
 
 const outPin = 17;
 
@@ -385,28 +386,27 @@ const outPut = new Gpio(outPin, {
   
 let waveform = [];
 
-for (let x = 0; x < 10; x++) {
-  if (x % 2 == 0) {
-    waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+for (let x = 0; x < 20; x++) {
+  if (x % 2 == 1) {
+    waveform.push({ gpioOn: outPin, gpioOff: 0, usDelay: x + 1 });
   } else {
-    waveform[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:20 };
+    waveform.push({ gpioOn: 0, gpioOff: outPin, usDelay: x + 1 });
   }
 }
 
-Gpio.waveClear();
+outPut.waveClear();
 
-Gpio.waveAddGeneric(waveform);
+outPut.waveAddGeneric(waveform);
 
-let waveId = Gpio.waveCreate();
+let waveId = outPut.waveCreate();
 
 if (waveId >= 0) {
-  Gpio.waveTxSend(waveId, Gpio.WAVE_MODE_ONE_SHOT);
+  outPut.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
 }
 
-while (Gpio.waveTxBusy()) {}
+while (outPut.waveTxBusy()) {}
 
-Gpio.waveDelete(waveId);
-
+outPut.waveDelete(waveId);
 ```
 
 #### waveAddSerial(baud, dataBits, stopBits, offset, numBytes, message)
