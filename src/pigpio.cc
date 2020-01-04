@@ -781,6 +781,13 @@ NAN_METHOD(gpioWaveAddGeneric) {
       uint32_t off = _off->Uint32Value(Nan::GetCurrentContext()).FromJust();
       uint32_t delay = _delay->Uint32Value(Nan::GetCurrentContext()).FromJust();
 
+      if (on > 0) {
+        on = 1 << on;
+      }
+      if (off > 0) {
+        off = 1 << off;
+      }
+
       pulses[i].gpioOn = on;
       pulses[i].gpioOff = off;
       pulses[i].usDelay = delay;
