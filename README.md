@@ -331,49 +331,57 @@ outPut.waveDelete(waveId);
 ```
 #### Sending a wavechain
 
-This example demostrates how to transmits a chain of waveforms.
-NOTE: Any hardware PWM started by `gpioHardwarePWM` will be cancelled.
-In the example the `chain` represents the list of waveforms
+The `waveChain` method allows you to chain multiple waveforms together.
+A chain is basically just an array with several waveId's. However you can insert different modifiers as described [here](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#wavechainchain).
 
+In the example the `chain` consists of two waves. The first waveform is transmitted normally while the second waveform is repeated 3 times.
 
 ```js
-const Gpio = require('pigpio').Gpio;
+const pigpio = require('pigpio');
+const Gpio = pigpio.Gpio;
+
 
 const outPin = 17;
-
-const output = new Gpio(outPin, {
+const outPut = new Gpio(outPin, {
   mode: Gpio.OUTPUT
 });
 
-let chain = [];
-let waveform = [];
+outPut.waveClear();
 
-let x = 0;
-for (x = 0; x < 10; x++) {
+let firstWaveForm = [];
+let secondWaveForm = [];
+
+for (let x = 0; x < 10; x++) {
   if (x % 2 == 0) {
-    chain[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
+    firstWaveForm.push({ gpioOn: outPin, gpioOff: 0, usDelay: 10 });
   } else {
-    chain[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:20 };
+    firstWaveForm.push({ gpioOn: 0, gpioOff: outPin, usDelay: 10 });
   }
 }
 
-Gpio.waveClear();
+outPut.waveAddGeneric(firstWaveForm);
+let firstWaveId = outPut.waveCreate();
 
-Gpio.waveAddGeneric(waveform);
 
-let waveId = Gpio.waveCreate();
-
-chain.push(255)
-chain.push(1)
-chain.push(6)
-chain.push(0);
-
-let bufchain = Buffer.from(chain)
-Gpio.waveChain(bufchain, bufchain.length);
-while(Gpio.waveTxBusy()){
+for (let x = 0; x < 10; x++) {
+  if (x % 2 == 0) {
+    secondWaveForm.push({ gpioOn: outPin, gpioOff: 0, usDelay: 20 });
+  } else {
+    secondWaveForm.push({ gpioOn: 0, gpioOff: outPin, usDelay: 20 });
+  }
 }
-Gpio.waveDelete(waveId);
 
+outPut.waveAddGeneric(secondWaveForm);
+let secondWaveId = outPut.waveCreate();
+
+if (firstWaveId >= 0 && secondWaveId >= 0) {
+  outPut.waveChain([firstWaveId, 255, 0, secondWaveId,	255, 1, 3, 0]);
+}
+
+while (outPut.waveTxBusy()) {}
+
+outPut.waveDelete(firstWaveId);
+outPut.waveDelete(secondWaveId);
 ```
 #### Adding a waveform representing serial data
 
@@ -398,7 +406,7 @@ let numBytes = buf.length;
 
 Gpio.waveClear();
 
-Gpio.waveAddSerial(outPin,baud,data_bits,stop_bits,offset,numBytes,buf);
+Gpio.waveAddSerial(outPin, baud, data_bits, stop_bits, offset, numBytes, buf);
 
 let waveId = Gpio.waveCreate();
 
