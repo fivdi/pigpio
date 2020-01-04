@@ -53,6 +53,8 @@ echo tick
 sudo $(which node) tick
 echo trigger-led
 sudo $(which node) trigger-led
-echo waves
-sudo $(which node) waves
+echo wave-add
+sudo $(which node) wave-add
+echo wave-chain
+sudo $(which node) wave-chain
 
