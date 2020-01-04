@@ -395,7 +395,7 @@ const Gpio = pigpio.Gpio;
 
 const outPin = 17;
 
-const outPut = new Gpio(outPin, {
+const output = new Gpio(outPin, {
   mode: Gpio.OUTPUT
 });
   
@@ -409,19 +409,19 @@ for (let x = 0; x < 20; x++) {
   }
 }
 
-outPut.waveClear();
+output.waveClear();
 
-outPut.waveAddGeneric(waveform);
+output.waveAddGeneric(waveform);
 
-let waveId = outPut.waveCreate();
+let waveId = output.waveCreate();
 
 if (waveId >= 0) {
-  outPut.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
+  output.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
 }
 
-while (outPut.waveTxBusy()) {}
+while (output.waveTxBusy()) {}
 
-outPut.waveDelete(waveId);
+output.waveDelete(waveId);
 ```
 
 #### waveAddSerial(baud, dataBits, stopBits, offset, message)

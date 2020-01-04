@@ -9,11 +9,11 @@ pigpio.configureClock(1, pigpio.CLOCK_PCM);
 const iterations = 100;
 
 const outPin = 17;
-const outPut = new Gpio(outPin, {
+const output = new Gpio(outPin, {
   mode: Gpio.OUTPUT
 });
 
-outPut.digitalWrite(0);
+output.digitalWrite(0);
   
 let waveform = [];
 let result = [];
@@ -26,15 +26,15 @@ for (let x = 0; x <= iterations; x++) {
   }
 }
 
-outPut.waveClear();
+output.waveClear();
 
-outPut.waveAddGeneric(waveform);
+output.waveAddGeneric(waveform);
 
-let waveId = outPut.waveCreate();
+let waveId = output.waveCreate();
 
-outPut.enableAlert();
+output.enableAlert();
 
-outPut.on('alert', (level, tick) => {
+output.on('alert', (level, tick) => {
   result.push([level, tick]);
   if (result.length === iterations) {
     for (let r = 0; r < result.length; r++) {
@@ -45,14 +45,14 @@ outPut.on('alert', (level, tick) => {
         console.log('wave-add test passed.');
       }
     }
-    outPut.disableAlert();
+    output.disableAlert();
   }
 });
 
 if (waveId >= 0) {
-  outPut.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
+  output.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
 }
 
-while (outPut.waveTxBusy()) {}
+while (output.waveTxBusy()) {}
 
-outPut.waveDelete(waveId);
+output.waveDelete(waveId);

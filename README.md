@@ -301,7 +301,7 @@ const Gpio = pigpio.Gpio;
 
 const outPin = 17;
 
-const outPut = new Gpio(outPin, {
+const output = new Gpio(outPin, {
   mode: Gpio.OUTPUT
 });
   
@@ -315,19 +315,19 @@ for (let x = 0; x < 20; x++) {
   }
 }
 
-outPut.waveClear();
+output.waveClear();
 
-outPut.waveAddGeneric(waveform);
+output.waveAddGeneric(waveform);
 
-let waveId = outPut.waveCreate();
+let waveId = output.waveCreate();
 
 if (waveId >= 0) {
-  outPut.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
+  output.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
 }
 
-while (outPut.waveTxBusy()) {}
+while (output.waveTxBusy()) {}
 
-outPut.waveDelete(waveId);
+output.waveDelete(waveId);
 ```
 #### Sending a wavechain
 
@@ -341,11 +341,11 @@ const pigpio = require('pigpio');
 const Gpio = pigpio.Gpio;
 
 const outPin = 17;
-const outPut = new Gpio(outPin, {
+const output = new Gpio(outPin, {
   mode: Gpio.OUTPUT
 });
 
-outPut.waveClear();
+output.waveClear();
 
 let firstWaveForm = [];
 let secondWaveForm = [];
@@ -358,8 +358,8 @@ for (let x = 0; x < 10; x++) {
   }
 }
 
-outPut.waveAddGeneric(firstWaveForm);
-let firstWaveId = outPut.waveCreate();
+output.waveAddGeneric(firstWaveForm);
+let firstWaveId = output.waveCreate();
 
 for (let x = 0; x < 10; x++) {
   if (x % 2 === 0) {
@@ -369,17 +369,17 @@ for (let x = 0; x < 10; x++) {
   }
 }
 
-outPut.waveAddGeneric(secondWaveForm);
-let secondWaveId = outPut.waveCreate();
+output.waveAddGeneric(secondWaveForm);
+let secondWaveId = output.waveCreate();
 
 if (firstWaveId >= 0 && secondWaveId >= 0) {
-  outPut.waveChain([firstWaveId, 255, 0, secondWaveId,	255, 1, 3, 0]);
+  output.waveChain([firstWaveId, 255, 0, secondWaveId,	255, 1, 3, 0]);
 }
 
-while (outPut.waveTxBusy()) {}
+while (output.waveTxBusy()) {}
 
-outPut.waveDelete(firstWaveId);
-outPut.waveDelete(secondWaveId);
+output.waveDelete(firstWaveId);
+output.waveDelete(secondWaveId);
 ```
 #### Adding a waveform representing serial data
 

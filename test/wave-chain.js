@@ -11,12 +11,12 @@ const repetitions = 3;
 const delay = 10;
 
 const outPin = 17;
-const outPut = new Gpio(outPin, {
+const output = new Gpio(outPin, {
   mode: Gpio.OUTPUT
 });
 
-outPut.digitalWrite(0);
-outPut.waveClear();
+output.digitalWrite(0);
+output.waveClear();
 
 let firstWaveForm = [];
 let secondWaveForm = [];
@@ -30,8 +30,8 @@ for (let x = 0; x <= iterations; x++) {
   }
 }
 
-outPut.waveAddGeneric(firstWaveForm);
-let firstWaveId = outPut.waveCreate();
+output.waveAddGeneric(firstWaveForm);
+let firstWaveId = output.waveCreate();
 
 
 for (let x = 0; x <= iterations; x++) {
@@ -42,12 +42,12 @@ for (let x = 0; x <= iterations; x++) {
   }
 }
 
-outPut.waveAddGeneric(secondWaveForm);
-let secondWaveId = outPut.waveCreate();
+output.waveAddGeneric(secondWaveForm);
+let secondWaveId = output.waveCreate();
 
-outPut.enableAlert();
+output.enableAlert();
 
-outPut.on('alert', (level, tick) => {
+output.on('alert', (level, tick) => {
   result.push([level, tick]);
   if (result.length === iterations + (iterations * repetitions)) {
     for (let r = 0; r < result.length; r++) {
@@ -57,15 +57,15 @@ outPut.on('alert', (level, tick) => {
         console.log('wave-chain test passed.');
       }
     }
-    outPut.disableAlert();
+    output.disableAlert();
   }
 });
 
 if (firstWaveId >= 0 && secondWaveId >= 0) {
-  outPut.waveChain([firstWaveId, 255, 0, secondWaveId,	255, 1, repetitions, 0]);
+  output.waveChain([firstWaveId, 255, 0, secondWaveId,	255, 1, repetitions, 0]);
 }
 
-while (outPut.waveTxBusy()) {}
+while (output.waveTxBusy()) {}
 
-outPut.waveDelete(firstWaveId);
-outPut.waveDelete(secondWaveId);
+output.waveDelete(firstWaveId);
+output.waveDelete(secondWaveId);

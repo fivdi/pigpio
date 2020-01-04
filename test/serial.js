@@ -1,9 +1,11 @@
+'use strict';
+
 const assert = require('assert');
 const pigpio = require('pigpio');
 const Gpio = pigpio.Gpio;
 
 const outPin = 17;
-const outPut = new Gpio(outPin, {
+const output = new Gpio(outPin, {
   mode: Gpio.OUTPUT
 });
 
@@ -13,16 +15,16 @@ let stopBits = 1;
 let offset = 0;
 let message = "Hello world!";
 
-outPut.waveAddSerial(baud, dataBits, stopBits, offset, message);
+output.waveAddSerial(baud, dataBits, stopBits, offset, message);
 
-let waveId = outPut.waveCreate();
+let waveId = output.waveCreate();
 
 if(waveId >= 0) {
-  outPut.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
+  output.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
 }
 
-while (outPut.waveTxBusy()) { }
+while (output.waveTxBusy()) { }
 
-outPut.waveDelete(waveId);
+output.waveDelete(waveId);
 
 
