@@ -52,9 +52,9 @@
   - [waveGetHighCbs()](#wavegethighcbs)
   - [waveGetMaxCbs()](#wavegetmaxcbs)
 - Serial
-  - [serialReadOpen()](#serialreadopenbaud)
-  - [serialReadInvert()](#serialreadinvertinvert)
-  - [serialRead()](#serialreadbuf-bufsize)
+  - [serialReadOpen(baud, dataBits)](#serialreadopenbaud-databits)
+  - [serialReadInvert(invert)](#serialreadinvertinvert)
+  - [serialRead(buf, bufSize)](#serialreadbuf-bufsize)
   - [serialReadClose()](#serialreadclose)
 - Filters
   - [glitchFilter(steady)](#glitchfiltersteady)
@@ -514,8 +514,9 @@ Returns the length in DMA control blocks of the longest waveform created since g
 #### waveGetMaxCbs()
 Returns the maximum possible size of a waveform in DMA control blocks.
 
-#### serialReadOpen(baud)
-- baud - the baud rate, 50 - 250000
+#### serialReadOpen(baud, dataBits)
+- baud - an unsigned integer from 50 - 250000, specifies the baud rate.
+- dataBits - an unsigned integer from 1 - 32, number of data bits.
 
 Opens a GPIO for bit bang reading of serial data. Returns this.
 
@@ -525,7 +526,7 @@ Opens a GPIO for bit bang reading of serial data. Returns this.
 Configures the level logic for bit bang serial reads. Returns this.
 
 #### serialRead(buf, bufSize)
-- buf - an array to receive the read bytes
+- buf - a buffer to receive the read bytes
 - bufSize - > 0
 
 Copies up to bufSize bytes of data read from the bit bang serial cyclic buffer to the buffer starting at buf. Returns the number of bytes read.
