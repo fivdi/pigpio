@@ -409,14 +409,13 @@ while (outPut.waveTxBusy()) {}
 outPut.waveDelete(waveId);
 ```
 
-#### waveAddSerial(baud, dataBits, stopBits, offset, numBytes, message)
+#### waveAddSerial(baud, dataBits, stopBits, offset, message)
 Adds a waveform representing serial data to the existing waveform (if any). 
-- baud - the baud rate, 50 - 1000000
-- dataBits - 1 - 32
-- stopBits - 2 - 8
-- offset - The serial data starts offset microseconds from the start of the waveform, 2 - 8
-- numBytes - Number of bytes to be sent
-- message - Message as string to be sent
+- baud - an unsigned integer from 50 - 1000000, specifies the baud rate.
+- dataBits - an unsigned integer from 1 - 32, number of data bits.
+- stopBits - an unsigned integer from 1 - 4, number of stop bits.
+- offset - an unsigned integer >= 0, the serial data starts offset microseconds from the start of the waveform.
+- message - a string, the Message to be sent.
 
 Returns the new total number of pulses in the current waveform.
 
