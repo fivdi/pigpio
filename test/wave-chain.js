@@ -33,7 +33,6 @@ for (let x = 0; x <= iterations; x++) {
 output.waveAddGeneric(firstWaveForm);
 let firstWaveId = output.waveCreate();
 
-
 for (let x = 0; x <= iterations; x++) {
   if (x % 2 === 0) {
     secondWaveForm.push({ gpioOn: outPin, gpioOff: 0, usDelay: delay });
@@ -52,7 +51,7 @@ output.on('alert', (level, tick) => {
   if (result.length === iterations + (iterations * repetitions)) {
     for (let r = 0; r < result.length; r++) {
       if (result[r + 1] !== undefined) {
-        assert.strictEqual(Math.abs(delay - pigpio.tickDiff(result[r][1], result[r + 1][1])) < 20, true, 'Waves tick mismatch');
+        assert.strictEqual(Math.abs(delay - pigpio.tickDiff(result[r][1], result[r + 1][1])) < 40, true, 'Waves tick mismatch');
       } else {
         console.log('wave-chain test passed.');
       }
