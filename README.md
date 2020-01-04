@@ -290,7 +290,7 @@ The waveform definition is a simple Array where each entry is an object with the
 The basic workflow to generate and execute waves is as follows:
 
 First, we usually clear previous wave entries with the `waveClear` method.
-Then can we add pulses with the `waveAddGeneric` or `waveAddSerial` methods to the cleared waveform.
+Then we can add pulses with the `waveAddGeneric` or `waveAddSerial` methods to the cleared waveform.
 We then create a waveId by calling the `waveCreate` method.
 To execute the waveform, we call the `waveTxSend` method.
 Once the wave is sent, we can delete the wave by calling the `waveDelete` method.
