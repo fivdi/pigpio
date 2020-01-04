@@ -1,3 +1,5 @@
+'use strict';
+
 const pigpio = require('pigpio');
 const Gpio = pigpio.Gpio;
 
@@ -12,7 +14,7 @@ let firstWaveForm = [];
 let secondWaveForm = [];
 
 for (let x = 0; x < 10; x++) {
-  if (x % 2 == 0) {
+  if (x % 2 === 0) {
     firstWaveForm.push({ gpioOn: outPin, gpioOff: 0, usDelay: 10 });
   } else {
     firstWaveForm.push({ gpioOn: 0, gpioOff: outPin, usDelay: 10 });
@@ -23,7 +25,7 @@ outPut.waveAddGeneric(firstWaveForm);
 let firstWaveId = outPut.waveCreate();
 
 for (let x = 0; x < 10; x++) {
-  if (x % 2 == 0) {
+  if (x % 2 === 0) {
     secondWaveForm.push({ gpioOn: outPin, gpioOff: 0, usDelay: 20 });
   } else {
     secondWaveForm.push({ gpioOn: 0, gpioOff: outPin, usDelay: 20 });
