@@ -23,7 +23,8 @@ for (let x = 0; x < iterations; x++) {
   }
 }
 
-assert.strictEqual(output.waveClear(), output, 'waveClear');
+output.waveClear();
+
 assert.strictEqual(output.waveAddNew(), output, 'waveAddNew');
 
 let waveLength = output.waveAddGeneric(waveform);
@@ -41,9 +42,9 @@ output.waveDelete(waveId);
 
 output.waveAddGeneric(waveform);
 
-let newWaveId = output.waveCreate();
+let secondWaveId = output.waveCreate();
 
-assert.strictEqual(newWaveId, 0, 'waveDelete'); // waveId should be 0 again because old wave got deleted
+assert.strictEqual(secondWaveId, 0, 'waveDelete'); // waveId should be 0 again because old wave got deleted
 
 assert.strictEqual(output.waveGetMicros(), iterations * delay, 'waveGetMicros');
 assert.strictEqual(output.waveGetHighMicros(), iterations * delay, 'waveGetHighMicros');
@@ -56,14 +57,25 @@ assert.strictEqual(output.waveGetHighCbs(), iterations * 2, 'waveGetHighCbs');
 assert.strictEqual(typeof output.waveGetMaxCbs(), 'number', 'waveGetMaxCbs');
 
 if (waveId === 0) {
-  output.waveTxSend(newWaveId, pigpio.WAVE_MODE_REPEAT);
+  output.waveTxSend(secondWaveId, pigpio.WAVE_MODE_REPEAT);
 }
 
 assert.strictEqual(output.waveTxBusy(), 1, 'waveTxBusy');
 
 while (output.waveTxBusy()) {
-  assert.strictEqual(output.waveTxAt(), newWaveId, 'waveTxAt');
+  assert.strictEqual(output.waveTxAt(), secondWaveId, 'waveTxAt');
   assert.strictEqual(output.waveTxStop(), output, 'waveTxStop');
 }
+
+
+// Create new waveform
+
+output.waveClear();
+
+output.waveAddGeneric(waveform);
+
+let thirdWaveId = output.waveCreate();
+
+assert.strictEqual(thirdWaveId, 0, 'waveClear'); // waveId should be 0 again because old wave got deleted
 
 console.log('waves test passed');
