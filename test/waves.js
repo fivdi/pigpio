@@ -41,6 +41,7 @@ outPut.on("alert", (level, tick) => {
         assert.strictEqual(Math.abs(waveform[r].usDelay - pigpio.tickDiff(result[r][1], result[r + 1][1])) < 10, true, 'Waves tick mismatch');
       }
     }
+    outPut.disableAlert();
   }
 });
 
@@ -52,5 +53,3 @@ if (waveId >= 0) {
 while (outPut.waveTxBusy()) {}
 
 outPut.waveDelete(waveId);
-
-outPut.disableAlert();
