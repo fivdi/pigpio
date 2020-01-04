@@ -34,7 +34,7 @@
   - [waveClear()](#waveclear)
   - [waveAddNew()](#waveaddnew)
   - [waveAddGeneric(pulses)](#waveaddgenericpulses)
-  - [waveAddSerial(baud, dataBits, stopBits, offset, numBytes, message)](#waveaddserialbaud-databits-stopbits-offset-numbytes-message)
+  - [waveAddSerial(baud, dataBits, stopBits, offset, message)](#waveaddserialbaud-databits-stopbits-offset-message)
   - [waveCreate()](#wavecreate)
   - [waveDelete()](#wavedelete)
   - [waveTxSend(waveId, waveMode)](#wavetxsendwaveid-wavemode)
@@ -368,11 +368,25 @@ You wouldn't normally need to call this function as it is automatically called a
 Returns this.
 
 #### waveAddGeneric(pulses)
-- pulses - an array of pulses
+- pulses - an array of pulses objects.
 
-Adds a series of pulses to the current waveform.
+Adds a series of pulses to the current waveform. Returns the new total number of pulses in the current waveform.
 
-Returns the new total number of pulses in the current waveform.
+The pulse objects are built with the following properties:
+- gpioOn - an unsigned integer specifying the GPIO number to be turned on.
+- gpioOff - an unsigned integer specifying the GPIO number to be turned off.
+- usDelay - an unsigned integer specifying the pulse length in microseconds.
+
+If you don't want to change a GPIO you can use 0 as a value for gpioOn or gpioOff.
+
+The following example shows a pulse that switches GPIO 17 on for 50 microseconds.
+```js
+{
+  gpioOn: 17,
+  gpioOff: 0,
+  usDelay: 50
+}
+```
 
 ```js
 const pigpio = require('pigpio');
