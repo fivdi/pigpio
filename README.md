@@ -282,6 +282,36 @@ Here's an example of the typical output to the console:
 15
 ```
 
+#### Debounce a Button
+The GPIO glitch filter will prevent alert events from being emitted if the
+corresponding level change is not stable for at least a specified number of
+microseconds. This can be used to filter out unwanted noise from an input
+signal. In this example, a glitch filter is applied to filter out the contact
+bounce of a push button.
+
+![Button debounce circuit](example/button-debounce.png)
+
+```js
+const Gpio = require('pigpio').Gpio;
+
+const button = new Gpio(23, {
+  mode: Gpio.INPUT,
+  pullUpDown: Gpio.PUD_UP,
+  alert: true
+});
+
+let count = 0;
+
+// Level must be stable for 10 ms before an alert event is emitted.
+button.glitchFilter(10000);
+
+button.on('alert', (level, tick) => {
+  if (level === 0) {
+    console.log(++count);
+  }
+});
+```
+
 #### Generate a waveform
 
 Waveforms can be used to time and execute Gpio level changes with an accuracy up to 1 microsecond. The following example generates a waveform that starts with a 1µs pulse, then has a 2µs pause, followed by a 3µs pulse and so on.
@@ -497,4 +527,3 @@ Here are a few links to other hardware specific Node.js packages that may be of 
 - [mcp-spi-adc](https://github.com/fivdi/mcp-spi-adc) - Analog to digital conversion with the MCP3002/4/8, MCP3202/4/8 and MCP3304
 - [pigpio-dht](https://github.com/depuits/pigpio-dht) - Implements logic to read DHT11 or DHT22/AM2302 temperature and relative humidity sensor
 - [pigpio-mock](https://github.com/deepsyx/pigpio-mock) - A pigpio mock library for development on your local machine
-
