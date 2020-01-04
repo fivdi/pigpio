@@ -448,6 +448,11 @@ Deletes a waveform by the given wave id. Returns this.
 
 Transmits a waveform. Returns the number of DMA control blocks in the waveform.
 
+The SYNC variants of the waveMode wait for the current waveform to reach the end of a cycle or finish before starting the new waveform.
+
+WARNING: bad things may happen if you delete the previous waveform before it has been synced to the new waveform.
+
+
 NOTE: Any hardware PWM started by hardwarePwmWrite will be cancelled.
 
 #### waveChain(chain)
