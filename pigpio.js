@@ -287,8 +287,8 @@ class Gpio extends EventEmitter {
     return this;
   }
 
-  serialRead(buf, bufLength) {
-    return pigpio.gpioSerialRead(this.gpio, buf, bufLength);
+  serialRead(buf, bufSize) {
+    return pigpio.gpioSerialRead(this.gpio, buf, bufSize);
   }
 
   serialReadClose() {
