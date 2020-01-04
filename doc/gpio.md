@@ -424,13 +424,13 @@ outPut.waveDelete(waveId);
 ```
 
 #### waveAddSerial(baud, dataBits, stopBits, offset, message)
-Adds a waveform representing serial data to the existing waveform (if any). 
 - baud - an unsigned integer from 50 - 1000000, specifies the baud rate.
 - dataBits - an unsigned integer from 1 - 32, number of data bits.
 - stopBits - an unsigned integer from 1 - 4, number of stop bits.
 - offset - an unsigned integer >= 0, the serial data starts offset microseconds from the start of the waveform.
 - message - a string, the Message to be sent.
 
+Adds a waveform representing serial data to the existing waveform.
 Returns the new total number of pulses in the current waveform.
 
 #### waveCreate()
@@ -438,17 +438,21 @@ Creates a waveform from added data. Returns a wave id.
 All data previously added with `waveAdd*` methods get cleared.
 
 #### waveDelete(waveId)
+- waveId - >=0, as returned by waveCreate
+
 Deletes a waveform by the given wave id. Returns this.
 
 #### waveTxSend(waveId, waveMode)
 - waveId - >=0, as returned by waveCreate
 - waveMode - WAVE_MODE_ONE_SHOT, WAVE_MODE_REPEAT, WAVE_MODE_ONE_SHOT_SYNC or WAVE_MODE_REPEAT_SYNC
+
 Transmits a waveform. Returns the number of DMA control blocks in the waveform.
 
 NOTE: Any hardware PWM started by hardwarePwmWrite will be cancelled.
 
 #### waveChain(chain)
 - chain - Array of waves to be transmitted, contains an ordered list of wave_ids and optional command codes and related data.
+
 Transmits a chain of waveforms. Returns this.
 
 NOTE: Any hardware PWM started by hardwarePwmWrite will be cancelled.
@@ -511,23 +515,20 @@ Returns the length in DMA control blocks of the longest waveform created since g
 Returns the maximum possible size of a waveform in DMA control blocks.
 
 #### serialReadOpen(baud)
-Opens a GPIO for bit bang reading of serial data. 
 - baud - the baud rate, 50 - 250000
 
-Returns this.
+Opens a GPIO for bit bang reading of serial data. Returns this.
 
 #### serialReadInvert(invert)
-Configures the level logic for bit bang serial reads. 
 - invert - if the level should be invertet or not, 0 or 1
 
-Returns this.
+Configures the level logic for bit bang serial reads. Returns this.
 
 #### serialRead(buf, bufSize)
-Copies up to bufSize bytes of data read from the bit bang serial cyclic buffer to the buffer starting at buf. 
 - buf - an array to receive the read bytes
 - bufSize - > 0
 
-Returns the number of bytes read.
+Copies up to bufSize bytes of data read from the bit bang serial cyclic buffer to the buffer starting at buf. Returns the number of bytes read.
 
 #### serialReadClose()
 Closes a GPIO for bit bang reading of serial data. Returns this.
