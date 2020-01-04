@@ -190,6 +190,14 @@ class Gpio extends EventEmitter {
   }
 
   waveAddGeneric(pulses) {
+    for (let pulse of pulses) {
+      if (pulse.gpioOn !== 0) {
+        pulse.gpioOn = 1 << pulse.gpioOn;
+      }
+      if (pulse.gpioOff !== 0) {
+        pulse.gpioOff = 1 << pulse.gpioOff;
+      }
+    }
     return pigpio.gpioWaveAddGeneric(pulses);
   }
 
