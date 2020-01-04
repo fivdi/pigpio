@@ -1,7 +1,6 @@
 const pigpio = require('pigpio');
 const Gpio = pigpio.Gpio;
 
-
 const outPin = 17;
 const outPut = new Gpio(outPin, {
   mode: Gpio.OUTPUT
@@ -22,7 +21,6 @@ for (let x = 0; x < 10; x++) {
 
 outPut.waveAddGeneric(firstWaveForm);
 let firstWaveId = outPut.waveCreate();
-
 
 for (let x = 0; x < 10; x++) {
   if (x % 2 == 0) {
