@@ -284,10 +284,10 @@ Here's an example of the typical output to the console:
 
 #### Generate a waveform
 
-This example generates a waveform that starts with a 1µs pulse, then has a 2µs pause, followed by a 3µs pulse and so on.
+Waveforms can be used to time and execute Gpio level changes with an accuracy up to 1 microsecond. The following example generates a waveform that starts with a 1µs pulse, then has a 2µs pause, followed by a 3µs pulse and so on.
 The waveform definition is a simple Array where each entry is an object with the properties gpioOn, gpioOff and usDelay.
 
-The basic workflow to generate and execute waves is as follows:
+The basic workflow to generate and execute waveforms is as follows:
 
 First, we usually clear previous wave entries with the `waveClear` method.
 Then we can add pulses with the `waveAddGeneric` or `waveAddSerial` methods to the cleared waveform.
