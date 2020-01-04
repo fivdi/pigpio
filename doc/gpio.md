@@ -443,19 +443,15 @@ Deletes a waveform by the given wave id. Returns this.
 #### waveTxSend(waveId, waveMode)
 - waveId - >=0, as returned by waveCreate
 - waveMode - WAVE_MODE_ONE_SHOT, WAVE_MODE_REPEAT, WAVE_MODE_ONE_SHOT_SYNC or WAVE_MODE_REPEAT_SYNC
-Transmits a waveform.
+Transmits a waveform. Returns the number of DMA control blocks in the waveform.
 
 NOTE: Any hardware PWM started by hardwarePwmWrite will be cancelled.
-
-Returns the number of DMA control blocks in the waveform.
 
 #### waveChain(chain)
 - chain - Array of waves to be transmitted, contains an ordered list of wave_ids and optional command codes and related data.
-Transmits a chain of waveforms.
+Transmits a chain of waveforms. Returns this.
 
 NOTE: Any hardware PWM started by hardwarePwmWrite will be cancelled.
-
-Returns this.
 
 The following command codes are supported:
 
@@ -467,13 +463,14 @@ Delay	| 255 2 x y	| delay x + y*256 microseconds
 Loop Forever |	255 3	| loop forever
 
 Each wave is transmitted in the order specified. A wave may occur multiple times per chain. 
-A blocks of waves may be transmitted multiple times by using the loop commands. The block is bracketed by loop start and end commands. Loops may be nested.
+blocks of waves may be transmitted multiple times by using the loop commands. The block is bracketed by loop start and end commands. Loops may be nested.
 Delays between waves may be added with the delay command. 
+If present Loop Forever must be the last entry in the chain. 
 
-For example, the following code creates a waveChain buffer containing a wave specified by `firstWaveID` and a wave specified by `secondWaveID`. The `secondWaveID` wave will loop forever until waveTXStop is called on the gpio
+For example, the following code creates a waveChain buffer containing a wave specified by `firstWaveId` and a wave specified by `secondWaveId`. The `secondWaveId` wave will loop forever until waveTxStop is called on the gpio.
 
 ```js
-let waveChain = Buffer.from([firstWaveID, 255, 0, secondWaveID,	255, 3]); 
+let waveChain = Buffer.from([firstWaveId, 255, 0, secondWaveId,	255, 3]); 
 gpio.waveChain(waveChain);
 ```
 
