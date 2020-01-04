@@ -13,7 +13,7 @@ let baud = 115200;
 let dataBits = 8;
 let stopBits = 1;
 let offset = 0;
-let message = "Hello world!";
+let message = 'Hello world!';
 
 output.waveAddSerial(baud, dataBits, stopBits, offset, message);
 
