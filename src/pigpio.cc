@@ -808,7 +808,7 @@ NAN_METHOD(gpioWaveAddSerial) {
   unsigned numBytes = Nan::To<uint32_t>(info[5]).FromJust();
   char * message = node::Buffer::Data(info[6]);
 
-  int rc = gpioWaveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, message);
+  int rc = gpioWaveAddSerial(gpio, baud, dataBits, stopBits*2, offset, numBytes, message);
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioWaveAddSerial");
   }
