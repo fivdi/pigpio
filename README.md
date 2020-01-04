@@ -383,39 +383,37 @@ output.waveDelete(secondWaveId);
 ```
 #### Adding a waveform representing serial data
 
-In this example `waveAddSerial` permits to create a waveform rapresentin SerialData
+In this example `waveAddSerial` permits to create a waveform representing serial data.
 
 ```js
-const Gpio = require('pigpio').Gpio;
+'use strict';
 
-let outPin = 17;
-let baud = 9600;
-let data_bits = 8;
-let stop_bits = 2;
-let offset = 0;
-  
+const assert = require('assert');
+const pigpio = require('pigpio');
+const Gpio = pigpio.Gpio;
+
+const outPin = 17;
 const output = new Gpio(outPin, {
   mode: Gpio.OUTPUT
 });
 
-let str = "Hello world!";
-let buf = Buffer.from(str);
-let numBytes = buf.length;
+let baud = 115200;
+let dataBits = 8;
+let stopBits = 1;
+let offset = 0;
+let message = "Hello world!";
 
-Gpio.waveClear();
+output.waveAddSerial(baud, dataBits, stopBits, offset, message);
 
-Gpio.waveAddSerial(outPin, baud, data_bits, stop_bits, offset, numBytes, buf);
+let waveId = output.waveCreate();
 
-let waveId = Gpio.waveCreate();
-
-if (waveId >= 0) {
-  Gpio.waveTxSend(waveId, Gpio.WAVE_MODE_ONE_SHOT);
+if(waveId >= 0) {
+  output.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
 }
 
-while (Gpio.waveTxBusy()) {}
+while (output.waveTxBusy()) { }
 
-Gpio.waveDelete(waveId);
-
+output.waveDelete(waveId);
 ```
 #### Setting a watchdog for a GPIO.
 ```js

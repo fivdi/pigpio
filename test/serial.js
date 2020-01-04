@@ -26,5 +26,3 @@ if(waveId >= 0) {
 while (output.waveTxBusy()) { }
 
 output.waveDelete(waveId);
-
-
