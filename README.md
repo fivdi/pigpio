@@ -443,19 +443,6 @@ while (output.waveTxBusy()) { }
 
 output.waveDelete(waveId);
 ```
-#### Setting a watchdog for a GPIO.
-```js
-const Gpio = require('pigpio').Gpio;
-
-let outPin = 17;
-let watchdog_ms = 2000;
-
-const output = new Gpio(outPin, {
-  mode: Gpio.OUTPUT
-});
-
-Gpio.setWatchdog(outPin,watchdog_ms);
-```
 
 ## API Documentation
 

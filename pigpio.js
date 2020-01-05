@@ -104,10 +104,6 @@ class Gpio extends EventEmitter {
     return this;
   }
   
-  setWatchdog(gpio, timeout) {
-    return pigpio.gpioSetWatchdog(gpio, timeout);
-  }
-  
   getPwmDutyCycle() {
     return pigpio.gpioGetPWMdutycycle(this.gpio);
   }
