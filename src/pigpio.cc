@@ -245,22 +245,8 @@ NAN_METHOD(gpioTrigger) {
 }
 
 NAN_METHOD(gpioTick) {
-  uint32_t rc = gpioTick();
-  info.GetReturnValue().Set(rc);
-}
-
-NAN_METHOD(gpioSetWatchdog) {
-  if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
-    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioSetWatchdog", ""));
-  }
-  unsigned user_gpio = Nan::To<uint32_t>(info[0]).FromJust();
-  unsigned timeout = Nan::To<uint32_t>(info[1]).FromJust();;
-
-  int rc = gpioSetWatchdog(user_gpio, timeout);
-  if (rc < 0) {
-    return ThrowPigpioError(rc, "gpioSetWatchdog");
-  }
-  info.GetReturnValue().Set(rc);
+    uint32_t rc = gpioTick();
+    info.GetReturnValue().Set(rc);
 }
 
 NAN_METHOD(gpioPWM) {
@@ -1104,7 +1090,6 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioCfgInterfaces", gpioCfgInterfaces);
   SetFunction(target, "gpioInitialise", gpioInitialise);
   SetFunction(target, "gpioTerminate", gpioTerminate);
-  SetFunction(target, "gpioSetWatchdog", gpioSetWatchdog);
 
   SetFunction(target, "gpioSetMode", gpioSetMode);
   SetFunction(target, "gpioGetMode", gpioGetMode);
