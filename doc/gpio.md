@@ -34,7 +34,6 @@
   - [waveClear()](#waveclear)
   - [waveAddNew()](#waveaddnew)
   - [waveAddGeneric(pulses)](#waveaddgenericpulses)
-  - [waveAddSerial(baud, dataBits, stopBits, offset, message)](#waveaddserialbaud-databits-stopbits-offset-message)
   - [waveCreate()](#wavecreate)
   - [waveDelete()](#wavedelete)
   - [waveTxSend(waveId, waveMode)](#wavetxsendwaveid-wavemode)
@@ -51,11 +50,6 @@
   - [waveGetCbs()](#wavegetcbs)
   - [waveGetHighCbs()](#wavegethighcbs)
   - [waveGetMaxCbs()](#wavegetmaxcbs)
-- Serial
-  - [serialReadOpen(baud, dataBits)](#serialreadopenbaud-databits)
-  - [serialReadInvert(invert)](#serialreadinvertinvert)
-  - [serialRead(buf, bufSize)](#serialreadbuf-bufsize)
-  - [serialReadClose()](#serialreadclose)
 - Filters
   - [glitchFilter(steady)](#glitchfiltersteady)
 
@@ -424,16 +418,6 @@ while (output.waveTxBusy()) {}
 output.waveDelete(waveId);
 ```
 
-#### waveAddSerial(baud, dataBits, stopBits, offset, message)
-- baud - an unsigned integer from 50 - 1000000, specifies the baud rate.
-- dataBits - an unsigned integer from 1 - 32, number of data bits.
-- stopBits - an unsigned integer from 1 - 4, number of stop bits.
-- offset - an unsigned integer >= 0, the serial data starts `offset` microseconds from the start of the waveform.
-- message - a string, the Message to be sent.
-
-Adds a waveform representing serial data to the existing waveform.
-Returns the new total number of pulses in the current waveform.
-
 #### waveCreate()
 Creates a waveform from added data. Returns a wave id.
 All data previously added with `waveAdd*` methods get cleared.
@@ -556,26 +540,6 @@ Returns the length in DMA control blocks of the longest waveform created since g
 
 #### waveGetMaxCbs()
 Returns the maximum possible size of a waveform in DMA control blocks.
-
-#### serialReadOpen(baud, dataBits)
-- baud - an unsigned integer from 50 - 250000, specifies the baud rate.
-- dataBits - an unsigned integer from 1 - 32, number of data bits.
-
-Opens a GPIO for bit bang reading of serial data. Returns this.
-
-#### serialReadInvert(invert)
-- invert - if the level should be invertet or not, 0 or 1
-
-Configures the level logic for bit bang serial reads. Returns this.
-
-#### serialRead(buf, bufSize)
-- buf - a buffer to receive the read bytes
-- bufSize - > 0
-
-Copies up to bufSize bytes of data read from the bit bang serial cyclic buffer to the buffer starting at buf. Returns the number of bytes read.
-
-#### serialReadClose()
-Closes a GPIO for bit bang reading of serial data. Returns this.
 
 ### Events
 

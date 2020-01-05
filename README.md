@@ -318,7 +318,7 @@ The waveform definition is a simple Array where each entry is an object with the
 The basic workflow to generate and execute waveforms is as follows:
 
 First, we usually clear previous wave entries with the `waveClear` method.
-Then we can add pulses with the `waveAddGeneric` or `waveAddSerial` methods to the cleared waveform.
+Then we can add pulses with the `waveAddGeneric` method to the cleared waveform.
 We then create a waveId by calling the `waveCreate` method.
 To execute the waveform, we call the `waveTxSend` method.
 Once the wave is sent, we can delete the wave by calling the `waveDelete` method.
@@ -408,40 +408,6 @@ while (output.waveTxBusy()) {}
 
 output.waveDelete(firstWaveId);
 output.waveDelete(secondWaveId);
-```
-#### Sending serial data
-
-In this example `waveAddSerial` permits to create a waveform representing serial data.
-
-```js
-'use strict';
-
-const assert = require('assert');
-const pigpio = require('pigpio');
-const Gpio = pigpio.Gpio;
-
-const outPin = 17;
-const output = new Gpio(outPin, {
-  mode: Gpio.OUTPUT
-});
-
-let baud = 115200;
-let dataBits = 8;
-let stopBits = 1;
-let offset = 0;
-let message = "Hello world!";
-
-output.waveAddSerial(baud, dataBits, stopBits, offset, message);
-
-let waveId = output.waveCreate();
-
-if(waveId >= 0) {
-  output.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
-}
-
-while (output.waveTxBusy()) { }
-
-output.waveDelete(waveId);
 ```
 
 ## API Documentation

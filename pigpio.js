@@ -189,12 +189,6 @@ class Gpio extends EventEmitter {
     return pigpio.gpioWaveAddGeneric(pulses);
   }
 
-  waveAddSerial(baud, dataBits, stopBits, offset, message) {
-    let buf = Buffer.from(message);
-    let numBytes = buf.length;
-    return pigpio.gpioWaveAddSerial(this.gpio, baud, dataBits, stopBits, offset, numBytes, buf);
-  }
-
   waveCreate() {
     return pigpio.gpioWaveCreate();
   }
@@ -261,27 +255,6 @@ class Gpio extends EventEmitter {
 
   waveGetMaxCbs() {
     return pigpio.gpioWaveGetMaxCbs();
-  }
-
-  /* Serial */
-
-  serialReadOpen(baud, dataBits) {
-    pigpio.gpioSerialReadOpen(this.gpio, baud, dataBits);
-    return this;
-  }
-
-  serialReadInvert(invert) {
-    pigpio.gpioSerialReadInvert(this.gpio, invert);
-    return this;
-  }
-
-  serialRead(buf, bufSize) {
-    return pigpio.gpioSerialRead(this.gpio, buf, bufSize);
-  }
-
-  serialReadClose() {
-    pigpio.gpioSerialReadClose(this.gpio);
-    return this;
   }
 
   /* mode */
