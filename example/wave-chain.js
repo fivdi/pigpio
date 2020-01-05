@@ -4,10 +4,9 @@ const pigpio = require('pigpio');
 const Gpio = pigpio.Gpio;
 
 const outPin = 17;
-const output = new Gpio(outPin, {
-  mode: Gpio.OUTPUT
-});
+const output = new Gpio(outPin, {mode: Gpio.OUTPUT});
 
+output.digitalWrite(0);
 output.waveClear();
 
 let firstWaveForm = [];
