@@ -754,8 +754,6 @@ NAN_METHOD(gpioWaveAddGeneric) {
 
   gpioPulse_t pulses[numPulses];
 
-  //auto pulses = std::make_unique<gpioPulse_t[]>(array->Length());
-
   for (unsigned i = 0; i < array->Length(); i++) {
     if (Nan::Has(array, i).FromJust()) {
       
