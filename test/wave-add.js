@@ -9,24 +9,21 @@ pigpio.configureClock(1, pigpio.CLOCK_PCM);
 const iterations = 100;
 
 const outPin = 17;
-const output = new Gpio(outPin, {
-  mode: Gpio.OUTPUT
-});
+const output = new Gpio(outPin, {mode: Gpio.OUTPUT});
 
 output.digitalWrite(0);
+output.waveClear();
   
 let waveform = [];
 let result = [];
 
-for (let x = 0; x <= iterations; x++) {
+for (let x = 0; x < iterations; x++) {
   if (x % 2 === 0) {
     waveform.push({ gpioOn: outPin, gpioOff: 0, usDelay: x + 1 });
   } else {
     waveform.push({ gpioOn: 0, gpioOff: outPin, usDelay: x + 1 });
   }
 }
-
-output.waveClear();
 
 output.waveAddGeneric(waveform);
 
@@ -40,7 +37,7 @@ output.on('alert', (level, tick) => {
     for (let r = 0; r < result.length; r++) {
       if (result[r + 1] !== undefined) {
         assert.strictEqual(result[r][0], (waveform[r].gpioOn !== 0 ? 1 : 0), 'Waves level mismatch');
-        assert.strictEqual(Math.abs(waveform[r].usDelay - pigpio.tickDiff(result[r][1], result[r + 1][1])) < 20, true, 'Waves tick mismatch');
+        assert.strictEqual(Math.abs(waveform[r].usDelay - pigpio.tickDiff(result[r][1], result[r + 1][1])) < 10, true, 'Waves tick mismatch');
       } else {
         console.log('wave-add test passed.');
       }
