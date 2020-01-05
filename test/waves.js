@@ -76,6 +76,6 @@ output.waveAddGeneric(waveform);
 
 let thirdWaveId = output.waveCreate();
 
-assert.strictEqual(thirdWaveId, 0, 'waveClear'); // waveId should be 0 again because old wave got deleted
+assert.strictEqual(thirdWaveId, 0, 'waveClear'); // waveId should be 0 again because waves got cleared
 
 console.log('waves test passed');
