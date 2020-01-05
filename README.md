@@ -401,7 +401,7 @@ output.waveAddGeneric(secondWaveForm);
 let secondWaveId = output.waveCreate();
 
 if (firstWaveId >= 0 && secondWaveId >= 0) {
-  let chain = [firstWaveId, 255, 0, secondWaveId,	255, 1, 3, 0];
+  let chain = [firstWaveId, 255, 0, secondWaveId, 255, 1, 3, 0];
   output.waveChain(chain);
 }
 
