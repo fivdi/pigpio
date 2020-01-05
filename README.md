@@ -27,7 +27,6 @@ pigpio supports Node.js versions 6, 8, 10 and 12.
    * [Debounce a Button](#debounce-a-button)
    * [Generate a waveform](#generate-a-waveform)
    * [Sending a wavechain](#sending-a-wavechain)
-   * [Sending serial data](#sending-serial-data)
  * [API Documentation](#api-documentation)
  * [Limitations](#limitations)
  * [Troubleshooting](#troubleshooting)
