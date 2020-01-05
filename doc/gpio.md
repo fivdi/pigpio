@@ -474,13 +474,50 @@ Loop Forever |	255 3	| loop forever
 Each wave is transmitted in the order specified. A wave may occur multiple times per chain. 
 blocks of waves may be transmitted multiple times by using the loop commands. The block is bracketed by loop start and end commands. Loops may be nested.
 Delays between waves may be added with the delay command. 
-If present Loop Forever must be the last entry in the chain. 
+If present Loop Forever must be the last entry in the chain. chains
 
-For example, the following code creates a waveChain buffer containing a wave specified by `firstWaveId` and a wave specified by `secondWaveId`. The `secondWaveId` wave will loop forever until waveTxStop is called on the gpio.
-
+For example, the following code creates a chain containing four simple waves and  them together using all the above modifiers.
 ```js
-let waveChain = Buffer.from([firstWaveId, 255, 0, secondWaveId,	255, 3]); 
-gpio.waveChain(waveChain);
+const pigpio = require('pigpio');
+const Gpio = pigpio.Gpio;
+
+const outPin = 17;
+const output = new Gpio(outPin, {
+  mode: Gpio.OUTPUT
+});
+
+let firstWaveForm =   [{ gpioOn: outPin, gpioOff: 0, usDelay: 10 }, { gpioOn: 0, gpioOff: outPin, usDelay: 10 }];
+let secondWaveForm =  [{ gpioOn: outPin, gpioOff: 0, usDelay: 20 }, { gpioOn: 0, gpioOff: outPin, usDelay: 20 }];
+let thirdWaveForm =   [{ gpioOn: outPin, gpioOff: 0, usDelay: 30 }, { gpioOn: 0, gpioOff: outPin, usDelay: 30 }];
+let fourthWaveForm =  [{ gpioOn: outPin, gpioOff: 0, usDelay: 40 }, { gpioOn: 0, gpioOff: outPin, usDelay: 40 }];
+
+output.waveClear();
+output.waveAddGeneric(firstWaveForm);
+let firstWaveId = output.waveCreate();
+
+output.waveAddGeneric(secondWaveForm);
+let secondWaveId = output.waveCreate();
+
+output.waveAddGeneric(thirdWaveForm);
+let thirdWaveId = output.waveCreate();
+
+output.waveAddGeneric(fourthWaveForm);
+let fourthWaveId = output.waveCreate();
+
+let chain = [
+  firstWaveId,      // transmits firstWaveId
+  secondWaveId,	    // transmits secondWaveId
+  firstWaveId,      // transmits again firstWaveId
+  255, 2, 136, 19,  // delay for 5000 microseconds (136 + 19 * 256 = 5000)
+  255, 0,           // marks the beginning of a new wave
+  thirdWaveId,	    // transmits thirdWaveId
+  255, 1, 30, 0,    // repeats the waves since the last beginning mark 30 times (30 + 0 * 256 = 30)
+  255, 0,           // marks the beginning of a new wave
+  fourthWaveId,	    // transmits fourthWaveId
+  255, 3            // loops forever until waveTxStop is called
+];
+
+output.waveChain(chain);
 ```
 
 #### waveTxAt()
