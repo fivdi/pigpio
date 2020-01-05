@@ -518,6 +518,7 @@ let chain = [
 ];
 
 output.waveChain(chain);
+while (output.waveTxBusy()) {}
 ```
 
 #### waveTxAt()
