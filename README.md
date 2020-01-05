@@ -362,8 +362,7 @@ output.waveDelete(waveId);
 The `waveChain` method allows you to chain multiple waveforms together.
 A chain is basically just an array with several waveId's. However you can insert different modifiers as described [here](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#wavechainchain).
 
-In the example the `chain` consists of two waves. The first waveform is transmitted normally while the second waveform is repeated 3 times.
-
+In the example the `chain` consists of two waves. The first waveform is transmitted normally, the second waveform is repeated 3 times.
 ```js
 const pigpio = require('pigpio');
 const Gpio = pigpio.Gpio;
