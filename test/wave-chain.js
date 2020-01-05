@@ -11,9 +11,7 @@ const repetitions = 3;
 const delay = 10;
 
 const outPin = 17;
-const output = new Gpio(outPin, {
-  mode: Gpio.OUTPUT
-});
+const output = new Gpio(outPin, {mode: Gpio.OUTPUT});
 
 output.digitalWrite(0);
 output.waveClear();
@@ -22,7 +20,7 @@ let firstWaveForm = [];
 let secondWaveForm = [];
 let result = [];
 
-for (let x = 0; x <= iterations; x++) {
+for (let x = 0; x < iterations; x++) {
   if (x % 2 === 0) {
     firstWaveForm.push({ gpioOn: outPin, gpioOff: 0, usDelay: delay });
   } else {
@@ -33,7 +31,7 @@ for (let x = 0; x <= iterations; x++) {
 output.waveAddGeneric(firstWaveForm);
 let firstWaveId = output.waveCreate();
 
-for (let x = 0; x <= iterations; x++) {
+for (let x = 0; x < iterations; x++) {
   if (x % 2 === 0) {
     secondWaveForm.push({ gpioOn: outPin, gpioOff: 0, usDelay: delay });
   } else {
@@ -51,7 +49,7 @@ output.on('alert', (level, tick) => {
   if (result.length === iterations + (iterations * repetitions)) {
     for (let r = 0; r < result.length; r++) {
       if (result[r + 1] !== undefined) {
-        assert.strictEqual(Math.abs(delay - pigpio.tickDiff(result[r][1], result[r + 1][1])) < 40, true, 'Waves tick mismatch');
+        assert.strictEqual(Math.abs(delay - pigpio.tickDiff(result[r][1], result[r + 1][1])) < 10, true, 'Waves tick mismatch');
       } else {
         console.log('wave-chain test passed.');
       }
