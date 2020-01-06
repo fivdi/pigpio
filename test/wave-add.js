@@ -19,9 +19,9 @@ let result = [];
 
 for (let x = 0; x < iterations; x++) {
   if (x % 2 === 0) {
-    waveform.push({ gpioOn: outPin, gpioOff: 0, usDelay: x + 1 });
+    waveform.push({ gpioOn: outPin, gpioOff: 0, usDelay: x + 10 });
   } else {
-    waveform.push({ gpioOn: 0, gpioOff: outPin, usDelay: x + 1 });
+    waveform.push({ gpioOn: 0, gpioOff: outPin, usDelay: x + 10 });
   }
 }
 
