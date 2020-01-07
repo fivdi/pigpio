@@ -458,9 +458,9 @@ Loop Forever |	255 3	| loop forever
 Each wave is transmitted in the order specified. A wave may occur multiple times per chain. 
 blocks of waves may be transmitted multiple times by using the loop commands. The block is bracketed by loop start and end commands. Loops may be nested.
 Delays between waves may be added with the delay command. 
-If present Loop Forever must be the last entry in the chain. chains
+If present Loop Forever must be the last entry in the chain.
 
-For example, the following code creates a chain containing four simple waves and  them together using all the above modifiers.
+For example, the following code creates a chain containing four simple waves and chains them together using all the above modifiers.
 ```js
 const pigpio = require('pigpio');
 const Gpio = pigpio.Gpio;
