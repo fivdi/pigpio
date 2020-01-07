@@ -32,7 +32,7 @@ setTimeout(() => {
 
 setTimeout(() => {
   assert.strictEqual(alertCount, 1, 'expected 1 alert function call instead of ' + alertCount);
-  console.log("  success...");
+  console.log('  success...');
   process.exit(0);
 }, 1000);
 

@@ -32,7 +32,7 @@ const activatePwmMeasurement = () => {
 
       pulses += 1;
       if (pulses === 1000) {
-        for (let i = 0; i != pulseCounts.length; i += 1) {
+        for (let i = 0; i !== pulseCounts.length; i += 1) {
           if (pulseCounts[i] !== undefined) {
             console.log('  ' + i + 'us - ' + pulseCounts[i]);
           }

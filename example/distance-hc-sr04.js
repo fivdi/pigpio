@@ -14,7 +14,7 @@ const watchHCSR04 = () => {
   let startTick;
 
   echo.on('alert', (level, tick) => {
-    if (level == 1) {
+    if (level === 1) {
       startTick = tick;
     } else {
       const endTick = tick;

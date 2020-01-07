@@ -1,3 +1,43 @@
+2.0.1 / Sep 22 2019
+===================
+
+  * drop support for node.js v4
+
+2.0.0 / Sep 06 2019
+===================
+
+  * suppress cast-function-type warnings
+  * raspberry pi 4 support
+
+1.3.0 / Sep 06 2019
+===================
+
+  * add configureInterfaces (thank you [@cinderblock](https://github.com/cinderblock))
+
+1.2.3 / Jun 16 2019
+===================
+
+  * update dependencies
+  * update npm keywords
+
+1.2.2 / Mar 16 2019
+===================
+
+  * update dependencies (nan v2.13.1, bindings v1.5.0)
+  * document node 12 support
+  * lint with jshint
+  * only compile c++ code on linux
+
+1.2.1 / Dec 19 2018
+===================
+
+  * update dependencies (nan v2.12.1, bindings v1.3.1)
+
+1.2.0 / Nov 25 2018
+===================
+
+  * add getTick and tickDiff (thank you [@erikma](https://github.com/erikma))
+
 1.1.4 / Oct 13 2018
 ===================
 

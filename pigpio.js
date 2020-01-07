@@ -1,3 +1,4 @@
+/* jshint -W078 */
 'use strict';
 
 const EventEmitter = require('events').EventEmitter;
@@ -16,6 +17,18 @@ const initializePigpio = () => {
     pigpio.gpioInitialise();
     initialized = true;
   }
+};
+
+/* ------------------------------------------------------------------------ */
+/* Global                                                                   */
+/* ------------------------------------------------------------------------ */
+
+module.exports.getTick = () => {
+  return pigpio.gpioTick();
+};
+
+module.exports.tickDiff = (startUsec, endUsec) => {
+  return (endUsec >> 0) - (startUsec >> 0);
 };
 
 /* ------------------------------------------------------------------------ */
@@ -46,7 +59,7 @@ class Gpio extends EventEmitter {
       );
     }
 
-    if (typeof options.alert === "boolean" && options.alert) {
+    if (typeof options.alert === 'boolean' && options.alert) {
       this.enableAlert();
     }
   }
@@ -89,10 +102,6 @@ class Gpio extends EventEmitter {
   hardwarePwmWrite(frequency, dutyCycle) {
     pigpio.gpioHardwarePWM(this.gpio, +frequency, +dutyCycle);
     return this;
-  }
-  
-  setWatchdog(gpio, timeout) {
-    return pigpio.gpioSetWatchdog(gpio, timeout);
   }
   
   getPwmDutyCycle() {
@@ -164,7 +173,7 @@ class Gpio extends EventEmitter {
     return this;
   }
   
-  /** WaveForm **/
+  /* WaveForm */
 
   waveClear() {
     pigpio.gpioWaveClear();
@@ -177,8 +186,7 @@ class Gpio extends EventEmitter {
   }
 
   waveAddGeneric(pulses) {
-    pigpio.gpioWaveAddGeneric(pulses);
-    return this;
+    return pigpio.gpioWaveAddGeneric(pulses);
   }
 
   waveCreate() {
@@ -189,15 +197,17 @@ class Gpio extends EventEmitter {
     pigpio.gpioWaveDelete(waveId);
     return this;
   }
+
   waveTxSend(waveId, waveMode) {
     return pigpio.gpioWaveTxSend(waveId, waveMode);
   }
-  waveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, str) {
-    return pigpio.gpioWaveAddSerial(gpio, baud, dataBits, stopBits, offset, numBytes, str);
+
+  waveChain(chain) {
+    let buf = Buffer.from(chain);
+    pigpio.gpioWaveChain(buf, buf.length);
+    return this;
   }
-  waveChain(buf, bufLength) {
-    return pigpio.gpioWaveChain(buf, bufLength);
-  }
+
   waveTxAt() {
     return pigpio.gpioWaveTxAt();
   }
@@ -207,7 +217,8 @@ class Gpio extends EventEmitter {
   }
 
   waveTxStop() {
-    return pigpio.gpioWaveTxStop();
+    pigpio.gpioWaveTxStop();
+    return this;
   }
 
   waveGetMicros() {
@@ -242,7 +253,7 @@ class Gpio extends EventEmitter {
     return pigpio.gpioWaveGetHighCbs();
   }
 
-  waveGetMaxCbs = function () {
+  waveGetMaxCbs() {
     return pigpio.gpioWaveGetMaxCbs();
   }
 
@@ -278,12 +289,6 @@ class Gpio extends EventEmitter {
 Gpio.prototype.analogWrite = Gpio.prototype.pwmWrite;
 
 module.exports.Gpio = Gpio;
-
-/* wave mode */
-Gpio.WAVE_MODE_ONE_SHOT = 0 // PI_WAVE_MODE_ONE_SHOT
-Gpio.WAVE_MODE_REPEAT = 1 // PI_WAVE_MODE_REPEAT
-Gpio.WAVE_MODE_ONE_SHOT_SYNC = 2 // PI_WAVE_MODE_ONE_SHOT_SYNC
-Gpio.WAVE_MODE_REPEAT_SYNC = 3 // PI_WAVE_MODE_REPEAT_SYNC
 
 /* ------------------------------------------------------------------------ */
 /* GpioBank                                                                 */
@@ -392,9 +397,19 @@ module.exports.hardwareRevision = () => {
   return pigpio.gpioHardwareRevision();
 };
 
-module.exports.tick = () => {
-    return pigpio.gpioTick();
+module.exports.configureInterfaces = (interfaces) => {
+  return pigpio.gpioCfgInterfaces(+interfaces);
 };
+
+module.exports.DISABLE_FIFO_IF = 1; // PI_DISABLE_FIFO_IF;
+module.exports.DISABLE_SOCK_IF = 2; // PI_DISABLE_SOCK_IF;
+module.exports.LOCALHOST_SOCK_IF = 4; // PI_LOCALHOST_SOCK_IF;
+module.exports.DISABLE_ALERT = 8; // PI_DISABLE_ALERT;
+module.exports.WAVE_MODE_ONE_SHOT = 0; // PI_WAVE_MODE_ONE_SHOT
+module.exports.WAVE_MODE_REPEAT = 1; // PI_WAVE_MODE_REPEAT
+module.exports.WAVE_MODE_ONE_SHOT_SYNC = 2; // PI_WAVE_MODE_ONE_SHOT_SYNC
+module.exports.WAVE_MODE_REPEAT_SYNC = 3; // PI_WAVE_MODE_REPEAT_SYNC
+
 
 module.exports.initialize = () => {
   initializePigpio();
@@ -416,4 +431,3 @@ module.exports.configureSocketPort = (port) => {
 
 module.exports.CLOCK_PWM = 0; // PI_CLOCK_PWM;
 module.exports.CLOCK_PCM = 1; // PI_CLOCK_PCM;
-

@@ -14,7 +14,7 @@ const watchLed = () => {
 
   // Use alerts to determine how long the LED was turned on
   led.on('alert', (level, tick) => {
-    if (level == 1) {
+    if (level === 1) {
       startTick = tick;
     } else {
       const endTick = tick;

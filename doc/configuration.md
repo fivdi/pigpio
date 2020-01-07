@@ -10,11 +10,16 @@ the default behavior will suffice.
   - [initialize()](#initialize)
   - [terminate()](#terminate)
   - [configureClock(microseconds, peripheral)](#configureclockmicroseconds-peripheral)
+  - [configureInterfaces(ifFlags)](#configureinterfacesifflags)
   - [configureSocketPort(port)](#configuresocketportport)
 
 #### Constants
   - [CLOCK_PWM](#clock_pwm)
   - [CLOCK_PCM](#clock_pcm)
+  - [DISABLE_FIFO_IF](#disable_fifo_if)
+  - [DISABLE_SOCK_IF](#disable_sock_if)
+  - [LOCALHOST_SOCK_IF](#localhost_sock_if)
+  - [DISABLE_ALERT](#disable_alert)
 
 ### Functions
 
@@ -167,6 +172,31 @@ pigpio.configureClock(1, pigpio.CLOCK_PCM);
 const led = new Gpio(17, {mode: Gpio.OUTPUT});
 ```
 
+#### configureInterfaces(ifFlags)
+- ifFlags - flags to configure the fifo and socket interfaces.
+
+Configures pigpio support of the fifo and socket interfaces. 
+
+This function is only effective if called before creating Gpio objects. 
+
+The default setting (0) is that both interfaces are enabled. 
+
+Or in DISABLE_FIFO_IF to disable the pipe interface. 
+
+Or in DISABLE_SOCK_IF to disable the socket interface. 
+
+Or in LOCALHOST_SOCK_IF to disable remote socket access (this means that the socket interface is only usable from the local Pi).
+
+```js
+const pigpio = require('pigpio');
+const Gpio = pigpio.Gpio;
+
+// Call configureInterfaces before creating Gpio objects
+pigpio.configureInterfaces(pigpio.DISABLE_FIFO_IF | pigpio.DISABLE_SOCK_IF);
+
+const led = new Gpio(17, {mode: Gpio.OUTPUT});
+```
+
 #### configureSocketPort(port)
 - port - an unsigned integer specifying the pigpio socket port number.
 
@@ -195,3 +225,14 @@ PWM clock.
 #### CLOCK_PCM
 PCM clock.
 
+#### DISABLE_FIFO_IF
+Disables the pipe interface.
+
+#### DISABLE_SOCK_IF
+Disables the socket interface.
+
+#### LOCALHOST_SOCK_IF
+Disables remote socket access (this means that the socket interface is only usable from the local Pi).
+
+#### DISABLE_ALERT
+Disables alerts on Gpio objects

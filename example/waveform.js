@@ -1,50 +1,33 @@
-var outPin = 17;
+'use strict';
 
-var Gpio = require('pigpio').Gpio,
-  out = new Gpio(outPin, {
-    mode: Gpio.OUTPUT
-  });
-  
-(function () {
-  var waveform = [];
-  
-  var x = 0;
-  for (x=0; x < 10; x++) {
-    if (x % 2 == 0) {
-      waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
-    } else {
-      waveform[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:20 };
-    }
-  }
-  
-  for (x=10; x < 20; x++) {
-    if (x % 2 == 0) {
-      waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:30 };
-    } else {
-      waveform[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:30 };
-    }
-  }
-  
-  for (x=20; x < 30; x++) {
-    if (x % 2 == 0) {
-      waveform[x] = { gpioOn:(1 << outPin), gpioOff:0, usDelay:20 };
-    } else {
-      waveform[x] = { gpioOn:0, gpioOff:(1 << outPin), usDelay:20 };
-    }
-  }
-  
-  Gpio.waveClear();
-  
-  Gpio.waveAddGeneric(waveform.length, waveform);
-  
-  var waveId = Gpio.waveCreate();
+const pigpio = require('pigpio');
+const Gpio = pigpio.Gpio;
 
-  if (waveId >= 0) {
-    Gpio.waveTxSend(waveId, Gpio.WAVE_MODE_ONE_SHOT);
-  }
+const outPin = 17;
 
-  while (Gpio.waveTxBusy()) {}
-  
-  Gpio.waveDelete(waveId);
-  
-}());
+const output = new Gpio(outPin, {mode: Gpio.OUTPUT});
+
+output.digitalWrite(0);
+output.waveClear();
+
+let waveform = [];
+
+for (let x = 0; x < 20; x++) {
+  if (x % 2 === 1) {
+    waveform.push({ gpioOn: outPin, gpioOff: 0, usDelay: x + 1 });
+  } else {
+    waveform.push({ gpioOn: 0, gpioOff: outPin, usDelay: x + 1 });
+  }
+}
+
+output.waveAddGeneric(waveform);
+
+let waveId = output.waveCreate();
+
+if (waveId >= 0) {
+  output.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
+}
+
+while (output.waveTxBusy()) {}
+
+output.waveDelete(waveId);
