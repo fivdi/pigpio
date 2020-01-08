@@ -645,14 +645,14 @@ The largest GPIO number.
 The largest user GPIO number.
 
 #### WAVE_MODE_ONE_SHOT
-The waveform is sent once
+The waveform is sent once.
 
 #### WAVE_MODE_REPEAT
-The waveform cycles repeatedly
+The waveform cycles repeatedly.
 
 #### WAVE_MODE_ONE_SHOT_SYNC
-The waveform is sent once, waiting for the current waveform to finish before starting the new waveform
+The waveform is sent once, waiting for the current waveform to finish before starting the new waveform.
 
 #### WAVE_MODE_REPEAT_SYNC
-The waveform cycles repeatedly, waiting for the current waveform to finish before starting the new waveform
+The waveform cycles repeatedly, waiting for the current waveform to finish before starting the new waveform.
 
