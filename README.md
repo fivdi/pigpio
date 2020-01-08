@@ -328,10 +328,11 @@ const Gpio = pigpio.Gpio;
 
 const outPin = 17;
 
-const output = new Gpio(outPin, {
-  mode: Gpio.OUTPUT
-});
-  
+const output = new Gpio(outPin, {mode: Gpio.OUTPUT});
+
+output.digitalWrite(0);
+output.waveClear();
+
 let waveform = [];
 
 for (let x = 0; x < 20; x++) {
@@ -341,8 +342,6 @@ for (let x = 0; x < 20; x++) {
     waveform.push({ gpioOn: 0, gpioOff: outPin, usDelay: x + 1 });
   }
 }
-
-output.waveClear();
 
 output.waveAddGeneric(waveform);
 
@@ -367,10 +366,9 @@ const pigpio = require('pigpio');
 const Gpio = pigpio.Gpio;
 
 const outPin = 17;
-const output = new Gpio(outPin, {
-  mode: Gpio.OUTPUT
-});
+const output = new Gpio(outPin, {mode: Gpio.OUTPUT});
 
+output.digitalWrite(0);
 output.waveClear();
 
 let firstWaveForm = [];
