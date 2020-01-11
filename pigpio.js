@@ -31,7 +31,6 @@ module.exports.tickDiff = (startUsec, endUsec) => {
   return (endUsec >> 0) - (startUsec >> 0);
 };
 
-
 /* WaveForm */
 
 module.exports.waveClear = () => {
@@ -110,7 +109,6 @@ module.exports.waveGetHighCbs = () => {
 module.exports.waveGetMaxCbs = () => {
   return pigpio.gpioWaveGetMaxCbs();
 };
-
 
 /* ------------------------------------------------------------------------ */
 /* Gpio                                                                     */
@@ -253,7 +251,7 @@ class Gpio extends EventEmitter {
     pigpio.gpioGlitchFilter(this.gpio, +steady);
     return this;
   }
-  
+
   /* mode */
   static get INPUT() { return 0; } // PI_INPUT
   static get OUTPUT() { return 1; } //PI_OUTPUT;
@@ -406,7 +404,6 @@ module.exports.WAVE_MODE_ONE_SHOT = 0; // PI_WAVE_MODE_ONE_SHOT
 module.exports.WAVE_MODE_REPEAT = 1; // PI_WAVE_MODE_REPEAT
 module.exports.WAVE_MODE_ONE_SHOT_SYNC = 2; // PI_WAVE_MODE_ONE_SHOT_SYNC
 module.exports.WAVE_MODE_REPEAT_SYNC = 3; // PI_WAVE_MODE_REPEAT_SYNC
-
 
 module.exports.initialize = () => {
   initializePigpio();
