@@ -35,7 +35,7 @@
   - [waveAddNew()](#waveaddnew)
   - [waveAddGeneric(pulses)](#waveaddgenericpulses)
   - [waveCreate()](#wavecreate)
-  - [waveDelete()](#wavedeletewaveid)
+  - [waveDelete(waveId)](#wavedeletewaveid)
   - [waveTxSend(waveId, waveMode)](#wavetxsendwaveid-wavemode)
   - [waveChain(chain)](#wavechainchain)
   - [waveTxAt()](#wavetxat)
