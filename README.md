@@ -34,6 +34,10 @@ pigpio supports Node.js versions 6, 8, 10, 12 and 13.
 
 ## News & Updates
 
+### January 2020: pigpio v3.0.0
+
+ * Adds support for waveforms (thank you [@Rogerrrrrrrs](https://github.com/Rogerrrrrrrs), [bahamut657](https://github.com/bahamut657), and [@AnthonyMyatt](https://github.com/AnthonyMyatt))
+
 ### September 2019: pigpio v2.0.0
 
 pigpio v2.0.0 adds experimental support for the Raspberry Pi 4 Model B. Adding

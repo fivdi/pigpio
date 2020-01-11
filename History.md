@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * add support for waveforms (thank you [@Rogerrrrrrrs](https://github.com/Rogerrrrrrrs), [bahamut657](https://github.com/bahamut657), and [@AnthonyMyatt](https://github.com/AnthonyMyatt))
+
 2.0.1 / Sep 22 2019
 ===================
 
