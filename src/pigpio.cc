@@ -716,8 +716,6 @@ NAN_METHOD(gpioWaveClear) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioWaveClear");
   }
-  
-  info.GetReturnValue().Set(rc);
 }
 
 NAN_METHOD(gpioWaveAddNew) {
@@ -725,8 +723,6 @@ NAN_METHOD(gpioWaveAddNew) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioWaveAddNew");
   }
-
-  info.GetReturnValue().Set(rc);
 }
 
 NAN_METHOD(gpioWaveAddGeneric) {
@@ -806,8 +802,6 @@ NAN_METHOD(gpioWaveDelete) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioWaveDelete");
   }
-
-  info.GetReturnValue().Set(rc);
 }
 
 NAN_METHOD(gpioWaveTxSend) {
@@ -838,8 +832,6 @@ NAN_METHOD(gpioWaveChain) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioWaveChain");
   }
-
-  info.GetReturnValue().Set(rc);
 }
 
 NAN_METHOD(gpioWaveTxAt) {
@@ -861,8 +853,6 @@ NAN_METHOD(gpioWaveTxStop) {
   if (rc < 0) {
     return ThrowPigpioError(rc, "gpioWaveTxStop");
   }
-
-  info.GetReturnValue().Set(rc);
 }
 
 NAN_METHOD(gpioWaveGetMicros) {
