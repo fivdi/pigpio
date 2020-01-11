@@ -69,6 +69,8 @@ let currentUsec = pigpio.getTick();
 let deltaUsec = pigpio.tickDiff(startUsec, currentUsec);
 ```
 
+### Waveforms
+
 #### waveClear()
 Clears all waveforms and any data added by calls to the `waveAdd*` functions.
 
