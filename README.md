@@ -25,6 +25,8 @@ pigpio supports Node.js versions 6, 8, 10, 12 and 13.
    * [Measure Distance with a HC-SR04 Ultrasonic Sensor](#measure-distance-with-a-hc-sr04-ultrasonic-sensor)
    * [Determine the Width of a Pulse with Alerts](#determine-the-width-of-a-pulse-with-alerts)
    * [Debounce a Button](#debounce-a-button)
+   * [Generate a waveform](#generate-a-waveform)
+   * [Sending a wavechain](#sending-a-wavechain)
  * [API Documentation](#api-documentation)
  * [Limitations](#limitations)
  * [Troubleshooting](#troubleshooting)
@@ -59,6 +61,7 @@ changes for the Raspberry Pi Zero, 1, 2 or 3. For further details see
  * Read or write up to 32 GPIOs as one operation with banked GPIO
  * Trigger pulse generation
  * Pull up/down resistor configuration
+ * Waveforms to generate GPIO level changes (time accurate to a few µs)
 
 *) On a Raspberry Pi 4 Model B running Raspbian Buster 2019-07-10 with pigpio
 v2.0.0, Node.js v12.10.0 and V70 of the pigpio C library.
@@ -306,6 +309,104 @@ button.on('alert', (level, tick) => {
 });
 ```
 
+#### Generate a waveform
+
+Waveforms can be used to time and execute Gpio level changes with an accuracy up to 1 microsecond. The following example generates a waveform that starts with a 1µs pulse, then has a 2µs pause, followed by a 3µs pulse and so on.
+The waveform definition is a simple Array where each entry is an object with the properties gpioOn, gpioOff and usDelay.
+
+The basic workflow to generate and execute waveforms is as follows:
+
+First, we usually clear previous wave entries with the `waveClear` method.
+Then we can add pulses with the `waveAddGeneric` method to the cleared waveform.
+We then create a waveId by calling the `waveCreate` method.
+To execute the waveform, we call the `waveTxSend` method.
+Once the wave is sent, we can delete the wave by calling the `waveDelete` method.
+
+```js
+const pigpio = require('pigpio');
+const Gpio = pigpio.Gpio;
+
+const outPin = 17;
+
+const output = new Gpio(outPin, {mode: Gpio.OUTPUT});
+
+output.digitalWrite(0);
+pigpio.waveClear();
+
+let waveform = [];
+
+for (let x = 0; x < 20; x++) {
+  if (x % 2 === 1) {
+    waveform.push({ gpioOn: outPin, gpioOff: 0, usDelay: x + 1 });
+  } else {
+    waveform.push({ gpioOn: 0, gpioOff: outPin, usDelay: x + 1 });
+  }
+}
+
+pigpio.waveAddGeneric(waveform);
+
+let waveId = pigpio.waveCreate();
+
+if (waveId >= 0) {
+  pigpio.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
+}
+
+while (pigpio.waveTxBusy()) {}
+
+pigpio.waveDelete(waveId);
+```
+#### Sending a wavechain
+
+The `waveChain` method allows you to chain multiple waveforms together.
+A chain is basically just an array with several waveId's. However you can insert different modifiers as described [here](https://github.com/fivdi/pigpio/blob/master/doc/global.md#wavechainchain).
+
+In the example the `chain` consists of two waves. The first waveform is transmitted normally, then the second waveform is repeated 3 times.
+```js
+const pigpio = require('pigpio');
+const Gpio = pigpio.Gpio;
+
+const outPin = 17;
+const output = new Gpio(outPin, {mode: Gpio.OUTPUT});
+
+output.digitalWrite(0);
+pigpio.waveClear();
+
+let firstWaveForm = [];
+let secondWaveForm = [];
+
+for (let x = 0; x < 10; x++) {
+  if (x % 2 === 0) {
+    firstWaveForm.push({ gpioOn: outPin, gpioOff: 0, usDelay: 10 });
+  } else {
+    firstWaveForm.push({ gpioOn: 0, gpioOff: outPin, usDelay: 10 });
+  }
+}
+
+pigpio.waveAddGeneric(firstWaveForm);
+let firstWaveId = pigpio.waveCreate();
+
+for (let x = 0; x < 10; x++) {
+  if (x % 2 === 0) {
+    secondWaveForm.push({ gpioOn: outPin, gpioOff: 0, usDelay: 20 });
+  } else {
+    secondWaveForm.push({ gpioOn: 0, gpioOff: outPin, usDelay: 20 });
+  }
+}
+
+pigpio.waveAddGeneric(secondWaveForm);
+let secondWaveId = pigpio.waveCreate();
+
+if (firstWaveId >= 0 && secondWaveId >= 0) {
+  let chain = [firstWaveId, 255, 0, secondWaveId, 255, 1, 3, 0];
+  pigpio.waveChain(chain);
+}
+
+while (pigpio.waveTxBusy()) {}
+
+pigpio.waveDelete(firstWaveId);
+pigpio.waveDelete(secondWaveId);
+```
+
 ## API Documentation
 
 ### Classes
@@ -343,4 +444,3 @@ Here are a few links to other hardware specific Node.js packages that may be of 
 - [mcp-spi-adc](https://github.com/fivdi/mcp-spi-adc) - Analog to digital conversion with the MCP3002/4/8, MCP3202/4/8 and MCP3304
 - [pigpio-dht](https://github.com/depuits/pigpio-dht) - Implements logic to read DHT11 or DHT22/AM2302 temperature and relative humidity sensor
 - [pigpio-mock](https://github.com/deepsyx/pigpio-mock) - A pigpio mock library for development on your local machine
-

@@ -707,6 +707,203 @@ NAN_METHOD(gpioNotifyClose) {
   }
 }
 
+/* ------------------------------------------------------------------------ */
+/* Waves                                                                    */
+/* ------------------------------------------------------------------------ */
+
+NAN_METHOD(gpioWaveClear) {
+  int rc = gpioWaveClear();
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioWaveClear");
+  }
+}
+
+NAN_METHOD(gpioWaveAddNew) {
+  int rc = gpioWaveAddNew();
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioWaveAddNew");
+  }
+}
+
+NAN_METHOD(gpioWaveAddGeneric) {
+  if (info.Length() < 1 || !info[0]->IsArray()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", ""));
+  }
+
+  
+  v8::Local<v8::Array> array = info[0].As<v8::Array>();
+  unsigned numPulses = array->Length();
+
+  gpioPulse_t pulses[numPulses];
+
+  for (unsigned i = 0; i < array->Length(); i++) {
+    if (Nan::Has(array, i).FromJust()) {
+      
+      v8::Local<v8::Value> element = Nan::Get(array, i).ToLocalChecked();
+      
+      if (!element->IsObject()) {
+        return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", "")); 
+      }
+
+      v8::Local<v8::Object> pulse = v8::Local<v8::Object>::Cast(element);
+
+      v8::Local<v8::Value> _on =
+        Nan::Get(pulse, Nan::New<v8::String>("gpioOn").ToLocalChecked()).
+        ToLocalChecked();
+      v8::Local<v8::Value> _off =
+        Nan::Get(pulse, Nan::New<v8::String>("gpioOff").ToLocalChecked()).
+        ToLocalChecked();
+      v8::Local<v8::Value> _delay =
+        Nan::Get(pulse, Nan::New<v8::String>("usDelay").ToLocalChecked()).
+        ToLocalChecked();
+      
+      if (!_on->IsUint32() || !_off->IsUint32() || !_delay->IsUint32()){
+        return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", ""));
+      }
+      
+      uint32_t on = _on->Uint32Value(Nan::GetCurrentContext()).FromJust();
+      uint32_t off = _off->Uint32Value(Nan::GetCurrentContext()).FromJust();
+      uint32_t delay = _delay->Uint32Value(Nan::GetCurrentContext()).FromJust();
+
+      if (on > 0) {
+        on = 1 << on;
+      }
+      if (off > 0) {
+        off = 1 << off;
+      }
+
+      pulses[i].gpioOn = on;
+      pulses[i].gpioOff = off;
+      pulses[i].usDelay = delay;
+    }
+  }
+
+  int rc = gpioWaveAddGeneric(numPulses, pulses);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioWaveAddGeneric");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveCreate) {
+  int rc = gpioWaveCreate();
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioWaveCreate");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveDelete) {
+  if (info.Length() < 1 || !info[0]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveDelete", ""));
+  }
+
+  unsigned waveId = Nan::To<uint32_t>(info[0]).FromJust();
+
+  int rc = gpioWaveDelete(waveId);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioWaveDelete");
+  }
+}
+
+NAN_METHOD(gpioWaveTxSend) {
+  if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveTxSend", ""));
+  }
+  
+  unsigned waveId = Nan::To<uint32_t>(info[0]).FromJust();
+  unsigned waveMode = Nan::To<uint32_t>(info[1]).FromJust();
+
+  int rc = gpioWaveTxSend(waveId, waveMode);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioWaveTxSend");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveChain) {
+  if (info.Length() < 2 || info[0]->IsNull() || !info[1]->IsUint32()) {
+    return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveChain", ""));
+  }
+
+  char * buf = node::Buffer::Data(info[0]);
+  unsigned bufSize = Nan::To<uint32_t>(info[1]).FromJust();
+
+  int rc = gpioWaveChain(buf, bufSize);
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioWaveChain");
+  }
+}
+
+NAN_METHOD(gpioWaveTxAt) {
+  int rc = gpioWaveTxAt();
+  if (rc >= PI_WAVE_NOT_FOUND) {
+    return ThrowPigpioError(rc, "gpioWaveTxAt");
+  }
+
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveTxBusy) {
+  int rc = gpioWaveTxBusy();
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveTxStop) {
+  int rc = gpioWaveTxStop();
+  if (rc < 0) {
+    return ThrowPigpioError(rc, "gpioWaveTxStop");
+  }
+}
+
+NAN_METHOD(gpioWaveGetMicros) {
+  int rc = gpioWaveGetMicros();
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveGetHighMicros) {
+  int rc = gpioWaveGetHighMicros();
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveGetMaxMicros) {
+  int rc = gpioWaveGetMaxMicros();
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveGetPulses) {
+  int rc = gpioWaveGetPulses();
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveGetHighPulses) {
+  int rc = gpioWaveGetHighPulses();
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveGetMaxPulses) {
+  int rc = gpioWaveGetMaxPulses();
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveGetCbs) {
+  int rc = gpioWaveGetCbs();
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveGetHighCbs) {
+  int rc = gpioWaveGetHighCbs();
+  info.GetReturnValue().Set(rc);
+}
+
+NAN_METHOD(gpioWaveGetMaxCbs) {
+  int rc = gpioWaveGetMaxCbs();
+  info.GetReturnValue().Set(rc);
+}
+
 
 /* ------------------------------------------------------------------------ */
 /* Configuration                                                            */
@@ -843,6 +1040,26 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioNotifyPause", gpioNotifyPause);
   SetFunction(target, "gpioNotifyClose", gpioNotifyClose);
 
+  SetFunction(target, "gpioWaveClear", gpioWaveClear);
+  SetFunction(target, "gpioWaveAddNew", gpioWaveAddNew);
+  SetFunction(target, "gpioWaveAddGeneric", gpioWaveAddGeneric);
+  SetFunction(target, "gpioWaveCreate", gpioWaveCreate);
+  SetFunction(target, "gpioWaveDelete", gpioWaveDelete);
+  SetFunction(target, "gpioWaveTxSend", gpioWaveTxSend);
+  SetFunction(target, "gpioWaveChain", gpioWaveChain);
+  SetFunction(target, "gpioWaveTxAt", gpioWaveTxAt);
+  SetFunction(target, "gpioWaveTxBusy", gpioWaveTxBusy);
+  SetFunction(target, "gpioWaveTxStop", gpioWaveTxStop);
+  SetFunction(target, "gpioWaveGetMicros", gpioWaveGetMicros);
+  SetFunction(target, "gpioWaveGetHighMicros", gpioWaveGetHighMicros);
+  SetFunction(target, "gpioWaveGetMaxMicros", gpioWaveGetMaxMicros);
+  SetFunction(target, "gpioWaveGetPulses", gpioWaveGetPulses);
+  SetFunction(target, "gpioWaveGetHighPulses", gpioWaveGetHighPulses);
+  SetFunction(target, "gpioWaveGetMaxPulses", gpioWaveGetMaxPulses);
+  SetFunction(target, "gpioWaveGetCbs", gpioWaveGetCbs);
+  SetFunction(target, "gpioWaveGetHighCbs", gpioWaveGetHighCbs);
+  SetFunction(target, "gpioWaveGetMaxCbs", gpioWaveGetMaxCbs);
+
   SetFunction(target, "gpioCfgClock", gpioCfgClock);
   SetFunction(target, "gpioCfgSocketPort", gpioCfgSocketPort);
 
@@ -853,4 +1070,3 @@ NAN_MODULE_INIT(InitAll) {
 }
 
 NODE_MODULE(pigpio, InitAll)
-

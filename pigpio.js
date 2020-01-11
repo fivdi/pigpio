@@ -31,6 +31,85 @@ module.exports.tickDiff = (startUsec, endUsec) => {
   return (endUsec >> 0) - (startUsec >> 0);
 };
 
+/* WaveForm */
+
+module.exports.waveClear = () => {
+  pigpio.gpioWaveClear();
+};
+
+module.exports.waveAddNew = () => {
+  pigpio.gpioWaveAddNew();
+};
+
+module.exports.waveAddGeneric = (pulses) => {
+  return pigpio.gpioWaveAddGeneric(pulses);
+};
+
+module.exports.waveCreate = () => {
+  return pigpio.gpioWaveCreate();
+};
+
+module.exports.waveDelete = (waveId) => {
+  pigpio.gpioWaveDelete(waveId);
+};
+
+module.exports.waveTxSend = (waveId, waveMode) => {
+  return pigpio.gpioWaveTxSend(waveId, waveMode);
+};
+
+module.exports.waveChain = (chain) => {
+  let buf = Buffer.from(chain);
+  pigpio.gpioWaveChain(buf, buf.length);
+};
+
+module.exports.waveTxAt = () => {
+  return pigpio.gpioWaveTxAt();
+};
+
+module.exports.waveTxBusy = () => {
+  return pigpio.gpioWaveTxBusy();
+};
+
+module.exports.waveTxStop = () => {
+  pigpio.gpioWaveTxStop();
+};
+
+module.exports.waveGetMicros = () => {
+  return pigpio.gpioWaveGetMicros();
+};
+
+module.exports.waveGetHighMicros = () => {
+  return pigpio.gpioWaveGetHighMicros();
+};
+
+module.exports.waveGetMaxMicros = () => {
+  return pigpio.gpioWaveGetMaxMicros();
+};
+
+module.exports.waveGetPulses = () => {
+  return pigpio.gpioWaveGetPulses();
+};
+
+module.exports.waveGetHighPulses = () => {
+  return pigpio.gpioWaveGetHighPulses();
+};
+
+module.exports.waveGetMaxPulses = () => {
+  return pigpio.gpioWaveGetMaxPulses();
+};
+
+module.exports.waveGetCbs = () => {
+  return pigpio.gpioWaveGetCbs();
+};
+
+module.exports.waveGetHighCbs = () => {
+  return pigpio.gpioWaveGetHighCbs();
+};
+
+module.exports.waveGetMaxCbs = () => {
+  return pigpio.gpioWaveGetMaxCbs();
+};
+
 /* ------------------------------------------------------------------------ */
 /* Gpio                                                                     */
 /* ------------------------------------------------------------------------ */
@@ -141,7 +220,7 @@ class Gpio extends EventEmitter {
 
   enableInterrupt(edge, timeout) {
     const handler = (gpio, level, tick) => {
-      this.emit('interrupt', level);
+      this.emit('interrupt', level, tick);
     };
 
     timeout = timeout || 0;
@@ -321,6 +400,10 @@ module.exports.DISABLE_FIFO_IF = 1; // PI_DISABLE_FIFO_IF;
 module.exports.DISABLE_SOCK_IF = 2; // PI_DISABLE_SOCK_IF;
 module.exports.LOCALHOST_SOCK_IF = 4; // PI_LOCALHOST_SOCK_IF;
 module.exports.DISABLE_ALERT = 8; // PI_DISABLE_ALERT;
+module.exports.WAVE_MODE_ONE_SHOT = 0; // PI_WAVE_MODE_ONE_SHOT
+module.exports.WAVE_MODE_REPEAT = 1; // PI_WAVE_MODE_REPEAT
+module.exports.WAVE_MODE_ONE_SHOT_SYNC = 2; // PI_WAVE_MODE_ONE_SHOT_SYNC
+module.exports.WAVE_MODE_REPEAT_SYNC = 3; // PI_WAVE_MODE_REPEAT_SYNC
 
 module.exports.initialize = () => {
   initializePigpio();
@@ -342,4 +425,3 @@ module.exports.configureSocketPort = (port) => {
 
 module.exports.CLOCK_PWM = 0; // PI_CLOCK_PWM;
 module.exports.CLOCK_PCM = 1; // PI_CLOCK_PCM;
-
