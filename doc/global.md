@@ -172,7 +172,7 @@ Delay	| 255 2 x y	| delay x + y*256 microseconds
 Loop Forever |	255 3	| loop forever
 
 Each wave is transmitted in the order specified. A wave may occur multiple times per chain. 
-blocks of waves may be transmitted multiple times by using the loop commands. The block is bracketed by loop start and end commands. Loops may be nested.
+Blocks of waves may be transmitted multiple times by using the loop commands. The block is bracketed by loop start and end commands. Loops may be nested.
 Delays between waves may be added with the delay command. 
 If present Loop Forever must be the last entry in the chain.
 
