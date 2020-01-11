@@ -331,7 +331,7 @@ const outPin = 17;
 const output = new Gpio(outPin, {mode: Gpio.OUTPUT});
 
 output.digitalWrite(0);
-output.waveClear();
+pigpio.waveClear();
 
 let waveform = [];
 
@@ -343,17 +343,17 @@ for (let x = 0; x < 20; x++) {
   }
 }
 
-output.waveAddGeneric(waveform);
+pigpio.waveAddGeneric(waveform);
 
-let waveId = output.waveCreate();
+let waveId = pigpio.waveCreate();
 
 if (waveId >= 0) {
-  output.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
+  pigpio.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
 }
 
-while (output.waveTxBusy()) {}
+while (pigpio.waveTxBusy()) {}
 
-output.waveDelete(waveId);
+pigpio.waveDelete(waveId);
 ```
 #### Sending a wavechain
 
@@ -369,7 +369,7 @@ const outPin = 17;
 const output = new Gpio(outPin, {mode: Gpio.OUTPUT});
 
 output.digitalWrite(0);
-output.waveClear();
+pigpio.waveClear();
 
 let firstWaveForm = [];
 let secondWaveForm = [];
@@ -382,8 +382,8 @@ for (let x = 0; x < 10; x++) {
   }
 }
 
-output.waveAddGeneric(firstWaveForm);
-let firstWaveId = output.waveCreate();
+pigpio.waveAddGeneric(firstWaveForm);
+let firstWaveId = pigpio.waveCreate();
 
 for (let x = 0; x < 10; x++) {
   if (x % 2 === 0) {
@@ -393,18 +393,18 @@ for (let x = 0; x < 10; x++) {
   }
 }
 
-output.waveAddGeneric(secondWaveForm);
-let secondWaveId = output.waveCreate();
+pigpio.waveAddGeneric(secondWaveForm);
+let secondWaveId = pigpio.waveCreate();
 
 if (firstWaveId >= 0 && secondWaveId >= 0) {
   let chain = [firstWaveId, 255, 0, secondWaveId, 255, 1, 3, 0];
-  output.waveChain(chain);
+  pigpio.waveChain(chain);
 }
 
-while (output.waveTxBusy()) {}
+while (pigpio.waveTxBusy()) {}
 
-output.waveDelete(firstWaveId);
-output.waveDelete(secondWaveId);
+pigpio.waveDelete(firstWaveId);
+pigpio.waveDelete(secondWaveId);
 ```
 
 ## API Documentation
