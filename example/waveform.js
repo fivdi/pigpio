@@ -8,7 +8,7 @@ const outPin = 17;
 const output = new Gpio(outPin, {mode: Gpio.OUTPUT});
 
 output.digitalWrite(0);
-output.waveClear();
+pigpio.waveClear();
 
 let waveform = [];
 
@@ -20,14 +20,14 @@ for (let x = 0; x < 20; x++) {
   }
 }
 
-output.waveAddGeneric(waveform);
+pigpio.waveAddGeneric(waveform);
 
-let waveId = output.waveCreate();
+let waveId = pigpio.waveCreate();
 
 if (waveId >= 0) {
-  output.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
+  pigpio.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
 }
 
-while (output.waveTxBusy()) {}
+while (pigpio.waveTxBusy()) {}
 
-output.waveDelete(waveId);
+pigpio.waveDelete(waveId);

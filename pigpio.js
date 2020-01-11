@@ -31,6 +31,87 @@ module.exports.tickDiff = (startUsec, endUsec) => {
   return (endUsec >> 0) - (startUsec >> 0);
 };
 
+
+/* WaveForm */
+
+module.exports.waveClear = () => {
+  pigpio.gpioWaveClear();
+};
+
+module.exports.waveAddNew = () => {
+  pigpio.gpioWaveAddNew();
+};
+
+module.exports.waveAddGeneric = (pulses) => {
+  return pigpio.gpioWaveAddGeneric(pulses);
+};
+
+module.exports.waveCreate = () => {
+  return pigpio.gpioWaveCreate();
+};
+
+module.exports.waveDelete = (waveId) => {
+  pigpio.gpioWaveDelete(waveId);
+};
+
+module.exports.waveTxSend = (waveId, waveMode) => {
+  return pigpio.gpioWaveTxSend(waveId, waveMode);
+};
+
+module.exports.waveChain = (chain) => {
+  let buf = Buffer.from(chain);
+  pigpio.gpioWaveChain(buf, buf.length);
+};
+
+module.exports.waveTxAt = () => {
+  return pigpio.gpioWaveTxAt();
+};
+
+module.exports.waveTxBusy = () => {
+  return pigpio.gpioWaveTxBusy();
+};
+
+module.exports.waveTxStop = () => {
+  pigpio.gpioWaveTxStop();
+};
+
+module.exports.waveGetMicros = () => {
+  return pigpio.gpioWaveGetMicros();
+};
+
+module.exports.waveGetHighMicros = () => {
+  return pigpio.gpioWaveGetHighMicros();
+};
+
+module.exports.waveGetMaxMicros = () => {
+  return pigpio.gpioWaveGetMaxMicros();
+};
+
+module.exports.waveGetPulses = () => {
+  return pigpio.gpioWaveGetPulses();
+};
+
+module.exports.waveGetHighPulses = () => {
+  return pigpio.gpioWaveGetHighPulses();
+};
+
+module.exports.waveGetMaxPulses = () => {
+  return pigpio.gpioWaveGetMaxPulses();
+};
+
+module.exports.waveGetCbs = () => {
+  return pigpio.gpioWaveGetCbs();
+};
+
+module.exports.waveGetHighCbs = () => {
+  return pigpio.gpioWaveGetHighCbs();
+};
+
+module.exports.waveGetMaxCbs = () => {
+  return pigpio.gpioWaveGetMaxCbs();
+};
+
+
 /* ------------------------------------------------------------------------ */
 /* Gpio                                                                     */
 /* ------------------------------------------------------------------------ */
@@ -173,90 +254,6 @@ class Gpio extends EventEmitter {
     return this;
   }
   
-  /* WaveForm */
-
-  waveClear() {
-    pigpio.gpioWaveClear();
-    return this;
-  }
-  
-  waveAddNew() {
-    pigpio.gpioWaveAddNew();
-    return this;
-  }
-
-  waveAddGeneric(pulses) {
-    return pigpio.gpioWaveAddGeneric(pulses);
-  }
-
-  waveCreate() {
-    return pigpio.gpioWaveCreate();
-  }
-
-  waveDelete(waveId) {
-    pigpio.gpioWaveDelete(waveId);
-    return this;
-  }
-
-  waveTxSend(waveId, waveMode) {
-    return pigpio.gpioWaveTxSend(waveId, waveMode);
-  }
-
-  waveChain(chain) {
-    let buf = Buffer.from(chain);
-    pigpio.gpioWaveChain(buf, buf.length);
-    return this;
-  }
-
-  waveTxAt() {
-    return pigpio.gpioWaveTxAt();
-  }
-
-  waveTxBusy() {
-    return pigpio.gpioWaveTxBusy();
-  }
-
-  waveTxStop() {
-    pigpio.gpioWaveTxStop();
-    return this;
-  }
-
-  waveGetMicros() {
-    return pigpio.gpioWaveGetMicros();
-  }
-
-  waveGetHighMicros() {
-    return pigpio.gpioWaveGetHighMicros();
-  }
-
-  waveGetMaxMicros() {
-    return pigpio.gpioWaveGetMaxMicros();
-  }
-
-  waveGetPulses() {
-    return pigpio.gpioWaveGetPulses();
-  }
-
-  waveGetHighPulses() {
-    return pigpio.gpioWaveGetHighPulses();
-  }
-
-  waveGetMaxPulses() {
-    return pigpio.gpioWaveGetMaxPulses();
-  }
-
-  waveGetCbs() {
-    return pigpio.gpioWaveGetCbs();
-  }
-
-  waveGetHighCbs() {
-    return pigpio.gpioWaveGetHighCbs();
-  }
-
-  waveGetMaxCbs() {
-    return pigpio.gpioWaveGetMaxCbs();
-  }
-
   /* mode */
   static get INPUT() { return 0; } // PI_INPUT
   static get OUTPUT() { return 1; } //PI_OUTPUT;
