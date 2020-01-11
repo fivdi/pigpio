@@ -739,7 +739,7 @@ NAN_METHOD(gpioWaveAddGeneric) {
   for (unsigned i = 0; i < array->Length(); i++) {
     if (Nan::Has(array, i).FromJust()) {
       
-      v8::Local<v8::Value> element = array->Get(i);
+      v8::Local<v8::Value> element = Nan::Get(array, i).ToLocalChecked();
       
       if (!element->IsObject()) {
         return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", "")); 
@@ -747,11 +747,15 @@ NAN_METHOD(gpioWaveAddGeneric) {
 
       v8::Local<v8::Object> pulse = v8::Local<v8::Object>::Cast(element);
 
-      v8::Isolate * isolate = v8::Isolate::GetCurrent();
-
-      v8::Local < v8::Value > _on = pulse->Get(v8::String::NewFromUtf8(isolate, "gpioOn"));
-      v8::Local < v8::Value > _off = pulse->Get(v8::String::NewFromUtf8(isolate, "gpioOff"));
-      v8::Local < v8::Value > _delay = pulse->Get(v8::String::NewFromUtf8(isolate, "usDelay"));
+      v8::Local<v8::Value> _on =
+        Nan::Get(pulse, Nan::New<v8::String>("gpioOn").ToLocalChecked()).
+        ToLocalChecked();
+      v8::Local<v8::Value> _off =
+        Nan::Get(pulse, Nan::New<v8::String>("gpioOff").ToLocalChecked()).
+        ToLocalChecked();
+      v8::Local<v8::Value> _delay =
+        Nan::Get(pulse, Nan::New<v8::String>("usDelay").ToLocalChecked()).
+        ToLocalChecked();
       
       if (!_on->IsUint32() || !_off->IsUint32() || !_delay->IsUint32()){
         return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", ""));
