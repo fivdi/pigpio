@@ -244,10 +244,12 @@ NAN_METHOD(gpioTrigger) {
   }
 }
 
+
 NAN_METHOD(gpioTick) {
     uint32_t rc = gpioTick();
     info.GetReturnValue().Set(rc);
 }
+
 
 NAN_METHOD(gpioPWM) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
@@ -541,6 +543,7 @@ static NAN_METHOD(gpioSetAlertFunc) {
   }
 }
 
+
 NAN_METHOD(gpioGlitchFilter) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioGlitchFilter", ""));
@@ -634,6 +637,7 @@ NAN_METHOD(GpioWriteBitsClear_32_53) {
   info.GetReturnValue().Set(rc);
 }
 
+
 /* ------------------------------------------------------------------------ */
 /* Notifier                                                                 */
 /* ------------------------------------------------------------------------ */
@@ -707,9 +711,11 @@ NAN_METHOD(gpioNotifyClose) {
   }
 }
 
+
 /* ------------------------------------------------------------------------ */
 /* Waves                                                                    */
 /* ------------------------------------------------------------------------ */
+
 
 NAN_METHOD(gpioWaveClear) {
   int rc = gpioWaveClear();
@@ -717,6 +723,7 @@ NAN_METHOD(gpioWaveClear) {
     return ThrowPigpioError(rc, "gpioWaveClear");
   }
 }
+
 
 NAN_METHOD(gpioWaveAddNew) {
   int rc = gpioWaveAddNew();
@@ -730,7 +737,7 @@ NAN_METHOD(gpioWaveAddGeneric) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", ""));
   }
 
-  
+
   v8::Local<v8::Array> array = info[0].As<v8::Array>();
   unsigned numPulses = array->Length();
 
@@ -738,9 +745,8 @@ NAN_METHOD(gpioWaveAddGeneric) {
 
   for (unsigned i = 0; i < array->Length(); i++) {
     if (Nan::Has(array, i).FromJust()) {
-      
       v8::Local<v8::Value> element = Nan::Get(array, i).ToLocalChecked();
-      
+
       if (!element->IsObject()) {
         return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", "")); 
       }
@@ -756,11 +762,11 @@ NAN_METHOD(gpioWaveAddGeneric) {
       v8::Local<v8::Value> _delay =
         Nan::Get(pulse, Nan::New<v8::String>("usDelay").ToLocalChecked()).
         ToLocalChecked();
-      
+
       if (!_on->IsUint32() || !_off->IsUint32() || !_delay->IsUint32()){
         return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveAddGeneric", ""));
       }
-      
+
       uint32_t on = _on->Uint32Value(Nan::GetCurrentContext()).FromJust();
       uint32_t off = _off->Uint32Value(Nan::GetCurrentContext()).FromJust();
       uint32_t delay = _delay->Uint32Value(Nan::GetCurrentContext()).FromJust();
@@ -786,6 +792,7 @@ NAN_METHOD(gpioWaveAddGeneric) {
   info.GetReturnValue().Set(rc);
 }
 
+
 NAN_METHOD(gpioWaveCreate) {
   int rc = gpioWaveCreate();
   if (rc < 0) {
@@ -794,6 +801,7 @@ NAN_METHOD(gpioWaveCreate) {
 
   info.GetReturnValue().Set(rc);
 }
+
 
 NAN_METHOD(gpioWaveDelete) {
   if (info.Length() < 1 || !info[0]->IsUint32()) {
@@ -808,11 +816,12 @@ NAN_METHOD(gpioWaveDelete) {
   }
 }
 
+
 NAN_METHOD(gpioWaveTxSend) {
   if (info.Length() < 2 || !info[0]->IsUint32() || !info[1]->IsUint32()) {
     return Nan::ThrowError(Nan::ErrnoException(EINVAL, "gpioWaveTxSend", ""));
   }
-  
+
   unsigned waveId = Nan::To<uint32_t>(info[0]).FromJust();
   unsigned waveMode = Nan::To<uint32_t>(info[1]).FromJust();
 
@@ -823,6 +832,7 @@ NAN_METHOD(gpioWaveTxSend) {
 
   info.GetReturnValue().Set(rc);
 }
+
 
 NAN_METHOD(gpioWaveChain) {
   if (info.Length() < 2 || info[0]->IsNull() || !info[1]->IsUint32()) {
@@ -838,6 +848,7 @@ NAN_METHOD(gpioWaveChain) {
   }
 }
 
+
 NAN_METHOD(gpioWaveTxAt) {
   int rc = gpioWaveTxAt();
   if (rc >= PI_WAVE_NOT_FOUND) {
@@ -847,10 +858,12 @@ NAN_METHOD(gpioWaveTxAt) {
   info.GetReturnValue().Set(rc);
 }
 
+
 NAN_METHOD(gpioWaveTxBusy) {
   int rc = gpioWaveTxBusy();
   info.GetReturnValue().Set(rc);
 }
+
 
 NAN_METHOD(gpioWaveTxStop) {
   int rc = gpioWaveTxStop();
@@ -859,45 +872,54 @@ NAN_METHOD(gpioWaveTxStop) {
   }
 }
 
+
 NAN_METHOD(gpioWaveGetMicros) {
   int rc = gpioWaveGetMicros();
   info.GetReturnValue().Set(rc);
 }
+
 
 NAN_METHOD(gpioWaveGetHighMicros) {
   int rc = gpioWaveGetHighMicros();
   info.GetReturnValue().Set(rc);
 }
 
+
 NAN_METHOD(gpioWaveGetMaxMicros) {
   int rc = gpioWaveGetMaxMicros();
   info.GetReturnValue().Set(rc);
 }
+
 
 NAN_METHOD(gpioWaveGetPulses) {
   int rc = gpioWaveGetPulses();
   info.GetReturnValue().Set(rc);
 }
 
+
 NAN_METHOD(gpioWaveGetHighPulses) {
   int rc = gpioWaveGetHighPulses();
   info.GetReturnValue().Set(rc);
 }
+
 
 NAN_METHOD(gpioWaveGetMaxPulses) {
   int rc = gpioWaveGetMaxPulses();
   info.GetReturnValue().Set(rc);
 }
 
+
 NAN_METHOD(gpioWaveGetCbs) {
   int rc = gpioWaveGetCbs();
   info.GetReturnValue().Set(rc);
 }
 
+
 NAN_METHOD(gpioWaveGetHighCbs) {
   int rc = gpioWaveGetHighCbs();
   info.GetReturnValue().Set(rc);
 }
+
 
 NAN_METHOD(gpioWaveGetMaxCbs) {
   int rc = gpioWaveGetMaxCbs();
@@ -1064,7 +1086,7 @@ NAN_MODULE_INIT(InitAll) {
   SetFunction(target, "gpioCfgSocketPort", gpioCfgSocketPort);
 
   SetFunction(target, "gpioTick", gpioTick);
-  
+
   gpioISR_g = new GpioISR_t[PI_MAX_USER_GPIO + 1];
   gpioAlert_g = new GpioAlert_t[PI_MAX_USER_GPIO + 1];
 }

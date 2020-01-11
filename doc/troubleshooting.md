@@ -20,3 +20,4 @@ const led = new Gpio(25, { mode: Gpio.OUTPUT });
 Related issues:
 - [Sound stream breaks when initing the library](https://github.com/fivdi/pigpio/issues/52)
 - [gpioInitialise cause I2S DAC sound card does not work properly](https://github.com/joan2937/pigpio/issues/87)
+

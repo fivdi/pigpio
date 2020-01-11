@@ -235,4 +235,5 @@ Disables the socket interface.
 Disables remote socket access (this means that the socket interface is only usable from the local Pi).
 
 #### DISABLE_ALERT
-Disables alerts on Gpio objects
+Disables alerts on Gpio objects.
+

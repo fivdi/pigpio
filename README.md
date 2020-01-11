@@ -444,3 +444,4 @@ Here are a few links to other hardware specific Node.js packages that may be of 
 - [mcp-spi-adc](https://github.com/fivdi/mcp-spi-adc) - Analog to digital conversion with the MCP3002/4/8, MCP3202/4/8 and MCP3304
 - [pigpio-dht](https://github.com/depuits/pigpio-dht) - Implements logic to read DHT11 or DHT22/AM2302 temperature and relative humidity sensor
 - [pigpio-mock](https://github.com/deepsyx/pigpio-mock) - A pigpio mock library for development on your local machine
+

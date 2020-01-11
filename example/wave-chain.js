@@ -43,3 +43,4 @@ while (pigpio.waveTxBusy()) {}
 
 pigpio.waveDelete(firstWaveId);
 pigpio.waveDelete(secondWaveId);
+

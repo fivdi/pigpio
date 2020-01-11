@@ -53,3 +53,4 @@ if (waveId >= 0) {
 while (pigpio.waveTxBusy()) {}
 
 pigpio.waveDelete(waveId);
+
