@@ -119,19 +119,19 @@ for (let x = 0; x < 20; x++) {
   }
 }
 
-output.waveClear();
+pigpio.waveClear();
 
-output.waveAddGeneric(waveform);
+pigpio.waveAddGeneric(waveform);
 
-let waveId = output.waveCreate();
+let waveId = pigpio.waveCreate();
 
 if (waveId >= 0) {
-  output.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
+  pigpio.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
 }
 
-while (output.waveTxBusy()) {}
+while (pigpio.waveTxBusy()) {}
 
-output.waveDelete(waveId);
+pigpio.waveDelete(waveId);
 ```
 
 #### waveCreate()
@@ -191,18 +191,18 @@ let secondWaveForm =  [{ gpioOn: outPin, gpioOff: 0, usDelay: 20 }, { gpioOn: 0,
 let thirdWaveForm =   [{ gpioOn: outPin, gpioOff: 0, usDelay: 30 }, { gpioOn: 0, gpioOff: outPin, usDelay: 30 }];
 let fourthWaveForm =  [{ gpioOn: outPin, gpioOff: 0, usDelay: 40 }, { gpioOn: 0, gpioOff: outPin, usDelay: 40 }];
 
-output.waveClear();
-output.waveAddGeneric(firstWaveForm);
-let firstWaveId = output.waveCreate();
+pigpio.waveClear();
+pigpio.waveAddGeneric(firstWaveForm);
+let firstWaveId = pigpio.waveCreate();
 
-output.waveAddGeneric(secondWaveForm);
-let secondWaveId = output.waveCreate();
+pigpio.waveAddGeneric(secondWaveForm);
+let secondWaveId = pigpio.waveCreate();
 
-output.waveAddGeneric(thirdWaveForm);
-let thirdWaveId = output.waveCreate();
+pigpio.waveAddGeneric(thirdWaveForm);
+let thirdWaveId = pigpio.waveCreate();
 
-output.waveAddGeneric(fourthWaveForm);
-let fourthWaveId = output.waveCreate();
+pigpio.waveAddGeneric(fourthWaveForm);
+let fourthWaveId = pigpio.waveCreate();
 
 let chain = [
   firstWaveId,      // transmits firstWaveId
@@ -217,8 +217,8 @@ let chain = [
   255, 3            // loops forever until waveTxStop is called
 ];
 
-output.waveChain(chain);
-while (output.waveTxBusy()) {}
+pigpio.waveChain(chain);
+while (pigpio.waveTxBusy()) {}
 ```
 
 #### waveTxAt()
