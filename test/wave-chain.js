@@ -14,7 +14,7 @@ const outPin = 17;
 const output = new Gpio(outPin, {mode: Gpio.OUTPUT});
 
 output.digitalWrite(0);
-output.waveClear();
+pigpio.waveClear();
 
 let firstWaveForm = [];
 let secondWaveForm = [];
@@ -28,8 +28,8 @@ for (let x = 0; x < iterations; x++) {
   }
 }
 
-output.waveAddGeneric(firstWaveForm);
-let firstWaveId = output.waveCreate();
+pigpio.waveAddGeneric(firstWaveForm);
+let firstWaveId = pigpio.waveCreate();
 
 for (let x = 0; x < iterations; x++) {
   if (x % 2 === 0) {
@@ -39,8 +39,8 @@ for (let x = 0; x < iterations; x++) {
   }
 }
 
-output.waveAddGeneric(secondWaveForm);
-let secondWaveId = output.waveCreate();
+pigpio.waveAddGeneric(secondWaveForm);
+let secondWaveId = pigpio.waveCreate();
 
 output.enableAlert();
 
@@ -59,10 +59,10 @@ output.on('alert', (level, tick) => {
 });
 
 if (firstWaveId >= 0 && secondWaveId >= 0) {
-  output.waveChain([firstWaveId, 255, 0, secondWaveId,	255, 1, repetitions, 0]);
+  pigpio.waveChain([firstWaveId, 255, 0, secondWaveId,	255, 1, repetitions, 0]);
 }
 
-while (output.waveTxBusy()) {}
+while (pigpio.waveTxBusy()) {}
 
-output.waveDelete(firstWaveId);
-output.waveDelete(secondWaveId);
+pigpio.waveDelete(firstWaveId);
+pigpio.waveDelete(secondWaveId);
