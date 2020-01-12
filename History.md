@@ -1,7 +1,7 @@
-Unpublished
-===========
+3.0.0 / Jan 12 2020
+===================
 
-  * add support for waveforms (thank you [@Rogerrrrrrrs](https://github.com/Rogerrrrrrrs), [bahamut657](https://github.com/bahamut657), and [@AnthonyMyatt](https://github.com/AnthonyMyatt))
+  * add support for waveforms (thank you [@Rogerrrrrrrs](https://github.com/Rogerrrrrrrs), [@bahamut657](https://github.com/bahamut657), and [@AnthonyMyatt](https://github.com/AnthonyMyatt))
   * drop support for node 6
 
 2.0.1 / Sep 22 2019
