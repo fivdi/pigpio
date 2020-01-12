@@ -15,19 +15,26 @@ const Gpio = require('../').Gpio;
   // Put input and output in a known state
   output.digitalWrite(0);
 
-  input.on('interrupt', (level) => {
-    interruptCount += 1;
-    output.digitalWrite(level ^ 1);
-
-    if (interruptCount === 1000) {
-      console.log('  ' + interruptCount + ' interrupts detected on GPIO' + gpioNos[0]);
-      input.disableInterrupt();
-    }
-  });
-
+  // Interrupts rely on sysfs files in directory /sys/class/gpio.
+  // Wait till these sysfs files are fully initialized before proceeding.
   setTimeout(() => {
-    // Trigger first interrupt
-    output.digitalWrite(1);
-  }, 1);
+    // Read input to clear any potential initial unauthentic interrupt
+    input.digitalRead();
+
+    input.on('interrupt', (level) => {
+      interruptCount += 1;
+      output.digitalWrite(level ^ 1);
+
+      if (interruptCount === 1000) {
+        console.log('  ' + interruptCount + ' interrupts detected on GPIO' + gpioNos[0]);
+        input.disableInterrupt();
+      }
+    });
+
+    setTimeout(() => {
+      // Trigger first interrupt
+      output.digitalWrite(1);
+    }, 2);
+  }, 10);
 });
 
