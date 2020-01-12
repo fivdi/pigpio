@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const pigpio = require('pigpio');
+const pigpio = require('../');
 const Gpio = pigpio.Gpio;
 
 pigpio.configureClock(1, pigpio.CLOCK_PCM);

@@ -1,6 +1,6 @@
 'use strict';
 
-const pigpio = require('pigpio');
+const pigpio = require('../');
 const Gpio = pigpio.Gpio;
 
 const outPin = 17;
