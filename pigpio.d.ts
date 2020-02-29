@@ -1,4 +1,4 @@
-// Type definitions for pigpio 1.3
+// Type definitions for pigpio 2.0
 // Project: https://github.com/fivdi/pigpio
 // Definitions by: ManerFan <https://github.com/manerfan>
 //                 erikma <https://github.com/erikma>
@@ -102,7 +102,7 @@ export class Gpio extends EventEmitter {
 
   /**
    * Starts hardware PWM on the GPIO at the specified frequency and dutyCycle. Frequencies above 30MHz are unlikely to work.
-   * @param frequency     an unsigned integer >= 0 and <= 125000000
+   * @param frequency     an unsigned integer >= 0 and <= 125000000 (>= 0 and <= 187500000 for the BCM2711)
    * @param dutyCycle     an unsigned integer >= 0 (off) and <= 1000000 (fully on).
    */
   hardwarePwmWrite(frequency: number, dutyCycle: number): Gpio;
@@ -126,7 +126,7 @@ export class Gpio extends EventEmitter {
 
   /**
    * Returns the real range used for the GPIO.
-   * If hardware PWM is active on the GPIO the reported real range will be approximately 250M divided by the set PWM frequency.
+   * If hardware PWM is active on the GPIO the reported real range will be approximately 250M (375M for the BCM2711) divided by the set PWM frequency.
    */
   getPwmRealRange(): number;
 
