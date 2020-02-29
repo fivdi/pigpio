@@ -169,9 +169,7 @@ export function waveTxSend(
  * Delays between waves may be added with the delay command.
  * If present Loop Forever must be the last entry in the chain.
  *
- * For example, the following code creates a chain containing four simple waves and chains them together using all the above modifiers.
- *
- * @example
+ * @example <caption>creates a chain containing four simple waves and chains them together using all the above modifiers.</caption>
  * import * as pigpio from 'pigpio';
  *
  * const Gpio = pigpio.Gpio;
