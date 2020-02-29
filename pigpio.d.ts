@@ -339,9 +339,23 @@ export class Gpio extends EventEmitter {
   );
 
   /**
-   * Alerts are emitted every time a Gpio changes state
-   * @param event Alert Event
-   * @param listener Function to handle the event
+   * @param level the GPIO level when the state change occurred, 0 or 1
+   * @param tick the time stamp of the state change, an unsigned 32 bit integer
+   * `tick` is the number of microseconds since system boot and it should be accurate to a few microseconds.
+   *
+   * As tick is an unsigned 32 bit quantity it wraps around after 2^32 microseconds, which is approximately 1 hour 12 minutes.
+   *
+   * It's not necessary to worry about wrap around when subtracting one tick from another tick if the JavaScript sign propagating right shift operator >> is used.
+   *
+   * @example <caption>Wrong: simply subtracting startTick from endTick prints -4294967294 which isn't the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log(endTick - startTick); // prints -4294967294 which isn't what we want
+   *
+   * @example <caption>right shifts both startTick and endTick 0 bits to the right before subtracting prints 2 which is the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log((endTick >> 0) - (startTick >> 0)); // prints 2 which is what we want
    */
   addListener(
     event: 'alert',
@@ -349,23 +363,65 @@ export class Gpio extends EventEmitter {
   ): this;
 
   /**
-   * Alerts are emitted every time a Gpio changes state
-   * @param event Alert Event
-   * @param listener Function to handle the event
+   * @param level the GPIO level when the state change occurred, 0 or 1
+   * @param tick the time stamp of the state change, an unsigned 32 bit integer
+   * `tick` is the number of microseconds since system boot and it should be accurate to a few microseconds.
+   *
+   * As tick is an unsigned 32 bit quantity it wraps around after 2^32 microseconds, which is approximately 1 hour 12 minutes.
+   *
+   * It's not necessary to worry about wrap around when subtracting one tick from another tick if the JavaScript sign propagating right shift operator >> is used.
+   *
+   * @example <caption>Wrong: simply subtracting startTick from endTick prints -4294967294 which isn't the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log(endTick - startTick); // prints -4294967294 which isn't what we want
+   *
+   * @example <caption>right shifts both startTick and endTick 0 bits to the right before subtracting prints 2 which is the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log((endTick >> 0) - (startTick >> 0)); // prints 2 which is what we want
    */
   on(event: 'alert', listener: (level: 0 | 1, tick: number) => void): this;
 
   /**
-   * Alerts are emitted every time a Gpio changes state
-   * @param event Alert Event
-   * @param listener Function to handle the event
+   * @param level the GPIO level when the state change occurred, 0 or 1
+   * @param tick the time stamp of the state change, an unsigned 32 bit integer
+   * `tick` is the number of microseconds since system boot and it should be accurate to a few microseconds.
+   *
+   * As tick is an unsigned 32 bit quantity it wraps around after 2^32 microseconds, which is approximately 1 hour 12 minutes.
+   *
+   * It's not necessary to worry about wrap around when subtracting one tick from another tick if the JavaScript sign propagating right shift operator >> is used.
+   *
+   * @example <caption>Wrong: simply subtracting startTick from endTick prints -4294967294 which isn't the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log(endTick - startTick); // prints -4294967294 which isn't what we want
+   *
+   * @example <caption>right shifts both startTick and endTick 0 bits to the right before subtracting prints 2 which is the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log((endTick >> 0) - (startTick >> 0)); // prints 2 which is what we want
    */
   once(event: 'alert', listener: (level: 0 | 1, tick: number) => void): this;
 
   /**
-   * Alerts are emitted every time a Gpio changes state
-   * @param event Alert Event
-   * @param listener Function to handle the event
+   * @param level the GPIO level when the state change occurred, 0 or 1
+   * @param tick the time stamp of the state change, an unsigned 32 bit integer
+   * `tick` is the number of microseconds since system boot and it should be accurate to a few microseconds.
+   *
+   * As tick is an unsigned 32 bit quantity it wraps around after 2^32 microseconds, which is approximately 1 hour 12 minutes.
+   *
+   * It's not necessary to worry about wrap around when subtracting one tick from another tick if the JavaScript sign propagating right shift operator >> is used.
+   *
+   * @example <caption>Wrong: simply subtracting startTick from endTick prints -4294967294 which isn't the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log(endTick - startTick); // prints -4294967294 which isn't what we want
+   *
+   * @example <caption>right shifts both startTick and endTick 0 bits to the right before subtracting prints 2 which is the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log((endTick >> 0) - (startTick >> 0)); // prints 2 which is what we want
    */
   prependListener(
     event: 'alert',
@@ -373,9 +429,23 @@ export class Gpio extends EventEmitter {
   ): this;
 
   /**
-   * Alerts are emitted every time a Gpio changes state
-   * @param event Alert Event
-   * @param listener Function to handle the event
+   * @param level the GPIO level when the state change occurred, 0 or 1
+   * @param tick the time stamp of the state change, an unsigned 32 bit integer
+   * `tick` is the number of microseconds since system boot and it should be accurate to a few microseconds.
+   *
+   * As tick is an unsigned 32 bit quantity it wraps around after 2^32 microseconds, which is approximately 1 hour 12 minutes.
+   *
+   * It's not necessary to worry about wrap around when subtracting one tick from another tick if the JavaScript sign propagating right shift operator >> is used.
+   *
+   * @example <caption>Wrong: simply subtracting startTick from endTick prints -4294967294 which isn't the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log(endTick - startTick); // prints -4294967294 which isn't what we want
+   *
+   * @example <caption>right shifts both startTick and endTick 0 bits to the right before subtracting prints 2 which is the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log((endTick >> 0) - (startTick >> 0)); // prints 2 which is what we want
    */
   prependOnceListener(
     event: 'alert',
@@ -383,9 +453,23 @@ export class Gpio extends EventEmitter {
   ): this;
 
   /**
-   * Alerts are emitted every time a Gpio changes state
-   * @param event Alert Event
-   * @param listener Function to handle the event
+   * @param level the GPIO level when the state change occurred, 0 or 1
+   * @param tick the time stamp of the state change, an unsigned 32 bit integer
+   * `tick` is the number of microseconds since system boot and it should be accurate to a few microseconds.
+   *
+   * As tick is an unsigned 32 bit quantity it wraps around after 2^32 microseconds, which is approximately 1 hour 12 minutes.
+   *
+   * It's not necessary to worry about wrap around when subtracting one tick from another tick if the JavaScript sign propagating right shift operator >> is used.
+   *
+   * @example <caption>Wrong: simply subtracting startTick from endTick prints -4294967294 which isn't the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log(endTick - startTick); // prints -4294967294 which isn't what we want
+   *
+   * @example <caption>right shifts both startTick and endTick 0 bits to the right before subtracting prints 2 which is the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log((endTick >> 0) - (startTick >> 0)); // prints 2 which is what we want
    */
   removeListener(
     event: 'alert',
@@ -393,23 +477,56 @@ export class Gpio extends EventEmitter {
   ): this;
 
   /**
-   * Alerts are emitted every time a Gpio changes state
-   * @param event Alert Event
-   * @param listener Function to handle the event
+   * @param level the GPIO level when the state change occurred, 0 or 1
+   * @param tick the time stamp of the state change, an unsigned 32 bit integer
+   * `tick` is the number of microseconds since system boot and it should be accurate to a few microseconds.
+   *
+   * As tick is an unsigned 32 bit quantity it wraps around after 2^32 microseconds, which is approximately 1 hour 12 minutes.
+   *
+   * It's not necessary to worry about wrap around when subtracting one tick from another tick if the JavaScript sign propagating right shift operator >> is used.
+   *
+   * @example <caption>Wrong: simply subtracting startTick from endTick prints -4294967294 which isn't the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log(endTick - startTick); // prints -4294967294 which isn't what we want
+   *
+   * @example <caption>right shifts both startTick and endTick 0 bits to the right before subtracting prints 2 which is the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log((endTick >> 0) - (startTick >> 0)); // prints 2 which is what we want
    */
   listeners(event: 'alert'): ((level: 0 | 1, tick: number) => void)[];
 
   /**
-   * Alerts are emitted every time a Gpio changes state
-   * @param event Alert Event
-   * @param listener Function to handle the event
+   * @param level the GPIO level when the state change occurred, 0 or 1
+   * @param tick the time stamp of the state change, an unsigned 32 bit integer
+   * `tick` is the number of microseconds since system boot and it should be accurate to a few microseconds.
+   *
+   * As tick is an unsigned 32 bit quantity it wraps around after 2^32 microseconds, which is approximately 1 hour 12 minutes.
+   *
+   * It's not necessary to worry about wrap around when subtracting one tick from another tick if the JavaScript sign propagating right shift operator >> is used.
+   *
+   * @example <caption>Wrong: simply subtracting startTick from endTick prints -4294967294 which isn't the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log(endTick - startTick); // prints -4294967294 which isn't what we want
+   *
+   * @example <caption>right shifts both startTick and endTick 0 bits to the right before subtracting prints 2 which is the difference we're looking for</caption>
+   * const startTick = 0xffffffff; // 2^32-1 or 4294967295, the max unsigned 32 bit integer
+   * const endTick = 1;
+   * console.log((endTick >> 0) - (startTick >> 0)); // prints 2 which is what we want
    */
   rawListeners(event: 'alert'): ((level: 0 | 1, tick: number) => void)[];
 
   /**
-   * Interrupts are emitted on Gpio instances with the interrupt enabled
-   * @param event Event
-   * @param listener Function to handle the event
+   * @param level - the GPIO level when the interrupt occurred, 0, 1, or TIMEOUT (2)
+   * @param tick - the time stamp of the state change, an unsigned 32 bit integer
+   * You can find more information about ticks in the event `alert`.
+   *
+   * Emitted on interrupts.
+   *
+   * Interrupts can have an optional timeout.
+   * The level argument passed to the interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout expires.
    */
   addListener(
     event: 'interrupt',
@@ -417,9 +534,14 @@ export class Gpio extends EventEmitter {
   ): this;
 
   /**
-   * Interrupts are emitted on Gpio instances with the interrupt enabled
-   * @param event Event
-   * @param listener Function to handle the event
+   * @param level - the GPIO level when the interrupt occurred, 0, 1, or TIMEOUT (2)
+   * @param tick - the time stamp of the state change, an unsigned 32 bit integer
+   * You can find more information about ticks in the event `alert`.
+   *
+   * Emitted on interrupts.
+   *
+   * Interrupts can have an optional timeout.
+   * The level argument passed to the interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout expires.
    */
   on(
     event: 'interrupt',
@@ -427,9 +549,14 @@ export class Gpio extends EventEmitter {
   ): this;
 
   /**
-   * Interrupts are emitted on Gpio instances with the interrupt enabled
-   * @param event Event
-   * @param listener Function to handle the event
+   * @param level - the GPIO level when the interrupt occurred, 0, 1, or TIMEOUT (2)
+   * @param tick - the time stamp of the state change, an unsigned 32 bit integer
+   * You can find more information about ticks in the event `alert`.
+   *
+   * Emitted on interrupts.
+   *
+   * Interrupts can have an optional timeout.
+   * The level argument passed to the interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout expires.
    */
   once(
     event: 'interrupt',
@@ -437,9 +564,14 @@ export class Gpio extends EventEmitter {
   ): this;
 
   /**
-   * Interrupts are emitted on Gpio instances with the interrupt enabled
-   * @param event Event
-   * @param listener Function to handle the event
+   * @param level - the GPIO level when the interrupt occurred, 0, 1, or TIMEOUT (2)
+   * @param tick - the time stamp of the state change, an unsigned 32 bit integer
+   * You can find more information about ticks in the event `alert`.
+   *
+   * Emitted on interrupts.
+   *
+   * Interrupts can have an optional timeout.
+   * The level argument passed to the interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout expires.
    */
   prependListener(
     event: 'interrupt',
@@ -447,9 +579,14 @@ export class Gpio extends EventEmitter {
   ): this;
 
   /**
-   * Interrupts are emitted on Gpio instances with the interrupt enabled
-   * @param event Event
-   * @param listener Function to handle the event
+   * @param level - the GPIO level when the interrupt occurred, 0, 1, or TIMEOUT (2)
+   * @param tick - the time stamp of the state change, an unsigned 32 bit integer
+   * You can find more information about ticks in the event `alert`.
+   *
+   * Emitted on interrupts.
+   *
+   * Interrupts can have an optional timeout.
+   * The level argument passed to the interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout expires.
    */
   prependOnceListener(
     event: 'interrupt',
@@ -457,9 +594,14 @@ export class Gpio extends EventEmitter {
   ): this;
 
   /**
-   * Interrupts are emitted on Gpio instances with the interrupt enabled
-   * @param event Event
-   * @param listener Function to handle the event
+   * @param level - the GPIO level when the interrupt occurred, 0, 1, or TIMEOUT (2)
+   * @param tick - the time stamp of the state change, an unsigned 32 bit integer
+   * You can find more information about ticks in the event `alert`.
+   *
+   * Emitted on interrupts.
+   *
+   * Interrupts can have an optional timeout.
+   * The level argument passed to the interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout expires.
    */
   removeListener(
     event: 'interrupt',
@@ -467,18 +609,28 @@ export class Gpio extends EventEmitter {
   ): this;
 
   /**
-   * Interrupts are emitted on Gpio instances with the interrupt enabled
-   * @param event Event
-   * @param listener Function to handle the event
+   * @param level - the GPIO level when the interrupt occurred, 0, 1, or TIMEOUT (2)
+   * @param tick - the time stamp of the state change, an unsigned 32 bit integer
+   * You can find more information about ticks in the event `alert`.
+   *
+   * Emitted on interrupts.
+   *
+   * Interrupts can have an optional timeout.
+   * The level argument passed to the interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout expires.
    */
   listeners(
     event: 'interrupt'
   ): ((level: 0 | 1 | typeof Gpio.TIMEOUT, tick: number) => void)[];
 
   /**
-   * Interrupts are emitted on Gpio instances with the interrupt enabled
-   * @param event Event
-   * @param listener Function to handle the event
+   * @param level - the GPIO level when the interrupt occurred, 0, 1, or TIMEOUT (2)
+   * @param tick - the time stamp of the state change, an unsigned 32 bit integer
+   * You can find more information about ticks in the event `alert`.
+   *
+   * Emitted on interrupts.
+   *
+   * Interrupts can have an optional timeout.
+   * The level argument passed to the interrupt event listener will be TIMEOUT (2) if the optional interrupt timeout expires.
    */
   rawListeners(
     event: 'interrupt'
