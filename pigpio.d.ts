@@ -1061,6 +1061,13 @@ export function hardwareRevision(): number;
  * Use tickDiff() to get the difference between two tick values, to
  * ensure the correct JavaScript operations are used to account for the possibility
  * of overflow.
+ * @example
+ * let startUsec = pigpio.getTick();
+ *
+ * // Do some time-consuming things.
+ *
+ * let currentUsec = pigpio.getTick();
+ * let deltaUsec = pigpio.tickDiff(startUsec, currentUsec);
  */
 export function getTick(): number;
 
@@ -1070,5 +1077,12 @@ export function getTick(): number;
  * in a GPIO event callback.
  * @param startTick    The start of the measured interval. An unsigned integer tick value.
  * @param endTick      The end of the measured interval. An unsigned integer tick value.
+ * @example
+ * let startUsec = pigpio.getTick();
+ *
+ * // Do some time-consuming things.
+ *
+ * let currentUsec = pigpio.getTick();
+ * let deltaUsec = pigpio.tickDiff(startUsec, currentUsec);
  */
 export function tickDiff(startTick: number, endTick: number): number;
