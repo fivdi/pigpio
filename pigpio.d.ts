@@ -48,7 +48,7 @@ export class Gpio extends EventEmitter {
             /**
              * boolean specifying whether or not alert events are emitted when the GPIO changes state (optional, default false)
              */
-            alert?: boolean
+            alert?: boolean;
         }
     );
 
@@ -272,7 +272,7 @@ export class Gpio extends EventEmitter {
 
     /*----------------------*
      * gpio numbers
-     *----------------------*
+     *----------------------*/
 
     /**
      * The smallest GPIO number.
@@ -294,9 +294,9 @@ export class Gpio extends EventEmitter {
  * GpioBank
  ************************************
 
- /**
-  * Banked General Purpose Input Output
-  */
+/**
+ * Banked General Purpose Input Output
+ */
 export class GpioBank {
     /**
      * Returns a new GpioBank object for accessing up to 32 GPIOs as one operation.
@@ -341,9 +341,9 @@ export class GpioBank {
  * Notifier
  ************************************
 
- /**
-  * Notification Stream
-  */
+/**
+ * Notification Stream
+ */
 export class Notifier {
     /**
      * Returns a new Notifier object that contains a stream which provides notifications about state changes on any of GPIOs 0 through 31 concurrently.
@@ -355,7 +355,7 @@ export class Notifier {
          * If a bit is set, the corresponding GPIO will be monitored for state changes. (optional, no default)
          */
         bits: number;
-    })
+    });
 
     /**
      * Starts notifications for the GPIOs specified in the bit mask.
