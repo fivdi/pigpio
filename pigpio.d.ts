@@ -1,4 +1,4 @@
-// Type definitions for pigpio 2.0
+// Type definitions for pigpio 3.0
 // Project: https://github.com/fivdi/pigpio
 // Definitions by: ManerFan <https://github.com/manerfan>
 //                 erikma <https://github.com/erikma>
@@ -9,6 +9,293 @@
 /// <reference types="node" />
 
 import { EventEmitter } from 'events';
+
+/************************************
+ * WaveForm
+ ************************************/
+
+export type WaveId = number;
+
+/**
+ * Name         | Command & Data | Description
+ * ---:         | ---:           | ---:
+ * Loop Start   | 255 0	         | Identify start of a wave block
+ * Loop Repeat	| 255 1 x y      | loop x + y*256 times
+ * Delay	      | 255 2 x y	     | delay x + y*256 microseconds
+ * Loop Forever |	255 3	         | loop forever
+ */
+export type WaveChainCommands = number;
+
+export type GenericWaveStep = {
+  /**
+   * an unsigned integer specifying the GPIO number to be turned on.
+   * 0 means don't change
+   */
+  gpioOn: number;
+
+  /**
+   * an unsigned integer specifying the GPIO number to be turned off.
+   * 0 means don't change
+   */
+  gpioOff: number;
+
+  /**
+   * an unsigned integer specifying the pulse length in microseconds.
+   */
+  usDelay: number;
+};
+
+/**
+ * Clears all waveforms and any data added by calls to the `waveAdd*` functions.
+ */
+export function waveClear(): void;
+
+/**
+ * Starts a new empty waveform.
+ *
+ * You wouldn't normally need to call this function as it is automatically called after a waveform is created with the gpioWaveCreate function.
+ */
+export function waveAddNew(): void;
+
+/**
+ * @param pulses an array of pulses objects.
+ *
+ * Adds a series of pulses to the current waveform. Returns the new total number of pulses in the current waveform.
+ *
+ * The pulse objects are built with the following properties:
+ * - gpioOn - an unsigned integer specifying the GPIO number to be turned on.
+ * - gpioOff - an unsigned integer specifying the GPIO number to be turned off.
+ * - usDelay - an unsigned integer specifying the pulse length in microseconds.
+ *
+ * If you don't want to change a GPIO you can use 0 as a value for gpioOn or gpioOff.
+ *
+ * @example <caption>a pulse that switches GPIO 17 on for 50 microseconds.</caption>
+ * {
+ *   gpioOn: 17,
+ *   gpioOff: 0,
+ *   usDelay: 50
+ * }
+ *
+ * @example <caption>generates a waveform that starts with a 1µs pulse, then has a 2µs pause, followed by a 3µs pulse and so on.</caption>
+ *
+ * import * as pigpio from 'pigpio';
+ *
+ * const Gpio = pigpio.Gpio;
+ *
+ * const outPin = 17;
+ *
+ * const output = new Gpio(outPin, {
+ *   mode: Gpio.OUTPUT
+ * });
+ *
+ * let waveform = [];
+ *
+ * for (let x = 0; x < 20; x++) {
+ *   if (x % 2 == 1) {
+ *     waveform.push({ gpioOn: outPin, gpioOff: 0, usDelay: x + 1 });
+ *   } else {
+ *     waveform.push({ gpioOn: 0, gpioOff: outPin, usDelay: x + 1 });
+ *   }
+ * }
+ *
+ * pigpio.waveClear();
+ *
+ * pigpio.waveAddGeneric(waveform);
+ *
+ * let waveId = pigpio.waveCreate();
+ *
+ * if (waveId >= 0) {
+ *   pigpio.waveTxSend(waveId, pigpio.WAVE_MODE_ONE_SHOT);
+ * }
+ *
+ * while (pigpio.waveTxBusy()) {}
+ *
+ * pigpio.waveDelete(waveId);
+ */
+export function waveAddGeneric(pulses: GenericWaveStep[]): void;
+
+/**
+ * Creates a waveform from added data. Returns a wave id.
+ * All data previously added with `waveAdd*` methods get cleared.
+ * @returns waveId
+ */
+export function waveCreate(): WaveId;
+
+/**
+ * Deletes a waveform by the given wave id.
+ * @param waveId The wave id (as returned by waveCreate) to delete
+ */
+export function waveDelete(waveId: WaveId): void;
+
+/**
+ * Transmits a waveform. Returns the number of DMA control blocks in the waveform.
+ *
+ * The SYNC variants of the waveMode wait for the current waveform to reach the end of a cycle or finish before starting the new waveform.
+ *
+ * @warning bad things may happen if you delete the previous waveform before it has been synced to the new waveform.
+ *
+ * @note Any hardware PWM started by `hardwarePwmWrite` will be cancelled.
+ */
+export function waveTxSend(
+  waveId: WaveId,
+  waveMode:
+    | typeof WAVE_MODE_ONE_SHOT
+    | typeof WAVE_MODE_REPEAT
+    | typeof WAVE_MODE_ONE_SHOT_SYNC
+    | typeof WAVE_MODE_REPEAT_SYNC
+): void;
+
+/**
+ * @param chain Array of waves to be transmitted, contains an ordered list of WaveIds and optional command codes and related data.
+ *
+ * Transmits a chain of waveforms.
+ *
+ * @note Any hardware PWM started by hardwarePwmWrite will be cancelled.
+ *
+ * The following command codes are supported:
+ *
+ * Name         | Command & Data | Description
+ * ---:         | ---:           | ---:
+ * Loop Start   | 255 0	         | Identify start of a wave block
+ * Loop Repeat	| 255 1 x y      | loop x + y*256 times
+ * Delay	      | 255 2 x y	     | delay x + y*256 microseconds
+ * Loop Forever |	255 3	         | loop forever
+ *
+ * Each wave is transmitted in the order specified.
+ * A wave may occur multiple times per chain.
+ * Blocks of waves may be transmitted multiple times by using the loop commands.
+ * The block is bracketed by loop start and end commands.
+ * Loops may be nested.
+ * Delays between waves may be added with the delay command.
+ * If present Loop Forever must be the last entry in the chain.
+ *
+ * For example, the following code creates a chain containing four simple waves and chains them together using all the above modifiers.
+ *
+ * @example
+ * import * as pigpio from 'pigpio';
+ *
+ * const Gpio = pigpio.Gpio;
+ *
+ * const outPin = 17;
+ * const output = new Gpio(outPin, {
+ *   mode: Gpio.OUTPUT
+ * });
+ *
+ * let firstWaveForm =   [{ gpioOn: outPin, gpioOff: 0, usDelay: 10 }, { gpioOn: 0, gpioOff: outPin, usDelay: 10 }];
+ * let secondWaveForm =  [{ gpioOn: outPin, gpioOff: 0, usDelay: 20 }, { gpioOn: 0, gpioOff: outPin, usDelay: 20 }];
+ * let thirdWaveForm =   [{ gpioOn: outPin, gpioOff: 0, usDelay: 30 }, { gpioOn: 0, gpioOff: outPin, usDelay: 30 }];
+ * let fourthWaveForm =  [{ gpioOn: outPin, gpioOff: 0, usDelay: 40 }, { gpioOn: 0, gpioOff: outPin, usDelay: 40 }];
+ *
+ * pigpio.waveClear();
+ * pigpio.waveAddGeneric(firstWaveForm);
+ * let firstWaveId = pigpio.waveCreate();
+ *
+ * pigpio.waveAddGeneric(secondWaveForm);
+ * let secondWaveId = pigpio.waveCreate();
+ *
+ * pigpio.waveAddGeneric(thirdWaveForm);
+ * let thirdWaveId = pigpio.waveCreate();
+ *
+ * pigpio.waveAddGeneric(fourthWaveForm);
+ * let fourthWaveId = pigpio.waveCreate();
+ *
+ * let chain = [
+ *   firstWaveId,      // transmits firstWaveId
+ *   secondWaveId,	    // transmits secondWaveId
+ *   firstWaveId,      // transmits again firstWaveId
+ *   255, 2, 136, 19,  // delay for 5000 microseconds (136 + 19 * 256 = 5000)
+ *   255, 0,           // marks the beginning of a new wave
+ *   thirdWaveId,	    // transmits thirdWaveId
+ *   255, 1, 30, 0,    // repeats the waves since the last beginning mark 30 times (30 + 0 * 256 = 30)
+ *   255, 0,           // marks the beginning of a new wave
+ *   fourthWaveId,	    // transmits fourthWaveId
+ *   255, 3            // loops forever until waveTxStop is called
+ * ];
+ *
+ * pigpio.waveChain(chain);
+ * while (pigpio.waveTxBusy()) {}
+ */
+export function waveChain(chain: (WaveId | WaveChainCommands)[]): void;
+
+/**
+ * @returns the current transmitting wave id.
+ */
+export function waveTxAt(): WaveId;
+
+/**
+ * @returns 1 if the current waveform is still transmitting, otherwise 0.
+ */
+export function waveTxBusy(): 1 | 0;
+
+/**
+ * Aborts the current waveform.
+ */
+export function waveTxStop(): void;
+
+/**
+ * @returns the length in microseconds of the current waveform.
+ */
+export function waveGetMicros(): number;
+
+/**
+ * @returns the length in microseconds of the longest waveform created since `gpioInitialise` was called.
+ */
+export function waveGetHighMicros(): number;
+
+/**
+ * @returns the maximum possible size of a waveform in microseconds.
+ */
+export function waveGetMaxMicros(): number;
+
+/**
+ * @returns the length in pulses of the current waveform.
+ */
+export function waveGetPulses(): number;
+
+/**
+ * @returns the length in pulses of the longest waveform created since `gpioInitialise` was called.
+ */
+export function waveGetHighPulses(): number;
+
+/**
+ * @returns the maximum possible size of a waveform in pulses.
+ */
+export function waveGetMaxPulses(): number;
+
+/**
+ * @returns the length in DMA control blocks of the current waveform.
+ */
+export function waveGetCbs(): number;
+
+/**
+ * @returns the length in DMA control blocks of the longest waveform created since `gpioInitialise` was called.
+ */
+export function waveGetHighCbs(): number;
+
+/**
+ * @returns the maximum possible size of a waveform in DMA control blocks.
+ */
+export function waveGetMaxCbs(): number;
+
+/**
+ * The waveform is sent once.
+ */
+export const WAVE_MODE_ONE_SHOT: 0;
+
+/**
+ * The waveform cycles repeatedly.
+ */
+export const WAVE_MODE_REPEAT: 1;
+
+/**
+ * The waveform is sent once, waiting for the current waveform to finish before starting the new waveform.
+ */
+export const WAVE_MODE_ONE_SHOT_SYNC: 2;
+
+/**
+ * The waveform cycles repeatedly, waiting for the current waveform to finish before starting the new waveform.
+ */
+export const WAVE_MODE_REPEAT_SYNC: 3;
 
 /************************************
  * Gpio
@@ -128,7 +415,7 @@ export class Gpio extends EventEmitter {
    */
   addListener(
     event: 'interrupt',
-    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT) => void
+    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT, tick: number) => void
   ): this;
 
   /**
@@ -138,7 +425,7 @@ export class Gpio extends EventEmitter {
    */
   on(
     event: 'interrupt',
-    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT) => void
+    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT, tick: number) => void
   ): this;
 
   /**
@@ -148,7 +435,7 @@ export class Gpio extends EventEmitter {
    */
   once(
     event: 'interrupt',
-    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT) => void
+    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT, tick: number) => void
   ): this;
 
   /**
@@ -158,7 +445,7 @@ export class Gpio extends EventEmitter {
    */
   prependListener(
     event: 'interrupt',
-    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT) => void
+    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT, tick: number) => void
   ): this;
 
   /**
@@ -168,7 +455,7 @@ export class Gpio extends EventEmitter {
    */
   prependOnceListener(
     event: 'interrupt',
-    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT) => void
+    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT, tick: number) => void
   ): this;
 
   /**
@@ -178,7 +465,7 @@ export class Gpio extends EventEmitter {
    */
   removeListener(
     event: 'interrupt',
-    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT) => void
+    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT, tick: number) => void
   ): this;
 
   /**
@@ -188,7 +475,7 @@ export class Gpio extends EventEmitter {
    */
   listeners(
     event: 'interrupt'
-  ): ((level: 0 | 1 | typeof Gpio.TIMEOUT) => void)[];
+  ): ((level: 0 | 1 | typeof Gpio.TIMEOUT, tick: number) => void)[];
 
   /**
    * Interrupts are emitted on Gpio instances with the interrupt enabled
@@ -197,7 +484,7 @@ export class Gpio extends EventEmitter {
    */
   rawListeners(
     event: 'interrupt'
-  ): ((level: 0 | 1 | typeof Gpio.TIMEOUT) => void)[];
+  ): ((level: 0 | 1 | typeof Gpio.TIMEOUT, tick: number) => void)[];
 
   /**
    * Sets the GPIO mode.
