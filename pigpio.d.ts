@@ -1,8 +1,9 @@
-// Type definitions for pigpio 1.2
+// Type definitions for pigpio 1.3
 // Project: https://github.com/fivdi/pigpio
 // Definitions by: ManerFan <https://github.com/manerfan>
 //                 erikma <https://github.com/erikma>
 //                 park012241 <https://github.com/park012241>
+//                 Cameron Tacklind <https://github.com/cinderblock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -428,6 +429,42 @@ export function configureClock(microseconds: number, peripheral: number): void;
  * @param port          an unsigned integer specifying the pigpio socket port number
  */
 export function configureSocketPort(port: number): void;
+
+/**
+ * Bit Mask used to configure interfaces
+ * Disables the FIFO socket file
+ */
+export const DISABLE_FIFO_IF: 1;
+/**
+ * Bit Mask used to configure interfaces
+ * Disables the network socket interface
+ */
+export const DISABLE_SOCK_IF: 2;
+/**
+ * Bit Mask used to configure interfaces
+ * Forces network socket interface to only listen on localhost
+ */
+export const LOCALHOST_SOCK_IF: 4;
+/**
+ * Bit Mask used to configure interfaces
+ * Disables alerts
+ */
+export const DISABLE_ALERT: 8;
+
+/**
+ * Configures pigpio to use the specified socket port.
+ * The default setting is 0 which enables
+ * - the socket file FIFO interface
+ * - the network socket interface on all interfaces
+ *
+ * If configureInterfaces is called, it must be called before creating Gpio objects.
+ * @param interfaceMask an unsigned integer specifying a bitwise combination of Interfaces to use. A bitwise OR of a subset of:
+ * - DISABLE_FIFO_IF
+ * - DISABLE_SOCK_IF
+ * - LOCALHOST_SOCK_IF
+ * - DISABLE_ALERT
+ */
+export function configureInterfaces(interfaceMask: number): void;
 
 /**
  * Returns the Raspberry Pi hardware revision as an unsigned integer. Returns 0
