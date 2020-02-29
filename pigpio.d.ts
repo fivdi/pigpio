@@ -54,6 +54,152 @@ export class Gpio extends EventEmitter {
   );
 
   /**
+   * Alerts are emitted every time a Gpio changes state
+   * @param event Alert Event
+   * @param listener Function to handle the event
+   */
+  addListener(
+    event: 'alert',
+    listener: (level: 0 | 1, tick: number) => void
+  ): this;
+
+  /**
+   * Alerts are emitted every time a Gpio changes state
+   * @param event Alert Event
+   * @param listener Function to handle the event
+   */
+  on(event: 'alert', listener: (level: 0 | 1, tick: number) => void): this;
+
+  /**
+   * Alerts are emitted every time a Gpio changes state
+   * @param event Alert Event
+   * @param listener Function to handle the event
+   */
+  once(event: 'alert', listener: (level: 0 | 1, tick: number) => void): this;
+
+  /**
+   * Alerts are emitted every time a Gpio changes state
+   * @param event Alert Event
+   * @param listener Function to handle the event
+   */
+  prependListener(
+    event: 'alert',
+    listener: (level: 0 | 1, tick: number) => void
+  ): this;
+
+  /**
+   * Alerts are emitted every time a Gpio changes state
+   * @param event Alert Event
+   * @param listener Function to handle the event
+   */
+  prependOnceListener(
+    event: 'alert',
+    listener: (level: 0 | 1, tick: number) => void
+  ): this;
+
+  /**
+   * Alerts are emitted every time a Gpio changes state
+   * @param event Alert Event
+   * @param listener Function to handle the event
+   */
+  removeListener(
+    event: 'alert',
+    listener: (level: 0 | 1, tick: number) => void
+  ): this;
+
+  /**
+   * Alerts are emitted every time a Gpio changes state
+   * @param event Alert Event
+   * @param listener Function to handle the event
+   */
+  listeners(event: 'alert'): ((level: 0 | 1, tick: number) => void)[];
+
+  /**
+   * Alerts are emitted every time a Gpio changes state
+   * @param event Alert Event
+   * @param listener Function to handle the event
+   */
+  rawListeners(event: 'alert'): ((level: 0 | 1, tick: number) => void)[];
+
+  /**
+   * Interrupts are emitted on Gpio instances with the interrupt enabled
+   * @param event Event
+   * @param listener Function to handle the event
+   */
+  addListener(
+    event: 'interrupt',
+    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT) => void
+  ): this;
+
+  /**
+   * Interrupts are emitted on Gpio instances with the interrupt enabled
+   * @param event Event
+   * @param listener Function to handle the event
+   */
+  on(
+    event: 'interrupt',
+    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT) => void
+  ): this;
+
+  /**
+   * Interrupts are emitted on Gpio instances with the interrupt enabled
+   * @param event Event
+   * @param listener Function to handle the event
+   */
+  once(
+    event: 'interrupt',
+    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT) => void
+  ): this;
+
+  /**
+   * Interrupts are emitted on Gpio instances with the interrupt enabled
+   * @param event Event
+   * @param listener Function to handle the event
+   */
+  prependListener(
+    event: 'interrupt',
+    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT) => void
+  ): this;
+
+  /**
+   * Interrupts are emitted on Gpio instances with the interrupt enabled
+   * @param event Event
+   * @param listener Function to handle the event
+   */
+  prependOnceListener(
+    event: 'interrupt',
+    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT) => void
+  ): this;
+
+  /**
+   * Interrupts are emitted on Gpio instances with the interrupt enabled
+   * @param event Event
+   * @param listener Function to handle the event
+   */
+  removeListener(
+    event: 'interrupt',
+    listener: (level: 0 | 1 | typeof Gpio.TIMEOUT) => void
+  ): this;
+
+  /**
+   * Interrupts are emitted on Gpio instances with the interrupt enabled
+   * @param event Event
+   * @param listener Function to handle the event
+   */
+  listeners(
+    event: 'interrupt'
+  ): ((level: 0 | 1 | typeof Gpio.TIMEOUT) => void)[];
+
+  /**
+   * Interrupts are emitted on Gpio instances with the interrupt enabled
+   * @param event Event
+   * @param listener Function to handle the event
+   */
+  rawListeners(
+    event: 'interrupt'
+  ): ((level: 0 | 1 | typeof Gpio.TIMEOUT) => void)[];
+
+  /**
    * Sets the GPIO mode.
    * @param mode  INPUT, OUTPUT, ALT0, ALT1, ALT2, ALT3, ALT4, or ALT5
    */
