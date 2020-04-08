@@ -1,3 +1,8 @@
+3.1.0 / Apr 08 2020
+===================
+
+  * Adds type definitions for TypeScript (thank you [cinderblock](https://github.com/cinderblock))
+
 3.0.0 / Jan 12 2020
 ===================
 
