@@ -36,7 +36,7 @@ pigpio supports Node.js versions 8, 10, 12 and 13.
 
 ### April 2020: pigpio v3.1.0
 
- * Adds type definitions for TypeScript (thank you [cinderblock](https://github.com/cinderblock))
+ * Adds type definitions for TypeScript (thank you [@cinderblock](https://github.com/cinderblock))
 
 ### January 2020: pigpio v3.0.0
 
