@@ -11,7 +11,7 @@ handling with **Node.js** on the Raspberry Pi Zero, 1, 2, 3 or 4.
 **At the moment both the pigpio Node.js module and the pigpio C library are
 experimental on the Raspberry Pi 4 Model B.**
 
-pigpio supports Node.js versions 8, 10, 12 and 13.
+pigpio supports Node.js versions 8, 10, 12, 13 and 14.
 
 ## Contents
 
