@@ -2,6 +2,7 @@ Unpublished
 ===========
 
   * update dependencies (nan v2.14.1, jshint v2.11.0)
+  * document support for node 12
 
 3.1.0 / Apr 08 2020
 ===================
