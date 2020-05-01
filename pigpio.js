@@ -3,7 +3,19 @@
 
 const EventEmitter = require('events').EventEmitter;
 const fs = require('fs');
-const pigpio = require('bindings')('pigpio.node');
+const pigpio = (_ => {
+  try {
+    return require('bindings')('pigpio.node');
+  } catch (ignore) {
+  }
+
+  console.warn(
+    `Warning: The pigpio C library is not available on ` +
+    `this machine and any attempt to use it will fail.`
+  );
+
+  return {};
+})();
 const util = require('util');
 
 /* ------------------------------------------------------------------------ */
