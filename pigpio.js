@@ -3,7 +3,7 @@
 
 const EventEmitter = require('events').EventEmitter;
 const fs = require('fs');
-const pigpio = (_ => {
+const pigpio = (() => {
   try {
     return require('bindings')('pigpio.node');
   } catch (ignore) {
