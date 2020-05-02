@@ -1,3 +1,9 @@
+3.2.0 / May 02 2020
+===================
+
+  * ensure that pigpio installs without errors on all linux systems
+  * add travis build
+
 3.1.1 / Apr 24 2020
 ===================
 
