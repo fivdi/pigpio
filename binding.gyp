@@ -4,7 +4,7 @@
     "conditions": [[
       'OS == "linux"', {
         "conditions": [[
-          '"<!(ldconfig -p | grep libpigpio.so | wc -l)" != "0"', {
+          '"<!(which pigpiod | wc -l)" != "0"', {
             "include_dirs" : [
               "<!(node -e \"require('nan')\")"
             ],
