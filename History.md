@@ -1,3 +1,8 @@
+3.2.1 / May 02 2020
+===================
+
+  * ensure that pigpio installs without errors on alpine linux systems ([#109](https://github.com/fivdi/pigpio/issues/109))
+
 3.2.0 / May 02 2020
 ===================
 
