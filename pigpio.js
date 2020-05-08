@@ -6,13 +6,28 @@ const fs = require('fs');
 const pigpio = (() => {
   try {
     return require('bindings')('pigpio.node');
-  } catch (ignore) {
-  }
+  } catch (e) {
+    console.warn(`+---------------------------------------------------+`);
+    console.warn(`| Warning: The pigpio C library can't be loaded on  |`);
+    console.warn(`| this machine and any attempt to use it will fail. |`);
+    console.warn(`+---------------------------------------------------+`);
 
-  console.warn(
-    `Warning: The pigpio C library is not available on ` +
-    `this machine and any attempt to use it will fail.`
-  );
+    console.warn();
+    console.warn(
+      `Invoking require('bindings')('pigpio.node') resulted in ` +
+      `the follwoing error:`
+    );
+    console.warn();
+
+    console.warn(e.stack);
+
+    console.warn();
+    console.warn(
+      `----------------------------------------` +
+      `---------------------------------------`
+    );
+    console.warn();
+  }
 
   return {};
 })();

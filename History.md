@@ -1,3 +1,8 @@
+3.2.2 / May 08 2020
+===================
+
+  * improve exception handling ([#111](https://github.com/fivdi/pigpio/issues/111))
+
 3.2.1 / May 02 2020
 ===================
 

@@ -34,7 +34,7 @@ pigpio supports Node.js versions 8, 10, 12, 13 and 14.
 
 ## News & Updates
 
-### May 2020: pigpio v3.2.0
+### May 2020: pigpio v3.2.2
 
 `npm install pigpio` should now install the pigpio Node.js module
 successfully on any system, even if the pigpio C library is not installed on
@@ -45,8 +45,10 @@ Any attempt to use the pigpio Node.js module on such development systems will
 result in the following warning:
 
 ```
-Warning: The pigpio C library is not available on this machine and any attempt
-to use it will fail.
++---------------------------------------------------+
+| Warning: The pigpio C library can't be loaded on  |
+| this machine and any attempt to use it will fail. |
++---------------------------------------------------+
 ```
 
 ### April 2020: pigpio v3.1.0
