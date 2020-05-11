@@ -1,3 +1,8 @@
+3.2.3 / May 11 2020
+===================
+
+  * describe the potential cause of a 'module did not self-register' error
+
 3.2.2 / May 08 2020
 ===================
 

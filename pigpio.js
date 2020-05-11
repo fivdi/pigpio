@@ -7,10 +7,20 @@ const pigpio = (() => {
   try {
     return require('bindings')('pigpio.node');
   } catch (e) {
-    console.warn(`+---------------------------------------------------+`);
-    console.warn(`| Warning: The pigpio C library can't be loaded on  |`);
-    console.warn(`| this machine and any attempt to use it will fail. |`);
-    console.warn(`+---------------------------------------------------+`);
+    console.warn(`+-----------------------------------------------------------------------+`);
+    console.warn(`| Warning: The pigpio C library can't be loaded on this machine and any |`);
+    console.warn(`| attempt to use it will fail.                                          |`);
+    console.warn(`|                                                                       |`);
+    console.warn(`| Error: "Module did not self-register"                                 |`);
+    console.warn(`| ------------------------------------                                  |`);
+    console.warn(`| If you are working on a Raspberry Pi and see a "Module did not self-  |`);
+    console.warn(`| register" error, this typically indicates that the installation       |`);
+    console.warn(`| instructions were not exactly followed. For further details see the   |`);
+    console.warn(`| installation section of the readme at                                 |`);
+    console.warn(`| https://github.com/fivdi/pigpio#installation                          |`);
+    console.warn(`| Note that step 1 of the installation instructions must be completed   |`);
+    console.warn(`| before step 2.                                                        |`);
+    console.warn(`+-----------------------------------------------------------------------+`);
 
     console.warn();
     console.warn(
