@@ -1,3 +1,8 @@
+3.2.4 / Sep 26 2020
+===================
+
+  *  Fix "which" test in binding.gyp to support more platforms ([#120](https://github.com/fivdi/pigpio/pull/120))
+
 3.2.3 / May 11 2020
 ===================
 
