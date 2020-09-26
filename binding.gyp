@@ -4,7 +4,7 @@
     "conditions": [[
       'OS == "linux"', {
         "conditions": [[
-          '"<!(which pigpiod | wc -l)" != "0"', {
+          '"<!((which pigpiod 2>/dev/null) || echo not_found)" != "not_found"', {
             "include_dirs" : [
               "<!(node -e \"require('nan')\")"
             ],
