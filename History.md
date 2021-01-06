@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * drop support for node 8 and add support for node 15
+
 3.2.4 / Sep 26 2020
 ===================
 
