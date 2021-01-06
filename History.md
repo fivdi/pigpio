@@ -3,6 +3,7 @@ Unpublished
 
   * drop support for node 8 and add support for node 15
   * update dependencies, update .travis.yml
+  * remove old news from news and updates section of readme
 
 3.2.4 / Sep 26 2020
 ===================

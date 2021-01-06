@@ -15,7 +15,6 @@ pigpio supports Node.js versions 10, 12, 13, 14 and 15.
 
 ## Contents
 
- * [News & Updates](#news--updates)
  * [Features](#features)
  * [Installation](#installation)
  * [Usage](#usage)
@@ -31,43 +30,6 @@ pigpio supports Node.js versions 10, 12, 13, 14 and 15.
  * [Limitations](#limitations)
  * [Troubleshooting](#troubleshooting)
  * [Related Packages](#related-packages)
-
-## News & Updates
-
-### May 2020: pigpio v3.2.2
-
-`npm install pigpio` should now install the pigpio Node.js module
-successfully on any system, even if the pigpio C library is not installed on
-that system. This should improve the development experience on development
-systems which are typically PCs or Macs rather than Raspberry Pis.
-
-Any attempt to use the pigpio Node.js module on such development systems will
-result in the following warning:
-
-```
-+---------------------------------------------------+
-| Warning: The pigpio C library can't be loaded on  |
-| this machine and any attempt to use it will fail. |
-+---------------------------------------------------+
-```
-
-### April 2020: pigpio v3.1.0
-
- * Adds type definitions for TypeScript (thank you [@cinderblock](https://github.com/cinderblock))
-
-### January 2020: pigpio v3.0.0
-
- * Adds support for waveforms (thank you [@Rogerrrrrrrs](https://github.com/Rogerrrrrrrs), [@bahamut657](https://github.com/bahamut657), and [@AnthonyMyatt](https://github.com/AnthonyMyatt))
- * Drops support for Node.js v6.x
-
-### September 2019: pigpio v2.0.0
-
-pigpio v2.0.0 adds experimental support for the Raspberry Pi 4 Model B. Adding
-this support has resulted in a number of changes related to hardware PWM.
-These changes are specific to the Raspberry Pi 4 Model B. There have been no
-changes for the Raspberry Pi Zero, 1, 2 or 3. For further details see
-[hardwarePwmWrite](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#hardwarepwmwritefrequency-dutycycle) and
-[getPwmRealRange](https://github.com/fivdi/pigpio/blob/master/doc/gpio.md#getpwmrealrange).
 
 ## Features
 
