@@ -22,10 +22,10 @@
   },
   "dependencies": {
     "bindings": "^1.5.0",
-    "nan": "^2.14.1"
+    "nan": "^2.14.2"
   },
   "devDependencies": {
-    "jshint": "^2.11.0"
+    "jshint": "^2.12.0"
   },
   "keywords": [
     "gpio",
