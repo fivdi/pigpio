@@ -1,5 +1,5 @@
-Unpublished
-===========
+3.3.0 / Jan 06 2021
+===================
 
   * drop support for node 8 and add support for node 15
   * update dependencies, update .travis.yml
