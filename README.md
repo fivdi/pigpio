@@ -8,9 +8,6 @@ A wrapper for the [pigpio C library](https://github.com/joan2937/pigpio) to
 enable fast GPIO, PWM, servo control, state change notification and interrupt
 handling with **Node.js** on the Raspberry Pi Zero, 1, 2, 3 or 4.
 
-**At the moment both the pigpio Node.js module and the pigpio C library are
-experimental on the Raspberry Pi 4 Model B.**
-
 pigpio supports Node.js versions 10, 12, 14, 15 and 16.
 
 ## Contents
@@ -51,8 +48,8 @@ pigpio supports Node.js versions 10, 12, 14, 15 and 16.
  * Pull up/down resistor configuration
  * Waveforms to generate GPIO level changes (time accurate to a few µs)
 
-*) On a Raspberry Pi 4 Model B running Raspbian Buster 2019-07-10 with pigpio
-v2.0.0, Node.js v12.10.0 and V70 of the pigpio C library.
+*) On a Raspberry Pi 4 Model B running Raspberry Pi OS 2021-03-04 (Buster
+10.8) with pigpio v3.3.1, Node.js v16.0.0 and V79 of the pigpio C library.
 
 ## Installation
 
