@@ -1,3 +1,8 @@
+Unpublished
+===========
+
+  * drop support for node 13 and add support for node 16
+
 3.3.0 / Jan 06 2021
 ===================
 
