@@ -1,5 +1,5 @@
-Unpublished
-===========
+3.3.1 / Apr 30 2021
+===================
 
   * raspberry pi 4 now officially supported
   * drop support for node 13 and add support for node 16
