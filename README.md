@@ -1,3 +1,4 @@
+[![Build Status](https://app.travis-ci.com/fivdi/pigpio.svg?branch=master)](https://app.travis-ci.com/github/fivdi/pigpio)
 [![npm Version](http://img.shields.io/npm/v/pigpio.svg)](https://www.npmjs.com/package/pigpio)
 [![Downloads Per Month](http://img.shields.io/npm/dm/pigpio.svg)](https://www.npmjs.com/package/pigpio)
 [![Mentioned in Awesome Node.js](https://awesome.re/mentioned-badge.svg)](https://github.com/sindresorhus/awesome-nodejs)
