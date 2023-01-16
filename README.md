@@ -149,7 +149,7 @@ Continuously move a servo connected to GPIO10 clockwise and anti-clockwise.
 ```js
 const Gpio = require('pigpio').Gpio;
 
-const motor = new Gpio(10, {mode: Gpio.OUTPUT});
+const motor = new Gpio(13, {mode: Gpio.OUTPUT});
 
 let pulseWidth = 1000;
 let increment = 100;
