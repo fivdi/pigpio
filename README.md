@@ -9,7 +9,7 @@ A wrapper for the [pigpio C library](https://github.com/joan2937/pigpio) to
 enable fast GPIO, PWM, servo control, state change notification and interrupt
 handling with **Node.js** on the Raspberry Pi Zero, 1, 2, 3 or 4.
 
-pigpio supports Node.js versions 10, 12, 14, 15 and 16.
+pigpio supports Node.js versions 10, 12, 14, 15 and 16 (but version 18 seems to work as well).
 
 ## Contents
 
@@ -149,7 +149,7 @@ Continuously move a servo connected to GPIO10 clockwise and anti-clockwise.
 ```js
 const Gpio = require('pigpio').Gpio;
 
-const motor = new Gpio(10, {mode: Gpio.OUTPUT});
+const motor = new Gpio(13, {mode: Gpio.OUTPUT});
 
 let pulseWidth = 1000;
 let increment = 100;
