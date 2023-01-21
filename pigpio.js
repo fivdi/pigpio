@@ -220,6 +220,11 @@ class Gpio extends EventEmitter {
     return this;
   }
 
+  hardwareClockWrite(frequency) {
+    pigpio.gpioHardwareClock(this.gpio, +frequency);
+    return this;
+  }
+
   getPwmDutyCycle() {
     return pigpio.gpioGetPWMdutycycle(this.gpio);
   }

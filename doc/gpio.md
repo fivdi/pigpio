@@ -15,6 +15,7 @@
 - PWM
   - [pwmWrite(dutyCycle)](#pwmwritedutycycle)
   - [hardwarePwmWrite(frequency, dutyCycle)](#hardwarepwmwritefrequency-dutycycle)
+  - [hardwareClockWrite(frequency)](#hardwareclockwritefrequency)
   - [getPwmDutyCycle()](#getpwmdutycycle)
   - [pwmRange(range)](#pwmrangerange)
   - [getPwmRange()](#getpwmrange)
@@ -195,6 +196,14 @@ have fewer steps. duytCycle is automatically scaled to take this into account.
 
 All models of the Raspberry Pi support hardware PWM on GPIO18.
 
+#### hardwareClockWrite(frequency)
+- frequency - an unsigned integer >= 0 and <= 125000000 (>= 0 and <= 187500000 for the BCM2711)
+
+Starts hardware Clock output on the GPIO at the specified frequency.
+Frequencies above 30MHz are unlikely to work. Returns this.
+
+<!--TODO: Fill this out-->
+
 #### getPwmDutyCycle()
 Returns the PWM duty cycle setting on the GPIO.
 
@@ -286,7 +295,7 @@ The frequencies in hertz for each sample rate are:
 Returns the frequency (in hertz) used for the GPIO. The default frequency is
 800Hz.
 
-If hardware PWM is active on the GPIO the reported frequency will be that set
+If hardware PWM or Clock is active on the GPIO the reported frequency will be that set
 by hardwarePwmWrite.
 
 #### servoWrite(pulseWidth)

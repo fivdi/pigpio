@@ -691,6 +691,12 @@ export class Gpio extends EventEmitter {
   hardwarePwmWrite(frequency: number, dutyCycle: number): Gpio;
 
   /**
+   * Starts hardware Clock output on the GPIO at the specified frequency. Frequencies above 30MHz are unlikely to work.
+   * @param frequency     an unsigned integer >= 0 and <= 125000000 (>= 0 and <= 187500000 for the BCM2711)
+   */
+  hardwareClockWrite(frequency: number): Gpio;
+
+  /**
    * Returns the PWM duty cycle setting on the GPIO.
    */
   getPwmDutyCycle(): number;
